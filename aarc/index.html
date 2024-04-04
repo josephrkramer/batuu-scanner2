@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AARC Scanner</title>
+</head>
+<body style="background-color:black;color:white;">
+<div id="logo">
+    <img src="images/aarc-aurebesh.jpg" alt="AARC Logo" style="max-width: 100%;">
+</div>
+<img id="contents-image" src="images/aarc.jpg" alt="Crate Contents" style="max-width: 100%;display:none;">
+<h1 id="results-header" style="display:none;text-align:center;padding-top:70px;padding-bottom:70px">None</h1>
+<div id="video-container" style="display: none;">
+    <video id="qr-video"></video>
+</div>
+<div id="scanned" style="display: none;">
+    <ul id="scanned-list">
+    </ul>
+</div>
+<button id="start-button" style="font-size:36px;width:100%;background-color:white;color:black;padding:36px;">Scan</button>
+<br>
+<button id="stop-button" style="font-size:36px;width:100%;background-color:white;color:black;padding:36px;">Stop</button>
+<br>
+<button id="scanned-button" style="font-size:36px;width:100%;background-color:white;color:black;padding:36px;">Cargo Hold</button>
+<br>
+<div>
+    <b>Preferred camera:</b>
+    <select id="cam-list">
+        <option value="environment" selected>Environment Facing (default)</option>
+        <option value="user">User Facing</option>
+    </select>
+</div>
+<span id="cam-has-flash"></span>
+<div>
+    <button id="flash-toggle">📸 Flash: <span id="flash-state">off</span></button>
+</div>
+<br>
+
+
+<!--<script src="../qr-scanner.umd.min.js"></script>-->
+<!--<script src="../qr-scanner.legacy.min.js"></script>-->
+<script type="module">
+    import { QrScanner, CrateDecoder, CrateContents, CrateType } from "../qr-scanner.min.js";
+
+    //read parameters from the url
+    const queryString = window.location.search;
+    console.log(queryString);
+    const urlParams = new URLSearchParams(queryString);
+
+    const logo = document.getElementById('logo');
+    const resultsHeader = document.getElementById('results-header');
+    const video = document.getElementById('qr-video');
+    const videoContainer = document.getElementById('video-container');
+    const camList = document.getElementById('cam-list');
+    const flashToggle = document.getElementById('flash-toggle');
+    const flashState = document.getElementById('flash-state');
+    const contentsImage = document.getElementById('contents-image');
+    let scanned = document.getElementById('scanned');
+
+    //Keep track of the crates scanned so far and don't allow duplicates
+    let scannedCrates = new Set();
+
+    const crateDecoder = new CrateDecoder();
+
+        //Add custom overrides
+        crateDecoder.override(new CrateContents({code: 'JK_RS', contents: 'Evan\'s Manifesto', type: CrateType.Program, image: 'images/halcyon_cargo.jpeg'}))
+        crateDecoder.override(new CrateContents({code: 'JK_TU', contents: 'Tom\'s Vape Pen', type: CrateType.Parts_and_Scraps, image: 'images/ports_of_call.jpeg'}))
+
+    function addToScanned(code) {
+        //add the item to the scannedCrates internal tracking
+        scannedCrates.add(code);
+
+        //add the item to the scanned list
+        let scannedListItem = document.createElement('li');
+        scannedListItem.style.fontSize = '72px';
+        let scannedImage = document.createElement('img');
+        scannedImage.style.maxWidth = '150px';
+        crateDecoder.decode(code).then(value => scannedImage.src = value.image);
+        scannedListItem.appendChild(scannedImage);
+        crateDecoder.decode(code).then(value => scannedListItem.appendChild(document.createTextNode("  " + value.contents)));
+        scanned.appendChild(scannedListItem);
+
+        //store all of the scanned crates into local storage
+        localStorage.setItem('cargo', JSON.stringify(Array.from(scannedCrates)));
+    }
+
+    //load from local storage
+    scannedCrates = new Set(JSON.parse(localStorage.getItem('cargo')));
+    console.log("SCANNED CRATES");
+    console.log(scannedCrates);
+    if (scannedCrates && scannedCrates.size > 0) {
+        const previousCrates = scannedCrates.entries();
+        for (const crate of previousCrates) {
+            console.log(crate);
+            addToScanned(crate[0]);
+        }
+    } else {
+        scannedCrates = new Set();
+    }
+
+    if (urlParams.has('reset')) {
+        localStorage.removeItem('cargo');
+        scannedCrates.clear();
+        scanned = document.createElement('ul');
+    }
+
+    //use the url with ?cargo to load test data into the app
+    if (urlParams.has('cargo')) {
+        addToScanned('FAL11');
+        addToScanned('CD_LM');
+        addToScanned('JK_TU');
+        addToScanned('AB_QR');
+        addToScanned('JK_RS');
+
+        //store all of the scanned crates into local storage
+        localStorage.setItem('cargo', JSON.stringify(Array.from(scannedCrates)));
+    }
+
+    function setResult(result) {
+        console.log(result.data);
+        //update the display text for the item
+        crateDecoder.decode(result.data).then(value => resultsHeader.textContent = result.data + " - " + value.contents);
+        resultsHeader.style.display = 'block';
+
+        //shut off the scanner so we can see the results
+        scanner.stop();
+        videoContainer.style.display = 'none';
+
+        //display the image contents
+        contentsImage.style.display = 'block';
+        crateDecoder.decode(result.data).then(value => contentsImage.src = value.image);
+
+        //add the item to the scanned list if not previously scanned
+        if (!scannedCrates.has(result.data)) {
+            addToScanned(result.data);
+        }
+    }
+
+    // ####### Web Cam Scanning #######
+
+    const scanner = new QrScanner(video, result => setResult(result), {
+        highlightScanRegion: true,
+        highlightCodeOutline: true,
+    });
+
+    const updateFlashAvailability = () => {
+        scanner.hasFlash().then(hasFlash => {
+            flashToggle.style.display = hasFlash ? 'inline-block' : 'none';
+        });
+    };
+
+    scanner.start().then(() => {
+        updateFlashAvailability();
+        // List cameras after the scanner started to avoid listCamera's stream and the scanner's stream being requested
+        // at the same time which can result in listCamera's unconstrained stream also being offered to the scanner.
+        // Note that we can also start the scanner after listCameras, we just have it this way around in the demo to
+        // start the scanner earlier.
+        QrScanner.listCameras(true).then(cameras => cameras.forEach(camera => {
+            const option = document.createElement('option');
+            option.value = camera.id;
+            option.text = camera.label;
+            camList.add(option);
+        }));
+    });
+
+    // for debugging
+    window.scanner = scanner;
+
+    // shut down scanner after initialization
+    scanner.stop();
+
+    camList.addEventListener('change', event => {
+        scanner.setCamera(event.target.value).then(updateFlashAvailability);
+    });
+
+    flashToggle.addEventListener('click', () => {
+        scanner.toggleFlash().then(() => flashState.textContent = scanner.isFlashOn() ? 'on' : 'off');
+    });
+
+    document.getElementById('start-button').addEventListener('click', () => {
+        logo.style.display = 'none';
+        videoContainer.style.display = 'block';
+        resultsHeader.style.display = 'none';
+        contentsImage.style.display = 'none';
+        scanned.style.display = 'none';
+        scanner.start();
+    });
+
+    document.getElementById('stop-button').addEventListener('click', () => {
+        logo.style.display = 'block';
+        videoContainer.style.display = 'none';
+        resultsHeader.style.display = 'none';
+        contentsImage.style.display = 'none';
+        scanned.style.display = 'none';
+        scanner.stop();
+    });
+
+    document.getElementById('scanned-button').addEventListener('click', () => {
+        logo.style.display = 'none';
+        videoContainer.style.display = 'none';
+        resultsHeader.style.display = 'none';
+        contentsImage.style.display = 'none';
+        scanned.style.display = 'block';
+        scanner.stop();
+    });
+</script>
+
+<style>
+    div {
+        margin-bottom: 16px;
+    }
+
+    #video-container {
+        line-height: 0;
+    }
+
+    #video-container.example-style-1 .scan-region-highlight-svg,
+    #video-container.example-style-1 .code-outline-highlight {
+        stroke: #64a2f3 !important;
+    }
+
+    #video-container.example-style-2 {
+        position: relative;
+        width: max-content;
+        height: max-content;
+        overflow: hidden;
+    }
+    #video-container.example-style-2 .scan-region-highlight {
+        border-radius: 30px;
+        outline: rgba(0, 0, 0, .25) solid 50vmax;
+    }
+    #video-container.example-style-2 .scan-region-highlight-svg {
+        display: none;
+    }
+    #video-container.example-style-2 .code-outline-highlight {
+        stroke: rgba(255, 255, 255, .5) !important;
+        stroke-width: 15 !important;
+        stroke-dasharray: none !important;
+    }
+
+    #flash-toggle {
+        display: none;
+    }
+
+    hr {
+        margin-top: 32px;
+    }
+</style>
+</body>
+</html>
