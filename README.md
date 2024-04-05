@@ -10,11 +10,11 @@ In this library, several changes have been applied over the original port:
 - Added a Crate Decoder class to interpret the codes returned by the crates in Galaxy's Edge.
 
 ## AARC Scanner
-See [https://josephrkramer.github.io/batuu-scanner2/aarc/](https://josephrkramer.github.io/batuu-scanner/aarc/)
+See [https://josephrkramer.github.io/batuu-scanner2/aarc/](https://josephrkramer.github.io/batuu-scanner2/aarc/)
 ![Single Image of all Barcodes](single_image_of_all_barcodes.png "Single Image of all Barcodes")
 
 ### Pre-populate with cargo
-See [https://josephrkramer.github.io/batuu-scanner2/aarc/?cargo](https://josephrkramer.github.io/batuu-scanner/aarc/?cargo)
+See [https://josephrkramer.github.io/batuu-scanner2/aarc/?cargo](https://josephrkramer.github.io/batuu-scanner2/aarc/?cargo)
 
 ### Empty the cargo bay
-See [https://josephrkramer.github.io/batuu-scanner2/aarc/?reset](https://josephrkramer.github.io/batuu-scanner/aarc/?reset)
+See [https://josephrkramer.github.io/batuu-scanner2/aarc/?reset](https://josephrkramer.github.io/batuu-scanner2/aarc/?reset)
