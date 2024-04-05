@@ -54,7 +54,7 @@
     });
 
     class CrateContents {
-        constructor({code, contents, type, image} = {}) {
+        constructor({code, contents, type, image}) {
             this.code=code;
             this.contents=contents;
             this.type=type;
@@ -208,9 +208,11 @@
         }
 
         decode(code) {
+            //return new CrateContents({code: 'TEST', contents: 'Test contents', type: CrateType.Empty});
+
             if (this.contents.has(code)) {
                 let crate = this.contents.get(code);
-                if (crate.image == "" || crate.image === undefined) {
+                if (crate.image == "") {
                     if (crate.type == CrateType.Halcyon_Cargo) {
                         crate.image = "images/halcyon_cargo.jpeg";
                     } else if (crate.type == CrateType.Outfit) {
@@ -284,9 +286,12 @@
         scannedListItem.style.fontSize = '72px';
         let scannedImage = document.createElement('img');
         scannedImage.style.maxWidth = '150px';
-        crateDecoder.decode(code).then(value => scannedImage.src = value.image);
+        let crate = crateDecoder.decode(code);
+        //crateDecoder.decode(code).then(value => scannedImage.src = value.image);
+        scannedImage.src = crate.image;
         scannedListItem.appendChild(scannedImage);
-        crateDecoder.decode(code).then(value => scannedListItem.appendChild(document.createTextNode("  " + value.contents)));
+        //crateDecoder.decode(code).then(value => scannedListItem.appendChild(document.createTextNode("  " + value.contents)));
+        scannedListItem.appendChild(document.createTextNode("  " + crate.contents));
         scanned.appendChild(scannedListItem);
 
         //store all of the scanned crates into local storage
@@ -325,29 +330,39 @@
         localStorage.setItem('cargo', JSON.stringify(Array.from(scannedCrates)));
     }
 
-    function setResult(result) {
-        console.log(result.data);
+    function setResult(code) {
+        console.log(code);
         //update the display text for the item
-        crateDecoder.decode(result.data).then(value => resultsHeader.textContent = result.data + " - " + value.contents);
+        //crateDecoder.decode(code).then(value => resultsHeader.textContent = code + " - " + value.contents);
+        let crate = crateDecoder.decode(code);
+        console.log(crate);
+        resultsHeader.textContent = code + " - " + crate.contents;
         resultsHeader.style.display = 'block';
 
         //shut off the scanner so we can see the results
-        scanner.stop();
-        videoContainer.style.display = 'none';
+        //scanner.stop();
+        
+        //videoContainer.style.display = 'none';
 
         //display the image contents
         contentsImage.style.display = 'block';
-        crateDecoder.decode(result.data).then(value => contentsImage.src = value.image);
+        //crateDecoder.decode(code).then(value => contentsImage.src = value.image);
+        contentsImage.src = crate.image;
 
         //add the item to the scanned list if not previously scanned
-        if (!scannedCrates.has(result.data)) {
-            addToScanned(result.data);
+        if (!scannedCrates.has(code)) {
+            addToScanned(code);
         }
+        
+        //return html5QrcodeScanner.clear();
     }
 
     // ####### Web Cam Scanning #######
 
-    docReady(function () {
+    var html5QrcodeScanner = new Html5QrcodeScanner(
+            "qr-reader", { fps: 10, qrbox: 250 });
+    
+    /*docReady(function () {
         var resultContainer = document.getElementById('qr-reader-results');
         var lastResult, countResults = 0;
         function onScanSuccess(decodedText, decodedResult) {
@@ -358,13 +373,12 @@
                 console.log(`Scan result ${decodedText}`, decodedResult);
 
                 setResult(decodedText);
+                html5QrcodeScanner.clear();
             }
         }
-
-        var html5QrcodeScanner = new Html5QrcodeScanner(
-            "qr-reader", { fps: 10, qrbox: 250 });
+        
         html5QrcodeScanner.render(onScanSuccess);
-    });
+    });*/
 
     const updateFlashAvailability = () => {
         scanner.hasFlash().then(hasFlash => {
@@ -374,29 +388,34 @@
 
     document.getElementById('start-button').addEventListener('click', () => {
         logo.style.display = 'none';
-        videoContainer.style.display = 'block';
+        //videoContainer.style.display = 'block';
         resultsHeader.style.display = 'none';
         contentsImage.style.display = 'none';
         scanned.style.display = 'none';
-        scanner.start();
+        function onScanSuccess(decodedText, decodedResult) {
+            console.log(`Scan result ${decodedText}`, decodedResult);
+            setResult(decodedText);
+            html5QrcodeScanner.clear();
+        }
+        html5QrcodeScanner.render(onScanSuccess);
     });
 
     document.getElementById('stop-button').addEventListener('click', () => {
         logo.style.display = 'block';
-        videoContainer.style.display = 'none';
+        //videoContainer.style.display = 'none';
         resultsHeader.style.display = 'none';
         contentsImage.style.display = 'none';
         scanned.style.display = 'none';
-        scanner.stop();
+        html5QrcodeScanner.clear();
     });
 
     document.getElementById('scanned-button').addEventListener('click', () => {
         logo.style.display = 'none';
-        videoContainer.style.display = 'none';
+        //videoContainer.style.display = 'none';
         resultsHeader.style.display = 'none';
         contentsImage.style.display = 'none';
         scanned.style.display = 'block';
-        scanner.stop();
+        html5QrcodeScanner.clear();
     });
 </script>
 
