@@ -11,10 +11,6 @@
 <img id="contents-image" src="images/aarc.jpg" alt="Crate Contents" style="max-width: 100%;display:none;">
 <h1 id="results-header" style="display:none;text-align:center;padding-top:70px;padding-bottom:70px">None</h1>
 <div id="qr-reader" style="width:500px"></div>
-<div id="qr-reader-results"></div>
-<div id="video-container" style="display: none;">
-    <video id="qr-video"></video>
-</div>
 <div id="scanned" style="display: none;">
     <ul id="scanned-list">
     </ul>
@@ -24,18 +20,6 @@
 <button id="stop-button" style="font-size:36px;width:100%;background-color:white;color:black;padding:36px;">Stop</button>
 <br>
 <button id="scanned-button" style="font-size:36px;width:100%;background-color:white;color:black;padding:36px;">Cargo Hold</button>
-<br>
-<div>
-    <b>Preferred camera:</b>
-    <select id="cam-list">
-        <option value="environment" selected>Environment Facing (default)</option>
-        <option value="user">User Facing</option>
-    </select>
-</div>
-<span id="cam-has-flash"></span>
-<div>
-    <button id="flash-toggle">📸 Flash: <span id="flash-state">off</span></button>
-</div>
 <br>
 
 
@@ -208,11 +192,9 @@
         }
 
         decode(code) {
-            //return new CrateContents({code: 'TEST', contents: 'Test contents', type: CrateType.Empty});
-
             if (this.contents.has(code)) {
                 let crate = this.contents.get(code);
-                if (crate.image == "") {
+                if (crate.image === undefined || crate.image == "") {
                     if (crate.type == CrateType.Halcyon_Cargo) {
                         crate.image = "images/halcyon_cargo.jpeg";
                     } else if (crate.type == CrateType.Outfit) {
@@ -287,10 +269,8 @@
         let scannedImage = document.createElement('img');
         scannedImage.style.maxWidth = '150px';
         let crate = crateDecoder.decode(code);
-        //crateDecoder.decode(code).then(value => scannedImage.src = value.image);
         scannedImage.src = crate.image;
         scannedListItem.appendChild(scannedImage);
-        //crateDecoder.decode(code).then(value => scannedListItem.appendChild(document.createTextNode("  " + value.contents)));
         scannedListItem.appendChild(document.createTextNode("  " + crate.contents));
         scanned.appendChild(scannedListItem);
 
@@ -333,52 +313,34 @@
     function setResult(code) {
         console.log(code);
         //update the display text for the item
-        //crateDecoder.decode(code).then(value => resultsHeader.textContent = code + " - " + value.contents);
         let crate = crateDecoder.decode(code);
         console.log(crate);
         resultsHeader.textContent = code + " - " + crate.contents;
         resultsHeader.style.display = 'block';
 
-        //shut off the scanner so we can see the results
-        //scanner.stop();
-        
-        //videoContainer.style.display = 'none';
-
         //display the image contents
         contentsImage.style.display = 'block';
-        //crateDecoder.decode(code).then(value => contentsImage.src = value.image);
         contentsImage.src = crate.image;
 
         //add the item to the scanned list if not previously scanned
         if (!scannedCrates.has(code)) {
             addToScanned(code);
         }
-        
-        //return html5QrcodeScanner.clear();
     }
 
     // ####### Web Cam Scanning #######
 
-    var html5QrcodeScanner = new Html5QrcodeScanner(
-            "qr-reader", { fps: 10, qrbox: 250 });
-    
-    /*docReady(function () {
-        var resultContainer = document.getElementById('qr-reader-results');
-        var lastResult, countResults = 0;
-        function onScanSuccess(decodedText, decodedResult) {
-            if (decodedText !== lastResult) {
-                ++countResults;
-                lastResult = decodedText;
-                // Handle on success condition with the decoded message.
-                console.log(`Scan result ${decodedText}`, decodedResult);
+    let config = {
+        fps: 10,
+        qrbox: { width: 250, height: 250 },
+        rememberLastUsedCamera: true,
+        // Only support camera scan type.
+        supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA],
+        formatsToSupport: [ Html5QrcodeSupportedFormats.AZTEC ],
+    };
 
-                setResult(decodedText);
-                html5QrcodeScanner.clear();
-            }
-        }
-        
-        html5QrcodeScanner.render(onScanSuccess);
-    });*/
+    var html5QrcodeScanner = new Html5QrcodeScanner(
+            "qr-reader", config);
 
     const updateFlashAvailability = () => {
         scanner.hasFlash().then(hasFlash => {
