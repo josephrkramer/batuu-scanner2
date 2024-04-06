@@ -12,8 +12,9 @@
 <img id="contents-image" src="images/aarc.jpg" alt="Crate Contents">
 <h1 id="results-header">None</h1>
 <div id="qr-reader"></div>
-<div id="scanned">
-    <ul id="scanned-list">
+<div id="cargo-hold">
+    <h1 id="cargo-hold-title">Cargo Hold</h1>
+    <ul id="cargo-hold-list">
     </ul>
 </div>
 <button id="start-button" class="major-button">Scan</button>
@@ -47,66 +48,80 @@
     const logo = document.getElementById('logo');
     const resultsHeader = document.getElementById('results-header');
     const contentsImage = document.getElementById('contents-image');
-    let scanned = document.getElementById('scanned');
+    const cargoHold = document.getElementById('cargo-hold');
+    const cargoHoldList = document.getElementById('cargo-hold-list');
 
     //Keep track of the crates scanned so far and don't allow duplicates
-    let scannedCrates = new Set();
+    //load from local storage
+    const scannedCrates = new Set(JSON.parse(localStorage.getItem('cargo')));
+    console.log(`Cargo hold instantiated from local storage:`);
+    console.log(scannedCrates);
 
     const crateDecoder = new CrateDecoder();
 
     //Add custom overrides
-    crateDecoder.override(new CrateContents({code: 'JK_RS', contents: 'Evan\'s Manifesto', type: CrateType.Program, image: 'images/halcyon_cargo.jpeg'}));
-    crateDecoder.override(new CrateContents({code: 'JK_TU', contents: 'Tom\'s Vape Pen', type: CrateType.Parts_and_Scraps, image: 'images/ports_of_call.jpeg'}));
+    crateDecoder.override(new CrateContents({code: 'JK_RS', contents: 'Evan\'s Manifesto', type: CrateType.Relic, image: 'images/halcyon_cargo.jpeg'}));
+    crateDecoder.override(new CrateContents({code: 'JK_TU', contents: 'Tom\'s Vape Pen', type: CrateType.Relic, image: 'images/ports_of_call.jpeg'}));
+
+    function displayCargoHold() {
+        console.log('Building the cargo hold display');
+        const sortedCargoHold = crateDecoder.sortCargoHold(scannedCrates);
+        const newCargoHoldList = [];
+
+        for (const crateType of sortedCargoHold.keys()) {
+            console.log(crateType);
+
+            //create type list
+            const crateTypeListItem = document.createElement('li');
+            crateTypeListItem.className = "cargo-type-text";
+            crateTypeListItem.appendChild(document.createTextNode(crateType));
+
+            const crateTypeList = document.createElement('ul');
+            crateTypeListItem.appendChild(crateTypeList);
+
+            //populate type list with each instance of that type
+            for (const crate of sortedCargoHold.get(crateType)) {
+                //load the image
+                const scannedImage = document.createElement('img');
+                scannedImage.className = "scanned-list-item-image";
+                scannedImage.src = crate.image;
+
+                //add the item to the scanned list
+                const scannedListItem = document.createElement('li');
+                scannedListItem.className = "scanned-list-item-text";
+                scannedListItem.appendChild(scannedImage);
+                scannedListItem.appendChild(document.createTextNode("  " + crate.contents));
+
+                crateTypeList.appendChild(scannedListItem);
+            }
+            newCargoHoldList.push(crateTypeListItem);
+        }
+
+        cargoHoldList.replaceChildren(...newCargoHoldList);
+    }
 
     function addToScanned(code) {
+        console.log(`Adding ${code} to the scanned list`);
         //add the item to the scannedCrates internal tracking
         scannedCrates.add(code);
-
-        //add the item to the scanned list
-        let scannedListItem = document.createElement('li');
-        scannedListItem.className = "scanned-list-item-text";
-        let scannedImage = document.createElement('img');
-        scannedImage.className = "scanned-list-item-image";
-        let crate = crateDecoder.decode(code);
-        scannedImage.src = crate.image;
-        scannedListItem.appendChild(scannedImage);
-        scannedListItem.appendChild(document.createTextNode("  " + crate.contents));
-        scanned.appendChild(scannedListItem);
 
         //store all of the scanned crates into local storage
         localStorage.setItem('cargo', JSON.stringify(Array.from(scannedCrates)));
     }
 
-    //load from local storage
-    scannedCrates = new Set(JSON.parse(localStorage.getItem('cargo')));
-    console.log("SCANNED CRATES");
-    console.log(scannedCrates);
-    if (scannedCrates && scannedCrates.size > 0) {
-        const previousCrates = scannedCrates.entries();
-        for (const crate of previousCrates) {
-            console.log(crate);
-            addToScanned(crate[0]);
-        }
-    } else {
-        scannedCrates = new Set();
-    }
-
-    if (urlParams.has('reset')) {
-        localStorage.removeItem('cargo');
-        scannedCrates.clear();
-        scanned = document.createElement('ul');
-    }
-
     //use the url with ?cargo to load test data into the app
     if (urlParams.has('cargo')) {
+        console.log("Filling the cargo hold...");
         addToScanned('FAL11');
         addToScanned('CD_LM');
         addToScanned('JK_TU');
         addToScanned('AB_QR');
         addToScanned('JK_RS');
+    }
 
-        //store all of the scanned crates into local storage
-        localStorage.setItem('cargo', JSON.stringify(Array.from(scannedCrates)));
+    if (urlParams.has('reset')) {
+        localStorage.removeItem('cargo');
+        scannedCrates.clear();
     }
 
     function setResult(code) {
@@ -129,7 +144,7 @@
 
     // ####### Web Cam Scanning #######
 
-    let config = {
+    const config = {
         fps: 10,
         qrbox: { width: 250, height: 250 },
         rememberLastUsedCamera: true,
@@ -138,20 +153,14 @@
         formatsToSupport: [ Html5QrcodeSupportedFormats.AZTEC ],
     };
 
-    var html5QrcodeScanner = new Html5QrcodeScanner(
+    const html5QrcodeScanner = new Html5QrcodeScanner(
             "qr-reader", config);
-
-    const updateFlashAvailability = () => {
-        scanner.hasFlash().then(hasFlash => {
-            flashToggle.style.display = hasFlash ? 'inline-block' : 'none';
-        });
-    };
 
     document.getElementById('start-button').addEventListener('click', () => {
         logo.style.display = 'none';
         resultsHeader.style.display = 'none';
         contentsImage.style.display = 'none';
-        scanned.style.display = 'none';
+        cargoHold.style.display = 'none';
         function onScanSuccess(decodedText, decodedResult) {
             console.log(`Scan result ${decodedText}`, decodedResult);
             setResult(decodedText);
@@ -164,7 +173,7 @@
         logo.style.display = 'block';
         resultsHeader.style.display = 'none';
         contentsImage.style.display = 'none';
-        scanned.style.display = 'none';
+        cargoHold.style.display = 'none';
         html5QrcodeScanner.clear();
     });
 
@@ -172,7 +181,8 @@
         logo.style.display = 'none';
         resultsHeader.style.display = 'none';
         contentsImage.style.display = 'none';
-        scanned.style.display = 'block';
+        displayCargoHold();
+        cargoHold.style.display = 'block';
         html5QrcodeScanner.clear();
     });
 </script>
