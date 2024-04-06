@@ -31,13 +31,13 @@ p a{color: #888;}
 #puzzle span{
 	position: absolute;
 	display: block;
-	width: 80px;
-	height: 80px;
+	width: 160px;
+	height: 160px;
 	border-radius: 4px;
 }
 #puzzle span.number{
 	cursor: pointer;
-	font: bold 36px/80px Arial;
+	font: bold 80px/160px Arial;
 	text-align: center;
 	text-shadow: -1px -1px 0 rgba(0,0,0, 0.5);
 	color: #fff;

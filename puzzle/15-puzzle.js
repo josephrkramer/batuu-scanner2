@@ -10,7 +10,7 @@ const NUM_SIDE = 3;
 const MAX_NUM = (NUM_SIDE * NUM_SIDE) - 1;
 const MAX_ROW_COL = NUM_SIDE - 1;
 
-const SQUARE_SIZE = 80;
+const SQUARE_SIZE = 160;
 const PUZZLE_SIZE = (SQUARE_SIZE * NUM_SIDE) + 5;
 
 var state = 1;
