@@ -3,23 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>AARC Scanner</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body style="background-color:black;color:white;">
+<body>
 <div id="logo">
-    <img src="images/aarc-aurebesh.jpg" alt="AARC Logo" style="max-width: 100%;">
+    <img id="logo-image" src="images/aarc-aurebesh.jpg" alt="AARC Logo">
 </div>
-<img id="contents-image" src="images/aarc.jpg" alt="Crate Contents" style="max-width: 100%;display:none;">
-<h1 id="results-header" style="display:none;text-align:center;padding-top:70px;padding-bottom:70px">None</h1>
-<div id="qr-reader" style="width:500px"></div>
-<div id="scanned" style="display: none;">
+<img id="contents-image" src="images/aarc.jpg" alt="Crate Contents">
+<h1 id="results-header">None</h1>
+<div id="qr-reader"></div>
+<div id="scanned">
     <ul id="scanned-list">
     </ul>
 </div>
-<button id="start-button" style="font-size:36px;width:100%;background-color:white;color:black;padding:36px;">Scan</button>
+<button id="start-button" class="major-button">Scan</button>
 <br>
-<button id="stop-button" style="font-size:36px;width:100%;background-color:white;color:black;padding:36px;">Stop</button>
+<button id="stop-button" class="major-button">Stop</button>
 <br>
-<button id="scanned-button" style="font-size:36px;width:100%;background-color:white;color:black;padding:36px;">Cargo Hold</button>
+<button id="scanned-button" class="major-button">Cargo Hold</button>
 <br>
 
 
@@ -63,9 +64,9 @@
 
         //add the item to the scanned list
         let scannedListItem = document.createElement('li');
-        scannedListItem.style.fontSize = '72px';
+        scannedListItem.className = "scanned-list-item-text";
         let scannedImage = document.createElement('img');
-        scannedImage.style.maxWidth = '150px';
+        scannedImage.className = "scanned-list-item-image";
         let crate = crateDecoder.decode(code);
         scannedImage.src = crate.image;
         scannedListItem.appendChild(scannedImage);
@@ -148,7 +149,6 @@
 
     document.getElementById('start-button').addEventListener('click', () => {
         logo.style.display = 'none';
-        //videoContainer.style.display = 'block';
         resultsHeader.style.display = 'none';
         contentsImage.style.display = 'none';
         scanned.style.display = 'none';
@@ -162,7 +162,6 @@
 
     document.getElementById('stop-button').addEventListener('click', () => {
         logo.style.display = 'block';
-        //videoContainer.style.display = 'none';
         resultsHeader.style.display = 'none';
         contentsImage.style.display = 'none';
         scanned.style.display = 'none';
@@ -171,54 +170,11 @@
 
     document.getElementById('scanned-button').addEventListener('click', () => {
         logo.style.display = 'none';
-        //videoContainer.style.display = 'none';
         resultsHeader.style.display = 'none';
         contentsImage.style.display = 'none';
         scanned.style.display = 'block';
         html5QrcodeScanner.clear();
     });
 </script>
-
-<style>
-    div {
-        margin-bottom: 16px;
-    }
-
-    #video-container {
-        line-height: 0;
-    }
-
-    #video-container.example-style-1 .scan-region-highlight-svg,
-    #video-container.example-style-1 .code-outline-highlight {
-        stroke: #64a2f3 !important;
-    }
-
-    #video-container.example-style-2 {
-        position: relative;
-        width: max-content;
-        height: max-content;
-        overflow: hidden;
-    }
-    #video-container.example-style-2 .scan-region-highlight {
-        border-radius: 30px;
-        outline: rgba(0, 0, 0, .25) solid 50vmax;
-    }
-    #video-container.example-style-2 .scan-region-highlight-svg {
-        display: none;
-    }
-    #video-container.example-style-2 .code-outline-highlight {
-        stroke: rgba(255, 255, 255, .5) !important;
-        stroke-width: 15 !important;
-        stroke-dasharray: none !important;
-    }
-
-    #flash-toggle {
-        display: none;
-    }
-
-    hr {
-        margin-top: 32px;
-    }
-</style>
 </body>
 </html>
