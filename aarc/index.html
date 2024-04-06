@@ -51,7 +51,10 @@
     const cargoHoldList = document.getElementById('cargo-hold-list');
 
     //Keep track of the crates scanned so far and don't allow duplicates
-    let scannedCrates = new Set();
+    //load from local storage
+    const scannedCrates = new Set(JSON.parse(localStorage.getItem('cargo')));
+    console.log(`Cargo hold instantiated from local storage:`);
+    console.log(scannedCrates);
 
     const crateDecoder = new CrateDecoder();
 
@@ -94,25 +97,6 @@
 
         //store all of the scanned crates into local storage
         localStorage.setItem('cargo', JSON.stringify(Array.from(scannedCrates)));
-    }
-
-    //load from local storage
-    scannedCrates = new Set(JSON.parse(localStorage.getItem('cargo')));
-    console.log("SCANNED CRATES");
-    console.log(scannedCrates);
-    if (scannedCrates && scannedCrates.size > 0) {
-        const previousCrates = scannedCrates.entries();
-        for (const crate of previousCrates) {
-            console.log(crate);
-            addToScanned(crate[0]);
-        }
-    } else {
-        scannedCrates = new Set();
-    }
-
-    if (urlParams.has('reset')) {
-        localStorage.removeItem('cargo');
-        scannedCrates.clear();
     }
 
     //use the url with ?cargo to load test data into the app
