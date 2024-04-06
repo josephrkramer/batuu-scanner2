@@ -64,9 +64,9 @@
 
         //add the item to the scanned list
         let scannedListItem = document.createElement('li');
-        scannedListItem.style.fontSize = '72px';
+        scannedListItem.className = "scanned-list-item-text";
         let scannedImage = document.createElement('img');
-        scannedImage.style.maxWidth = '150px';
+        scannedImage.className = "scanned-list-item-image";
         let crate = crateDecoder.decode(code);
         scannedImage.src = crate.image;
         scannedListItem.appendChild(scannedImage);

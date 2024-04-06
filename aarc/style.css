@@ -38,6 +38,14 @@ div {
     padding:36px;
 }
 
+.scanned-list-item-text {
+    font-size: 72px;
+}
+
+.scanned-list-item-image {
+    max-width: 150px;
+}
+
 hr {
     margin-top: 32px;
 }
