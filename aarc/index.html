@@ -86,6 +86,11 @@
                 scannedImage.className = "scanned-list-item-image";
                 scannedImage.src = crate.image;
 
+                scannedImage.addEventListener('click', () => {
+                    cargoHold.style.display = 'none';
+                    setResult(crate.code);
+                });
+
                 //add the item to the scanned list
                 const scannedListItem = document.createElement('li');
                 scannedListItem.className = "scanned-list-item-text";
