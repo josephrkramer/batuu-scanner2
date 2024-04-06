@@ -125,8 +125,14 @@
     }
 
     if (urlParams.has('reset')) {
+        //remove our state from local storage
         localStorage.removeItem('cargo');
+        //remove our state from internal memory
         scannedCrates.clear();
+        //force a reload of the page that will refresh the cache. Equivalent of Ctl+F5
+        window.location.reload(true);
+        //strip ?reset from the url so we don't get in a refresh loop
+        window.location = window.location.pathname;
     }
 
     function setResult(code) {
