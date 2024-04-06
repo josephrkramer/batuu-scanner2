@@ -12,8 +12,8 @@
 <img id="contents-image" src="images/aarc.jpg" alt="Crate Contents">
 <h1 id="results-header">None</h1>
 <div id="qr-reader"></div>
-<div id="scanned">
-    <ul id="scanned-list">
+<div id="cargo-hold">
+    <ul id="cargo-hold-list">
     </ul>
 </div>
 <button id="start-button" class="major-button">Scan</button>
@@ -47,8 +47,8 @@
     const logo = document.getElementById('logo');
     const resultsHeader = document.getElementById('results-header');
     const contentsImage = document.getElementById('contents-image');
-    const scanned = document.getElementById('scanned');
-    let scannedList = document.getElementById('scanned-list');
+    const cargoHold = document.getElementById('cargo-hold');
+    const cargoHoldList = document.getElementById('cargo-hold-list');
 
     //Keep track of the crates scanned so far and don't allow duplicates
     let scannedCrates = new Set();
@@ -62,25 +62,29 @@
     function displayCargoHold() {
         console.log('Building the cargo hold display');
         //clear list
-        scannedList = document.createElement('ul');
+        //cargoHoldList = document.createElement('ul');
+        //cargoHoldList.id = 'cargo-hold-list';
+        const newCargoHoldList = [];
 
         for (const cargoCode of scannedCrates) {
             console.log(`Creating the list item for ${cargoCode}`);
-            let crate = crateDecoder.decode(cargoCode);
+            const crate = crateDecoder.decode(cargoCode);
 
             //load the image
-            let scannedImage = document.createElement('img');
+            const scannedImage = document.createElement('img');
             scannedImage.className = "scanned-list-item-image";
             scannedImage.src = crate.image;
 
             //add the item to the scanned list
-            let scannedListItem = document.createElement('li');
+            const scannedListItem = document.createElement('li');
             scannedListItem.className = "scanned-list-item-text";
             scannedListItem.appendChild(scannedImage);
             scannedListItem.appendChild(document.createTextNode("  " + crate.contents));
 
-            scanned.appendChild(scannedListItem);
+            newCargoHoldList.push(scannedListItem);
         }
+
+        cargoHoldList.replaceChildren(...newCargoHoldList);
     }
 
     function addToScanned(code) {
@@ -166,7 +170,7 @@
         logo.style.display = 'none';
         resultsHeader.style.display = 'none';
         contentsImage.style.display = 'none';
-        scanned.style.display = 'none';
+        cargoHold.style.display = 'none';
         function onScanSuccess(decodedText, decodedResult) {
             console.log(`Scan result ${decodedText}`, decodedResult);
             setResult(decodedText);
@@ -179,7 +183,7 @@
         logo.style.display = 'block';
         resultsHeader.style.display = 'none';
         contentsImage.style.display = 'none';
-        scanned.style.display = 'none';
+        cargoHold.style.display = 'none';
         html5QrcodeScanner.clear();
     });
 
@@ -188,7 +192,7 @@
         resultsHeader.style.display = 'none';
         contentsImage.style.display = 'none';
         displayCargoHold();
-        scanned.style.display = 'block';
+        cargoHold.style.display = 'block';
         html5QrcodeScanner.clear();
     });
 </script>
