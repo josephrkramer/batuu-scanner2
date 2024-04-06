@@ -132,7 +132,7 @@
 
     // ####### Web Cam Scanning #######
 
-    let config = {
+    const config = {
         fps: 10,
         qrbox: { width: 250, height: 250 },
         rememberLastUsedCamera: true,
@@ -141,14 +141,8 @@
         formatsToSupport: [ Html5QrcodeSupportedFormats.AZTEC ],
     };
 
-    var html5QrcodeScanner = new Html5QrcodeScanner(
+    const html5QrcodeScanner = new Html5QrcodeScanner(
             "qr-reader", config);
-
-    const updateFlashAvailability = () => {
-        scanner.hasFlash().then(hasFlash => {
-            flashToggle.style.display = hasFlash ? 'inline-block' : 'none';
-        });
-    };
 
     document.getElementById('start-button').addEventListener('click', () => {
         logo.style.display = 'none';
