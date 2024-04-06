@@ -1,13 +1,14 @@
 export const CrateType = Object.freeze({
-    Halcyon_Cargo: 0,
-    Outfit: 1,
-    Empty: 2,
-    Weapon: 3,
-    Cargo: 4,
-    Parts_and_Scraps: 5,
-    Program: 6,
-    Vehicle: 7,
-    Ports_Of_Call: 8,
+    Halcyon_Cargo: 'Halcyon Cargo',
+    Outfit: 'Outfit',
+    Empty: 'Empty',
+    Weapon: 'Weapon',
+    Cargo: 'Cargo',
+    Parts_and_Scraps: 'Parts and Scraps',
+    Program: 'Program',
+    Vehicle: 'Vehicle',
+    Ports_Of_Call: 'Ports of Call',
+    Relic: 'Relic',
 });
 
 export class CrateContents {
@@ -199,5 +200,24 @@ export class CrateDecoder {
 
     override(crate) {
         this.contents.set(crate.code, crate);
+    }
+
+    sortCargoHold(cargoHold) {
+        const sortedCargoHold = new Map();
+
+        console.log("Sorting cargo...")
+
+        for (const code of cargoHold) {
+            const crate = this.decode(code);
+            if (!sortedCargoHold.has(crate.type)) {
+                sortedCargoHold.set(crate.type, new Set());
+            }
+            const typeSet = sortedCargoHold.get(crate.type);
+            typeSet.add(crate);
+        }
+
+        console.log(sortedCargoHold);
+
+        return sortedCargoHold;
     }
 }

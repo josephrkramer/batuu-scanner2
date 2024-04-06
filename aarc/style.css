@@ -38,8 +38,16 @@ div {
     padding:36px;
 }
 
+.cargo-type-text {
+    font-size: xx-large;
+    background-color: white;
+    color: black;
+}
+
 .scanned-list-item-text {
-    font-size: 72px;
+    font-size: large;
+    background-color: black;
+    color: white;
 }
 
 .scanned-list-item-image {

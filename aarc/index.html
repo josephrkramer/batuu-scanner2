@@ -64,27 +64,36 @@
 
     function displayCargoHold() {
         console.log('Building the cargo hold display');
-        //clear list
-        //cargoHoldList = document.createElement('ul');
-        //cargoHoldList.id = 'cargo-hold-list';
+        const sortedCargoHold = crateDecoder.sortCargoHold(scannedCrates);
         const newCargoHoldList = [];
 
-        for (const cargoCode of scannedCrates) {
-            console.log(`Creating the list item for ${cargoCode}`);
-            const crate = crateDecoder.decode(cargoCode);
+        for (const crateType of sortedCargoHold.keys()) {
+            console.log(crateType);
 
-            //load the image
-            const scannedImage = document.createElement('img');
-            scannedImage.className = "scanned-list-item-image";
-            scannedImage.src = crate.image;
+            //create type list
+            const crateTypeListItem = document.createElement('li');
+            crateTypeListItem.className = "cargo-type-text";
+            crateTypeListItem.appendChild(document.createTextNode(crateType));
 
-            //add the item to the scanned list
-            const scannedListItem = document.createElement('li');
-            scannedListItem.className = "scanned-list-item-text";
-            scannedListItem.appendChild(scannedImage);
-            scannedListItem.appendChild(document.createTextNode("  " + crate.contents));
+            const crateTypeList = document.createElement('ul');
+            crateTypeListItem.appendChild(crateTypeList);
 
-            newCargoHoldList.push(scannedListItem);
+            //populate type list with each instance of that type
+            for (const crate of sortedCargoHold.get(crateType)) {
+                //load the image
+                const scannedImage = document.createElement('img');
+                scannedImage.className = "scanned-list-item-image";
+                scannedImage.src = crate.image;
+
+                //add the item to the scanned list
+                const scannedListItem = document.createElement('li');
+                scannedListItem.className = "scanned-list-item-text";
+                scannedListItem.appendChild(scannedImage);
+                scannedListItem.appendChild(document.createTextNode("  " + crate.contents));
+
+                crateTypeList.appendChild(scannedListItem);
+            }
+            newCargoHoldList.push(crateTypeListItem);
         }
 
         cargoHoldList.replaceChildren(...newCargoHoldList);
