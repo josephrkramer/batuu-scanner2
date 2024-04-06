@@ -22,6 +22,12 @@ div {
     padding-bottom:70px;
 }
 
+#cargo-hold-title {
+    text-align:center;
+    padding-top:70px;
+    padding-bottom:70px;
+}
+
 #qr-reader {
     width:500px;
 }
