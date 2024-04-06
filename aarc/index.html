@@ -47,7 +47,8 @@
     const logo = document.getElementById('logo');
     const resultsHeader = document.getElementById('results-header');
     const contentsImage = document.getElementById('contents-image');
-    let scanned = document.getElementById('scanned');
+    const scanned = document.getElementById('scanned');
+    let scannedList = document.getElementById('scanned-list');
 
     //Keep track of the crates scanned so far and don't allow duplicates
     let scannedCrates = new Set();
@@ -58,20 +59,34 @@
     crateDecoder.override(new CrateContents({code: 'JK_RS', contents: 'Evan\'s Manifesto', type: CrateType.Program, image: 'images/halcyon_cargo.jpeg'}));
     crateDecoder.override(new CrateContents({code: 'JK_TU', contents: 'Tom\'s Vape Pen', type: CrateType.Parts_and_Scraps, image: 'images/ports_of_call.jpeg'}));
 
+    function displayCargoHold() {
+        console.log('Building the cargo hold display');
+        //clear list
+        scannedList = document.createElement('ul');
+
+        for (const cargoCode of scannedCrates) {
+            console.log(`Creating the list item for ${cargoCode}`);
+            let crate = crateDecoder.decode(cargoCode);
+
+            //load the image
+            let scannedImage = document.createElement('img');
+            scannedImage.className = "scanned-list-item-image";
+            scannedImage.src = crate.image;
+
+            //add the item to the scanned list
+            let scannedListItem = document.createElement('li');
+            scannedListItem.className = "scanned-list-item-text";
+            scannedListItem.appendChild(scannedImage);
+            scannedListItem.appendChild(document.createTextNode("  " + crate.contents));
+
+            scanned.appendChild(scannedListItem);
+        }
+    }
+
     function addToScanned(code) {
+        console.log(`Adding ${code} to the scanned list`);
         //add the item to the scannedCrates internal tracking
         scannedCrates.add(code);
-
-        //add the item to the scanned list
-        let scannedListItem = document.createElement('li');
-        scannedListItem.className = "scanned-list-item-text";
-        let scannedImage = document.createElement('img');
-        scannedImage.className = "scanned-list-item-image";
-        let crate = crateDecoder.decode(code);
-        scannedImage.src = crate.image;
-        scannedListItem.appendChild(scannedImage);
-        scannedListItem.appendChild(document.createTextNode("  " + crate.contents));
-        scanned.appendChild(scannedListItem);
 
         //store all of the scanned crates into local storage
         localStorage.setItem('cargo', JSON.stringify(Array.from(scannedCrates)));
@@ -94,11 +109,11 @@
     if (urlParams.has('reset')) {
         localStorage.removeItem('cargo');
         scannedCrates.clear();
-        scanned = document.createElement('ul');
     }
 
     //use the url with ?cargo to load test data into the app
     if (urlParams.has('cargo')) {
+        console.log("Filling the cargo hold...");
         addToScanned('FAL11');
         addToScanned('CD_LM');
         addToScanned('JK_TU');
@@ -172,6 +187,7 @@
         logo.style.display = 'none';
         resultsHeader.style.display = 'none';
         contentsImage.style.display = 'none';
+        displayCargoHold();
         scanned.style.display = 'block';
         html5QrcodeScanner.clear();
     });
