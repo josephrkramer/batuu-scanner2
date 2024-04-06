@@ -179,8 +179,19 @@
         function onScanSuccess(decodedText, decodedResult) {
             console.log(`Scan result ${decodedText}`, decodedResult);
             puzzle.style.display = 'block';
-            setResult(decodedText);
             html5QrcodeScanner.clear();
+
+            //start puzzle and wait for success
+            waitToSolvePuzzle().then(
+                function(value) {
+                    console.log("executing THEN");
+                    setResult(decodedText);
+                    puzzle.style.display = 'none';
+                },
+                function(error) {
+                    console.log("PUZZLE FAILURE");
+                }
+            );
         }
         html5QrcodeScanner.render(onScanSuccess);
         puzzle.style.display = 'none';
