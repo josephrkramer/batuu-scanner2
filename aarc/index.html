@@ -118,6 +118,11 @@
         addToScanned('JK_RS');
     }
 
+    if (urlParams.has('reset')) {
+        localStorage.removeItem('cargo');
+        scannedCrates.clear();
+    }
+
     function setResult(code) {
         console.log(code);
         //update the display text for the item
