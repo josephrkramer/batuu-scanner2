@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>AARC Scanner</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="../puzzle/15-puzzle.css">
 </head>
 <body>
 <div id="logo">
@@ -17,6 +18,7 @@
     <ul id="cargo-hold-list">
     </ul>
 </div>
+<div id="puzzle" style="display:none"></div>
 <button id="start-button" class="major-button">Scan</button>
 <br>
 <button id="stop-button" class="major-button">Stop</button>
@@ -26,6 +28,7 @@
 
 
 <script src="https://unpkg.com/html5-qrcode"></script>
+<script src="../puzzle/15-puzzle.js"></script>
 <script type="module">
     import { CrateDecoder, CrateContents, CrateType } from "./crate-decoder.js";
 
@@ -50,6 +53,7 @@
     const contentsImage = document.getElementById('contents-image');
     const cargoHold = document.getElementById('cargo-hold');
     const cargoHoldList = document.getElementById('cargo-hold-list');
+    const puzzle = document.getElementById('puzzle');
 
     //Keep track of the crates scanned so far and don't allow duplicates
     //load from local storage
@@ -174,10 +178,12 @@
         cargoHold.style.display = 'none';
         function onScanSuccess(decodedText, decodedResult) {
             console.log(`Scan result ${decodedText}`, decodedResult);
+            puzzle.style.display = 'block';
             setResult(decodedText);
             html5QrcodeScanner.clear();
         }
         html5QrcodeScanner.render(onScanSuccess);
+        puzzle.style.display = 'none';
     });
 
     document.getElementById('stop-button').addEventListener('click', () => {
@@ -186,6 +192,7 @@
         contentsImage.style.display = 'none';
         cargoHold.style.display = 'none';
         html5QrcodeScanner.clear();
+        puzzle.style.display = 'none';
     });
 
     document.getElementById('scanned-button').addEventListener('click', () => {
@@ -195,6 +202,7 @@
         displayCargoHold();
         cargoHold.style.display = 'block';
         html5QrcodeScanner.clear();
+        puzzle.style.display = 'none';
     });
 </script>
 </body>
