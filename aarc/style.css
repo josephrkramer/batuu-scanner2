@@ -1,0 +1,43 @@
+body {
+    background-color:black;
+    color:white;
+}
+div {
+    margin-bottom: 16px;
+}
+
+#logo-image {
+    max-width: 100%;
+}
+
+#contents-image {
+    max-width: 100%;
+    display:none;
+}
+
+#results-header {
+    display:none;
+    text-align:center;
+    padding-top:70px;
+    padding-bottom:70px;
+}
+
+#qr-reader {
+    width:500px;
+}
+
+#scanned {
+    display: none;
+}
+
+.major-button {
+    font-size:36px;
+    width:100%;
+    background-color:white;
+    color:black;
+    padding:36px;
+}
+
+hr {
+    margin-top: 32px;
+}
