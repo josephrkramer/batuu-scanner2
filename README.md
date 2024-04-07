@@ -18,3 +18,6 @@ See [https://josephrkramer.github.io/batuu-scanner2/?cargo](https://josephrkrame
 
 ### Empty the cargo bay
 See [https://josephrkramer.github.io/batuu-scanner2/?reset](https://josephrkramer.github.io/batuu-scanner2/?reset)
+
+### Play the mini-game puzzle
+See [https://josephrkramer.github.io/batuu-scanner2/?puzzle](https://josephrkramer.github.io/batuu-scanner2/?puzzle)
