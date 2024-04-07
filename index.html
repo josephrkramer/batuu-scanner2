@@ -171,6 +171,25 @@
     const html5QrcodeScanner = new Html5QrcodeScanner(
             "qr-reader", config);
 
+    //allow direct access to the puzzle for testing
+    if (urlParams.has('puzzle')) {
+        console.log("Starting puzzle for testing");
+        stopButton();
+        logo.style.display = 'none';
+        puzzle.style.display = 'block';
+        //start puzzle and wait for success
+        await waitToSolvePuzzle().then(
+            function(value) {
+                console.log("PUZZLE SUCESS");
+                puzzle.style.display = 'none';
+            },
+            function(error) {
+                console.log("PUZZLE FAILURE");
+            }
+        );
+        stopButton();
+    }
+    
     function startButton() {
         logo.style.display = 'none';
         resultsHeader.style.display = 'none';
@@ -184,7 +203,7 @@
             //start puzzle and wait for success
             waitToSolvePuzzle().then(
                 function(value) {
-                    console.log("executing THEN");
+                    console.log("PUZZLE SUCESS");
                     setResult(decodedText);
                     puzzle.style.display = 'none';
                 },
