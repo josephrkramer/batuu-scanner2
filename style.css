@@ -36,6 +36,10 @@ div {
     display: none;
 }
 
+#crew-manifest {
+    display: none;
+}
+
 .major-button {
     font-size:36px;
     width:100%;

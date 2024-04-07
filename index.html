@@ -18,6 +18,11 @@
     <ul id="cargo-hold-list">
     </ul>
 </div>
+<div id="crew-manifest">
+    <h1 id="crew-manifest-title">Dossiers</h1>
+    <ul id="cargo-manifests-list">
+    </ul>
+</div>
 <div id="puzzle" style="display:none"></div>
 <button id="start-button" class="major-button">Scan</button>
 <br>
@@ -25,12 +30,15 @@
 <br>
 <button id="scanned-button" class="major-button">Cargo Hold</button>
 <br>
+<button id="crew-manifest-button" class="major-button">Dossiers</button>
+<br>
 
 
 <script src="https://unpkg.com/html5-qrcode"></script>
 <script src="./puzzle/15-puzzle.js"></script>
 <script type="module">
     import { CrateDecoder, CrateContents, CrateType } from "./crate-decoder.js";
+    import { CrewMemberType, CrewMember, CrewManifest } from "./crew-manifest.js";
 
     function docReady(fn) {
         // see if DOM is already available
@@ -54,6 +62,8 @@
     const cargoHold = document.getElementById('cargo-hold');
     const cargoHoldList = document.getElementById('cargo-hold-list');
     const puzzle = document.getElementById('puzzle');
+    const crewManifest = document.getElementById('crew-manifest');
+    const crewManifestList = document.getElementById('cargo-manifests-list');
 
     //Keep track of the crates scanned so far and don't allow duplicates
     //load from local storage
@@ -107,6 +117,49 @@
         }
 
         cargoHoldList.replaceChildren(...newCargoHoldList);
+    }
+
+    function displayCrewManifest() {
+        console.log('Building the crew manifest display');
+        const crewMemberTypesToSort = [CrewMemberType.Faction_Leader, CrewMemberType.NPC];
+        const newCrewManifestList = [];
+
+        for (const crewType of crewMemberTypesToSort) {
+            console.log(crewType);
+
+            //create type list
+            const crewTypeListItem = document.createElement('li');
+            crewTypeListItem.className = "cargo-type-text";
+            crewTypeListItem.appendChild(document.createTextNode(crewType));
+
+            const crewTypeList = document.createElement('ul');
+            crewTypeListItem.appendChild(crewTypeList);
+
+            //populate type list with each instance of that type
+            for (const crewMembor of crewMemberTypesToSort) {
+                console.log(crewMembor)
+                //load the image
+                const crewMemberHeadshot = document.createElement('img');
+                crewMemberHeadshot.className = "scanned-list-item-image";
+                crewMemberHeadshot.src = crewMembor.image;
+
+                crewMemberHeadshot.addEventListener('click', () => {
+                    cargoHold.style.display = 'none';
+                    //TODO: make this link work
+                });
+
+                //add the item to the scanned list
+                const crewMemberListItem = document.createElement('li');
+                crewMemberListItem.className = "scanned-list-item-text";
+                crewMemberListItem.appendChild(crewMemberHeadshot);
+                crewMemberListItem.appendChild(document.createTextNode("  " + crewMembor.name));
+
+                crewTypeList.appendChild(crewMemberListItem);
+            }
+            newCrewManifestList.push(crewTypeListItem);
+        }
+
+        cargoHoldList.replaceChildren(...newCrewManifestList);
     }
 
     function addToScanned(code) {
@@ -195,6 +248,8 @@
         resultsHeader.style.display = 'none';
         contentsImage.style.display = 'none';
         cargoHold.style.display = 'none';
+        crewManifest.style.display = 'none';
+
         function onScanSuccess(decodedText, decodedResult) {
             console.log(`Scan result ${decodedText}`, decodedResult);
             puzzle.style.display = 'block';
@@ -223,6 +278,7 @@
         cargoHold.style.display = 'none';
         html5QrcodeScanner.clear();
         puzzle.style.display = 'none';
+        crewManifest.style.display = 'none';
     }
 
     function cargoHoldButton() {
@@ -233,6 +289,18 @@
         cargoHold.style.display = 'block';
         html5QrcodeScanner.clear();
         puzzle.style.display = 'none';
+        crewManifest.style.display = 'none';
+    }
+
+    function crewManifestButton() {
+        logo.style.display = 'none';
+        resultsHeader.style.display = 'none';
+        contentsImage.style.display = 'none';
+        cargoHold.style.display = 'block';
+        html5QrcodeScanner.clear();
+        puzzle.style.display = 'none';
+        crewManifest.style.display = 'block';
+        displayCrewManifest();
     }
 
     document.getElementById('start-button').addEventListener('click', () => {
@@ -245,6 +313,10 @@
 
     document.getElementById('scanned-button').addEventListener('click', () => {
         cargoHoldButton();
+    });
+
+    document.getElementById('crew-manifest-button').addEventListener('click', () => {
+        crewManifestButton();
     });
 </script>
 </body>

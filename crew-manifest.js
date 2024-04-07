@@ -40,7 +40,8 @@ However, the peace was not to last. The First Order soon became a big enough thr
             species: 'Human',
             affiliation: 'Rebellion//Resistance',
             type: CrewMemberType.Faction_Leader,
-            image: undefined}));
+            image: 'images/outfit.jpeg'
+        }));
         this.addCrewMember(new CrewMember({
                 name: 'Pyke Rendessa',
                 occupation: undefined,
@@ -53,7 +54,7 @@ However, the peace was not to last. The First Order soon became a big enough thr
                 species: 'Human',
                 affiliation: 'None',
                 type: CrewMemberType.NPC,
-                image: undefined,
+                image: 'images/outfit.jpeg',
             }));
         /*this.addCrewMember(new CrewMember({
             name: undefined,
@@ -72,5 +73,13 @@ However, the peace was not to last. The First Order soon became a big enough thr
     addCrewMember(crewMemeber) {
         typeList = this.crew.get(crewMemeber.type);
         typeList.push(crewMemeber);
+    }
+
+    getLeaders() {
+        return this.crew.get(CrewMemberType.Faction_Leader);
+    }
+
+    getNPCs() {
+        return this.crew.get(CrewMemberType.NPC);
     }
 }
