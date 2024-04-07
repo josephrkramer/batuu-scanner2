@@ -171,7 +171,7 @@
     const html5QrcodeScanner = new Html5QrcodeScanner(
             "qr-reader", config);
 
-    document.getElementById('start-button').addEventListener('click', () => {
+    function startButton() {
         logo.style.display = 'none';
         resultsHeader.style.display = 'none';
         contentsImage.style.display = 'none';
@@ -195,18 +195,18 @@
         }
         html5QrcodeScanner.render(onScanSuccess);
         puzzle.style.display = 'none';
-    });
+    }
 
-    document.getElementById('stop-button').addEventListener('click', () => {
+    function stopButton() {
         logo.style.display = 'block';
         resultsHeader.style.display = 'none';
         contentsImage.style.display = 'none';
         cargoHold.style.display = 'none';
         html5QrcodeScanner.clear();
         puzzle.style.display = 'none';
-    });
+    }
 
-    document.getElementById('scanned-button').addEventListener('click', () => {
+    function cargoHoldButton() {
         logo.style.display = 'none';
         resultsHeader.style.display = 'none';
         contentsImage.style.display = 'none';
@@ -214,6 +214,18 @@
         cargoHold.style.display = 'block';
         html5QrcodeScanner.clear();
         puzzle.style.display = 'none';
+    }
+
+    document.getElementById('start-button').addEventListener('click', () => {
+        startButton();
+    });
+
+    document.getElementById('stop-button').addEventListener('click', () => {
+        stopButton();
+    });
+
+    document.getElementById('scanned-button').addEventListener('click', () => {
+        cargoHoldButton();
     });
 </script>
 </body>
