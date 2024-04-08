@@ -61,18 +61,6 @@ However, the peace was not to last. The First Order soon became a big enough thr
             image: 'images/crew/pyke.png',
         }));
         this.addCrewMember(new CrewMember({
-            name: 'Jo Larpe',
-            occupation: 'Not the Character You\'re Looking For. Sometimes does odd jobs for the CSL ground crew',
-            biography: `Jo Larpe spends his days hanging around the cantina and taking whatever jobs suit him. He's familiar with the outpost, and can help you get where you're going if you are lost.`,
-            companion: undefined,
-            vehicle: 'V-35 Courier Landspeeder',
-            homeworld: 'Nar Shaddaa',
-            species: undefined,
-            affiliation: 'Unaffiliated',
-            type: CrewMemberType.NPC,
-            image: 'images/crew/joe.png',
-        }));
-        this.addCrewMember(new CrewMember({
             name: 'Jax Volta',
             occupation: undefined,
             biography: `Hailing from the bustling planet of Corellia, Jax Volta was born into a life of comfort and privilege, the son of two upper-middle-class accountant parents who had built a boringly predictable, if stable life within Corellia's financial sector. However, Jax's heart was never in the world of numbers and ledgers. From a young age, he felt a pull toward adventure and speed.
@@ -147,6 +135,18 @@ However, the peace was not to last. The First Order soon became a big enough thr
             affiliation: 'First Order',
             type: crewMemeberType.Faction_Leader,
             image: 'images/crew/evant.png',
+        }));
+        this.addCrewMember(new CrewMember({
+            name: 'Jo Larpe',
+            occupation: 'Not the Character You\'re Looking For. Sometimes does odd jobs for the CSL ground crew',
+            biography: `Jo Larpe spends his days hanging around the cantina and taking whatever jobs suit him. He's familiar with the outpost, and can help you get where you're going if you are lost.`,
+            companion: undefined,
+            vehicle: 'V-35 Courier Landspeeder',
+            homeworld: 'Nar Shaddaa',
+            species: undefined,
+            affiliation: 'Unaffiliated',
+            type: CrewMemberType.NPC,
+            image: 'images/crew/joe.png',
         }));
         /*this.addCrewMember(new CrewMember({
             name: undefined,
