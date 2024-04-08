@@ -102,6 +102,20 @@ However, the peace was not to last. The First Order soon became a big enough thr
             type: CrewMemberType.Faction_Leader,
             image: 'images/crew/lias.png',
         }));
+        this.addCrewMember(new CrewMember({
+            name: 'TAYLA YESMAR',
+            occupation: undefined,
+            biography: `AS A YOUNGLING THE FORCE HAS ALWAYS BEEN SOMETHING I WAS INTERESTED IN AND I SOON DISCOVERED IT WAS A PART OF ME AT THE AGE OF 10.
+
+            DAY IN AND DAY OUT I STUDY THE FORCE AND ITS TEACHINGS BY LEARNING ABOUT ANCIENT RELICS AND THE HISTORY OF THE PAST BOTH GOOD & EVIL. IT'S IMPORTANT THAT I CONTINUE TO LET THE FORCE GUIDE ME TO HELP OTHERS IN NEED AND UNITE THE GALAXY`,
+            companion: undefined,
+            vehicle: undefined,
+            homeworld: 'COREILLA',
+            species: 'HUMAN',
+            affiliation: 'ANCHORITE AND RUMORS OF ANOTHER AFFILIATION',
+            type: CrewMemberType.NPC,
+            image: 'images/crew/tayla.png',
+        }));
         /*this.addCrewMember(new CrewMember({
             name: undefined,
             occupation: undefined,
