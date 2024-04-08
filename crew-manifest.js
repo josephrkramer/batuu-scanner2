@@ -88,6 +88,20 @@ However, the peace was not to last. The First Order soon became a big enough thr
             type: CrewMemberType.NPC,
             image: 'images/crew/jax.png',
         }));
+        this.addCrewMember(new CrewMember({
+            name: 'Lias Orion',
+            occupation: 'BD-72',
+            biography: `At the age of 5. Lias Orion lost his father during the battle of Jakku. His mother disappeared upon receiving the news and Lias was left with his 2 year old sister. A'nah. Lias and A'nah were taken in by Maz Kanata under the condition that Lias would forever work in her castle as a runner to "take care of the things I would do 500 years ago? Lias learned about the galaxy from Maz.
+
+            During the Battle of Takodana with the First Order, A'nah was caught in action and died. The destruction of the castle and his sister’s death left Lias devastated and vengeful! He recalled what Maz taught him about the partisans and Saw Gerrera which inspired Lias to begin a faction of his own entitled "The Cause" to give the galaxy what he calls "True Freedom.”`,
+            companion: undefined,
+            vehicle: 'WTK-85A Interstellar transport',
+            homeworld: 'Takodana',
+            species: 'Human',
+            affiliation: 'The Cause',
+            type: CrewMemberType.Faction_Leader,
+            image: 'images/crew/lias.png',
+        }));
         /*this.addCrewMember(new CrewMember({
             name: undefined,
             occupation: undefined,
