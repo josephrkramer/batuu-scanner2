@@ -103,7 +103,7 @@ However, the peace was not to last. The First Order soon became a big enough thr
             image: 'images/crew/lias.png',
         }));
         this.addCrewMember(new CrewMember({
-            name: 'TAYLA YESMAR',
+            name: 'Tayla Yesmar',
             occupation: undefined,
             biography: `AS A YOUNGLING THE FORCE HAS ALWAYS BEEN SOMETHING I WAS INTERESTED IN AND I SOON DISCOVERED IT WAS A PART OF ME AT THE AGE OF 10.
 
@@ -115,6 +115,20 @@ However, the peace was not to last. The First Order soon became a big enough thr
             affiliation: 'ANCHORITE AND RUMORS OF ANOTHER AFFILIATION',
             type: CrewMemberType.NPC,
             image: 'images/crew/tayla.png',
+        }));
+        this.addCrewMember(new CrewMember({
+            name: 'Zilla Nir\'oz',
+            occupation: 'Slicer',
+            biography: `Zilla's childhood was spent in Canto Bight, shadowing her parents who worked at one of the gaming establishments (and picking up a few skills from the less-reputable patrons). She always admired the well- heeled customers, and hopes to one day own one of their sleek yachts.
+
+            She attracted attention by borrowing one of the ships without permission, and was given her first job by the impressed owner. Since then, her skills have been for rent to the highest bidder, and she'll work for anyone with the credits to spend. Having built up quite a reputation for herself, she finally secured what promised to be a long-term engagement with an established but unsavory organization. But those who know her wonder how long Zilla will be able to take orders…`,
+            companion: undefined,
+            vehicle: 'Nice try, First Order. I rotate vehicles.',
+            homeworld: 'Cantonica',
+            species: 'Human',
+            affiliation: undefined,
+            type: crewMemeberType.NPC,
+            image: 'images/crew/zilla.png',
         }));
         /*this.addCrewMember(new CrewMember({
             name: undefined,
