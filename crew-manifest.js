@@ -115,7 +115,7 @@ However, the peace was not to last. The First Order soon became a big enough thr
             homeworld: 'Cantonica',
             species: 'Human',
             affiliation: undefined,
-            type: crewMemeberType.NPC,
+            type: CrewMemberType.NPC,
             image: 'images/crew/zilla.png',
         }));
         this.addCrewMember(new CrewMember({
@@ -133,7 +133,7 @@ However, the peace was not to last. The First Order soon became a big enough thr
             homeworld: 'Chandrila',
             species: 'Human',
             affiliation: 'First Order',
-            type: crewMemeberType.Faction_Leader,
+            type: CrewMemberType.Faction_Leader,
             image: 'images/crew/evant.png',
         }));
         this.addCrewMember(new CrewMember({
