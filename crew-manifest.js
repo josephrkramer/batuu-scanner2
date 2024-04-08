@@ -130,6 +130,24 @@ However, the peace was not to last. The First Order soon became a big enough thr
             type: crewMemeberType.NPC,
             image: 'images/crew/zilla.png',
         }));
+        this.addCrewMember(new CrewMember({
+            name: 'Evant Rilas Verrick',
+            occupation: undefined,
+            biography: `Before joining the First Order, Evant was instrumental in coordinating recreational and agricultural growth in Hanna City.
+
+            Governor Verrick disagreed with Mon Mothma's decisions to demilitarize the New Republic and to relocate its capital, along with his family, to Hosnian Prime. Because of this, he helped the First Order establish a presence on Chandrila in order to maintain peace, order, and stability.
+            
+            Through his newly acquired position in the First Order, Evant traveled the galaxy researching how other planets and cultures-such as Lothal, Corellia, Hetzal Prime, Castillon, and Batuu-conduct their recreational and agricultural growth in order to further Chandrila's cultural advancements. In his galactic travels, Evant has even been granted a homestead in Peka on Batuu in conjunction with the work of Officer Anjay, Lt. Kath and, Lt. Agnon of the First Order.
+            
+            While he is not Force sensitive, Evant studies the Force religiously and is an avid collector of Force related items as he aspires to move through the ranks and become a First Order Relic Raider.`,
+            companion: 'EB-24',
+            vehicle: 'TIE Genesis',
+            homeworld: 'Chandrila',
+            species: 'Human',
+            affiliation: 'First Order',
+            type: crewMemeberType.Faction_Leader,
+            image: 'images/crew/evant.png',
+        }));
         /*this.addCrewMember(new CrewMember({
             name: undefined,
             occupation: undefined,
