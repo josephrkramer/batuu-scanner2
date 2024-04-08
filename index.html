@@ -20,7 +20,7 @@
 </div>
 <div id="crew-manifest">
     <h1 id="crew-manifest-title">Dossiers</h1>
-    <ul id="cargo-manifests-list">
+    <ul id="crew-manifests-list">
     </ul>
 </div>
 <div id="puzzle" style="display:none"></div>
@@ -63,7 +63,7 @@
     const cargoHoldList = document.getElementById('cargo-hold-list');
     const puzzle = document.getElementById('puzzle');
     const crewManifest = document.getElementById('crew-manifest');
-    const crewManifestList = document.getElementById('cargo-manifests-list');
+    const crewManifestList = document.getElementById('crew-manifests-list');
 
     //Keep track of the crates scanned so far and don't allow duplicates
     //load from local storage
@@ -72,6 +72,7 @@
     console.log(scannedCrates);
 
     const crateDecoder = new CrateDecoder();
+    const crewMembers = new CrewManifest();
 
     //Add custom overrides
     crateDecoder.override(new CrateContents({code: 'JK_RS', contents: 'Evan\'s Manifesto', type: CrateType.Relic, image: 'images/halcyon_cargo.jpeg'}));
@@ -136,12 +137,12 @@
             crewTypeListItem.appendChild(crewTypeList);
 
             //populate type list with each instance of that type
-            for (const crewMembor of crewMemberTypesToSort) {
-                console.log(crewMembor)
+            for (const crewMember of crewMembers.get(crewType)) {
+                console.log(crewMember)
                 //load the image
                 const crewMemberHeadshot = document.createElement('img');
                 crewMemberHeadshot.className = "scanned-list-item-image";
-                crewMemberHeadshot.src = crewMembor.image;
+                crewMemberHeadshot.src = crewMember.image;
 
                 crewMemberHeadshot.addEventListener('click', () => {
                     cargoHold.style.display = 'none';
@@ -152,14 +153,14 @@
                 const crewMemberListItem = document.createElement('li');
                 crewMemberListItem.className = "scanned-list-item-text";
                 crewMemberListItem.appendChild(crewMemberHeadshot);
-                crewMemberListItem.appendChild(document.createTextNode("  " + crewMembor.name));
+                crewMemberListItem.appendChild(document.createTextNode("  " + crewMember.name));
 
                 crewTypeList.appendChild(crewMemberListItem);
             }
             newCrewManifestList.push(crewTypeListItem);
         }
 
-        cargoHoldList.replaceChildren(...newCrewManifestList);
+        crewManifestList.replaceChildren(...newCrewManifestList);
     }
 
     function addToScanned(code) {
@@ -296,7 +297,7 @@
         logo.style.display = 'none';
         resultsHeader.style.display = 'none';
         contentsImage.style.display = 'none';
-        cargoHold.style.display = 'block';
+        cargoHold.style.display = 'none';
         html5QrcodeScanner.clear();
         puzzle.style.display = 'none';
         crewManifest.style.display = 'block';

@@ -23,9 +23,13 @@ export class CrewManifest {
     crew = new Map();
 
     constructor() {
-        for (const crewType in CrewMemberType) {
-            this.crew.set(crewType, []);
-        }
+        //create empty arrays
+        this.crew.set(CrewMemberType.Faction_Leader, new Array());
+        this.crew.set(CrewMemberType.NPC, new Array());
+        this.crew.set(CrewMemberType.Virtual, new Array());
+
+        console.log("Empty crew manifest");
+        console.log(this.crew);
         this.addCrewMember(new CrewMember({
             name: 'Lt Rook Darkazanli',
             occupation: 'Soldier',
@@ -40,7 +44,7 @@ However, the peace was not to last. The First Order soon became a big enough thr
             species: 'Human',
             affiliation: 'Rebellion//Resistance',
             type: CrewMemberType.Faction_Leader,
-            image: 'images/outfit.jpeg'
+            image: 'images/crew/rook.png'
         }));
         this.addCrewMember(new CrewMember({
                 name: 'Pyke Rendessa',
@@ -54,7 +58,7 @@ However, the peace was not to last. The First Order soon became a big enough thr
                 species: 'Human',
                 affiliation: 'None',
                 type: CrewMemberType.NPC,
-                image: 'images/outfit.jpeg',
+                image: 'images/crew/pyke.png',
             }));
         /*this.addCrewMember(new CrewMember({
             name: undefined,
@@ -71,7 +75,10 @@ However, the peace was not to last. The First Order soon became a big enough thr
     }
 
     addCrewMember(crewMemeber) {
-        typeList = this.crew.get(crewMemeber.type);
+        const typeList = this.crew.get(crewMemeber.type);
+        console.log("PRINTING TYPELIST");
+        console.log(crewMemeber.type);
+        console.log(typeList);
         typeList.push(crewMemeber);
     }
 
@@ -81,5 +88,9 @@ However, the peace was not to last. The First Order soon became a big enough thr
 
     getNPCs() {
         return this.crew.get(CrewMemberType.NPC);
+    }
+
+    get(crewMemeberType) {
+        return this.crew.get(crewMemeberType);
     }
 }
