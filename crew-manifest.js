@@ -47,19 +47,31 @@ However, the peace was not to last. The First Order soon became a big enough thr
             image: 'images/crew/rook.png'
         }));
         this.addCrewMember(new CrewMember({
-                name: 'Pyke Rendessa',
-                occupation: undefined,
-                biography: `Pyke Rendessa is a smuggler who does a lot of import/export work, and one day Dok Ondar asked for his services. Once a shipment of lightsabers came Pyke's way, his curiosity got the best of him. Pyke kept one saber for himself. thinking they were real. When Pyke tried to use the saber in combat, he quickly found out they were training replicas. Pyke ultimately gave up smuggling when his whole crew was murdered by Dok
+            name: 'Pyke Rendessa',
+            occupation: undefined,
+            biography: `Pyke Rendessa is a smuggler who does a lot of import/export work, and one day Dok Ondar asked for his services. Once a shipment of lightsabers came Pyke's way, his curiosity got the best of him. Pyke kept one saber for himself. thinking they were real. When Pyke tried to use the saber in combat, he quickly found out they were training replicas. Pyke ultimately gave up smuggling when his whole crew was murdered by Dok
 
-                Pyke was the sole survivor of the ambush. Once the smoke cleared, Pyke got out of the business and decided to go legit. Dok has called Pyke for a job, not knowing Pyke is out of the "game". Dok is also clueless to the fact that Pyke is looking for revenge against him.`,
-                companion: 'Porgkins',
-                vehicle: 'YT-2400 light freighter',
-                homeworld: 'Alderaan',
-                species: 'Human',
-                affiliation: 'None',
-                type: CrewMemberType.NPC,
-                image: 'images/crew/pyke.png',
-            }));
+            Pyke was the sole survivor of the ambush. Once the smoke cleared, Pyke got out of the business and decided to go legit. Dok has called Pyke for a job, not knowing Pyke is out of the "game". Dok is also clueless to the fact that Pyke is looking for revenge against him.`,
+            companion: 'Porgkins',
+            vehicle: 'YT-2400 light freighter',
+            homeworld: 'Alderaan',
+            species: 'Human',
+            affiliation: 'None',
+            type: CrewMemberType.NPC,
+            image: 'images/crew/pyke.png',
+        }));
+        this.addCrewMember(new CrewMember({
+            name: 'Jo Larpe',
+            occupation: 'Not the Character You\'re Looking For. Sometimes does odd jobs for the CSL ground crew',
+            biography: `Jo Larpe spends his days hanging around the cantina and taking whatever jobs suit him. He's familiar with the outpost, and can help you get where you're going if you are lost.`,
+            companion: undefined,
+            vehicle: 'V-35 Courier Landspeeder',
+            homeworld: 'Nar Shaddaa',
+            species: undefined,
+            affiliation: 'Unaffiliated',
+            type: CrewMemberType.NPC,
+            image: 'images/crew/joe.png',
+        }));
         /*this.addCrewMember(new CrewMember({
             name: undefined,
             occupation: undefined,
