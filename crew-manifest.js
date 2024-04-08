@@ -72,6 +72,22 @@ However, the peace was not to last. The First Order soon became a big enough thr
             type: CrewMemberType.NPC,
             image: 'images/crew/joe.png',
         }));
+        this.addCrewMember(new CrewMember({
+            name: 'Jax Volta',
+            occupation: undefined,
+            biography: `Hailing from the bustling planet of Corellia, Jax Volta was born into a life of comfort and privilege, the son of two upper-middle-class accountant parents who had built a boringly predictable, if stable life within Corellia's financial sector. However, Jax's heart was never in the world of numbers and ledgers. From a young age, he felt a pull toward adventure and speed.
+
+            Jax took up swoop racing and sharpened his skills on Corellia's dangerous underground swoop tracks, eventually winning the Onderon Rally.
+            
+            Jax was later drawn to the allure of the galactic underworld, and carved out a niche for himself as a respected smuggler.`,
+            companion: undefined,
+            vehicle: 'YT-2500',
+            homeworld: 'Corellia',
+            species: 'Human',
+            affiliation: 'Self',
+            type: CrewMemberType.NPC,
+            image: 'images/crew/jax.png',
+        }));
         /*this.addCrewMember(new CrewMember({
             name: undefined,
             occupation: undefined,
