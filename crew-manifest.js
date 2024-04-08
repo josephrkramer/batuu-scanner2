@@ -47,20 +47,6 @@ However, the peace was not to last. The First Order soon became a big enough thr
             image: 'images/crew/rook.png'
         }));
         this.addCrewMember(new CrewMember({
-            name: 'Pyke Rendessa',
-            occupation: undefined,
-            biography: `Pyke Rendessa is a smuggler who does a lot of import/export work, and one day Dok Ondar asked for his services. Once a shipment of lightsabers came Pyke's way, his curiosity got the best of him. Pyke kept one saber for himself. thinking they were real. When Pyke tried to use the saber in combat, he quickly found out they were training replicas. Pyke ultimately gave up smuggling when his whole crew was murdered by Dok
-
-            Pyke was the sole survivor of the ambush. Once the smoke cleared, Pyke got out of the business and decided to go legit. Dok has called Pyke for a job, not knowing Pyke is out of the "game". Dok is also clueless to the fact that Pyke is looking for revenge against him.`,
-            companion: 'Porgkins',
-            vehicle: 'YT-2400 light freighter',
-            homeworld: 'Alderaan',
-            species: 'Human',
-            affiliation: 'None',
-            type: CrewMemberType.NPC,
-            image: 'images/crew/pyke.png',
-        }));
-        this.addCrewMember(new CrewMember({
             name: 'Jax Volta',
             occupation: undefined,
             biography: `Hailing from the bustling planet of Corellia, Jax Volta was born into a life of comfort and privilege, the son of two upper-middle-class accountant parents who had built a boringly predictable, if stable life within Corellia's financial sector. However, Jax's heart was never in the world of numbers and ledgers. From a young age, he felt a pull toward adventure and speed.
@@ -135,6 +121,20 @@ However, the peace was not to last. The First Order soon became a big enough thr
             affiliation: 'First Order',
             type: CrewMemberType.Faction_Leader,
             image: 'images/crew/evant.png',
+        }));
+        this.addCrewMember(new CrewMember({
+            name: 'Pyke Rendessa',
+            occupation: undefined,
+            biography: `Pyke Rendessa is a smuggler who does a lot of import/export work, and one day Dok Ondar asked for his services. Once a shipment of lightsabers came Pyke's way, his curiosity got the best of him. Pyke kept one saber for himself. thinking they were real. When Pyke tried to use the saber in combat, he quickly found out they were training replicas. Pyke ultimately gave up smuggling when his whole crew was murdered by Dok
+
+            Pyke was the sole survivor of the ambush. Once the smoke cleared, Pyke got out of the business and decided to go legit. Dok has called Pyke for a job, not knowing Pyke is out of the "game". Dok is also clueless to the fact that Pyke is looking for revenge against him.`,
+            companion: 'Porgkins',
+            vehicle: 'YT-2400 light freighter',
+            homeworld: 'Alderaan',
+            species: 'Human',
+            affiliation: 'None',
+            type: CrewMemberType.NPC,
+            image: 'images/crew/pyke.png',
         }));
         this.addCrewMember(new CrewMember({
             name: 'Jo Larpe',
