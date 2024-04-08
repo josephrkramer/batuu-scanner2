@@ -46,6 +46,10 @@ div {
     display: none;
 }
 
+#crew-member {
+    display: none;
+}
+
 .major-button {
     font-size:36px;
     width:100%;
