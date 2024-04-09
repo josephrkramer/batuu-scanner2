@@ -231,9 +231,13 @@
     function setResult(code) {
         console.log(code);
         //update the display text for the item
-        let crate = crateDecoder.decode(code);
+        const crate = crateDecoder.decode(code);
         console.log(crate);
-        resultsHeader.textContent = code + " - " + crate.contents;
+        if (urlParams.has('debug')) {
+            resultsHeader.textContent = code + " - " + crate.contents;
+        } else {
+            resultsHeader.textContent = crate.contents;
+        }
         resultsHeader.style.display = 'block';
 
         //display the image contents
@@ -292,17 +296,27 @@
             puzzle.style.display = 'block';
             html5QrcodeScanner.clear();
 
-            //start puzzle and wait for success
-            waitToSolvePuzzle().then(
-                function(value) {
-                    console.log("PUZZLE SUCESS");
+            const crate = crateDecoder.decode(decodedText);
+
+            if (crate.type == CrateType.Chain_Code || crate.type == CrateType.Unknown || urlParams.has('debug')) {
+                if (crate.type == CrateType.Chain_Code) {
+                    //handle chain code
+                } else {
                     setResult(decodedText);
-                    puzzle.style.display = 'none';
-                },
-                function(error) {
-                    console.log("PUZZLE FAILURE");
                 }
-            );
+            } else {
+                //start puzzle and wait for success
+                waitToSolvePuzzle().then(
+                    function(value) {
+                        console.log("PUZZLE SUCESS");
+                        setResult(decodedText);
+                        puzzle.style.display = 'none';
+                    },
+                    function(error) {
+                        console.log("PUZZLE FAILURE");
+                    }
+                );
+            }
         }
         html5QrcodeScanner.render(onScanSuccess);
         puzzle.style.display = 'none';

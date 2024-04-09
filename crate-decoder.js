@@ -9,6 +9,8 @@ export const CrateType = Object.freeze({
     Vehicle: 'Vehicle',
     Ports_Of_Call: 'Ports of Call',
     Relic: 'Relic',
+    Unknown: 'Unknown',
+    Chain_Code: 'Chain Code',
 });
 
 export class CrateContents {
@@ -194,7 +196,7 @@ export class CrateDecoder {
 
             return this.contents.get(code);
         } else {
-            return new CrateContents({code: '?????', contents: 'Unknown contents', type: CrateType.Empty});
+            return new CrateContents({code: '?????', contents: 'Unknown contents', type: CrateType.Unknown});
         }
     }
 
