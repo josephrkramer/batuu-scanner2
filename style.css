@@ -74,6 +74,10 @@ div {
     max-width: 150px;
 }
 
+.multi-line {
+    white-space: pre-line;
+}
+
 hr {
     margin-top: 32px;
 }
