@@ -293,7 +293,6 @@
 
         function onScanSuccess(decodedText, decodedResult) {
             console.log(`Scan result ${decodedText}`, decodedResult);
-            puzzle.style.display = 'block';
             html5QrcodeScanner.clear();
 
             const crate = crateDecoder.decode(decodedText);
@@ -306,6 +305,7 @@
                 }
             } else {
                 //start puzzle and wait for success
+                puzzle.style.display = 'block';
                 waitToSolvePuzzle().then(
                     function(value) {
                         console.log("PUZZLE SUCESS");
