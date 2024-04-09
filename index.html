@@ -45,6 +45,7 @@
 <script type="module">
     import { CrateDecoder, CrateContents, CrateType } from "./crate-decoder.js";
     import { CrewMemberType, CrewMember, CrewManifest } from "./crew-manifest.js";
+    import { ChainCodeAlignment, ChainCodePart, ChainCodeDecoder } from "./chain-code.js";
 
     function docReady(fn) {
         // see if DOM is already available
@@ -78,8 +79,13 @@
     console.log(`Cargo hold instantiated from local storage:`);
     console.log(scannedCrates);
 
+    const chainCode = new Array(JSON.parse(localStorage.getItem('chainCode')));
+    console.log(`Chain code instantiated from local storage:`);
+    console.log(chainCode);
+
     const crateDecoder = new CrateDecoder();
     const crewMembers = new CrewManifest();
+    const chainCodeDecoder = new ChainCodeDecoder();
 
     //Add custom overrides
     crateDecoder.override(new CrateContents({code: 'JK_RS', contents: 'Evan\'s Manifesto', type: CrateType.Relic, image: 'images/halcyon_cargo.jpeg'}));
@@ -220,8 +226,11 @@
     if (urlParams.has('reset')) {
         //remove our state from local storage
         localStorage.removeItem('cargo');
+        localStorage.removeItem('chainCode');
         //remove our state from internal memory
         scannedCrates.clear();
+        chainCode.splice(0, chainCode.length);
+
         //force a reload of the page that will refresh the cache. Equivalent of Ctl+F5
         window.location.reload(true);
         //strip ?reset from the url so we don't get in a refresh loop

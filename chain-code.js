@@ -15,7 +15,6 @@ export class ChainCodePart {
 
 export class ChainCodeDecoder {
     scanCodeToChainCodePart = new Map();
-    chainCode = new Array();
 
     constructor() {
         this.scanCodeToChainCodePart.set('DARK1', new ChainCodePart({code: 'DARK1', description: 'Dark Side Alignment', type: ChainCodeAlignment.Dark}));
@@ -23,24 +22,18 @@ export class ChainCodeDecoder {
         this.scanCodeToChainCodePart.set('NEUTR', new ChainCodePart({code: 'NEUTR', contents: 'Neutral Alignment', type: ChainCodeAlignment.Neutral}));
     }
 
-    add(code) {
+    decode(code) {
         if (this.scanCodeToChainCodePart.has(code)) {
-            const chainCodePart = this.scanCodeToChainCodePart.get(code);
-            this.chainCode.push(chainCodePart);
-            return chainCodePart;
+            return this.scanCodeToChainCodePart.get(code);
         } else {
             throw new Error(`${code} is an unknown chaincode`);
         }
     }
 
-    decode() {
-        //Figure out how to interpret the raw summary
-        return this.rawValue();
-    }
-
-    rawValue() {
+    rawValue(chainCode) {
         let value = 0;
-        for (const chainCodePart of this.chainCode) {
+        for (const code of chainCode) {
+            const chainCodePart = this.decode(code);
             value += chainCodePart.ChainCodeAlignment;
         }
         return value;
