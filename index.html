@@ -167,7 +167,7 @@
                     function createCrewMemberListItem(text, content) {
                         if (content !== undefined){
                             const crewMemberListItem = document.createElement('li');
-                            crewMemberListItem.className = "scanned-list-item-text";
+                            crewMemberListItem.className = "scanned-list-item-text multi-line";
                             crewMemberListItem.textContent = `${text}: ` + content;
                             crewMemberDetailsListItems.push(crewMemberListItem);
                         }
@@ -179,8 +179,7 @@
                     createCrewMemberListItem('Companion', crewMember.companion);
                     createCrewMemberListItem('Vehicle', crewMember.vehicle);
                     createCrewMemberListItem('Species', crewMember.species);
-                    //TODO: figure out how to handle multiple paragraphs in the biography
-                    createCrewMemberListItem('Biograpy', crewMember.biography);
+                    createCrewMemberListItem('Biography', crewMember.biography);
 
                     crewMemberDetails.replaceChildren(...crewMemberDetailsListItems);
                 });
