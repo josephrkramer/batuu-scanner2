@@ -130,6 +130,8 @@
             newCargoHoldList.push(crateTypeListItem);
         }
 
+        //TODO: add chain code
+
         cargoHoldList.replaceChildren(...newCargoHoldList);
     }
 
@@ -291,6 +293,32 @@
         );
         stopButton();
     }
+
+    function setChainCodeResult(code) {
+        console.log(`Valid Chain Code Detected: ${code}`);
+        const chainCodePart = chainCodeDecoder.decode(code);
+
+        //update the display text for the item
+        console.log(chainCodePart);
+        if (urlParams.has('debug')) {
+            resultsHeader.textContent = code + " - Chain Code Updated";
+        } else {
+            resultsHeader.textContent = "Chain Code Updated";
+        }
+        resultsHeader.style.display = 'block';
+
+        //display the image contents
+        contentsImage.style.display = 'block';
+        contentsImage.src = chainCodePart.image;
+
+        //add the item to the chainCode internal tracking
+        chainCode.push(code);
+
+        //store all of the scanned crates into local storage
+        localStorage.setItem('chainCode', JSON.stringify(Array.from(chainCode)));
+
+        //TODO: add check for sufficient chain code pieces and enable button
+    }
     
     function startButton() {
         logo.style.display = 'none';
@@ -306,9 +334,9 @@
 
             const crate = crateDecoder.decode(decodedText);
 
-            if (crate.type == CrateType.Chain_Code || crate.type == CrateType.Unknown || urlParams.has('debug')) {
-                if (crate.type == CrateType.Chain_Code) {
-                    //handle chain code
+            if (chainCodeDecoder.isValidChainCode(decodedText) || crate.type == CrateType.Unknown || urlParams.has('debug')) {
+                if (chainCodeDecoder.isValidChainCode(decodedText)) {
+                    setChainCodeResult(decodedText);
                 } else {
                     setResult(decodedText);
                 }

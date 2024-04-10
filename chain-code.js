@@ -22,12 +22,29 @@ export class ChainCodeDecoder {
         this.scanCodeToChainCodePart.set('NEUTR', new ChainCodePart({code: 'NEUTR', contents: 'Neutral Alignment', type: ChainCodeAlignment.Neutral}));
     }
 
+    getRandomInt(max) {
+        console.log("Generating random int...");
+        return Math.floor(Math.random() * max);
+    }
+
+    getRandomImage() {
+        const randomNum = this.getRandomInt(3) + 1;
+        return `images/chaincode0${randomNum}.jpeg`;
+    }
+
     decode(code) {
+        console.log(`Decoding ${code}`);
         if (this.scanCodeToChainCodePart.has(code)) {
-            return this.scanCodeToChainCodePart.get(code);
+            const ccPart = this.scanCodeToChainCodePart.get(code);
+            ccPart.image = this.getRandomImage();
+            return ccPart;
         } else {
             throw new Error(`${code} is an unknown chaincode`);
         }
+    }
+
+    isValidChainCode(code) {
+        return this.scanCodeToChainCodePart.has(code);
     }
 
     rawValue(chainCode) {

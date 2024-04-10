@@ -10,7 +10,6 @@ export const CrateType = Object.freeze({
     Ports_Of_Call: 'Ports of Call',
     Relic: 'Relic',
     Unknown: 'Unknown',
-    Chain_Code: 'Chain Code',
 });
 
 export class CrateContents {
