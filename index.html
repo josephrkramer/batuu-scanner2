@@ -79,7 +79,7 @@
     console.log(`Cargo hold instantiated from local storage:`);
     console.log(scannedCrates);
 
-    const chainCode = new Array(JSON.parse(localStorage.getItem('chainCode')));
+    const chainCode = localStorage.chainCode !== undefined ? JSON.parse(localStorage.chainCode) : new Array();
     console.log(`Chain code instantiated from local storage:`);
     console.log(chainCode);
 
@@ -130,7 +130,33 @@
             newCargoHoldList.push(crateTypeListItem);
         }
 
-        //TODO: add chain code
+        //add chain code
+        const chainCodeListItem = document.createElement('li');
+        chainCodeListItem.className = "cargo-type-text";
+        chainCodeListItem.appendChild(document.createTextNode("Chain Code"));
+        const chainCodeList = document.createElement('ul');
+        chainCodeListItem.appendChild(chainCodeList);
+        for (const code of chainCode) {
+            console.log('DISPLAYING CHAIN CODE');
+            console.log(code);
+            const chainCodePart = chainCodeDecoder.decode(code);
+            const scannedImage = document.createElement('img');
+            scannedImage.className = "scanned-list-item-image";
+            scannedImage.src = chainCodePart.image;
+
+            scannedImage.addEventListener('click', () => {
+                cargoHold.style.display = 'none';
+                setChainCodeResult(chainCodePart.code);
+            });
+
+            //add the item to the scanned list
+            const scannedListItem = document.createElement('li');
+            scannedListItem.className = "scanned-list-item-text";
+            scannedListItem.appendChild(scannedImage);
+            scannedListItem.appendChild(document.createTextNode("  " + chainCodePart.description));
+
+            chainCodeList.appendChild(scannedListItem);
+        }
 
         cargoHoldList.replaceChildren(...newCargoHoldList);
     }
@@ -315,7 +341,7 @@
         chainCode.push(code);
 
         //store all of the scanned crates into local storage
-        localStorage.setItem('chainCode', JSON.stringify(Array.from(chainCode)));
+        localStorage.chainCode = JSON.stringify(chainCode);
 
         //TODO: add check for sufficient chain code pieces and enable button
     }

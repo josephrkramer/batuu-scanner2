@@ -18,8 +18,8 @@ export class ChainCodeDecoder {
 
     constructor() {
         this.scanCodeToChainCodePart.set('DARK1', new ChainCodePart({code: 'DARK1', description: 'Dark Side Alignment', type: ChainCodeAlignment.Dark}));
-        this.scanCodeToChainCodePart.set('LIGHT', new ChainCodePart({code: 'LIGHT', contents: 'Light Side Alignment', type: ChainCodeAlignment.Light}));
-        this.scanCodeToChainCodePart.set('NEUTR', new ChainCodePart({code: 'NEUTR', contents: 'Neutral Alignment', type: ChainCodeAlignment.Neutral}));
+        this.scanCodeToChainCodePart.set('LIGHT', new ChainCodePart({code: 'LIGHT', description: 'Light Side Alignment', type: ChainCodeAlignment.Light}));
+        this.scanCodeToChainCodePart.set('NEUTR', new ChainCodePart({code: 'NEUTR', description: 'Neutral Alignment', type: ChainCodeAlignment.Neutral}));
     }
 
     getRandomInt(max) {
