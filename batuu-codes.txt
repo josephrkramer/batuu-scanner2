@@ -1,0 +1,113 @@
+FAL01   E-11 Blaster Rifle
+FAL28   Jawa Outfit
+FAL30   Loth-Cat Chow
+
+AB_LM   E-11 Blastger Rifle
+BC_LM   Resistance Flight Uniform
+CD_LM   First Order Outfit
+DE_LM   RA-7 Personal Servant Droid Arm
+EF_LM   Droid Holoprojector
+FG_LM   Mouse Droid Casings
+GI_LM   A99 Aqua Breather
+IJ_LM   Concussion Disc
+JK_LM   Medical Equipment Bags
+KL_LM   Kyber Crystal Necklace - Halcyon only
+
+AB_MN   Z-6 Jetpack
+BC_MN   Resistance Ground Outfit
+CD_MN   --Empty
+DE_MN   Vaporator Blades
+EF_MN   Tracer Beacon
+FG_MN   First Order Binders
+GI_MN   Spice
+IJ_MN   Tracer Beacon
+JK_MN   Food Ration Packs
+KL_MN   --Empty
+
+AB_NO   Bowcaster
+BC_NO   Stormtrooper Armor
+CD_NO   --Empty
+DE_NO   AT_AT Targetting Computer
+EF_NO   Computer Probe Arm (R-Unit)
+FG_NO   Food Ration Packs
+GI_NO   Loth_Cat Chow
+IJ_NO   --Restricted
+JK_NO   Bacta
+KL_NO   --Restricted
+
+
+AB_OP   Proton Grenade
+BC_OP   Death Star Uniform
+CD_OP   --Empty
+DE_OP   Jawa Outfit
+EF_OP   Carbon Chisel
+FG_OP   Salvage Cleaning Kit
+GI_OP   Medical Equipment Bags
+IJ_OP   Batuu Sun Outfit
+JK_OP   --Restricted
+KL_OP   --Restricted
+
+AB_PQ   --Restricted
+BC_PQ   Mon Calamari Outfit
+DE_PQ   Blue Kyber Crystals
+EF_PQ   Osteo Fragmenter
+FG_PQ   Sewing Thread
+GI_PQ   Star Destroyer Capacitor Bearing
+IJ_PQ   Glie-44 Pistol
+JK_PQ   --Restricted
+KL_PQ   --Restricted
+
+AB_QR   Concussion Disc
+BC_QR   Resistance Flight Uniform
+CD_QR   Marauder Armor
+DE_QR   Green Kyber Crystals
+EF_QR   Diatium Power Cord
+FG_QR   Condiments
+GI_QR   Plush Toys
+IJ_QR   Pyro Denton Explosive
+JK_QR   --Restricted
+KL_QR   --Restricted
+
+AB_RS   T-47 Airspeeder Harpoon Gun
+BC_RS   Batuu Rain Outfit
+CD_RS   Leather Armor
+DE_RS   Red Kyber Crystal
+EF_RS   Hang Glider
+FG_RS   Gungan Personal Energy Shield
+GI_RS   --Empty
+IJ_RS   Proton Grenate
+JK_RS   --Restricted
+KL_RS   --Restricted
+
+AB_ST   --Restricted
+BC_ST   Ewok Disguise   
+CD_ST   Embo-Style Outfit
+DE_ST   Purple Kyber Crystal
+EF_ST   Security Enhanced Comlink
+FG_ST   Data Chip
+GI_ST   --Empty
+IJ_ST   --Restricted
+JK_ST   --Restricted
+KL_ST   --Restricted
+
+AB_TU   NN-14 Blaster Pistol
+BC_TU   Batuu Sun Outfit
+CD_TU   Ohnaka Uniform
+DE_TU   Pit Droid
+EF_TU   DL-44 Pistol
+FG_TU   Gaming Kit
+GI_TU   --Empty
+IJ_TU   Neuro-Saav Quadnoculars
+JK_TU   Raithe Business Card
+KL_TU   --Restricted
+
+AB_UV   --Restricted
+BC_UV   --Empty
+CD_UV   --Empty
+DE_UV   --Empty
+EF_UV   F-11D Blaster Rifle
+FG_UV   Neuro_Saav Quadnoculars
+GI_UV   --Empty
+IJ_UV   Coded Communicator
+JK_UV   --Restricted
+KL_UV   --Restricted

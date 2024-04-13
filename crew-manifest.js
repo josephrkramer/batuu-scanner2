@@ -28,8 +28,6 @@ export class CrewManifest {
         this.crew.set(CrewMemberType.NPC, new Array());
         this.crew.set(CrewMemberType.Virtual, new Array());
 
-        console.log("Empty crew manifest");
-        console.log(this.crew);
         this.addCrewMember(new CrewMember({
             name: 'Lt Rook Darkazanli',
             occupation: 'Soldier',
@@ -164,9 +162,6 @@ However, the peace was not to last. The First Order soon became a big enough thr
 
     addCrewMember(crewMemeber) {
         const typeList = this.crew.get(crewMemeber.type);
-        console.log("PRINTING TYPELIST");
-        console.log(crewMemeber.type);
-        console.log(typeList);
         typeList.push(crewMemeber);
     }
 

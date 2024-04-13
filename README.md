@@ -21,3 +21,6 @@ See [https://josephrkramer.github.io/batuu-scanner2/?reset](https://josephrkrame
 
 ### Play the mini-game puzzle
 See [https://josephrkramer.github.io/batuu-scanner2/?puzzle](https://josephrkramer.github.io/batuu-scanner2/?puzzle)
+
+### Debug mode for no puzzle and extra scan code display
+See [https://josephrkramer.github.io/batuu-scanner2/?debug](https://josephrkramer.github.io/batuu-scanner2/?debug)

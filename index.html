@@ -29,6 +29,9 @@
     <ul id="crew-member-details">
     </ul>
 </div>
+<div id="chain-code">
+    <h1 id="chain-code-title">Chain Code Value</h1>
+</div>
 <div id="puzzle" style="display:none"></div>
 <button id="start-button" class="major-button">Scan</button>
 <br>
@@ -38,6 +41,8 @@
 <br>
 <button id="crew-manifest-button" class="major-button">Dossiers</button>
 <br>
+<button id="decode-chain-code-button" class="major-button">Decode Chain Code</button>
+<br>
 
 
 <script src="https://unpkg.com/html5-qrcode"></script>
@@ -45,6 +50,7 @@
 <script type="module">
     import { CrateDecoder, CrateContents, CrateType } from "./crate-decoder.js";
     import { CrewMemberType, CrewMember, CrewManifest } from "./crew-manifest.js";
+    import { ChainCodeAlignment, ChainCodePart, ChainCodeDecoder } from "./chain-code.js";
 
     function docReady(fn) {
         // see if DOM is already available
@@ -71,6 +77,15 @@
     const crewManifest = document.getElementById('crew-manifest');
     const crewManifestList = document.getElementById('crew-manifests-list');
     const crewMemberDiv = document.getElementById('crew-member');
+    const chainCodeDiv = document.getElementById('chain-code');
+
+    const crateDecoder = new CrateDecoder();
+    const crewMembers = new CrewManifest();
+    const chainCodeDecoder = new ChainCodeDecoder();
+
+    //Add custom overrides
+    crateDecoder.override(new CrateContents({code: 'JK_RS', contents: 'Evan\'s Manifesto', type: CrateType.Relic, image: 'images/halcyon_cargo.jpeg'}));
+    crateDecoder.override(new CrateContents({code: 'JK_TU', contents: 'Tom\'s Vape Pen', type: CrateType.Relic, image: 'images/ports_of_call.jpeg'}));
 
     //Keep track of the crates scanned so far and don't allow duplicates
     //load from local storage
@@ -78,12 +93,20 @@
     console.log(`Cargo hold instantiated from local storage:`);
     console.log(scannedCrates);
 
-    const crateDecoder = new CrateDecoder();
-    const crewMembers = new CrewManifest();
+    //load chainCode from local storage
+    const chainCode = localStorage.chainCode !== undefined ? JSON.parse(localStorage.chainCode) : new Array();
+    console.log(`Chain code instantiated from local storage:`);
+    console.log(chainCode);
+    //check if the decode button should be enabled after an initial load from local storage
+    checkDecodeButton();
 
-    //Add custom overrides
-    crateDecoder.override(new CrateContents({code: 'JK_RS', contents: 'Evan\'s Manifesto', type: CrateType.Relic, image: 'images/halcyon_cargo.jpeg'}));
-    crateDecoder.override(new CrateContents({code: 'JK_TU', contents: 'Tom\'s Vape Pen', type: CrateType.Relic, image: 'images/ports_of_call.jpeg'}));
+    function checkDecodeButton() {
+        console.log(`Chain code length: ${chainCode.length}`);
+        if (chainCode.length >= chainCodeDecoder.MIN_CHAIN_CODE_SIZE) {
+            const decodeButton = document.getElementById('decode-chain-code-button');
+            decodeButton.style.display = 'block';
+        }
+    }
 
     function displayCargoHold() {
         console.log('Building the cargo hold display');
@@ -117,11 +140,48 @@
                 const scannedListItem = document.createElement('li');
                 scannedListItem.className = "scanned-list-item-text";
                 scannedListItem.appendChild(scannedImage);
-                scannedListItem.appendChild(document.createTextNode("  " + crate.contents));
+                if (urlParams.has('debug')) {
+                    scannedListItem.appendChild(document.createTextNode("  " + crate.code + " - " + crate.contents));
+                } else {
+                    scannedListItem.appendChild(document.createTextNode("  " + crate.contents));
+                }
 
                 crateTypeList.appendChild(scannedListItem);
             }
             newCargoHoldList.push(crateTypeListItem);
+        }
+
+        if (chainCode.length > 0) {
+            //add chain code
+            const chainCodeListItem = document.createElement('li');
+            chainCodeListItem.className = "cargo-type-text";
+            chainCodeListItem.appendChild(document.createTextNode("Chain Code"));
+            const chainCodeList = document.createElement('ul');
+            chainCodeListItem.appendChild(chainCodeList);
+            for (const code of chainCode) {
+                const chainCodePart = chainCodeDecoder.decode(code);
+                const scannedImage = document.createElement('img');
+                scannedImage.className = "scanned-list-item-image";
+                scannedImage.src = chainCodePart.image;
+
+                scannedImage.addEventListener('click', () => {
+                    cargoHold.style.display = 'none';
+                    displayChainCodeResult(chainCodePart);
+                });
+
+                //add the item to the scanned list
+                const scannedListItem = document.createElement('li');
+                scannedListItem.className = "scanned-list-item-text";
+                scannedListItem.appendChild(scannedImage);
+                if (urlParams.has('debug')) {
+                    scannedListItem.appendChild(document.createTextNode("  " + chainCodePart.code + " - Chain Code Piece"));
+                } else {
+                    scannedListItem.appendChild(document.createTextNode("  Chain Code Piece"));
+                }
+
+                chainCodeList.appendChild(scannedListItem);
+            }
+            newCargoHoldList.push(chainCodeListItem);
         }
 
         cargoHoldList.replaceChildren(...newCargoHoldList);
@@ -220,8 +280,11 @@
     if (urlParams.has('reset')) {
         //remove our state from local storage
         localStorage.removeItem('cargo');
+        localStorage.removeItem('chainCode');
         //remove our state from internal memory
         scannedCrates.clear();
+        chainCode.splice(0, chainCode.length);
+
         //force a reload of the page that will refresh the cache. Equivalent of Ctl+F5
         window.location.reload(true);
         //strip ?reset from the url so we don't get in a refresh loop
@@ -231,9 +294,13 @@
     function setResult(code) {
         console.log(code);
         //update the display text for the item
-        let crate = crateDecoder.decode(code);
+        const crate = crateDecoder.decode(code);
         console.log(crate);
-        resultsHeader.textContent = code + " - " + crate.contents;
+        if (urlParams.has('debug')) {
+            resultsHeader.textContent = code + " - " + crate.contents;
+        } else {
+            resultsHeader.textContent = crate.contents;
+        }
         resultsHeader.style.display = 'block';
 
         //display the image contents
@@ -269,7 +336,7 @@
         //start puzzle and wait for success
         await waitToSolvePuzzle().then(
             function(value) {
-                console.log("PUZZLE SUCESS");
+                console.log("PUZZLE SUCCESS");
                 puzzle.style.display = 'none';
             },
             function(error) {
@@ -277,6 +344,41 @@
             }
         );
         stopButton();
+    }
+
+    function displayChainCodeResult(chainCodePart) {
+        //update the display text for the item
+        console.log(chainCodePart);
+        if (urlParams.has('debug')) {
+            resultsHeader.textContent = chainCodePart.code + " - Chain Code Piece";
+        } else {
+            resultsHeader.textContent = "Chain Code Piece";
+        }
+        resultsHeader.style.display = 'block';
+
+        //display the image contents
+        contentsImage.style.display = 'block';
+        contentsImage.src = chainCodePart.image;
+    }
+    
+    function setChainCodeResult(code) {
+        console.log(`Valid Chain Code Detected: ${code}`);
+        const chainCodePart = chainCodeDecoder.decode(code);
+
+        displayChainCodeResult(chainCodePart);
+
+        //add the item to the chainCode internal tracking
+        chainCode.push(code);
+
+        //store all of the scanned crates into local storage
+        localStorage.chainCode = JSON.stringify(chainCode);
+
+        checkDecodeButton();
+    }
+
+    function setChainCodeValue() {
+        const chainCodeHeader = document.getElementById('chain-code-title');
+        chainCodeHeader.textContent = "Chain Code Value: " + chainCodeDecoder.rawValue(chainCode);
     }
     
     function startButton() {
@@ -286,23 +388,34 @@
         cargoHold.style.display = 'none';
         crewManifest.style.display = 'none';
         crewMemberDiv.style.display = 'none';
+        chainCodeDiv.style.display = 'none';
 
         function onScanSuccess(decodedText, decodedResult) {
             console.log(`Scan result ${decodedText}`, decodedResult);
-            puzzle.style.display = 'block';
             html5QrcodeScanner.clear();
 
-            //start puzzle and wait for success
-            waitToSolvePuzzle().then(
-                function(value) {
-                    console.log("PUZZLE SUCESS");
+            const crate = crateDecoder.decode(decodedText);
+
+            if (chainCodeDecoder.isValidChainCode(decodedText) || crate.type == CrateType.Unknown || urlParams.has('debug')) {
+                if (chainCodeDecoder.isValidChainCode(decodedText)) {
+                    setChainCodeResult(decodedText);
+                } else {
                     setResult(decodedText);
-                    puzzle.style.display = 'none';
-                },
-                function(error) {
-                    console.log("PUZZLE FAILURE");
                 }
-            );
+            } else {
+                //start puzzle and wait for success
+                puzzle.style.display = 'block';
+                waitToSolvePuzzle().then(
+                    function(value) {
+                        console.log("PUZZLE SUCCESS");
+                        setResult(decodedText);
+                        puzzle.style.display = 'none';
+                    },
+                    function(error) {
+                        console.log("PUZZLE FAILURE");
+                    }
+                );
+            }
         }
         html5QrcodeScanner.render(onScanSuccess);
         puzzle.style.display = 'none';
@@ -317,6 +430,7 @@
         puzzle.style.display = 'none';
         crewManifest.style.display = 'none';
         crewMemberDiv.style.display = 'none';
+        chainCodeDiv.style.display = 'none';
     }
 
     function cargoHoldButton() {
@@ -329,6 +443,7 @@
         puzzle.style.display = 'none';
         crewManifest.style.display = 'none';
         crewMemberDiv.style.display = 'none';
+        chainCodeDiv.style.display = 'none';
     }
 
     function crewManifestButton() {
@@ -341,6 +456,20 @@
         crewManifest.style.display = 'block';
         crewMemberDiv.style.display = 'none';
         displayCrewManifest();
+        chainCodeDiv.style.display = 'none';
+    }
+
+    function decodeChainCodeButton() {
+        logo.style.display = 'none';
+        resultsHeader.style.display = 'none';
+        contentsImage.style.display = 'none';
+        cargoHold.style.display = 'none';
+        html5QrcodeScanner.clear();
+        puzzle.style.display = 'none';
+        crewManifest.style.display = 'none';
+        crewMemberDiv.style.display = 'none';
+        chainCodeDiv.style.display = 'block';
+        setChainCodeValue();
     }
 
     document.getElementById('start-button').addEventListener('click', () => {
@@ -357,6 +486,10 @@
 
     document.getElementById('crew-manifest-button').addEventListener('click', () => {
         crewManifestButton();
+    });
+
+    document.getElementById('decode-chain-code-button').addEventListener('click', () => {
+        decodeChainCodeButton();
     });
 </script>
 </body>
