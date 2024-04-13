@@ -15,11 +15,21 @@ export class ChainCodePart {
 
 export class ChainCodeDecoder {
     scanCodeToChainCodePart = new Map();
+    MIN_CHAIN_CODE_SIZE = 3;
+    MAX_CHAIN_CODE_SIZE = 5;
 
     constructor() {
         this.scanCodeToChainCodePart.set('DARK1', new ChainCodePart({code: 'DARK1', description: 'Dark Side Alignment', type: ChainCodeAlignment.Dark}));
         this.scanCodeToChainCodePart.set('LIGHT', new ChainCodePart({code: 'LIGHT', description: 'Light Side Alignment', type: ChainCodeAlignment.Light}));
         this.scanCodeToChainCodePart.set('NEUTR', new ChainCodePart({code: 'NEUTR', description: 'Neutral Alignment', type: ChainCodeAlignment.Neutral}));
+    }
+
+    get MIN_CHAIN_CODE_SIZE() {
+        return this.MIN_CHAIN_CODE_SIZE;
+    }
+
+    get MAX_CHAIN_CODE_SIZE() {
+        return this.MAX_CHAIN_CODE_SIZE;
     }
 
     getRandomInt(max) {

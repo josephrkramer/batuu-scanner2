@@ -38,6 +38,8 @@
 <br>
 <button id="crew-manifest-button" class="major-button">Dossiers</button>
 <br>
+<button id="decode-chain-code-button" class="major-button">Decode Chain Code</button>
+<br>
 
 
 <script src="https://unpkg.com/html5-qrcode"></script>
@@ -73,16 +75,6 @@
     const crewManifestList = document.getElementById('crew-manifests-list');
     const crewMemberDiv = document.getElementById('crew-member');
 
-    //Keep track of the crates scanned so far and don't allow duplicates
-    //load from local storage
-    const scannedCrates = new Set(JSON.parse(localStorage.getItem('cargo')));
-    console.log(`Cargo hold instantiated from local storage:`);
-    console.log(scannedCrates);
-
-    const chainCode = localStorage.chainCode !== undefined ? JSON.parse(localStorage.chainCode) : new Array();
-    console.log(`Chain code instantiated from local storage:`);
-    console.log(chainCode);
-
     const crateDecoder = new CrateDecoder();
     const crewMembers = new CrewManifest();
     const chainCodeDecoder = new ChainCodeDecoder();
@@ -90,6 +82,27 @@
     //Add custom overrides
     crateDecoder.override(new CrateContents({code: 'JK_RS', contents: 'Evan\'s Manifesto', type: CrateType.Relic, image: 'images/halcyon_cargo.jpeg'}));
     crateDecoder.override(new CrateContents({code: 'JK_TU', contents: 'Tom\'s Vape Pen', type: CrateType.Relic, image: 'images/ports_of_call.jpeg'}));
+
+    //Keep track of the crates scanned so far and don't allow duplicates
+    //load from local storage
+    const scannedCrates = new Set(JSON.parse(localStorage.getItem('cargo')));
+    console.log(`Cargo hold instantiated from local storage:`);
+    console.log(scannedCrates);
+
+    //load chainCode from local storage
+    const chainCode = localStorage.chainCode !== undefined ? JSON.parse(localStorage.chainCode) : new Array();
+    console.log(`Chain code instantiated from local storage:`);
+    console.log(chainCode);
+    //check if the decode button should be enabled after an initial load from local storage
+    checkDecodeButton();
+
+    function checkDecodeButton() {
+        console.log(`Chain code length: ${chainCode.length}`);
+        if (chainCode.length >= chainCodeDecoder.MIN_CHAIN_CODE_SIZE) {
+            const decodeButton = document.getElementById('decode-chain-code-button');
+            decodeButton.style.display = 'block';
+        }
+    }
 
     function displayCargoHold() {
         console.log('Building the cargo hold display');
@@ -342,7 +355,7 @@
         //store all of the scanned crates into local storage
         localStorage.chainCode = JSON.stringify(chainCode);
 
-        //TODO: add check for sufficient chain code pieces and enable button
+        checkDecodeButton();
     }
     
     function startButton() {
