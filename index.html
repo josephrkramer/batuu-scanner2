@@ -136,7 +136,11 @@
                 const scannedListItem = document.createElement('li');
                 scannedListItem.className = "scanned-list-item-text";
                 scannedListItem.appendChild(scannedImage);
-                scannedListItem.appendChild(document.createTextNode("  " + crate.contents));
+                if (urlParams.has('debug')) {
+                    scannedListItem.appendChild(document.createTextNode("  " + crate.code + " - " + crate.contents));
+                } else {
+                    scannedListItem.appendChild(document.createTextNode("  " + crate.contents));
+                }
 
                 crateTypeList.appendChild(scannedListItem);
             }
