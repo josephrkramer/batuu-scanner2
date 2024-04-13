@@ -143,32 +143,38 @@
             newCargoHoldList.push(crateTypeListItem);
         }
 
-        //add chain code
-        const chainCodeListItem = document.createElement('li');
-        chainCodeListItem.className = "cargo-type-text";
-        chainCodeListItem.appendChild(document.createTextNode("Chain Code"));
-        const chainCodeList = document.createElement('ul');
-        chainCodeListItem.appendChild(chainCodeList);
-        for (const code of chainCode) {
-            const chainCodePart = chainCodeDecoder.decode(code);
-            const scannedImage = document.createElement('img');
-            scannedImage.className = "scanned-list-item-image";
-            scannedImage.src = chainCodePart.image;
+        if (chainCode.length > 0) {
+            //add chain code
+            const chainCodeListItem = document.createElement('li');
+            chainCodeListItem.className = "cargo-type-text";
+            chainCodeListItem.appendChild(document.createTextNode("Chain Code"));
+            const chainCodeList = document.createElement('ul');
+            chainCodeListItem.appendChild(chainCodeList);
+            for (const code of chainCode) {
+                const chainCodePart = chainCodeDecoder.decode(code);
+                const scannedImage = document.createElement('img');
+                scannedImage.className = "scanned-list-item-image";
+                scannedImage.src = chainCodePart.image;
 
-            scannedImage.addEventListener('click', () => {
-                cargoHold.style.display = 'none';
-                setChainCodeResult(chainCodePart.code);
-            });
+                scannedImage.addEventListener('click', () => {
+                    cargoHold.style.display = 'none';
+                    displayChainCodeResult(chainCodePart);
+                });
 
-            //add the item to the scanned list
-            const scannedListItem = document.createElement('li');
-            scannedListItem.className = "scanned-list-item-text";
-            scannedListItem.appendChild(scannedImage);
-            scannedListItem.appendChild(document.createTextNode("  " + chainCodePart.description));
+                //add the item to the scanned list
+                const scannedListItem = document.createElement('li');
+                scannedListItem.className = "scanned-list-item-text";
+                scannedListItem.appendChild(scannedImage);
+                if (urlParams.has('debug')) {
+                    scannedListItem.appendChild(document.createTextNode("  " + chainCodePart.code + " - Chain Code Piece"));
+                } else {
+                    scannedListItem.appendChild(document.createTextNode("  Chain Code Piece"));
+                }
 
-            chainCodeList.appendChild(scannedListItem);
+                chainCodeList.appendChild(scannedListItem);
+            }
+            newCargoHoldList.push(chainCodeListItem);
         }
-        newCargoHoldList.push(chainCodeListItem);
 
         cargoHoldList.replaceChildren(...newCargoHoldList);
     }
@@ -332,22 +338,26 @@
         stopButton();
     }
 
-    function setChainCodeResult(code) {
-        console.log(`Valid Chain Code Detected: ${code}`);
-        const chainCodePart = chainCodeDecoder.decode(code);
-
+    function displayChainCodeResult(chainCodePart) {
         //update the display text for the item
         console.log(chainCodePart);
         if (urlParams.has('debug')) {
-            resultsHeader.textContent = code + " - Chain Code Updated";
+            resultsHeader.textContent = chainCodePart.code + " - Chain Code Piece";
         } else {
-            resultsHeader.textContent = "Chain Code Updated";
+            resultsHeader.textContent = "Chain Code Piece";
         }
         resultsHeader.style.display = 'block';
 
         //display the image contents
         contentsImage.style.display = 'block';
         contentsImage.src = chainCodePart.image;
+    }
+    
+    function setChainCodeResult(code) {
+        console.log(`Valid Chain Code Detected: ${code}`);
+        const chainCodePart = chainCodeDecoder.decode(code);
+
+        displayChainCodeResult(chainCodePart);
 
         //add the item to the chainCode internal tracking
         chainCode.push(code);
