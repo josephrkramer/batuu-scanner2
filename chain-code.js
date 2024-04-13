@@ -23,7 +23,6 @@ export class ChainCodeDecoder {
     }
 
     getRandomInt(max) {
-        console.log("Generating random int...");
         return Math.floor(Math.random() * max);
     }
 
