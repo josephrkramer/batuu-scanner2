@@ -54,6 +54,16 @@ div {
     display: none;
 }
 
+#chain-code {
+    display: none;
+}
+
+#chain-code-title {
+    text-align:center;
+    padding-top:70px;
+    padding-bottom:70px;
+}
+
 .major-button {
     font-size:36px;
     width:100%;

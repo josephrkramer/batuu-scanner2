@@ -29,6 +29,9 @@
     <ul id="crew-member-details">
     </ul>
 </div>
+<div id="chain-code">
+    <h1 id="chain-code-title">Chain Code Value</h1>
+</div>
 <div id="puzzle" style="display:none"></div>
 <button id="start-button" class="major-button">Scan</button>
 <br>
@@ -74,6 +77,7 @@
     const crewManifest = document.getElementById('crew-manifest');
     const crewManifestList = document.getElementById('crew-manifests-list');
     const crewMemberDiv = document.getElementById('crew-member');
+    const chainCodeDiv = document.getElementById('chain-code');
 
     const crateDecoder = new CrateDecoder();
     const crewMembers = new CrewManifest();
@@ -371,6 +375,11 @@
 
         checkDecodeButton();
     }
+
+    function setChainCodeValue() {
+        const chainCodeHeader = document.getElementById('chain-code-title');
+        chainCodeHeader.textContent = "Chain Code Value: " + chainCodeDecoder.rawValue(chainCode);
+    }
     
     function startButton() {
         logo.style.display = 'none';
@@ -379,6 +388,7 @@
         cargoHold.style.display = 'none';
         crewManifest.style.display = 'none';
         crewMemberDiv.style.display = 'none';
+        chainCodeDiv.style.display = 'none';
 
         function onScanSuccess(decodedText, decodedResult) {
             console.log(`Scan result ${decodedText}`, decodedResult);
@@ -420,6 +430,7 @@
         puzzle.style.display = 'none';
         crewManifest.style.display = 'none';
         crewMemberDiv.style.display = 'none';
+        chainCodeDiv.style.display = 'none';
     }
 
     function cargoHoldButton() {
@@ -432,6 +443,7 @@
         puzzle.style.display = 'none';
         crewManifest.style.display = 'none';
         crewMemberDiv.style.display = 'none';
+        chainCodeDiv.style.display = 'none';
     }
 
     function crewManifestButton() {
@@ -444,6 +456,20 @@
         crewManifest.style.display = 'block';
         crewMemberDiv.style.display = 'none';
         displayCrewManifest();
+        chainCodeDiv.style.display = 'none';
+    }
+
+    function decodeChainCodeButton() {
+        logo.style.display = 'none';
+        resultsHeader.style.display = 'none';
+        contentsImage.style.display = 'none';
+        cargoHold.style.display = 'none';
+        html5QrcodeScanner.clear();
+        puzzle.style.display = 'none';
+        crewManifest.style.display = 'none';
+        crewMemberDiv.style.display = 'none';
+        chainCodeDiv.style.display = 'block';
+        setChainCodeValue();
     }
 
     document.getElementById('start-button').addEventListener('click', () => {
@@ -460,6 +486,10 @@
 
     document.getElementById('crew-manifest-button').addEventListener('click', () => {
         crewManifestButton();
+    });
+
+    document.getElementById('decode-chain-code-button').addEventListener('click', () => {
+        decodeChainCodeButton();
     });
 </script>
 </body>

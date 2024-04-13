@@ -60,7 +60,7 @@ export class ChainCodeDecoder {
         let value = 0;
         for (const code of chainCode) {
             const chainCodePart = this.decode(code);
-            value += chainCodePart.ChainCodeAlignment;
+            value += chainCodePart.type;
         }
         return value;
     }
