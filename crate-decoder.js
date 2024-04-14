@@ -246,8 +246,6 @@ export function addToScanned(code, scannedCrates, crateDecoder, badgeDecoder) {
     //store all of the scanned crates into local storage
     localStorage.setItem('cargo', JSON.stringify(Array.from(scannedCrates)));
 
-    console.log("BADGE DECODER");
-    console.log(badgeDecoder);
     badgeDecoder.checkForCrateRelatedBadges(scannedCrates, crateDecoder);
 }
 
