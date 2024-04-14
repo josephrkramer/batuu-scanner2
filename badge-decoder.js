@@ -19,6 +19,7 @@ export class BadgeDecoder {
         this.codeToBadge.set('31nne', new Badge({code: '31nne', name: "Gaya's Microphone", description: "You participated in the March 1, 2024 event and helped retrieve Gaya's Micrphone.", image: 'images/badge/gaya-mic.jpeg'}));
         this.codeToBadge.set('5y7ms', new Badge({code: '5y7ms', name: "Relic Hunter", description: "You found all of the AARC relics hidden in the crates on Batuu.", image: 'images/badge/relic-hunter.jpeg'}));
         this.codeToBadge.set('kupy4', new Badge({code: 'kupy4', name: "Well Connected", description: "You interacted with every informant during the event.", image: 'images/badge/well-connected.jpeg'}));
+        this.codeToBadge.set('k9zh0', new Badge({code: 'k9zh0', name: "Amnesiac", description: "What were you expecting? It's the same stuff in the box every time.", image: 'images/badge/amnesiac.jpeg'}));
 
         //unlisted badges
         this.unlistedCodeToBadge.set('ocu62', new Badge({code: 'ocu62', name: "Slicer", description: "You sure are a sneaky one. Raithe would be proud.", image: 'images/badge/slicer.jpeg'}));
@@ -67,11 +68,16 @@ export class BadgeDecoder {
         window.location.search = urlParams;
     }
 
-    checkForCrateRelatedBadges(scannedCrates, crateDecoder) {
+    checkForCrateRelatedBadges(crateCode, scannedCrates, crateDecoder) {
         //Relic Hunter - all Relic "overridden" crates
         console.log(`Checking for ${CrateType.Relic} badge`);
         if (!this.earnedBadges.has('5y7ms') && crateDecoder.getTotalNumberOfType(CrateType.Relic) === crateDecoder.getScannedNumberOfType(CrateType.Relic, scannedCrates)) {
             this.add('5y7ms');
+        }
+
+        //Amnesiac - Scan the same crate again
+        if (!this.earnedBadges.has('k9zh0') && scannedCrates.has(crateCode)) {
+            this.add('k9zh0');
         }
     }
 
