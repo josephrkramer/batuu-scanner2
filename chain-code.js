@@ -17,6 +17,7 @@ export class ChainCodeDecoder {
     scanCodeToChainCodePart = new Map();
     MIN_CHAIN_CODE_SIZE = 3;
     MAX_CHAIN_CODE_SIZE = 5;
+    MEETING_TIME = '7:30pm';
 
     constructor() {
         this.scanCodeToChainCodePart.set('DARK1', new ChainCodePart({code: 'DARK1', description: 'Dark Side Alignment', type: ChainCodeAlignment.Dark}));
@@ -107,4 +108,16 @@ function displayChainCodeResult(chainCodePart) {
     //display the image contents
     contentsImage.style.display = 'block';
     contentsImage.src = chainCodePart.image;
+}
+
+export function setChainCodeValue(chainCode, chainCodeDecoder) {
+    const chainCodeHeader = document.getElementById('chain-code-title');
+    chainCodeHeader.textContent = "Chain Code Value: " + chainCodeDecoder.rawValue(chainCode);
+
+    const chainCodeMessage = document.getElementById('chain-code-message');
+    if (chainCode.length < chainCodeDecoder.MAX_CHAIN_CODE_SIZE) {
+        chainCodeMessage.textContent = `There are still more informants to contact, but make sure you meet with your AARC Agent at ${chainCodeDecoder.MEETING_TIME}`;
+    } else {
+        chainCodeMessage.textContent = `Well, done! You've met with all of our informants. Be ready to meet with your AARC Agent at ${chainCodeDecoder.MEETING_TIME}`;
+    }
 }
