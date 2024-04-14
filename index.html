@@ -53,6 +53,7 @@
     import { CrewMemberType, CrewMember, CrewManifest, displayCrewManifest } from "./crew-manifest.js";
     import { ChainCodeAlignment, ChainCodePart, ChainCodeDecoder, setChainCodeResult, checkDecodeButton, setChainCodeValue } from "./chain-code.js";
     import { displayCargoHold } from "./cargo-hold.js";
+    import { BadgeDecoder } from "./badge-decoder.js"
 
     function docReady(fn) {
         // see if DOM is already available
@@ -82,6 +83,7 @@
     const crateDecoder = new CrateDecoder();
     const crewMembers = new CrewManifest();
     const chainCodeDecoder = new ChainCodeDecoder();
+    const badgeDecoder = new BadgeDecoder();
 
     //Add custom overrides
     crateDecoder.override(new CrateContents({code: 'JK_RS', contents: 'Evan\'s Manifesto', type: CrateType.Relic, image: 'images/halcyon_cargo.jpeg'}));
@@ -117,6 +119,8 @@
         //remove our state from internal memory
         scannedCrates.clear();
         chainCode.splice(0, chainCode.length);
+
+        badgeDecoder.reset();
 
         //force a reload of the page that will refresh the cache. Equivalent of Ctl+F5
         window.location.reload(true);
@@ -215,7 +219,7 @@
         logo.style.display = 'none';
         resultsHeader.style.display = 'none';
         contentsImage.style.display = 'none';
-        displayCargoHold(crateDecoder, scannedCrates, chainCode, chainCodeDecoder);
+        displayCargoHold(crateDecoder, scannedCrates, chainCode, chainCodeDecoder, badgeDecoder);
         cargoHold.style.display = 'block';
         html5QrcodeScanner.clear();
         puzzle.style.display = 'none';

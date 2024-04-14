@@ -1,6 +1,7 @@
 import { displayChainCodeResult } from "./chain-code.js";
+import { displayBadge } from "./badge-decoder.js";
 
-export function displayCargoHold(crateDecoder, scannedCrates, chainCode, chainCodeDecoder) {
+export function displayCargoHold(crateDecoder, scannedCrates, chainCode, chainCodeDecoder, badgeDecoder) {
     //read parameters from the url
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -82,6 +83,46 @@ export function displayCargoHold(crateDecoder, scannedCrates, chainCode, chainCo
         newCargoHoldList.push(chainCodeListItem);
     }
 
+    //Display earned badges
+    newCargoHoldList.push(displayBadgeList(badgeDecoder));
+
     const cargoHoldList = document.getElementById('cargo-hold-list');
     cargoHoldList.replaceChildren(...newCargoHoldList);
+}
+
+function displayBadgeList(badgeDecoder) {
+    //read parameters from the url
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    const chainCodeListItem = document.createElement('li');
+    chainCodeListItem.className = "cargo-type-text";
+    chainCodeListItem.appendChild(document.createTextNode("Badges"));
+    const chainCodeList = document.createElement('ul');
+    chainCodeListItem.appendChild(chainCodeList);
+    for (const code of badgeDecoder.allKeys()) {
+        const badge = badgeDecoder.decode(code);
+        const scannedImage = document.createElement('img');
+        scannedImage.className = "scanned-list-item-image";
+        scannedImage.src = badge.image;
+
+        scannedImage.addEventListener('click', () => {
+            const cargoHold = document.getElementById('cargo-hold');
+            cargoHold.style.display = 'none';
+            displayBadge(badge);
+        });
+
+        //add the item to the scanned list
+        const scannedListItem = document.createElement('li');
+        scannedListItem.className = "scanned-list-item-text";
+        scannedListItem.appendChild(scannedImage);
+        if (urlParams.has('debug')) {
+            scannedListItem.appendChild(document.createTextNode("  " + badge.code + " - " + badge.name));
+        } else {
+            scannedListItem.appendChild(document.createTextNode("  " + badge.name));
+        }
+
+        chainCodeList.appendChild(scannedListItem);
+    }
+    return chainCodeListItem;
 }
