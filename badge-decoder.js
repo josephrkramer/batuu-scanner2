@@ -11,12 +11,17 @@ export class Badge {
 
 export class BadgeDecoder {
     codeToBadge = new Map();
-    earnedBadges = new Set(JSON.parse(localStorage.getItem('badges')));
+    earnedBadges = new Set();
 
     constructor() {
         this.codeToBadge.set('31nne', new Badge({code: '31nne', name: "Gaya's Microphone", description: "You participated in the March 1, 2024 event and helped retrieve Gaya's Micrphone.", image: 'images/badge/gaya-mic.jpeg'}));
         this.codeToBadge.set('5y7ms', new Badge({code: '5y7ms', name: "Relic Hunter", description: "You found all of the AARC relics hidden in the crates on Batuu.", image: 'images/badge/relic-hunter.jpeg'}));
         this.codeToBadge.set('kupy4', new Badge({code: 'kupy4', name: "Well Connected", description: "You interacted with every informant during the event.", image: 'images/badge/well-connected.jpeg'}));
+
+        const urlParams = new URLSearchParams(window.location.search);
+        for (const code of urlParams.getAll('b')) {
+            this.earnedBadges.add(code);
+        }
     }
 
     decode(code) {
@@ -36,8 +41,11 @@ export class BadgeDecoder {
     add(code) {
         console.log(`Badge ${code} earned`);
         this.earnedBadges.add(code);
-        //store all of the earned into local storage
-        localStorage.setItem('badges', JSON.stringify(Array.from(this.earnedBadges)));
+
+        //Add the badge to the url
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.append('b', code);
+        window.location.search = urlParams;
     }
 
     allKeys() {
@@ -45,8 +53,10 @@ export class BadgeDecoder {
     }
 
     reset() {
-        this.earnedBadges.clear()
-        localStorage.removeItem('badges');
+        this.earnedBadges.clear();
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.delete('b');
+        window.location.search = urlParams;
     }
 
     checkForCrateRelatedBadges(scannedCrates, crateDecoder) {
