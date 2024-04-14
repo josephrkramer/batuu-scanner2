@@ -1,3 +1,5 @@
+import { displayChainCodeResult } from "./chain-code.js";
+
 export function displayCargoHold(crateDecoder, scannedCrates, chainCode, chainCodeDecoder) {
     //read parameters from the url
     const queryString = window.location.search;
@@ -26,6 +28,7 @@ export function displayCargoHold(crateDecoder, scannedCrates, chainCode, chainCo
             scannedImage.src = crate.image;
 
             scannedImage.addEventListener('click', () => {
+                const cargoHold = document.getElementById('cargo-hold');
                 cargoHold.style.display = 'none';
                 setResult(crate.code);
             });
@@ -59,6 +62,7 @@ export function displayCargoHold(crateDecoder, scannedCrates, chainCode, chainCo
             scannedImage.src = chainCodePart.image;
 
             scannedImage.addEventListener('click', () => {
+                const cargoHold = document.getElementById('cargo-hold');
                 cargoHold.style.display = 'none';
                 displayChainCodeResult(chainCodePart);
             });
@@ -68,9 +72,9 @@ export function displayCargoHold(crateDecoder, scannedCrates, chainCode, chainCo
             scannedListItem.className = "scanned-list-item-text";
             scannedListItem.appendChild(scannedImage);
             if (urlParams.has('debug')) {
-                scannedListItem.appendChild(document.createTextNode("  " + chainCodePart.code + " - Chain Code Piece"));
+                scannedListItem.appendChild(document.createTextNode("  " + chainCodePart.code + " - Chain Code Fragment"));
             } else {
-                scannedListItem.appendChild(document.createTextNode("  Chain Code Piece"));
+                scannedListItem.appendChild(document.createTextNode("  Chain Code Fragment"));
             }
 
             chainCodeList.appendChild(scannedListItem);
