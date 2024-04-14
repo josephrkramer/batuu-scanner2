@@ -245,8 +245,6 @@ export function addToScanned(code, scannedCrates, crateDecoder, badgeDecoder) {
 
     //store all of the scanned crates into local storage
     localStorage.setItem('cargo', JSON.stringify(Array.from(scannedCrates)));
-
-    badgeDecoder.checkForCrateRelatedBadges(scannedCrates, crateDecoder);
 }
 
 export function setResult(code, crateDecoder, scannedCrates, badgeDecoder) {
@@ -270,6 +268,7 @@ export function setResult(code, crateDecoder, scannedCrates, badgeDecoder) {
     contentsImage.src = crate.image;
 
     //add the item to the scanned list if not previously scanned
+    badgeDecoder.checkForCrateRelatedBadges(code, scannedCrates, crateDecoder);
     if (!scannedCrates.has(code)) {
         addToScanned(code, scannedCrates, crateDecoder, badgeDecoder);
     }

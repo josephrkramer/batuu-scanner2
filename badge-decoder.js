@@ -22,6 +22,7 @@ export class BadgeDecoder {
 
         //unlisted badges
         this.unlistedCodeToBadge.set('ocu62', new Badge({code: 'ocu62', name: "Slicer", description: "You sure are a sneaky one. Raithe would be proud.", image: 'images/badge/slicer.jpeg'}));
+        this.unlistedCodeToBadge.set('k9zh0', new Badge({code: 'k9zh0', name: "Amnesiac", description: "What were you expecting? It's the same space junk in the box every time.", image: 'images/badge/amnesiac.jpeg'}));
 
         const urlParams = new URLSearchParams(window.location.search);
         for (const code of urlParams.getAll('b')) {
@@ -67,11 +68,16 @@ export class BadgeDecoder {
         window.location.search = urlParams;
     }
 
-    checkForCrateRelatedBadges(scannedCrates, crateDecoder) {
+    checkForCrateRelatedBadges(crateCode, scannedCrates, crateDecoder) {
         //Relic Hunter - all Relic "overridden" crates
         console.log(`Checking for ${CrateType.Relic} badge`);
         if (!this.earnedBadges.has('5y7ms') && crateDecoder.getTotalNumberOfType(CrateType.Relic) === crateDecoder.getScannedNumberOfType(CrateType.Relic, scannedCrates)) {
             this.add('5y7ms');
+        }
+
+        //Amnesiac - Scan the same crate again
+        if (!this.earnedBadges.has('k9zh0') && scannedCrates.has(crateCode)) {
+            this.add('k9zh0');
         }
     }
 
