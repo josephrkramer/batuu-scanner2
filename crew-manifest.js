@@ -203,6 +203,8 @@ export function displayCrewManifest(crewMembers) {
             crewMemberHeadshot.src = crewMember.image;
 
             crewMemberHeadshot.addEventListener('click', () => {
+                const crewManifest = document.getElementById('crew-manifest');
+                const crewMemberDiv = document.getElementById('crew-member');
                 crewManifest.style.display = 'none';
                 crewMemberDiv.style.display = 'block';
 
