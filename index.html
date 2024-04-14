@@ -49,7 +49,7 @@
 <script src="./puzzle/15-puzzle.js"></script>
 <script type="module">
     import { CrateDecoder, CrateContents, CrateType } from "./crate-decoder.js";
-    import { CrewMemberType, CrewMember, CrewManifest } from "./crew-manifest.js";
+    import { CrewMemberType, CrewMember, CrewManifest, displayCrewManifest } from "./crew-manifest.js";
     import { ChainCodeAlignment, ChainCodePart, ChainCodeDecoder } from "./chain-code.js";
 
     function docReady(fn) {
@@ -72,10 +72,8 @@
     const resultsHeader = document.getElementById('results-header');
     const contentsImage = document.getElementById('contents-image');
     const cargoHold = document.getElementById('cargo-hold');
-    const cargoHoldList = document.getElementById('cargo-hold-list');
     const puzzle = document.getElementById('puzzle');
     const crewManifest = document.getElementById('crew-manifest');
-    const crewManifestList = document.getElementById('crew-manifests-list');
     const crewMemberDiv = document.getElementById('crew-member');
     const chainCodeDiv = document.getElementById('chain-code');
 
@@ -184,78 +182,8 @@
             newCargoHoldList.push(chainCodeListItem);
         }
 
+        const cargoHoldList = document.getElementById('cargo-hold-list');
         cargoHoldList.replaceChildren(...newCargoHoldList);
-    }
-
-    function displayCrewManifest() {
-        console.log('Building the crew manifest display');
-        const crewMemberTypesToSort = [CrewMemberType.Faction_Leader, CrewMemberType.NPC];
-        const newCrewManifestList = [];
-
-        for (const crewType of crewMemberTypesToSort) {
-            console.log(crewType);
-
-            //create type list
-            const crewTypeListItem = document.createElement('li');
-            crewTypeListItem.className = "cargo-type-text";
-            crewTypeListItem.appendChild(document.createTextNode(crewType));
-
-            const crewTypeList = document.createElement('ul');
-            crewTypeListItem.appendChild(crewTypeList);
-
-            //populate type list with each instance of that type
-            for (const crewMember of crewMembers.get(crewType)) {
-                console.log(crewMember)
-                //load the image
-                const crewMemberHeadshot = document.createElement('img');
-                crewMemberHeadshot.className = "scanned-list-item-image";
-                crewMemberHeadshot.src = crewMember.image;
-
-                crewMemberHeadshot.addEventListener('click', () => {
-                    crewManifest.style.display = 'none';
-                    crewMemberDiv.style.display = 'block';
-
-                    const crewMemberPicture = document.getElementById('crew-member-picture');
-                    const crewMemberName = document.getElementById('crew-member-name');
-                    const crewMemberDetails = document.getElementById('crew-member-details');
-                    const crewMemberDetailsListItems = [];
-
-                    //fill in the details
-                    crewMemberName.textContent = crewMember.name;
-                    crewMemberPicture.src = crewMember.image;
-
-                    function createCrewMemberListItem(text, content) {
-                        if (content !== undefined){
-                            const crewMemberListItem = document.createElement('li');
-                            crewMemberListItem.className = "scanned-list-item-text multi-line";
-                            crewMemberListItem.textContent = `${text}: ` + content;
-                            crewMemberDetailsListItems.push(crewMemberListItem);
-                        }
-                    }
-
-                    createCrewMemberListItem('Occupation', crewMember.occupation);
-                    createCrewMemberListItem('Affiliation', crewMember.affiliation);
-                    createCrewMemberListItem('Homeworld', crewMember.homeworld);
-                    createCrewMemberListItem('Companion', crewMember.companion);
-                    createCrewMemberListItem('Vehicle', crewMember.vehicle);
-                    createCrewMemberListItem('Species', crewMember.species);
-                    createCrewMemberListItem('Biography', crewMember.biography);
-
-                    crewMemberDetails.replaceChildren(...crewMemberDetailsListItems);
-                });
-
-                //add the item to the scanned list
-                const crewMemberListItem = document.createElement('li');
-                crewMemberListItem.className = "scanned-list-item-text";
-                crewMemberListItem.appendChild(crewMemberHeadshot);
-                crewMemberListItem.appendChild(document.createTextNode("  " + crewMember.name));
-
-                crewTypeList.appendChild(crewMemberListItem);
-            }
-            newCrewManifestList.push(crewTypeListItem);
-        }
-
-        crewManifestList.replaceChildren(...newCrewManifestList);
     }
 
     function addToScanned(code) {
@@ -455,7 +383,7 @@
         puzzle.style.display = 'none';
         crewManifest.style.display = 'block';
         crewMemberDiv.style.display = 'none';
-        displayCrewManifest();
+        displayCrewManifest(crewMembers);
         chainCodeDiv.style.display = 'none';
     }
 
