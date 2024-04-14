@@ -50,7 +50,7 @@
 <script type="module">
     import { CrateDecoder, CrateContents, CrateType, addToScanned } from "./crate-decoder.js";
     import { CrewMemberType, CrewMember, CrewManifest, displayCrewManifest } from "./crew-manifest.js";
-    import { ChainCodeAlignment, ChainCodePart, ChainCodeDecoder } from "./chain-code.js";
+    import { ChainCodeAlignment, ChainCodePart, ChainCodeDecoder, setChainCodeResult, checkDecodeButton } from "./chain-code.js";
     import { displayCargoHold } from "./cargo-hold.js";
 
     function docReady(fn) {
@@ -97,15 +97,7 @@
     console.log(`Chain code instantiated from local storage:`);
     console.log(chainCode);
     //check if the decode button should be enabled after an initial load from local storage
-    checkDecodeButton();
-
-    function checkDecodeButton() {
-        console.log(`Chain code length: ${chainCode.length}`);
-        if (chainCode.length >= chainCodeDecoder.MIN_CHAIN_CODE_SIZE) {
-            const decodeButton = document.getElementById('decode-chain-code-button');
-            decodeButton.style.display = 'block';
-        }
-    }
+    checkDecodeButton(chainCode, chainCodeDecoder);
 
     //use the url with ?cargo to load test data into the app
     if (urlParams.has('cargo')) {
@@ -186,36 +178,6 @@
         stopButton();
     }
 
-    function displayChainCodeResult(chainCodePart) {
-        //update the display text for the item
-        console.log(chainCodePart);
-        if (urlParams.has('debug')) {
-            resultsHeader.textContent = chainCodePart.code + " - Chain Code Piece";
-        } else {
-            resultsHeader.textContent = "Chain Code Piece";
-        }
-        resultsHeader.style.display = 'block';
-
-        //display the image contents
-        contentsImage.style.display = 'block';
-        contentsImage.src = chainCodePart.image;
-    }
-    
-    function setChainCodeResult(code) {
-        console.log(`Valid Chain Code Detected: ${code}`);
-        const chainCodePart = chainCodeDecoder.decode(code);
-
-        displayChainCodeResult(chainCodePart);
-
-        //add the item to the chainCode internal tracking
-        chainCode.push(code);
-
-        //store all of the scanned crates into local storage
-        localStorage.chainCode = JSON.stringify(chainCode);
-
-        checkDecodeButton();
-    }
-
     function setChainCodeValue() {
         const chainCodeHeader = document.getElementById('chain-code-title');
         chainCodeHeader.textContent = "Chain Code Value: " + chainCodeDecoder.rawValue(chainCode);
@@ -238,7 +200,7 @@
 
             if (chainCodeDecoder.isValidChainCode(decodedText) || crate.type == CrateType.Unknown || urlParams.has('debug')) {
                 if (chainCodeDecoder.isValidChainCode(decodedText)) {
-                    setChainCodeResult(decodedText);
+                    setChainCodeResult(decodedText, chainCodeDecoder, chainCode);
                 } else {
                     setResult(decodedText);
                 }
