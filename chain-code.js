@@ -65,3 +65,46 @@ export class ChainCodeDecoder {
         return value;
     }
 }
+
+export function setChainCodeResult(code, chainCodeDecoder, chainCode) {
+    console.log(`Valid Chain Code Detected: ${code}`);
+    const chainCodePart = chainCodeDecoder.decode(code);
+
+    displayChainCodeResult(chainCodePart);
+
+    //add the item to the chainCode internal tracking
+    chainCode.push(code);
+
+    //store all of the scanned crates into local storage
+    localStorage.chainCode = JSON.stringify(chainCode);
+
+    checkDecodeButton(chainCode, chainCodeDecoder);
+}
+
+export function checkDecodeButton(chainCode, chainCodeDecoder) {
+    console.log(`Chain code length: ${chainCode.length}`);
+    if (chainCode.length >= chainCodeDecoder.MIN_CHAIN_CODE_SIZE) {
+        const decodeButton = document.getElementById('decode-chain-code-button');
+        decodeButton.style.display = 'block';
+    }
+}
+
+function displayChainCodeResult(chainCodePart) {
+    const resultsHeader = document.getElementById('results-header');
+    const contentsImage = document.getElementById('contents-image');
+
+    //update the display text for the item
+    console.log(chainCodePart);
+    //read parameters from the url
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('debug')) {
+        resultsHeader.textContent = chainCodePart.code + " - Chain Code Piece";
+    } else {
+        resultsHeader.textContent = "Chain Code Piece";
+    }
+    resultsHeader.style.display = 'block';
+
+    //display the image contents
+    contentsImage.style.display = 'block';
+    contentsImage.src = chainCodePart.image;
+}
