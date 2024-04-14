@@ -89,6 +89,8 @@
     crateDecoder.override(new CrateContents({code: 'JK_RS', contents: 'Evan\'s Manifesto', type: CrateType.Relic, image: 'images/halcyon_cargo.jpeg'}));
     crateDecoder.override(new CrateContents({code: 'JK_TU', contents: 'Tom\'s Vape Pen', type: CrateType.Relic, image: 'images/ports_of_call.jpeg'}));
 
+    console.log(`There are ${crateDecoder.getTotalNumberOfType(CrateType.Relic)} relics to be found`);
+
     //Keep track of the crates scanned so far and don't allow duplicates
     //load from local storage
     const scannedCrates = new Set(JSON.parse(localStorage.getItem('cargo')));
@@ -105,11 +107,11 @@
     //use the url with ?cargo to load test data into the app
     if (urlParams.has('cargo')) {
         console.log("Filling the cargo hold...");
-        addToScanned('FAL11', scannedCrates);
-        addToScanned('CD_LM', scannedCrates);
-        addToScanned('JK_TU', scannedCrates);
-        addToScanned('AB_QR', scannedCrates);
-        addToScanned('JK_RS', scannedCrates);
+        addToScanned('FAL11', scannedCrates, crateDecoder, badgeDecoder);
+        addToScanned('CD_LM', scannedCrates, crateDecoder, badgeDecoder);
+        addToScanned('JK_TU', scannedCrates, crateDecoder, badgeDecoder);
+        addToScanned('AB_QR', scannedCrates, crateDecoder, badgeDecoder);
+        addToScanned('JK_RS', scannedCrates, crateDecoder, badgeDecoder);
     }
 
     if (urlParams.has('reset')) {
@@ -182,7 +184,7 @@
                 if (chainCodeDecoder.isValidChainCode(decodedText)) {
                     setChainCodeResult(decodedText, chainCodeDecoder, chainCode);
                 } else {
-                    setResult(decodedText, crateDecoder, scannedCrates);
+                    setResult(decodedText, crateDecoder, scannedCrates, badgeDecoder);
                 }
             } else {
                 //start puzzle and wait for success
@@ -190,7 +192,7 @@
                 waitToSolvePuzzle().then(
                     function(value) {
                         console.log("PUZZLE SUCCESS");
-                        setResult(decodedText, crateDecoder, scannedCrates);
+                        setResult(decodedText, crateDecoder, scannedCrates, badgeDecoder);
                         puzzle.style.display = 'none';
                     },
                     function(error) {

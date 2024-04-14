@@ -1,3 +1,5 @@
+import { CrateType } from "./crate-decoder.js";
+
 export class Badge {
     constructor({code, name, description, image}) {
         this.code=code;
@@ -48,6 +50,14 @@ export class BadgeDecoder {
     reset() {
         this.earnedBadges.clear()
         localStorage.removeItem('badges');
+    }
+
+    checkForCrateRelatedBadges(scannedCrates, crateDecoder) {
+        //Relic Hunter - all Relic "overridden" crates
+        console.log(`Checking for ${CrateType.Relic} badge`);
+        if (crateDecoder.getTotalNumberOfType(CrateType.Relic) === crateDecoder.getScannedNumberOfType(CrateType.Relic, scannedCrates)) {
+            this.add('5y7ms');
+        }
     }
 }
 
