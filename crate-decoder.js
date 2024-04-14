@@ -222,3 +222,12 @@ export class CrateDecoder {
         return sortedCargoHold;
     }
 }
+
+export function addToScanned(code, scannedCrates) {
+    console.log(`Adding ${code} to the scanned list`);
+    //add the item to the scannedCrates internal tracking
+    scannedCrates.add(code);
+
+    //store all of the scanned crates into local storage
+    localStorage.setItem('cargo', JSON.stringify(Array.from(scannedCrates)));
+}

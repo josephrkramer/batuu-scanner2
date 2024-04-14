@@ -48,7 +48,7 @@
 <script src="https://unpkg.com/html5-qrcode"></script>
 <script src="./puzzle/15-puzzle.js"></script>
 <script type="module">
-    import { CrateDecoder, CrateContents, CrateType } from "./crate-decoder.js";
+    import { CrateDecoder, CrateContents, CrateType, addToScanned } from "./crate-decoder.js";
     import { CrewMemberType, CrewMember, CrewManifest, displayCrewManifest } from "./crew-manifest.js";
     import { ChainCodeAlignment, ChainCodePart, ChainCodeDecoder } from "./chain-code.js";
     import { displayCargoHold } from "./cargo-hold.js";
@@ -107,23 +107,14 @@
         }
     }
 
-    function addToScanned(code) {
-        console.log(`Adding ${code} to the scanned list`);
-        //add the item to the scannedCrates internal tracking
-        scannedCrates.add(code);
-
-        //store all of the scanned crates into local storage
-        localStorage.setItem('cargo', JSON.stringify(Array.from(scannedCrates)));
-    }
-
     //use the url with ?cargo to load test data into the app
     if (urlParams.has('cargo')) {
         console.log("Filling the cargo hold...");
-        addToScanned('FAL11');
-        addToScanned('CD_LM');
-        addToScanned('JK_TU');
-        addToScanned('AB_QR');
-        addToScanned('JK_RS');
+        addToScanned('FAL11', scannedCrates);
+        addToScanned('CD_LM', scannedCrates);
+        addToScanned('JK_TU', scannedCrates);
+        addToScanned('AB_QR', scannedCrates);
+        addToScanned('JK_RS', scannedCrates);
     }
 
     if (urlParams.has('reset')) {
@@ -158,7 +149,7 @@
 
         //add the item to the scanned list if not previously scanned
         if (!scannedCrates.has(code)) {
-            addToScanned(code);
+            addToScanned(code, scannedCrates);
         }
     }
 
