@@ -67,7 +67,7 @@ export class ChainCodeDecoder {
     }
 }
 
-export function setChainCodeResult(code, chainCodeDecoder, chainCode) {
+export function setChainCodeResult(code, chainCodeDecoder, chainCode, badgeDecoder) {
     console.log(`Valid Chain Code Detected: ${code}`);
     const chainCodePart = chainCodeDecoder.decode(code);
 
@@ -80,6 +80,7 @@ export function setChainCodeResult(code, chainCodeDecoder, chainCode) {
     localStorage.chainCode = JSON.stringify(chainCode);
 
     checkDecodeButton(chainCode, chainCodeDecoder);
+    badgeDecoder.checkForChainCodeRelatedBadges(chainCode, chainCodeDecoder);
 }
 
 export function checkDecodeButton(chainCode, chainCodeDecoder) {

@@ -221,18 +221,37 @@ export class CrateDecoder {
 
         return sortedCargoHold;
     }
+
+    getTotalNumberOfType(type) {
+        const contentsOfType = new Map([...this.contents].filter(([k, v])=>v.type===type));
+        return contentsOfType.size;
+    }
+
+    getScannedNumberOfType(type, scannedCrates) {
+        const fullScannedCrates = new Map();
+        for (const code of scannedCrates) {
+            const crate = this.decode(code);
+            fullScannedCrates.set(code, crate);
+        }
+        const contentsOfType = new Map([...fullScannedCrates].filter(([k, v])=>v.type===type));
+        return contentsOfType.size;
+    }
 }
 
-export function addToScanned(code, scannedCrates) {
+export function addToScanned(code, scannedCrates, crateDecoder, badgeDecoder) {
     console.log(`Adding ${code} to the scanned list`);
     //add the item to the scannedCrates internal tracking
     scannedCrates.add(code);
 
     //store all of the scanned crates into local storage
     localStorage.setItem('cargo', JSON.stringify(Array.from(scannedCrates)));
+
+    console.log("BADGE DECODER");
+    console.log(badgeDecoder);
+    badgeDecoder.checkForCrateRelatedBadges(scannedCrates, crateDecoder);
 }
 
-export function setResult(code, crateDecoder, scannedCrates) {
+export function setResult(code, crateDecoder, scannedCrates, badgeDecoder) {
     const resultsHeader = document.getElementById('results-header');
     const contentsImage = document.getElementById('contents-image');
 
@@ -254,6 +273,6 @@ export function setResult(code, crateDecoder, scannedCrates) {
 
     //add the item to the scanned list if not previously scanned
     if (!scannedCrates.has(code)) {
-        addToScanned(code, scannedCrates);
+        addToScanned(code, scannedCrates, crateDecoder, badgeDecoder);
     }
 }

@@ -53,6 +53,7 @@
     import { CrewMemberType, CrewMember, CrewManifest, displayCrewManifest } from "./crew-manifest.js";
     import { ChainCodeAlignment, ChainCodePart, ChainCodeDecoder, setChainCodeResult, checkDecodeButton, setChainCodeValue } from "./chain-code.js";
     import { displayCargoHold } from "./cargo-hold.js";
+    import { BadgeDecoder } from "./badge-decoder.js"
 
     function docReady(fn) {
         // see if DOM is already available
@@ -82,10 +83,13 @@
     const crateDecoder = new CrateDecoder();
     const crewMembers = new CrewManifest();
     const chainCodeDecoder = new ChainCodeDecoder();
+    const badgeDecoder = new BadgeDecoder();
 
     //Add custom overrides
     crateDecoder.override(new CrateContents({code: 'JK_RS', contents: 'Evan\'s Manifesto', type: CrateType.Relic, image: 'images/halcyon_cargo.jpeg'}));
     crateDecoder.override(new CrateContents({code: 'JK_TU', contents: 'Tom\'s Vape Pen', type: CrateType.Relic, image: 'images/ports_of_call.jpeg'}));
+
+    console.log(`There are ${crateDecoder.getTotalNumberOfType(CrateType.Relic)} relics to be found`);
 
     //Keep track of the crates scanned so far and don't allow duplicates
     //load from local storage
@@ -103,11 +107,11 @@
     //use the url with ?cargo to load test data into the app
     if (urlParams.has('cargo')) {
         console.log("Filling the cargo hold...");
-        addToScanned('FAL11', scannedCrates);
-        addToScanned('CD_LM', scannedCrates);
-        addToScanned('JK_TU', scannedCrates);
-        addToScanned('AB_QR', scannedCrates);
-        addToScanned('JK_RS', scannedCrates);
+        addToScanned('FAL11', scannedCrates, crateDecoder, badgeDecoder);
+        addToScanned('CD_LM', scannedCrates, crateDecoder, badgeDecoder);
+        addToScanned('JK_TU', scannedCrates, crateDecoder, badgeDecoder);
+        addToScanned('AB_QR', scannedCrates, crateDecoder, badgeDecoder);
+        addToScanned('JK_RS', scannedCrates, crateDecoder, badgeDecoder);
     }
 
     if (urlParams.has('reset')) {
@@ -117,6 +121,8 @@
         //remove our state from internal memory
         scannedCrates.clear();
         chainCode.splice(0, chainCode.length);
+
+        badgeDecoder.reset();
 
         //force a reload of the page that will refresh the cache. Equivalent of Ctl+F5
         window.location.reload(true);
@@ -176,9 +182,9 @@
 
             if (chainCodeDecoder.isValidChainCode(decodedText) || crate.type == CrateType.Unknown || urlParams.has('debug')) {
                 if (chainCodeDecoder.isValidChainCode(decodedText)) {
-                    setChainCodeResult(decodedText, chainCodeDecoder, chainCode);
+                    setChainCodeResult(decodedText, chainCodeDecoder, chainCode, badgeDecoder);
                 } else {
-                    setResult(decodedText, crateDecoder, scannedCrates);
+                    setResult(decodedText, crateDecoder, scannedCrates, badgeDecoder);
                 }
             } else {
                 //start puzzle and wait for success
@@ -186,7 +192,7 @@
                 waitToSolvePuzzle().then(
                     function(value) {
                         console.log("PUZZLE SUCCESS");
-                        setResult(decodedText, crateDecoder, scannedCrates);
+                        setResult(decodedText, crateDecoder, scannedCrates, badgeDecoder);
                         puzzle.style.display = 'none';
                     },
                     function(error) {
@@ -215,7 +221,7 @@
         logo.style.display = 'none';
         resultsHeader.style.display = 'none';
         contentsImage.style.display = 'none';
-        displayCargoHold(crateDecoder, scannedCrates, chainCode, chainCodeDecoder);
+        displayCargoHold(crateDecoder, scannedCrates, chainCode, chainCodeDecoder, badgeDecoder);
         cargoHold.style.display = 'block';
         html5QrcodeScanner.clear();
         puzzle.style.display = 'none';
