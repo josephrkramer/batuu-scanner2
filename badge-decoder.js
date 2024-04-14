@@ -55,8 +55,15 @@ export class BadgeDecoder {
     checkForCrateRelatedBadges(scannedCrates, crateDecoder) {
         //Relic Hunter - all Relic "overridden" crates
         console.log(`Checking for ${CrateType.Relic} badge`);
-        if (crateDecoder.getTotalNumberOfType(CrateType.Relic) === crateDecoder.getScannedNumberOfType(CrateType.Relic, scannedCrates)) {
+        if (!this.earnedBadges.has('5y7ms') && crateDecoder.getTotalNumberOfType(CrateType.Relic) === crateDecoder.getScannedNumberOfType(CrateType.Relic, scannedCrates)) {
             this.add('5y7ms');
+        }
+    }
+
+    checkForChainCodeRelatedBadges(chainCode, chainCodeDecoder) {
+        //Well Connected - all NPCs visited
+        if (!this.earnedBadges.has('kupy4') && chainCode.length >= chainCodeDecoder.MAX_CHAIN_CODE_SIZE) {
+            this.add('kupy4');
         }
     }
 }

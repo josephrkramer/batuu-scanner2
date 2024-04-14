@@ -182,7 +182,7 @@
 
             if (chainCodeDecoder.isValidChainCode(decodedText) || crate.type == CrateType.Unknown || urlParams.has('debug')) {
                 if (chainCodeDecoder.isValidChainCode(decodedText)) {
-                    setChainCodeResult(decodedText, chainCodeDecoder, chainCode);
+                    setChainCodeResult(decodedText, chainCodeDecoder, chainCode, badgeDecoder);
                 } else {
                     setResult(decodedText, crateDecoder, scannedCrates, badgeDecoder);
                 }
