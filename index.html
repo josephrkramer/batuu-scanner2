@@ -48,7 +48,7 @@
 <script src="https://unpkg.com/html5-qrcode"></script>
 <script src="./puzzle/15-puzzle.js"></script>
 <script type="module">
-    import { CrateDecoder, CrateContents, CrateType, addToScanned } from "./crate-decoder.js";
+    import { CrateDecoder, CrateContents, CrateType, addToScanned, setResult } from "./crate-decoder.js";
     import { CrewMemberType, CrewMember, CrewManifest, displayCrewManifest } from "./crew-manifest.js";
     import { ChainCodeAlignment, ChainCodePart, ChainCodeDecoder, setChainCodeResult, checkDecodeButton } from "./chain-code.js";
     import { displayCargoHold } from "./cargo-hold.js";
@@ -123,27 +123,7 @@
         window.location = window.location.pathname;
     }
 
-    function setResult(code) {
-        console.log(code);
-        //update the display text for the item
-        const crate = crateDecoder.decode(code);
-        console.log(crate);
-        if (urlParams.has('debug')) {
-            resultsHeader.textContent = code + " - " + crate.contents;
-        } else {
-            resultsHeader.textContent = crate.contents;
-        }
-        resultsHeader.style.display = 'block';
 
-        //display the image contents
-        contentsImage.style.display = 'block';
-        contentsImage.src = crate.image;
-
-        //add the item to the scanned list if not previously scanned
-        if (!scannedCrates.has(code)) {
-            addToScanned(code, scannedCrates);
-        }
-    }
 
     // ####### Web Cam Scanning #######
 
@@ -202,7 +182,7 @@
                 if (chainCodeDecoder.isValidChainCode(decodedText)) {
                     setChainCodeResult(decodedText, chainCodeDecoder, chainCode);
                 } else {
-                    setResult(decodedText);
+                    setResult(decodedText, crateDecoder, scannedCrates);
                 }
             } else {
                 //start puzzle and wait for success
@@ -210,7 +190,7 @@
                 waitToSolvePuzzle().then(
                     function(value) {
                         console.log("PUZZLE SUCCESS");
-                        setResult(decodedText);
+                        setResult(decodedText, crateDecoder, scannedCrates);
                         puzzle.style.display = 'none';
                     },
                     function(error) {

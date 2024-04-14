@@ -231,3 +231,29 @@ export function addToScanned(code, scannedCrates) {
     //store all of the scanned crates into local storage
     localStorage.setItem('cargo', JSON.stringify(Array.from(scannedCrates)));
 }
+
+export function setResult(code, crateDecoder, scannedCrates) {
+    const resultsHeader = document.getElementById('results-header');
+    const contentsImage = document.getElementById('contents-image');
+
+    console.log(code);
+    //update the display text for the item
+    const crate = crateDecoder.decode(code);
+    console.log(crate);
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('debug')) {
+        resultsHeader.textContent = code + " - " + crate.contents;
+    } else {
+        resultsHeader.textContent = crate.contents;
+    }
+    resultsHeader.style.display = 'block';
+
+    //display the image contents
+    contentsImage.style.display = 'block';
+    contentsImage.src = crate.image;
+
+    //add the item to the scanned list if not previously scanned
+    if (!scannedCrates.has(code)) {
+        addToScanned(code, scannedCrates);
+    }
+}
