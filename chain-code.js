@@ -38,8 +38,8 @@ export class ChainCodeDecoder {
     }
 
     getRandomImage() {
-        const randomNum = this.getRandomInt(3) + 1;
-        return `images/chaincode0${randomNum}.jpeg`;
+        const randomNum = this.getRandomInt(8) + 1;
+        return `images/chaincode${randomNum}.jpg`;
     }
 
     decode(code) {
@@ -90,7 +90,7 @@ export function checkDecodeButton(chainCode, chainCodeDecoder) {
     }
 }
 
-function displayChainCodeResult(chainCodePart) {
+export function displayChainCodeResult(chainCodePart) {
     const resultsHeader = document.getElementById('results-header');
     const contentsImage = document.getElementById('contents-image');
 
