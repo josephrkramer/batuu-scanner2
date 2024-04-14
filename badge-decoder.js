@@ -25,10 +25,7 @@ export class BadgeDecoder {
             //Cloning the badge so we can overwrite the image value without altering the original
             const cloneBadge = structuredClone(this.codeToBadge.get(code));
             if (!this.earnedBadges.has(code)) {
-                console.log(`Overriding badge image - ${code}`);
                 cloneBadge.image = 'images/badge/unearned-bw.jpeg';
-            } else {
-                console.log(`BADGE SHOULD HAVE ORIGINAL IMAGE - ${code}`);
             }
             return cloneBadge;
         } else {
