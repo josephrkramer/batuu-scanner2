@@ -20,7 +20,7 @@ export class Badge {
 export class BadgeDecoder {
     codeToBadge = new Map();
     unlistedCodeToBadge = new Map();
-    earnedBadges = new Set();
+    earnedBadges = new Set(JSON.parse(localStorage.getItem('badges')));
 
     constructor() {
         //listed badges
@@ -33,8 +33,24 @@ export class BadgeDecoder {
         this.unlistedCodeToBadge.set(BadgeCode.Amnesiac, new Badge({code: BadgeCode.Amnesiac, name: "Amnesiac", description: "What were you expecting? It's the same space junk in the box every time.", image: 'images/badge/amnesiac.jpeg'}));
 
         const urlParams = new URLSearchParams(window.location.search);
+        //load new url params into local storage
         for (const code of urlParams.getAll('b')) {
-            this.earnedBadges.add(code);
+            if (!this.earnedBadges.has(code)) {
+                this.earnedBadges.add(code);
+            }
+        }
+        localStorage.setItem('badges', JSON.stringify(Array.from(this.earnedBadges)));
+        //load new local storage badges into the url params
+        let modifiedParams = false;
+        for (const code of this.earnedBadges) {
+            const urlBadges = new Set(urlParams.getAll('b'));
+            if (!urlBadges.has(code)) {
+                urlParams.append('b', code);
+                modifiedParams = true;
+            }
+        }
+        if (modifiedParams) {
+            window.location.search = urlParams;
         }
     }
 
@@ -56,12 +72,17 @@ export class BadgeDecoder {
 
     add(code) {
         console.log(`Badge ${code} earned`);
+        //adding again is not harmful as it is a set
         this.earnedBadges.add(code);
+        localStorage.setItem('badges', JSON.stringify(Array.from(this.earnedBadges)));
 
-        //Add the badge to the url
+        //Add the badge to the url if not already in url
         const urlParams = new URLSearchParams(window.location.search);
-        urlParams.append('b', code);
-        window.location.search = urlParams;
+        const urlCodes = new Set(urlParams.getAll('b'));
+        if (!urlCodes.has(code)) {
+            urlParams.append('b', code);
+            window.location.search = urlParams;
+        }
     }
 
     allKeys() {
@@ -71,6 +92,7 @@ export class BadgeDecoder {
 
     reset() {
         this.earnedBadges.clear();
+        localStorage.removeItem('badges');
         const urlParams = new URLSearchParams(window.location.search);
         urlParams.delete('b');
         window.location.search = urlParams;
