@@ -1,5 +1,13 @@
 import { CrateType } from "./crate-decoder.js";
 
+export const BadgeCode = Object.freeze({
+    Gayas_Microphone: '31nne',
+    Relic_Hunter: '5y7ms',
+    Well_Connected: 'kupy4',
+    Slicer: 'ocu62',
+    Amnesiac: 'k9zh0',
+});
+
 export class Badge {
     constructor({code, name, description, image}) {
         this.code=code;
@@ -16,13 +24,13 @@ export class BadgeDecoder {
 
     constructor() {
         //listed badges
-        this.codeToBadge.set('31nne', new Badge({code: '31nne', name: "Gaya's Microphone", description: "You participated in the March 1, 2024 event and helped retrieve Gaya's Microphone.", image: 'images/badge/gaya-mic.jpeg'}));
-        this.codeToBadge.set('5y7ms', new Badge({code: '5y7ms', name: "Relic Hunter", description: "You found all of the AARC relics hidden in the crates on Batuu.", image: 'images/badge/relic-hunter.jpeg'}));
-        this.codeToBadge.set('kupy4', new Badge({code: 'kupy4', name: "Well Connected", description: "You interacted with every informant during the event.", image: 'images/badge/well-connected.jpeg'}));
+        this.codeToBadge.set(BadgeCode.Gayas_Microphone, new Badge({code: BadgeCode.Gayas_Microphone, name: "Gaya's Microphone", description: "You participated in the March 1, 2024 event and helped retrieve Gaya's Microphone.", image: 'images/badge/gaya-mic.jpeg'}));
+        this.codeToBadge.set(BadgeCode.Relic_Hunter, new Badge({code: BadgeCode.Relic_Hunter, name: "Relic Hunter", description: "You found all of the AARC relics hidden in the crates on Batuu.", image: 'images/badge/relic-hunter.jpeg'}));
+        this.codeToBadge.set(BadgeCode.Well_Connected, new Badge({code: BadgeCode.Well_Connected, name: "Well Connected", description: "You interacted with every informant during the event.", image: 'images/badge/well-connected.jpeg'}));
 
         //unlisted badges
-        this.unlistedCodeToBadge.set('ocu62', new Badge({code: 'ocu62', name: "Slicer", description: "You sure are a sneaky one. Raithe would be proud.", image: 'images/badge/slicer.jpeg'}));
-        this.unlistedCodeToBadge.set('k9zh0', new Badge({code: 'k9zh0', name: "Amnesiac", description: "What were you expecting? It's the same space junk in the box every time.", image: 'images/badge/amnesiac.jpeg'}));
+        this.unlistedCodeToBadge.set(BadgeCode.Slicer, new Badge({code: BadgeCode.Slicer, name: "Slicer", description: "You sure are a sneaky one. Raithe would be proud.", image: 'images/badge/slicer.jpeg'}));
+        this.unlistedCodeToBadge.set(BadgeCode.Amnesiac, new Badge({code: BadgeCode.Amnesiac, name: "Amnesiac", description: "What were you expecting? It's the same space junk in the box every time.", image: 'images/badge/amnesiac.jpeg'}));
 
         const urlParams = new URLSearchParams(window.location.search);
         for (const code of urlParams.getAll('b')) {
@@ -71,20 +79,20 @@ export class BadgeDecoder {
     checkForCrateRelatedBadges(crateCode, scannedCrates, crateDecoder) {
         //Relic Hunter - all Relic "overridden" crates
         console.log(`Checking for ${CrateType.Relic} badge`);
-        if (!this.earnedBadges.has('5y7ms') && crateDecoder.getTotalNumberOfType(CrateType.Relic) === crateDecoder.getScannedNumberOfType(CrateType.Relic, scannedCrates)) {
-            this.add('5y7ms');
+        if (!this.earnedBadges.has(BadgeCode.Relic_Hunter) && crateDecoder.getTotalNumberOfType(CrateType.Relic) === crateDecoder.getScannedNumberOfType(CrateType.Relic, scannedCrates)) {
+            this.add(BadgeCode.Relic_Hunter);
         }
 
         //Amnesiac - Scan the same crate again
-        if (!this.earnedBadges.has('k9zh0') && scannedCrates.has(crateCode)) {
-            this.add('k9zh0');
+        if (!this.earnedBadges.has(BadgeCode.Amnesiac) && scannedCrates.has(crateCode)) {
+            this.add(BadgeCode.Amnesiac);
         }
     }
 
     checkForChainCodeRelatedBadges(chainCode, chainCodeDecoder) {
         //Well Connected - all NPCs visited
-        if (!this.earnedBadges.has('kupy4') && chainCode.length >= chainCodeDecoder.MAX_CHAIN_CODE_SIZE) {
-            this.add('kupy4');
+        if (!this.earnedBadges.has(BadgeCode.Well_Connected) && chainCode.length >= chainCodeDecoder.MAX_CHAIN_CODE_SIZE) {
+            this.add(BadgeCode.Well_Connected);
         }
     }
 }
