@@ -6,6 +6,7 @@ export const BadgeCode = Object.freeze({
     Well_Connected: 'kupy4',
     Slicer: 'ocu62',
     Amnesiac: 'k9zh0',
+    Resistance_Hero: 'p35e8',
 });
 
 export class Badge {
@@ -27,6 +28,7 @@ export class BadgeDecoder {
         this.codeToBadge.set(BadgeCode.Gayas_Microphone, new Badge({code: BadgeCode.Gayas_Microphone, name: "Gaya's Microphone", description: "You participated in the March 1, 2024 event and helped retrieve Gaya's Microphone.", image: 'images/badge/gaya-mic.jpeg'}));
         this.codeToBadge.set(BadgeCode.Relic_Hunter, new Badge({code: BadgeCode.Relic_Hunter, name: "Relic Hunter", description: "You found all of the AARC relics hidden in the crates on Batuu.", image: 'images/badge/relic-hunter.jpeg'}));
         this.codeToBadge.set(BadgeCode.Well_Connected, new Badge({code: BadgeCode.Well_Connected, name: "Well Connected", description: "You interacted with every informant during the event.", image: 'images/badge/well-connected.jpeg'}));
+        this.codeToBadge.set(BadgeCode.Resistance_Hero, new Badge({code: BadgeCode.Resistance_Hero, name: "Resistance Hero", description: "We don't choose the light because we want to win. We choose it because it is the light.", image: 'images/badge/resistance-hero.jpeg'}));
 
         //unlisted badges
         this.unlistedCodeToBadge.set(BadgeCode.Slicer, new Badge({code: BadgeCode.Slicer, name: "Slicer", description: "You sure are a sneaky one. Raithe would be proud.", image: 'images/badge/slicer.jpeg'}));
@@ -85,6 +87,21 @@ export class BadgeDecoder {
         }
     }
 
+    remove(code) {
+        console.log(`Badge ${code} revoked`);
+        //deleting again is not harmful as it is a set
+        this.earnedBadges.delete(code);
+        localStorage.setItem('badges', JSON.stringify(Array.from(this.earnedBadges)));
+
+        //Add the badge to the url if not already in url
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlCodes = new Set(urlParams.getAll('b'));
+        if (!urlCodes.has(code)) {
+            urlParams.delete('b', code);
+            window.location.search = urlParams;
+        }
+    }
+
     allKeys() {
         //all possible listed badges + all earned unlisted badges
         return new Set([...this.codeToBadge.keys(),...this.earnedBadges]);
@@ -115,6 +132,13 @@ export class BadgeDecoder {
         //Well Connected - all NPCs visited
         if (!this.earnedBadges.has(BadgeCode.Well_Connected) && chainCode.length >= chainCodeDecoder.MAX_CHAIN_CODE_SIZE) {
             this.add(BadgeCode.Well_Connected);
+        }
+
+        //Resistance Hero - only light side codes
+        if (chainCode.length >= chainCodeDecoder.MIN_CHAIN_CODE_SIZE && chainCodeDecoder.rawValue(chainCode) === chainCode.length) {
+            this.add(BadgeCode.Resistance_Hero);
+        } else {
+            this.remove(BadgeCode.Resistance_Hero);
         }
     }
 }
