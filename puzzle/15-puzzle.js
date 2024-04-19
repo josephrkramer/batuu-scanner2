@@ -5,7 +5,7 @@
  * Released under the MIT license
  */
 
-const NUM_SIDE = 3;
+const NUM_SIDE = 2;
 
 const MAX_NUM = (NUM_SIDE * NUM_SIDE) - 1;
 const MAX_ROW_COL = NUM_SIDE - 1;
