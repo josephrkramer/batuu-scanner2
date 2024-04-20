@@ -7,6 +7,7 @@ export const BadgeCode = Object.freeze({
     Slicer: 'ocu62',
     Amnesiac: 'k9zh0',
     Resistance_Hero: 'p35e8',
+    We_Have_Cookies: '090xk'
 });
 
 export class Badge {
@@ -29,6 +30,7 @@ export class BadgeDecoder {
         this.codeToBadge.set(BadgeCode.Relic_Hunter, new Badge({code: BadgeCode.Relic_Hunter, name: "Relic Hunter", description: "You found all of the AARC relics hidden in the crates on Batuu.", image: 'images/badge/relic-hunter.jpeg'}));
         this.codeToBadge.set(BadgeCode.Well_Connected, new Badge({code: BadgeCode.Well_Connected, name: "Well Connected", description: "You interacted with every informant during the event.", image: 'images/badge/well-connected.jpeg'}));
         this.codeToBadge.set(BadgeCode.Resistance_Hero, new Badge({code: BadgeCode.Resistance_Hero, name: "Resistance Hero", description: "We don't choose the light because we want to win. We choose it because it is the light.", image: 'images/badge/resistance-hero.jpeg'}));
+        this.codeToBadge.set(BadgeCode.We_Have_Cookies, new Badge({code: BadgeCode.We_Have_Cookies, name: "We Have Cookies", description: "Be careful not to choke on your aspirations.", image: 'images/badge/we-have-cookies.jpeg'}));
 
         //unlisted badges
         this.unlistedCodeToBadge.set(BadgeCode.Slicer, new Badge({code: BadgeCode.Slicer, name: "Slicer", description: "You sure are a sneaky one. Raithe would be proud.", image: 'images/badge/slicer.jpeg'}));
@@ -96,7 +98,7 @@ export class BadgeDecoder {
         //Add the badge to the url if not already in url
         const urlParams = new URLSearchParams(window.location.search);
         const urlCodes = new Set(urlParams.getAll('b'));
-        if (!urlCodes.has(code)) {
+        if (urlCodes.has(code)) {
             urlParams.delete('b', code);
             window.location.search = urlParams;
         }
@@ -139,6 +141,13 @@ export class BadgeDecoder {
             this.add(BadgeCode.Resistance_Hero);
         } else {
             this.remove(BadgeCode.Resistance_Hero);
+        }
+
+        //We Have Cookies - only dark side codes
+        if (chainCode.length >= chainCodeDecoder.MIN_CHAIN_CODE_SIZE && (chainCodeDecoder.rawValue(chainCode) * -1) === chainCode.length) {
+            this.add(BadgeCode.We_Have_Cookies);
+        } else {
+            this.remove(BadgeCode.We_Have_Cookies);
         }
     }
 }
