@@ -27,7 +27,8 @@ export function displayCargoHold(crateDecoder: CrateDecoder, scannedCrates: Set<
             //load the image
             const scannedImage = document.createElement('img');
             scannedImage.className = "scanned-list-item-image";
-            scannedImage.src = crate.image;
+            const imgUrl = new URL(`../${crate.image}`, import.meta.url).href
+            scannedImage.src = imgUrl;
 
             scannedImage.addEventListener('click', () => {
                 const cargoHold = document.getElementById('cargo-hold')!;
@@ -61,7 +62,8 @@ export function displayCargoHold(crateDecoder: CrateDecoder, scannedCrates: Set<
             const chainCodePart = chainCodeDecoder.decode(code);
             const scannedImage = document.createElement('img');
             scannedImage.className = "scanned-list-item-image";
-            scannedImage.src = chainCodePart.image;
+            const imgUrl = new URL(`../${chainCodePart.image}`, import.meta.url).href
+            scannedImage.src = imgUrl;
 
             scannedImage.addEventListener('click', () => {
                 const cargoHold = document.getElementById('cargo-hold')!;
@@ -105,7 +107,8 @@ function displayBadgeList(badgeDecoder: BadgeDecoder) {
         const badge = badgeDecoder.decode(code);
         const scannedImage = document.createElement('img');
         scannedImage.className = "scanned-list-item-image";
-        scannedImage.src = badge.image;
+        const imgUrl = new URL(`../${badge.image}`, import.meta.url).href
+        scannedImage.src = imgUrl;
 
         scannedImage.addEventListener('click', () => {
             const cargoHold = document.getElementById('cargo-hold')!;

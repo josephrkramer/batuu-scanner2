@@ -200,7 +200,8 @@ export function displayCrewManifest(crewMembers) {
             //load the image
             const crewMemberHeadshot = document.createElement('img');
             crewMemberHeadshot.className = "scanned-list-item-image";
-            crewMemberHeadshot.src = crewMember.image;
+            const imgUrl = new URL(`../${crewMember.image}`, import.meta.url).href
+            crewMemberHeadshot.src = imgUrl;
 
             crewMemberHeadshot.addEventListener('click', () => {
                 const crewManifest = document.getElementById('crew-manifest');
@@ -215,7 +216,8 @@ export function displayCrewManifest(crewMembers) {
 
                 //fill in the details
                 crewMemberName.textContent = crewMember.name;
-                crewMemberPicture.src = crewMember.image;
+                const imgUrl = new URL(`../${crewMember.image}`, import.meta.url).href
+                crewMemberPicture.src = imgUrl;
 
                 function createCrewMemberListItem(text, content) {
                     if (content !== undefined){

@@ -46,7 +46,8 @@ export class ChainCodeDecoder {
         console.log(`Decoding ${code}`);
         if (this.scanCodeToChainCodePart.has(code)) {
             const ccPart = this.scanCodeToChainCodePart.get(code);
-            ccPart.image = this.getRandomImage();
+            const imgUrl = new URL(`../${this.getRandomImage()}`, import.meta.url).href
+            ccPart.image = imgUrl;
             return ccPart;
         } else {
             throw new Error(`${code} is an unknown chaincode`);
@@ -108,7 +109,8 @@ export function displayChainCodeResult(chainCodePart) {
 
     //display the image contents
     contentsImage.style.display = 'block';
-    contentsImage.src = chainCodePart.image;
+    const imgUrl = new URL(`../${chainCodePart.image}`, import.meta.url).href
+    contentsImage.src = imgUrl;
 }
 
 export function setChainCodeValue(chainCode, chainCodeDecoder) {

@@ -265,7 +265,8 @@ export function setResult(code, crateDecoder, scannedCrates, badgeDecoder) {
 
     //display the image contents
     contentsImage.style.display = 'block';
-    contentsImage.src = crate.image;
+    const imgUrl = new URL(`../${crate.image}`, import.meta.url).href
+    contentsImage.src = imgUrl;
 
     //add the item to the scanned list if not previously scanned
     badgeDecoder.checkForCrateRelatedBadges(code, scannedCrates, crateDecoder);
