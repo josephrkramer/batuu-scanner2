@@ -2,7 +2,7 @@ import { CrateDecoder, CrateContents, CrateType, addToScanned, setResult } from 
 import { CrewManifest, displayCrewManifest } from "./crew-manifest.js";
 import { ChainCodeDecoder, setChainCodeResult, checkDecodeButton, setChainCodeValue } from "./chain-code.js";
 import { displayCargoHold } from "./cargo-hold.js";
-import { BadgeDecoder } from "./badge-decoder.js";
+import { BadgeDecoder } from "./badge-decoder.ts";
 import { Html5QrcodeScanner, Html5QrcodeScanType, Html5QrcodeSupportedFormats } from "html5-qrcode";
 import { waitToSolvePuzzle } from "../puzzle/15-puzzle.js";
 

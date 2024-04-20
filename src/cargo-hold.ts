@@ -1,5 +1,5 @@
 import { displayChainCodeResult, ChainCodeDecoder } from "./chain-code.js";
-import { displayBadge, BadgeDecoder } from "./badge-decoder.js";
+import { displayBadge, BadgeDecoder } from "./badge-decoder.ts";
 import { setResult, CrateDecoder } from "./crate-decoder.js";
 
 export function displayCargoHold(crateDecoder: CrateDecoder, scannedCrates: Set<string>, chainCode: string, chainCodeDecoder: ChainCodeDecoder, badgeDecoder: BadgeDecoder) {
