@@ -1,3 +1,5 @@
+import { BadgeDecoder } from "./badge-decoder";
+
 export const ChainCodeAlignment = Object.freeze({
     Dark: -1,
     Neutral: 0,
@@ -5,35 +7,32 @@ export const ChainCodeAlignment = Object.freeze({
 });
 
 export class ChainCodePart {
-    constructor({code, description, type, image}) {
+    code: string;
+    description: string;
+    value: number;
+    image: string;
+
+    constructor({code = '', description = '', value = 0, image = ''}) {
         this.code=code;
         this.description=description;
-        this.type=type;
+        this.value=value;
         this.image=image;
     }
 }
 
 export class ChainCodeDecoder {
-    scanCodeToChainCodePart = new Map();
+    scanCodeToChainCodePart = new Map<string, ChainCodePart>();
     MIN_CHAIN_CODE_SIZE = 3;
     MAX_CHAIN_CODE_SIZE = 5;
     MEETING_TIME = '7:30pm';
 
     constructor() {
-        this.scanCodeToChainCodePart.set('DARK1', new ChainCodePart({code: 'DARK1', description: 'Dark Side Alignment', type: ChainCodeAlignment.Dark}));
-        this.scanCodeToChainCodePart.set('LIGHT', new ChainCodePart({code: 'LIGHT', description: 'Light Side Alignment', type: ChainCodeAlignment.Light}));
-        this.scanCodeToChainCodePart.set('NEUTR', new ChainCodePart({code: 'NEUTR', description: 'Neutral Alignment', type: ChainCodeAlignment.Neutral}));
+        this.scanCodeToChainCodePart.set('DARK1', new ChainCodePart({code: 'DARK1', description: 'Dark Side Alignment', value: ChainCodeAlignment.Dark}));
+        this.scanCodeToChainCodePart.set('LIGHT', new ChainCodePart({code: 'LIGHT', description: 'Light Side Alignment', value: ChainCodeAlignment.Light}));
+        this.scanCodeToChainCodePart.set('NEUTR', new ChainCodePart({code: 'NEUTR', description: 'Neutral Alignment', value: ChainCodeAlignment.Neutral}));
     }
 
-    get MIN_CHAIN_CODE_SIZE() {
-        return this.MIN_CHAIN_CODE_SIZE;
-    }
-
-    get MAX_CHAIN_CODE_SIZE() {
-        return this.MAX_CHAIN_CODE_SIZE;
-    }
-
-    getRandomInt(max) {
+    getRandomInt(max: number) {
         return Math.floor(Math.random() * max);
     }
 
@@ -42,10 +41,10 @@ export class ChainCodeDecoder {
         return `images/chaincode${randomNum}.jpg`;
     }
 
-    decode(code) {
+    decode(code: string): ChainCodePart {
         console.log(`Decoding ${code}`);
         if (this.scanCodeToChainCodePart.has(code)) {
-            const ccPart = this.scanCodeToChainCodePart.get(code);
+            const ccPart = this.scanCodeToChainCodePart.get(code)!;
             const imgUrl = new URL(`../${this.getRandomImage()}`, import.meta.url).href
             ccPart.image = imgUrl;
             return ccPart;
@@ -54,21 +53,21 @@ export class ChainCodeDecoder {
         }
     }
 
-    isValidChainCode(code) {
+    isValidChainCode(code: string): boolean {
         return this.scanCodeToChainCodePart.has(code);
     }
 
-    rawValue(chainCode) {
+    rawValue(chainCode: Array<string>): number {
         let value = 0;
         for (const code of chainCode) {
             const chainCodePart = this.decode(code);
-            value += chainCodePart.type;
+            value += chainCodePart.value;
         }
         return value;
     }
 }
 
-export function setChainCodeResult(code, chainCodeDecoder, chainCode, badgeDecoder) {
+export function setChainCodeResult(code: string, chainCodeDecoder: ChainCodeDecoder, chainCode: Array<string>, badgeDecoder: BadgeDecoder) {
     console.log(`Valid Chain Code Detected: ${code}`);
     const chainCodePart = chainCodeDecoder.decode(code);
 
@@ -84,17 +83,17 @@ export function setChainCodeResult(code, chainCodeDecoder, chainCode, badgeDecod
     badgeDecoder.checkForChainCodeRelatedBadges(chainCode, chainCodeDecoder);
 }
 
-export function checkDecodeButton(chainCode, chainCodeDecoder) {
+export function checkDecodeButton(chainCode: Array<string>, chainCodeDecoder: ChainCodeDecoder) {
     console.log(`Chain code length: ${chainCode.length}`);
     if (chainCode.length >= chainCodeDecoder.MIN_CHAIN_CODE_SIZE) {
-        const decodeButton = document.getElementById('decode-chain-code-button');
+        const decodeButton = document.getElementById('decode-chain-code-button')!;
         decodeButton.style.display = 'block';
     }
 }
 
-export function displayChainCodeResult(chainCodePart) {
-    const resultsHeader = document.getElementById('results-header');
-    const contentsImage = document.getElementById('contents-image');
+export function displayChainCodeResult(chainCodePart: ChainCodePart) {
+    const resultsHeader = document.getElementById('results-header')!;
+    const contentsImage = document.getElementById('contents-image')! as HTMLImageElement;
 
     //update the display text for the item
     console.log(chainCodePart);
@@ -113,11 +112,11 @@ export function displayChainCodeResult(chainCodePart) {
     contentsImage.src = chainCodePart.image;
 }
 
-export function setChainCodeValue(chainCode, chainCodeDecoder) {
-    const chainCodeHeader = document.getElementById('chain-code-title');
+export function setChainCodeValue(chainCode: Array<string>, chainCodeDecoder: ChainCodeDecoder) {
+    const chainCodeHeader = document.getElementById('chain-code-title')!;
     chainCodeHeader.textContent = "Chain Code Value: " + chainCodeDecoder.rawValue(chainCode);
 
-    const chainCodeMessage = document.getElementById('chain-code-message');
+    const chainCodeMessage = document.getElementById('chain-code-message')!;
     if (chainCode.length < chainCodeDecoder.MAX_CHAIN_CODE_SIZE) {
         chainCodeMessage.textContent = `There are still more informants to contact, but make sure you meet with your AARC Agent at ${chainCodeDecoder.MEETING_TIME}`;
     } else {

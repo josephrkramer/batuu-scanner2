@@ -140,7 +140,7 @@ export class BadgeDecoder {
         }
     }
 
-    checkForChainCodeRelatedBadges(chainCode: string, chainCodeDecoder: ChainCodeDecoder) {
+    checkForChainCodeRelatedBadges(chainCode: Array<string>, chainCodeDecoder: ChainCodeDecoder) {
         //Well Connected - all NPCs visited
         if (!this.earnedBadges.has(BadgeCode.Well_Connected) && chainCode.length >= chainCodeDecoder.MAX_CHAIN_CODE_SIZE) {
             this.add(BadgeCode.Well_Connected);
