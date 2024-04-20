@@ -109,8 +109,8 @@ export function displayChainCodeResult(chainCodePart) {
 
     //display the image contents
     contentsImage.style.display = 'block';
-    const imgUrl = new URL(`../${chainCodePart.image}`, import.meta.url).href
-    contentsImage.src = imgUrl;
+    //chain code image has already been corrected by vite
+    contentsImage.src = chainCodePart.image;
 }
 
 export function setChainCodeValue(chainCode, chainCodeDecoder) {

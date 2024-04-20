@@ -62,8 +62,8 @@ export function displayCargoHold(crateDecoder: CrateDecoder, scannedCrates: Set<
             const chainCodePart = chainCodeDecoder.decode(code);
             const scannedImage = document.createElement('img');
             scannedImage.className = "scanned-list-item-image";
-            const imgUrl = new URL(`../${chainCodePart.image}`, import.meta.url).href
-            scannedImage.src = imgUrl;
+            //chain code image location has already been corrected by vite
+            scannedImage.src = chainCodePart.image;
 
             scannedImage.addEventListener('click', () => {
                 const cargoHold = document.getElementById('cargo-hold')!;
