@@ -65,11 +65,11 @@ checkDecodeButton(chainCode, chainCodeDecoder);
 //use the url with ?cargo to load test data into the app
 if (urlParams.has('cargo')) {
     console.log("Filling the cargo hold...");
-    addToScanned('FAL11', scannedCrates, crateDecoder, badgeDecoder);
-    addToScanned('CD_LM', scannedCrates, crateDecoder, badgeDecoder);
-    addToScanned('JK_TU', scannedCrates, crateDecoder, badgeDecoder);
-    addToScanned('AB_QR', scannedCrates, crateDecoder, badgeDecoder);
-    addToScanned('JK_RS', scannedCrates, crateDecoder, badgeDecoder);
+    addToScanned('FAL11', scannedCrates);
+    addToScanned('CD_LM', scannedCrates);
+    addToScanned('JK_TU', scannedCrates);
+    addToScanned('AB_QR', scannedCrates);
+    addToScanned('JK_RS', scannedCrates);
 }
 
 if (urlParams.has('reset')) {
