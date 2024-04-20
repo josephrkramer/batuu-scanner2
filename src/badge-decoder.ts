@@ -1,7 +1,6 @@
 import { ChainCodeDecoder } from "./chain-code.js";
 import { CrateDecoder, CrateType } from "./crate-decoder.js";
 
-//export const CrateType = Object.freeze({
 export const BadgeCode = Object.freeze({
     Gayas_Microphone: '31nne',
     Relic_Hunter: '5y7ms',
@@ -11,8 +10,6 @@ export const BadgeCode = Object.freeze({
     Resistance_Hero: 'p35e8',
     We_Have_Cookies: '090xk',
 });
-
-//type BadgeCode = string;
 
 export class Badge {
     code: string;
