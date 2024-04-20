@@ -1,5 +1,5 @@
-import { ChainCodeDecoder } from "./chain-code.js";
-import { CrateDecoder, CrateType } from "./crate-decoder.js";
+import { ChainCodeDecoder } from "./chain-code";
+import { CrateDecoder, CrateType } from "./crate-decoder";
 
 export const BadgeCode = Object.freeze({
     Gayas_Microphone: '31nne',

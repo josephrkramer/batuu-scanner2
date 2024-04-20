@@ -1,6 +1,6 @@
-import { displayChainCodeResult, ChainCodeDecoder } from "./chain-code.js";
-import { displayBadge, BadgeDecoder } from "./badge-decoder.ts";
-import { setResult, CrateDecoder } from "./crate-decoder.js";
+import { displayChainCodeResult, ChainCodeDecoder } from "./chain-code";
+import { displayBadge, BadgeDecoder } from "./badge-decoder";
+import { setResult, CrateDecoder } from "./crate-decoder";
 
 export function displayCargoHold(crateDecoder: CrateDecoder, scannedCrates: Set<string>, chainCode: string, chainCodeDecoder: ChainCodeDecoder, badgeDecoder: BadgeDecoder) {
     //read parameters from the url
