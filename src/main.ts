@@ -1,12 +1,12 @@
 import { CrateDecoder, CrateContents, CrateType, addToScanned, setResult } from "./crate-decoder.js";
-import { CrewMemberType, CrewMember, CrewManifest, displayCrewManifest } from "./crew-manifest.js";
-import { ChainCodeAlignment, ChainCodePart, ChainCodeDecoder, setChainCodeResult, checkDecodeButton, setChainCodeValue } from "./chain-code.js";
+import { CrewManifest, displayCrewManifest } from "./crew-manifest.js";
+import { ChainCodeDecoder, setChainCodeResult, checkDecodeButton, setChainCodeValue } from "./chain-code.js";
 import { displayCargoHold } from "./cargo-hold.js";
 import { BadgeDecoder } from "./badge-decoder.js";
 import { Html5QrcodeScanner, Html5QrcodeScanType, Html5QrcodeSupportedFormats } from "html5-qrcode";
-import { waitToSolvePuzzle } from "./puzzle/15-puzzle.js";
+import { waitToSolvePuzzle } from "../puzzle/15-puzzle.js";
 
-function docReady(fn: any) {
+/* function docReady(fn: any) {
     // see if DOM is already available
     if (document.readyState === "complete"
         || document.readyState === "interactive") {
@@ -15,7 +15,7 @@ function docReady(fn: any) {
     } else {
         document.addEventListener("DOMContentLoaded", fn);
     }
-}
+} */
 
 //read parameters from the url
 const queryString = window.location.search;
@@ -117,11 +117,11 @@ if (urlParams.has('puzzle')) {
     puzzle.style.display = 'block';
     //start puzzle and wait for success
     await waitToSolvePuzzle().then(
-        function(value: any) {
+        function(_value: any) {
             console.log("PUZZLE SUCCESS");
             puzzle.style.display = 'none';
         },
-        function(error: any) {
+        function(_error: any) {
             console.log("PUZZLE FAILURE");
         }
     );
