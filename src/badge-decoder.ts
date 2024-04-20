@@ -1,4 +1,5 @@
-import { CrateType } from "./crate-decoder.js";
+import { ChainCodeDecoder } from "./chain-code";
+import { CrateDecoder, CrateType } from "./crate-decoder";
 
 export const BadgeCode = Object.freeze({
     Gayas_Microphone: '31nne',
@@ -7,11 +8,16 @@ export const BadgeCode = Object.freeze({
     Slicer: 'ocu62',
     Amnesiac: 'k9zh0',
     Resistance_Hero: 'p35e8',
-    We_Have_Cookies: '090xk'
+    We_Have_Cookies: '090xk',
 });
 
 export class Badge {
-    constructor({code, name, description, image}) {
+    code: string;
+    name: string;
+    description: string;
+    image: string;
+
+    constructor({code = '', name = '', description = '', image = ''} = {}) {
         this.code=code;
         this.name=name;
         this.description=description;
@@ -20,9 +26,9 @@ export class Badge {
 }
 
 export class BadgeDecoder {
-    codeToBadge = new Map();
-    unlistedCodeToBadge = new Map();
-    earnedBadges = new Set(JSON.parse(localStorage.getItem('badges')));
+    codeToBadge = new Map<string, Badge>();
+    unlistedCodeToBadge = new Map<string, Badge>();
+    earnedBadges = new Set<string>();
 
     constructor() {
         //listed badges
@@ -35,6 +41,10 @@ export class BadgeDecoder {
         //unlisted badges
         this.unlistedCodeToBadge.set(BadgeCode.Slicer, new Badge({code: BadgeCode.Slicer, name: "Slicer", description: "You sure are a sneaky one. Raithe would be proud.", image: 'images/badge/slicer.jpeg'}));
         this.unlistedCodeToBadge.set(BadgeCode.Amnesiac, new Badge({code: BadgeCode.Amnesiac, name: "Amnesiac", description: "What were you expecting? It's the same space junk in the box every time.", image: 'images/badge/amnesiac.jpeg'}));
+
+        if (localStorage.badges !== undefined) {
+            this.earnedBadges = new Set(JSON.parse(localStorage.badges));
+        }
 
         const urlParams = new URLSearchParams(window.location.search);
         //load new url params into local storage
@@ -54,27 +64,27 @@ export class BadgeDecoder {
             }
         }
         if (modifiedParams) {
-            window.location.search = urlParams;
+            window.location.search = urlParams.toString();
         }
     }
 
-    decode(code) {
+    decode(code: string): Badge {
         console.log(`Decoding ${code}`);
         if (this.codeToBadge.has(code)) {
             //Cloning the badge so we can overwrite the image value without altering the original
-            const cloneBadge = structuredClone(this.codeToBadge.get(code));
+            const cloneBadge = structuredClone(this.codeToBadge.get(code))!;
             if (!this.earnedBadges.has(code)) {
                 cloneBadge.image = 'images/badge/unearned-bw.jpeg';
             }
             return cloneBadge;
         } else if (this.unlistedCodeToBadge.has(code)) {
-            return this.unlistedCodeToBadge.get(code);
+            return this.unlistedCodeToBadge.get(code)!;
         } else {
             throw new Error(`${code} is an unknown badge`);
         }
     }
 
-    add(code) {
+    add(code: string) {
         console.log(`Badge ${code} earned`);
         //adding again is not harmful as it is a set
         this.earnedBadges.add(code);
@@ -85,11 +95,11 @@ export class BadgeDecoder {
         const urlCodes = new Set(urlParams.getAll('b'));
         if (!urlCodes.has(code)) {
             urlParams.append('b', code);
-            window.location.search = urlParams;
+            window.location.search = urlParams.toString();
         }
     }
 
-    remove(code) {
+    remove(code: string) {
         console.log(`Badge ${code} revoked`);
         //deleting again is not harmful as it is a set
         this.earnedBadges.delete(code);
@@ -100,7 +110,7 @@ export class BadgeDecoder {
         const urlCodes = new Set(urlParams.getAll('b'));
         if (urlCodes.has(code)) {
             urlParams.delete('b', code);
-            window.location.search = urlParams;
+            window.location.search = urlParams.toString();
         }
     }
 
@@ -114,10 +124,10 @@ export class BadgeDecoder {
         localStorage.removeItem('badges');
         const urlParams = new URLSearchParams(window.location.search);
         urlParams.delete('b');
-        window.location.search = urlParams;
+        window.location.search = urlParams.toString();
     }
 
-    checkForCrateRelatedBadges(crateCode, scannedCrates, crateDecoder) {
+    checkForCrateRelatedBadges(crateCode: string, scannedCrates: Set<string>, crateDecoder: CrateDecoder) {
         //Relic Hunter - all Relic "overridden" crates
         console.log(`Checking for ${CrateType.Relic} badge`);
         if (!this.earnedBadges.has(BadgeCode.Relic_Hunter) && crateDecoder.getTotalNumberOfType(CrateType.Relic) === crateDecoder.getScannedNumberOfType(CrateType.Relic, scannedCrates)) {
@@ -130,7 +140,7 @@ export class BadgeDecoder {
         }
     }
 
-    checkForChainCodeRelatedBadges(chainCode, chainCodeDecoder) {
+    checkForChainCodeRelatedBadges(chainCode: Array<string>, chainCodeDecoder: ChainCodeDecoder) {
         //Well Connected - all NPCs visited
         if (!this.earnedBadges.has(BadgeCode.Well_Connected) && chainCode.length >= chainCodeDecoder.MAX_CHAIN_CODE_SIZE) {
             this.add(BadgeCode.Well_Connected);
@@ -152,9 +162,9 @@ export class BadgeDecoder {
     }
 }
 
-export function displayBadge(badge) {
-    const resultsHeader = document.getElementById('results-header');
-    const contentsImage = document.getElementById('contents-image');
+export function displayBadge(badge: Badge) {
+    const resultsHeader = document.getElementById('results-header')!;
+    const contentsImage = document.getElementById('contents-image')! as HTMLImageElement;
 
     //update the display text for the item
     console.log(badge);

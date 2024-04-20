@@ -1,6 +1,6 @@
-import { displayChainCodeResult, ChainCodeDecoder } from "./chain-code.js";
-import { displayBadge, BadgeDecoder } from "./badge-decoder.js";
-import { setResult, CrateDecoder } from "./crate-decoder.js";
+import { displayChainCodeResult, ChainCodeDecoder } from "./chain-code";
+import { displayBadge, BadgeDecoder } from "./badge-decoder";
+import { setResult, CrateDecoder } from "./crate-decoder";
 
 export function displayCargoHold(crateDecoder: CrateDecoder, scannedCrates: Set<string>, chainCode: string, chainCodeDecoder: ChainCodeDecoder, badgeDecoder: BadgeDecoder) {
     //read parameters from the url
@@ -33,7 +33,7 @@ export function displayCargoHold(crateDecoder: CrateDecoder, scannedCrates: Set<
             scannedImage.addEventListener('click', () => {
                 const cargoHold = document.getElementById('cargo-hold')!;
                 cargoHold.style.display = 'none';
-                setResult(crate.code);
+                setResult(crate.code, crateDecoder, scannedCrates, badgeDecoder);
             });
 
             //add the item to the scanned list
@@ -62,8 +62,8 @@ export function displayCargoHold(crateDecoder: CrateDecoder, scannedCrates: Set<
             const chainCodePart = chainCodeDecoder.decode(code);
             const scannedImage = document.createElement('img');
             scannedImage.className = "scanned-list-item-image";
-            const imgUrl = new URL(`../${chainCodePart.image}`, import.meta.url).href
-            scannedImage.src = imgUrl;
+            //chain code image location has already been corrected by vite
+            scannedImage.src = chainCodePart.image;
 
             scannedImage.addEventListener('click', () => {
                 const cargoHold = document.getElementById('cargo-hold')!;

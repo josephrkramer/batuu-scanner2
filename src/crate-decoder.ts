@@ -1,3 +1,5 @@
+import { BadgeDecoder } from "./badge-decoder";
+
 export const CrateType = Object.freeze({
     Halcyon_Cargo: 'Halcyon Cargo',
     Outfit: 'Outfit',
@@ -13,7 +15,12 @@ export const CrateType = Object.freeze({
 });
 
 export class CrateContents {
-    constructor({code, contents, type, image}) {
+    code: string;
+    contents: string;
+    type: string;
+    image: string;
+
+    constructor({code = '', contents = '', type = '', image = ''}) {
         this.code=code;
         this.contents=contents;
         this.type=type;
@@ -22,7 +29,7 @@ export class CrateContents {
 }
 
 export class CrateDecoder {
-    contents = new Map();
+    contents = new Map<string, CrateContents>();
 
     constructor() {
         this.contents.set('CAST09', new CrateContents({code: 'CAST09', contents: 'Training Remote', type: CrateType.Halcyon_Cargo}));
@@ -166,9 +173,9 @@ export class CrateDecoder {
         this.contents.set('CAST04', new CrateContents({code: 'CAST04', contents: 'Resistance Coordinates', type: CrateType.Program}));
     }
 
-    decode(code) {
+    decode(code: string): CrateContents {
         if (this.contents.has(code)) {
-            let crate = this.contents.get(code);
+            const crate = this.contents.get(code)!;
             if (crate.image === undefined || crate.image == "") {
                 if (crate.type == CrateType.Halcyon_Cargo) {
                     crate.image = "images/halcyon_cargo.jpeg";
@@ -193,17 +200,17 @@ export class CrateDecoder {
                 }
             }
 
-            return this.contents.get(code);
+            return this.contents.get(code)!;
         } else {
             return new CrateContents({code: '?????', contents: 'Unknown contents', type: CrateType.Unknown});
         }
     }
 
-    override(crate) {
+    override(crate: CrateContents): void {
         this.contents.set(crate.code, crate);
     }
 
-    sortCargoHold(cargoHold) {
+    sortCargoHold(cargoHold: Set<string>) {
         const sortedCargoHold = new Map();
 
         console.log("Sorting cargo...")
@@ -222,12 +229,12 @@ export class CrateDecoder {
         return sortedCargoHold;
     }
 
-    getTotalNumberOfType(type) {
+    getTotalNumberOfType(type: string) {
         const contentsOfType = new Map([...this.contents].filter(([k, v])=>v.type===type));
         return contentsOfType.size;
     }
 
-    getScannedNumberOfType(type, scannedCrates) {
+    getScannedNumberOfType(type: string, scannedCrates: Set<string>) {
         const fullScannedCrates = new Map();
         for (const code of scannedCrates) {
             const crate = this.decode(code);
@@ -238,7 +245,7 @@ export class CrateDecoder {
     }
 }
 
-export function addToScanned(code, scannedCrates, crateDecoder, badgeDecoder) {
+export function addToScanned(code: string, scannedCrates: Set<string>, crateDecoder: CrateDecoder, badgeDecoder: BadgeDecoder) {
     console.log(`Adding ${code} to the scanned list`);
     //add the item to the scannedCrates internal tracking
     scannedCrates.add(code);
@@ -247,9 +254,9 @@ export function addToScanned(code, scannedCrates, crateDecoder, badgeDecoder) {
     localStorage.setItem('cargo', JSON.stringify(Array.from(scannedCrates)));
 }
 
-export function setResult(code, crateDecoder, scannedCrates, badgeDecoder) {
-    const resultsHeader = document.getElementById('results-header');
-    const contentsImage = document.getElementById('contents-image');
+export function setResult(code: string, crateDecoder: CrateDecoder, scannedCrates: Set<string>, badgeDecoder: BadgeDecoder) {
+    const resultsHeader = document.getElementById('results-header')!;
+    const contentsImage = document.getElementById('contents-image')! as HTMLImageElement;
 
     console.log(code);
     //update the display text for the item

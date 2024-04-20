@@ -5,7 +5,18 @@ export const CrewMemberType = Object.freeze({
 });
 
 export class CrewMember {
-    constructor({name, occupation, biography, companion, vehicle, homeworld, species, affiliation, type, image}) {
+    name: string;
+    occupation: string;
+    biography: string;
+    companion: string;
+    vehicle: string;
+    homeworld: string;
+    species: string;
+    affiliation: string;
+    type: string;
+    image: string;
+
+    constructor({name = '', occupation = '', biography = '', companion = '', vehicle = '', homeworld = '', species = '', affiliation = '', type = '', image = ''}) {
         this.name=name;
         this.occupation=occupation;
         this.biography=biography;
@@ -160,7 +171,7 @@ However, the peace was not to last. The First Order soon became a big enough thr
         }));*/
     }
 
-    addCrewMember(crewMemeber) {
+    addCrewMember(crewMemeber: CrewMember) {
         const typeList = this.crew.get(crewMemeber.type);
         typeList.push(crewMemeber);
     }
@@ -173,12 +184,12 @@ However, the peace was not to last. The First Order soon became a big enough thr
         return this.crew.get(CrewMemberType.NPC);
     }
 
-    get(crewMemeberType) {
+    get(crewMemeberType: string) {
         return this.crew.get(crewMemeberType);
     }
 }
 
-export function displayCrewManifest(crewMembers) {
+export function displayCrewManifest(crewMembers: CrewManifest) {
     console.log('Building the crew manifest display');
     const crewMemberTypesToSort = [CrewMemberType.Faction_Leader, CrewMemberType.NPC];
     const newCrewManifestList = [];
@@ -204,22 +215,22 @@ export function displayCrewManifest(crewMembers) {
             crewMemberHeadshot.src = imgUrl;
 
             crewMemberHeadshot.addEventListener('click', () => {
-                const crewManifest = document.getElementById('crew-manifest');
-                const crewMemberDiv = document.getElementById('crew-member');
+                const crewManifest = document.getElementById('crew-manifest')!;
+                const crewMemberDiv = document.getElementById('crew-member')!;
                 crewManifest.style.display = 'none';
                 crewMemberDiv.style.display = 'block';
 
-                const crewMemberPicture = document.getElementById('crew-member-picture');
-                const crewMemberName = document.getElementById('crew-member-name');
-                const crewMemberDetails = document.getElementById('crew-member-details');
-                const crewMemberDetailsListItems = [];
+                const crewMemberPicture = document.getElementById('crew-member-picture') as HTMLImageElement;
+                const crewMemberName = document.getElementById('crew-member-name')!;
+                const crewMemberDetails = document.getElementById('crew-member-details')!;
+                const crewMemberDetailsListItems: HTMLLIElement[] = [];
 
                 //fill in the details
                 crewMemberName.textContent = crewMember.name;
                 const imgUrl = new URL(`../${crewMember.image}`, import.meta.url).href
                 crewMemberPicture.src = imgUrl;
 
-                function createCrewMemberListItem(text, content) {
+                function createCrewMemberListItem(text: string, content: string) {
                     if (content !== undefined){
                         const crewMemberListItem = document.createElement('li');
                         crewMemberListItem.className = "scanned-list-item-text multi-line";
@@ -250,6 +261,6 @@ export function displayCrewManifest(crewMembers) {
         newCrewManifestList.push(crewTypeListItem);
     }
 
-    const crewManifestList = document.getElementById('crew-manifests-list');
+    const crewManifestList = document.getElementById('crew-manifests-list')!;
     crewManifestList.replaceChildren(...newCrewManifestList);
 }
