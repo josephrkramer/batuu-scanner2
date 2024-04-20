@@ -1,7 +1,8 @@
-import { displayChainCodeResult } from "./chain-code.js";
-import { displayBadge } from "./badge-decoder.js";
+import { displayChainCodeResult, ChainCodeDecoder } from "./chain-code.js";
+import { displayBadge, BadgeDecoder } from "./badge-decoder.js";
+import { setResult, CrateDecoder } from "./crate-decoder.js";
 
-export function displayCargoHold(crateDecoder, scannedCrates, chainCode, chainCodeDecoder, badgeDecoder) {
+export function displayCargoHold(crateDecoder: CrateDecoder, scannedCrates: Set<string>, chainCode: string, chainCodeDecoder: ChainCodeDecoder, badgeDecoder: BadgeDecoder) {
     //read parameters from the url
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -29,7 +30,7 @@ export function displayCargoHold(crateDecoder, scannedCrates, chainCode, chainCo
             scannedImage.src = crate.image;
 
             scannedImage.addEventListener('click', () => {
-                const cargoHold = document.getElementById('cargo-hold');
+                const cargoHold = document.getElementById('cargo-hold')!;
                 cargoHold.style.display = 'none';
                 setResult(crate.code);
             });
@@ -63,7 +64,7 @@ export function displayCargoHold(crateDecoder, scannedCrates, chainCode, chainCo
             scannedImage.src = chainCodePart.image;
 
             scannedImage.addEventListener('click', () => {
-                const cargoHold = document.getElementById('cargo-hold');
+                const cargoHold = document.getElementById('cargo-hold')!;
                 cargoHold.style.display = 'none';
                 displayChainCodeResult(chainCodePart);
             });
@@ -86,11 +87,11 @@ export function displayCargoHold(crateDecoder, scannedCrates, chainCode, chainCo
     //Display earned badges
     newCargoHoldList.push(displayBadgeList(badgeDecoder));
 
-    const cargoHoldList = document.getElementById('cargo-hold-list');
+    const cargoHoldList = document.getElementById('cargo-hold-list')!;
     cargoHoldList.replaceChildren(...newCargoHoldList);
 }
 
-function displayBadgeList(badgeDecoder) {
+function displayBadgeList(badgeDecoder: BadgeDecoder) {
     //read parameters from the url
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -107,7 +108,7 @@ function displayBadgeList(badgeDecoder) {
         scannedImage.src = badge.image;
 
         scannedImage.addEventListener('click', () => {
-            const cargoHold = document.getElementById('cargo-hold');
+            const cargoHold = document.getElementById('cargo-hold')!;
             cargoHold.style.display = 'none';
             displayBadge(badge);
         });
