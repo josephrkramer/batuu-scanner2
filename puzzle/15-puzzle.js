@@ -240,7 +240,7 @@ function rand(from, to){
 
 }
 
-function waitToSolvePuzzle() {
+export function waitToSolvePuzzle() {
     scramble();
     return new Promise(function (resolve, reject) {
         (function waitForFoo(){

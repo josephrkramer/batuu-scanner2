@@ -169,5 +169,6 @@ export function displayBadge(badge) {
 
     //display the image contents
     contentsImage.style.display = 'block';
-    contentsImage.src = badge.image;
+    const imgUrl = new URL(`../${badge.image}`, import.meta.url).href
+    contentsImage.src = imgUrl;
 }
