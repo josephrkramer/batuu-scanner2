@@ -4,9 +4,9 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { CrateDecoder, CrateType } from "../src/crate-decoder";
 
 describe("BadgeDecoder", () => {
-  let badgeDecoder: BadgeDecoder;
-  let crateDecoder: CrateDecoder;
-  let chainCodeDecoder: ChainCodeDecoder;
+  let badgeDecoder: BadgeDecoder = new BadgeDecoder();
+  let crateDecoder: CrateDecoder = new CrateDecoder();
+  let chainCodeDecoder: ChainCodeDecoder = new ChainCodeDecoder();
   let resultsHeader: HTMLElement = document.createElement('h1');
   resultsHeader.id = 'results-header';
   document.body.appendChild(resultsHeader);
@@ -18,9 +18,9 @@ describe("BadgeDecoder", () => {
   document.body.appendChild(decodeButton);
 
   beforeEach(() => {
-    badgeDecoder = new BadgeDecoder();
-    crateDecoder = new CrateDecoder();
-    chainCodeDecoder = new ChainCodeDecoder();
+    badgeDecoder.reset();
+    crateDecoder.reset();
+    chainCodeDecoder.reset();
   });
 
   it("should decode listed badges", () => {
@@ -63,7 +63,10 @@ describe("BadgeDecoder", () => {
     expect(badgeDecoder.earnedBadges.size).toBe(0);
   });
 
-  it("should check for crate-related badges", () => {
+  //Crate Related Badges
+
+  it("should check for Relic Hunter", () => {
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Relic_Hunter)).toBe(false);
     crateDecoder.setResult('JK_RS', badgeDecoder);
     crateDecoder.setResult('JK_TU', badgeDecoder);
     expect(crateDecoder.getTotalNumberOfType(CrateType.Relic)).toBe(2);
@@ -71,13 +74,36 @@ describe("BadgeDecoder", () => {
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Relic_Hunter)).toBe(true);
   });
 
-  it("should check for chain code-related badges", () => {
-    chainCodeDecoder.setChainCodeResult('LIGHT', badgeDecoder);
-    chainCodeDecoder.setChainCodeResult('LIGHT', badgeDecoder);
-    chainCodeDecoder.setChainCodeResult('LIGHT', badgeDecoder);
-    chainCodeDecoder.setChainCodeResult('LIGHT', badgeDecoder);
-    chainCodeDecoder.setChainCodeResult('LIGHT', badgeDecoder);
+  it("should check for Amnesiac", () => {
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Amnesiac)).toBe(false);
+    crateDecoder.setResult('JK_RS', badgeDecoder);
+    crateDecoder.setResult('JK_RS', badgeDecoder);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Amnesiac)).toBe(true);
+  });
+
+  //Chain Code Related Badges
+
+  it("should check for Well Connected", () => {
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Well_Connected)).toBe(false);
+    for (let i = 0; i < chainCodeDecoder.MAX_CHAIN_CODE_SIZE; i++) {
+      chainCodeDecoder.setChainCodeResult('LIGHT', badgeDecoder);
+    }
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Well_Connected)).toBe(true);
+  });
+
+  it("should check for Resistance Hero", () => {
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Resistance_Hero)).toBe(false);
+    for (let i = 0; i < chainCodeDecoder.MIN_CHAIN_CODE_SIZE; i++) {
+      chainCodeDecoder.setChainCodeResult('LIGHT', badgeDecoder);
+    }
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Resistance_Hero)).toBe(true);
+  });
+
+  it("should check for We Have Cookies", () => {
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.We_Have_Cookies)).toBe(false);
+    for (let i = 0; i < chainCodeDecoder.MIN_CHAIN_CODE_SIZE; i++) {
+      chainCodeDecoder.setChainCodeResult('DARK1', badgeDecoder);
+    }
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.We_Have_Cookies)).toBe(true);
   });
 });
