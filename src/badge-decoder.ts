@@ -139,7 +139,7 @@ export class BadgeDecoder {
         name: "Amnesiac",
         description: `What were you expecting? It's the same space junk in the box every time.
           
-          Scan a crate you've already scanned previously.`,
+          Scan a single crate for the second time.`,
         image: "images/badge/amnesiac.jpeg",
       }),
     );
