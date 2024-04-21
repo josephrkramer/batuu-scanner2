@@ -9,6 +9,7 @@ export const BadgeCode = Object.freeze({
   Amnesiac: "k9zh0",
   Resistance_Hero: "p35e8",
   We_Have_Cookies: "090xk",
+  Bounty: "8tpao",
 });
 
 export class Badge {
@@ -78,6 +79,15 @@ export class BadgeDecoder {
         name: "We Have Cookies",
         description: "Be careful not to choke on your aspirations.",
         image: "images/badge/we-have-cookies.jpeg",
+      }),
+    );
+    this.codeToBadge.set(
+      BadgeCode.Bounty,
+      new Badge({
+        code: BadgeCode.Bounty,
+        name: "Bounty",
+        description: "You've been gathering dangerous cargo.",
+        image: "images/badge/bounty.jpeg",
       }),
     );
 
@@ -223,6 +233,12 @@ export class BadgeDecoder {
       crateDecoder.hasCrate(crateCode)
     ) {
       this.add(BadgeCode.Amnesiac);
+    }
+
+    //Bounty - animal crates "GI_QR", "KL_QR", or "FAL26"
+    const bountySet = new Set(["GI_QR", "KL_QR", "FAL26"]);
+    if (!this.earnedBadges.has(BadgeCode.Bounty) && bountySet.has(crateCode)) {
+      this.add(BadgeCode.Bounty);
     }
   }
 
