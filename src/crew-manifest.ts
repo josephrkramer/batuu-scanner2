@@ -46,9 +46,9 @@ export class CrewManifest {
 
   constructor() {
     //create empty arrays
-    this.crew.set(CrewMemberType.Faction_Leader, new Array());
-    this.crew.set(CrewMemberType.NPC, new Array());
-    this.crew.set(CrewMemberType.Virtual, new Array());
+    this.crew.set(CrewMemberType.Faction_Leader, new Array<CrewMember>());
+    this.crew.set(CrewMemberType.NPC, new Array<CrewMember>());
+    this.crew.set(CrewMemberType.Virtual, new Array<CrewMember>());
 
     this.addCrewMember(
       new CrewMember({

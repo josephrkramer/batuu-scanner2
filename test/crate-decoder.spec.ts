@@ -3,15 +3,15 @@ import { BadgeDecoder } from "../src/badge-decoder";
 import { beforeEach, describe, expect, it, vitest } from "vitest";
 
 describe("CrateDecoder", () => {
-  let badgeDecoder: BadgeDecoder = new BadgeDecoder();
-  let crateDecoder: CrateDecoder = new CrateDecoder();
-  let resultsHeader: HTMLElement = document.createElement("h1");
+  const badgeDecoder: BadgeDecoder = new BadgeDecoder();
+  const crateDecoder: CrateDecoder = new CrateDecoder();
+  const resultsHeader: HTMLElement = document.createElement("h1");
   resultsHeader.id = "results-header";
   document.body.appendChild(resultsHeader);
-  let contentsImage: HTMLElement = document.createElement("img");
+  const contentsImage: HTMLElement = document.createElement("img");
   contentsImage.id = "contents-image";
   document.body.appendChild(contentsImage);
-  let decodeButton: HTMLElement = document.createElement("button");
+  const decodeButton: HTMLElement = document.createElement("button");
   decodeButton.id = "decode-chain-code-button";
   document.body.appendChild(decodeButton);
 
