@@ -1244,7 +1244,7 @@ export class CrateDecoder {
 
   getTotalNumberOfType(type: string) {
     const contentsOfType = new Map(
-      [...this.contents].filter(element => element[1].type === type),
+      [...this.contents].filter((element) => element[1].type === type),
     );
     return contentsOfType.size;
   }
@@ -1256,7 +1256,7 @@ export class CrateDecoder {
       fullScannedCrates.set(code, crate);
     }
     const contentsOfType = new Map(
-      [...fullScannedCrates].filter(element => element[1].type === type),
+      [...fullScannedCrates].filter((element) => element[1].type === type),
     );
     return contentsOfType.size;
   }

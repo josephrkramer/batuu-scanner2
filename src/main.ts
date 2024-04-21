@@ -98,7 +98,10 @@ function startButton() {
   crewMemberDiv.style.display = "none";
   chainCodeDiv.style.display = "none";
 
-  function onScanSuccess(decodedText: string, decodedResult: Html5QrcodeResult) {
+  function onScanSuccess(
+    decodedText: string,
+    decodedResult: Html5QrcodeResult,
+  ) {
     console.log(`Scan result ${decodedText}`, decodedResult);
     html5QrcodeScanner.clear();
 
