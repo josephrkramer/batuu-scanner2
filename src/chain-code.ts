@@ -65,7 +65,7 @@ export class ChainCodeDecoder {
   }
 
   reset(): void {
-    this.chainCode = new Array<ChainCodePart>();
+    this.chainCode = new Array<string>();
     localStorage.removeItem("chainCode");
     this.checkDecodeButton();
   }
