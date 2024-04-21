@@ -12,6 +12,7 @@ export const BadgeCode = Object.freeze({
   Bounty: "8tpao",
   Character_AARC: "pk41z",
   Jawa: "ado5t",
+  I_Shot_First: "b39i1",
 });
 
 export class Badge {
@@ -119,6 +120,17 @@ export class BadgeDecoder {
         
         Scan 20+ crates.`,
         image: "images/badge/jawa.jpeg",
+      }),
+    );
+    this.codeToBadge.set(
+      BadgeCode.I_Shot_First,
+      new Badge({
+        code: BadgeCode.I_Shot_First,
+        name: "I Shot First",
+        description: `"I’m a Mandalorian. Weapons are part of my religion." --Din Djarin
+        
+        Collect more than one weapon.`,
+        image: "images/badge/i-shot-first.jpeg",
       }),
     );
 
@@ -279,6 +291,17 @@ export class BadgeDecoder {
       crateDecoder.scannedCrates.size >= 20
     ) {
       this.add(BadgeCode.Jawa);
+    }
+
+    //I Shot First - Scan more than one weapon
+    if (
+      !this.earnedBadges.has(BadgeCode.I_Shot_First) &&
+      //current scann is a weapon
+      crateDecoder.decode(crateCode).type === CrateType.Weapon &&
+      //at least 1 past weapon scan
+      crateDecoder.getScannedNumberOfType(CrateType.Weapon) >= 1
+    ) {
+      this.add(BadgeCode.I_Shot_First);
     }
   }
 
