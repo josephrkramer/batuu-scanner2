@@ -136,6 +136,10 @@ describe("BadgeDecoder", () => {
       chainCodeDecoder.setChainCodeResult("LIGHT", badgeDecoder);
     }
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Resistance_Hero)).toBe(true);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Character_AARC)).toBe(false);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.We_Have_Cookies)).toBe(
+      false,
+    );
   });
 
   it("should check for We Have Cookies", () => {
@@ -146,5 +150,24 @@ describe("BadgeDecoder", () => {
       chainCodeDecoder.setChainCodeResult("DARK1", badgeDecoder);
     }
     expect(badgeDecoder.earnedBadges.has(BadgeCode.We_Have_Cookies)).toBe(true);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Resistance_Hero)).toBe(
+      false,
+    );
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Character_AARC)).toBe(false);
+  });
+
+  it("should check for Chracter AARC", () => {
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Character_AARC)).toBe(false);
+    chainCodeDecoder.setChainCodeResult("DARK1", badgeDecoder);
+    chainCodeDecoder.setChainCodeResult("DARK1", badgeDecoder);
+    chainCodeDecoder.setChainCodeResult("DARK1", badgeDecoder);
+    chainCodeDecoder.setChainCodeResult("LIGHT", badgeDecoder);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Character_AARC)).toBe(true);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.We_Have_Cookies)).toBe(
+      false,
+    );
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Resistance_Hero)).toBe(
+      false,
+    );
   });
 });

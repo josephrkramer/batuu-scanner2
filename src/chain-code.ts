@@ -26,10 +26,7 @@ export class ChainCodeDecoder {
   MAX_CHAIN_CODE_SIZE = 5;
   MEETING_TIME = "7:30pm";
   //load chainCode from local storage
-  chainCode =
-    localStorage.chainCode !== undefined
-      ? JSON.parse(localStorage.chainCode)
-      : new Array<ChainCodePart>();
+  chainCode = new Array<string>();
 
   constructor() {
     this.scanCodeToChainCodePart.set(
@@ -57,8 +54,12 @@ export class ChainCodeDecoder {
       }),
     );
 
-    console.log(`Chain code instantiated from local storage:`);
-    console.log(this.chainCode);
+    if (localStorage.chainCode !== undefined) {
+      this.chainCode = new Array<string>(JSON.parse(localStorage.chainCode));
+      console.log(`Chain code instantiated from local storage:`);
+      console.log(this.chainCode);
+    }
+
     //check if the decode button should be enabled after an initial load from local storage
     this.checkDecodeButton();
   }
