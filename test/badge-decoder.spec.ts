@@ -118,6 +118,14 @@ describe("BadgeDecoder", () => {
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Bounty)).toBe(true);
   });
 
+  it("should check for Jawa", () => {
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Jawa)).toBe(false);
+    for (const code of crateDecoder.contents.keys()) {
+      crateDecoder.setResult(code, badgeDecoder);
+    }
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Jawa)).toBe(true);
+  });
+
   //Chain Code Related Badges
 
   it("should check for Well Connected", () => {
