@@ -1296,10 +1296,10 @@ export class CrateDecoder {
     const imgUrl = new URL(`../${crate.image}`, import.meta.url).href;
     contentsImage.src = imgUrl;
 
+    //add the item to the scanned list if not previously scanned
+    badgeDecoder.checkForCrateRelatedBadges(code, this);
     if (!this.scannedCrates.has(code)) {
       this.addToScanned(code);
     }
-    //add the item to the scanned list if not previously scanned
-    badgeDecoder.checkForCrateRelatedBadges(code, this);
   }
 }

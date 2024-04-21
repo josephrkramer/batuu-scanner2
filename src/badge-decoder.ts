@@ -198,11 +198,21 @@ export class BadgeDecoder {
 
   checkForCrateRelatedBadges(crateCode: string, crateDecoder: CrateDecoder) {
     //Relic Hunter - all Relic "overridden" crates
+    function isLastRelicCrate(crateCode: string, crateDecoder: CrateDecoder) {
+      //hasn't been scanned previously
+      return (
+        !crateDecoder.hasCrate(crateCode) &&
+        //is of type Relic
+        crateDecoder.decode(crateCode).type === CrateType.Relic &&
+        //The player has scanned all other Relics
+        crateDecoder.getTotalNumberOfType(CrateType.Relic) - 1 ===
+          crateDecoder.getScannedNumberOfType(CrateType.Relic)
+      );
+    }
     console.log(`Checking for ${CrateType.Relic} badge`);
     if (
       !this.earnedBadges.has(BadgeCode.Relic_Hunter) &&
-      crateDecoder.getTotalNumberOfType(CrateType.Relic) ===
-        crateDecoder.getScannedNumberOfType(CrateType.Relic)
+      isLastRelicCrate(crateCode, crateDecoder)
     ) {
       this.add(BadgeCode.Relic_Hunter);
     }
