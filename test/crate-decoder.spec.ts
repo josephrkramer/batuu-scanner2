@@ -3,16 +3,16 @@ import { BadgeDecoder } from "../src/badge-decoder";
 import { beforeEach, describe, expect, it, vitest } from "vitest";
 
 describe("CrateDecoder", () => {
-    let badgeDecoder: BadgeDecoder = new BadgeDecoder();
-    let crateDecoder: CrateDecoder = new CrateDecoder();
-  let resultsHeader: HTMLElement = document.createElement('h1');
-  resultsHeader.id = 'results-header';
+  const badgeDecoder: BadgeDecoder = new BadgeDecoder();
+  const crateDecoder: CrateDecoder = new CrateDecoder();
+  const resultsHeader: HTMLElement = document.createElement("h1");
+  resultsHeader.id = "results-header";
   document.body.appendChild(resultsHeader);
-  let contentsImage: HTMLElement = document.createElement('img');
-  contentsImage.id = 'contents-image';
+  const contentsImage: HTMLElement = document.createElement("img");
+  contentsImage.id = "contents-image";
   document.body.appendChild(contentsImage);
-  let decodeButton: HTMLElement = document.createElement('button');
-  decodeButton.id = 'decode-chain-code-button';
+  const decodeButton: HTMLElement = document.createElement("button");
+  decodeButton.id = "decode-chain-code-button";
   document.body.appendChild(decodeButton);
 
   beforeEach(() => {
@@ -35,7 +35,14 @@ describe("CrateDecoder", () => {
   });
 
   it("should override a crate's contents", () => {
-    crateDecoder.override(new CrateContents({code: 'JK_RS', contents: 'Evan\'s Manifesto', type: 'Relic', image: 'images/halcyon_cargo.jpeg'}));
+    crateDecoder.override(
+      new CrateContents({
+        code: "JK_RS",
+        contents: "Evan's Manifesto",
+        type: "Relic",
+        image: "images/halcyon_cargo.jpeg",
+      }),
+    );
     const crate = crateDecoder.decode("JK_RS");
     expect(crate.code).toBe("JK_RS");
     expect(crate.contents).toBe("Evan's Manifesto");
@@ -82,9 +89,15 @@ describe("CrateDecoder", () => {
 
   it("should set the result and call the badge decoder", () => {
     const setResultSpy = vitest.spyOn(crateDecoder, "setResult");
-    const checkForCrateRelatedBadgesSpy = vitest.spyOn(badgeDecoder, "checkForCrateRelatedBadges");
+    const checkForCrateRelatedBadgesSpy = vitest.spyOn(
+      badgeDecoder,
+      "checkForCrateRelatedBadges",
+    );
     crateDecoder.setResult("CAST09", badgeDecoder);
     expect(setResultSpy).toHaveBeenCalledWith("CAST09", badgeDecoder);
-    expect(checkForCrateRelatedBadgesSpy).toHaveBeenCalledWith("CAST09", crateDecoder);
+    expect(checkForCrateRelatedBadgesSpy).toHaveBeenCalledWith(
+      "CAST09",
+      crateDecoder,
+    );
   });
 });

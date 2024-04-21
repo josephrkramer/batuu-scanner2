@@ -3,18 +3,18 @@ import { BadgeDecoder } from "../src/badge-decoder";
 import { beforeEach, describe, expect, it, vitest } from "vitest";
 
 describe("ChainCodeDecoder", () => {
-    let badgeDecoder: BadgeDecoder = new BadgeDecoder();
-    let chainCodeDecoder: ChainCodeDecoder = new ChainCodeDecoder();
-    let resultsHeader: HTMLElement = document.createElement('h1');
-    resultsHeader.id = 'results-header';
-    document.body.appendChild(resultsHeader);
-    let contentsImage: HTMLElement = document.createElement('img');
-    contentsImage.id = 'contents-image';
-    document.body.appendChild(contentsImage);
-    let decodeButton: HTMLElement = document.createElement('button');
-    decodeButton.id = 'decode-chain-code-button';
-    decodeButton.style.display = "none";
-    document.body.appendChild(decodeButton);
+  const badgeDecoder: BadgeDecoder = new BadgeDecoder();
+  const chainCodeDecoder: ChainCodeDecoder = new ChainCodeDecoder();
+  const resultsHeader: HTMLElement = document.createElement("h1");
+  resultsHeader.id = "results-header";
+  document.body.appendChild(resultsHeader);
+  const contentsImage: HTMLElement = document.createElement("img");
+  contentsImage.id = "contents-image";
+  document.body.appendChild(contentsImage);
+  const decodeButton: HTMLElement = document.createElement("button");
+  decodeButton.id = "decode-chain-code-button";
+  decodeButton.style.display = "none";
+  document.body.appendChild(decodeButton);
 
   beforeEach(() => {
     badgeDecoder.reset();
@@ -30,7 +30,9 @@ describe("ChainCodeDecoder", () => {
   });
 
   it("should return unknown for an invalid chain code", () => {
-    expect(() => chainCodeDecoder.decode("INVALID")).toThrowError("INVALID is an unknown chaincode");
+    expect(() => chainCodeDecoder.decode("INVALID")).toThrowError(
+      "INVALID is an unknown chaincode",
+    );
   });
 
   it("should check if a chain code is valid", () => {
@@ -54,16 +56,24 @@ describe("ChainCodeDecoder", () => {
     const decodeButton = document.getElementById("decode-chain-code-button")!;
     expect(decodeButton.style.display).toBe("none");
     for (let i = 0; i < chainCodeDecoder.MIN_CHAIN_CODE_SIZE; i++) {
-        chainCodeDecoder.setChainCodeResult('DARK1', badgeDecoder);
-    };
+      chainCodeDecoder.setChainCodeResult("DARK1", badgeDecoder);
+    }
     expect(decodeButton.style.display).toBe("block");
   });
 
   it("should set the chain code result and call the badge decoder", () => {
-    const setChainCodeResultSpy = vitest.spyOn(chainCodeDecoder, "setChainCodeResult");
-    const checkForChainCodeRelatedBadgesSpy = vitest.spyOn(badgeDecoder, "checkForChainCodeRelatedBadges");
+    const setChainCodeResultSpy = vitest.spyOn(
+      chainCodeDecoder,
+      "setChainCodeResult",
+    );
+    const checkForChainCodeRelatedBadgesSpy = vitest.spyOn(
+      badgeDecoder,
+      "checkForChainCodeRelatedBadges",
+    );
     chainCodeDecoder.setChainCodeResult("DARK1", badgeDecoder);
     expect(setChainCodeResultSpy).toHaveBeenCalledWith("DARK1", badgeDecoder);
-    expect(checkForChainCodeRelatedBadgesSpy).toHaveBeenCalledWith(chainCodeDecoder);
+    expect(checkForChainCodeRelatedBadgesSpy).toHaveBeenCalledWith(
+      chainCodeDecoder,
+    );
   });
 });

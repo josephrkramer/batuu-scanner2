@@ -1,97 +1,97 @@
 body {
-    background-color:black;
-    color:white;
+  background-color: black;
+  color: white;
 }
 div {
-    margin-bottom: 16px;
+  margin-bottom: 16px;
 }
 
 #logo-image {
-    max-width: 100%;
+  max-width: 100%;
 }
 
 #contents-image {
-    max-width: 100%;
-    display:none;
+  max-width: 100%;
+  display: none;
 }
 
 #results-header {
-    display:none;
-    text-align:center;
-    padding-top:70px;
-    padding-bottom:70px;
+  display: none;
+  text-align: center;
+  padding-top: 70px;
+  padding-bottom: 70px;
 }
 
 #cargo-hold-title {
-    text-align:center;
-    padding-top:70px;
-    padding-bottom:70px;
+  text-align: center;
+  padding-top: 70px;
+  padding-bottom: 70px;
 }
 
 #crew-manifest-title {
-    text-align:center;
-    padding-top:70px;
-    padding-bottom:70px;
+  text-align: center;
+  padding-top: 70px;
+  padding-bottom: 70px;
 }
 
 #qr-reader {
-    width:500px;
+  width: 500px;
 }
 
 #cargo-hold {
-    display: none;
+  display: none;
 }
 
 #crew-manifest {
-    display: none;
+  display: none;
 }
 
 #crew-member {
-    display: none;
+  display: none;
 }
 
 #decode-chain-code-button {
-    display: none;
+  display: none;
 }
 
 #chain-code {
-    display: none;
+  display: none;
 }
 
 #chain-code-title {
-    text-align:center;
-    padding-top:70px;
-    padding-bottom:70px;
+  text-align: center;
+  padding-top: 70px;
+  padding-bottom: 70px;
 }
 
 .major-button {
-    font-size:36px;
-    width:100%;
-    background-color:white;
-    color:black;
-    padding:36px;
+  font-size: 36px;
+  width: 100%;
+  background-color: white;
+  color: black;
+  padding: 36px;
 }
 
 .cargo-type-text {
-    font-size: xx-large;
-    background-color: white;
-    color: black;
+  font-size: xx-large;
+  background-color: white;
+  color: black;
 }
 
 .scanned-list-item-text {
-    font-size: x-large;
-    background-color: black;
-    color: white;
+  font-size: x-large;
+  background-color: black;
+  color: white;
 }
 
 .scanned-list-item-image {
-    max-width: 150px;
+  max-width: 150px;
 }
 
 .multi-line {
-    white-space: pre-line;
+  white-space: pre-line;
 }
 
 hr {
-    margin-top: 32px;
+  margin-top: 32px;
 }

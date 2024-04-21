@@ -3,205 +3,207 @@ import { CrewManifest, displayCrewManifest } from "./crew-manifest";
 import { ChainCodeDecoder, displayChainCodeValue } from "./chain-code";
 import { displayCargoHold } from "./cargo-hold";
 import { BadgeDecoder } from "./badge-decoder";
-import { Html5QrcodeScanner, Html5QrcodeScanType, Html5QrcodeSupportedFormats } from "html5-qrcode";
+import {
+  Html5QrcodeResult,
+  Html5QrcodeScanner,
+  Html5QrcodeScanType,
+  Html5QrcodeSupportedFormats,
+} from "html5-qrcode";
 import { waitToSolvePuzzle } from "../puzzle/15-puzzle";
-
-/* function docReady(fn: any) {
-    // see if DOM is already available
-    if (document.readyState === "complete"
-        || document.readyState === "interactive") {
-        // call on next available tick
-        setTimeout(fn, 1);
-    } else {
-        document.addEventListener("DOMContentLoaded", fn);
-    }
-} */
 
 //read parameters from the url
 const queryString = window.location.search;
 console.log(queryString);
 const urlParams = new URLSearchParams(queryString);
 
-const logo = document.getElementById('logo')!;
-const resultsHeader = document.getElementById('results-header')!;
-const contentsImage = document.getElementById('contents-image')!;
-const cargoHold = document.getElementById('cargo-hold')!;
-const puzzle = document.getElementById('puzzle')!;
-const crewManifest = document.getElementById('crew-manifest')!;
-const crewMemberDiv = document.getElementById('crew-member')!;
-const chainCodeDiv = document.getElementById('chain-code')!;
+const logo = document.getElementById("logo")!;
+const resultsHeader = document.getElementById("results-header")!;
+const contentsImage = document.getElementById("contents-image")!;
+const cargoHold = document.getElementById("cargo-hold")!;
+const puzzle = document.getElementById("puzzle")!;
+const crewManifest = document.getElementById("crew-manifest")!;
+const crewMemberDiv = document.getElementById("crew-member")!;
+const chainCodeDiv = document.getElementById("chain-code")!;
 
 const crateDecoder = new CrateDecoder();
 const crewMembers = new CrewManifest();
 const chainCodeDecoder = new ChainCodeDecoder();
 const badgeDecoder = new BadgeDecoder();
 
-console.log(`There are ${crateDecoder.getTotalNumberOfType(CrateType.Relic)} relics to be found`);
+console.log(
+  `There are ${crateDecoder.getTotalNumberOfType(CrateType.Relic)} relics to be found`,
+);
 
 //use the url with ?cargo to load test data into the app
-if (urlParams.has('cargo')) {
-    console.log("Filling the cargo hold...");
-    crateDecoder.addToScanned('FAL11');
-    crateDecoder.addToScanned('CD_LM');
-    crateDecoder.addToScanned('JK_TU');
-    crateDecoder.addToScanned('AB_QR');
-    crateDecoder.addToScanned('JK_RS');
+if (urlParams.has("cargo")) {
+  console.log("Filling the cargo hold...");
+  crateDecoder.addToScanned("FAL11");
+  crateDecoder.addToScanned("CD_LM");
+  crateDecoder.addToScanned("JK_TU");
+  crateDecoder.addToScanned("AB_QR");
+  crateDecoder.addToScanned("JK_RS");
 }
 
-if (urlParams.has('reset')) {
-    crateDecoder.reset();
-    badgeDecoder.reset();
-    chainCodeDecoder.reset();
+if (urlParams.has("reset")) {
+  crateDecoder.reset();
+  badgeDecoder.reset();
+  chainCodeDecoder.reset();
 
-    //force a reload of the page that will refresh the cache. Equivalent of Ctl+F5
-    window.location.reload();
-    //strip ?reset from the url so we don't get in a refresh loop
-    const urlParams = new URLSearchParams(window.location.search);
-    urlParams.delete('reset');
-    window.location.search = urlParams.toString();
+  //force a reload of the page that will refresh the cache. Equivalent of Ctl+F5
+  window.location.reload();
+  //strip ?reset from the url so we don't get in a refresh loop
+  const urlParams = new URLSearchParams(window.location.search);
+  urlParams.delete("reset");
+  window.location.search = urlParams.toString();
 }
-
 
 // ####### Web Cam Scanning #######
 
 const config = {
-    fps: 10,
-    qrbox: { width: 250, height: 250 },
-    rememberLastUsedCamera: true,
-    // Only support camera scan type.
-    supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA],
-    formatsToSupport: [ Html5QrcodeSupportedFormats.AZTEC ],
+  fps: 10,
+  qrbox: { width: 250, height: 250 },
+  rememberLastUsedCamera: true,
+  // Only support camera scan type.
+  supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA],
+  formatsToSupport: [Html5QrcodeSupportedFormats.AZTEC],
 };
 
-const html5QrcodeScanner = new Html5QrcodeScanner(
-        "qr-reader", config, false);
+const html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", config, false);
 
 //allow direct access to the puzzle for testing
-if (urlParams.has('puzzle')) {
-    console.log("Starting puzzle for testing");
-    stopButton();
-    logo.style.display = 'none';
-    puzzle.style.display = 'block';
-    //start puzzle and wait for success
-    await waitToSolvePuzzle().then(
-        function(_value: any) {
-            console.log("PUZZLE SUCCESS");
-            puzzle.style.display = 'none';
-        },
-        function(_error: any) {
-            console.log("PUZZLE FAILURE");
-        }
-    );
-    stopButton();
+if (urlParams.has("puzzle")) {
+  console.log("Starting puzzle for testing");
+  stopButton();
+  logo.style.display = "none";
+  puzzle.style.display = "block";
+  //start puzzle and wait for success
+  await waitToSolvePuzzle().then(
+    function () {
+      console.log("PUZZLE SUCCESS");
+      puzzle.style.display = "none";
+    },
+    function () {
+      console.log("PUZZLE FAILURE");
+    },
+  );
+  stopButton();
 }
 
 function startButton() {
-    logo.style.display = 'none';
-    resultsHeader.style.display = 'none';
-    contentsImage.style.display = 'none';
-    cargoHold.style.display = 'none';
-    crewManifest.style.display = 'none';
-    crewMemberDiv.style.display = 'none';
-    chainCodeDiv.style.display = 'none';
+  logo.style.display = "none";
+  resultsHeader.style.display = "none";
+  contentsImage.style.display = "none";
+  cargoHold.style.display = "none";
+  crewManifest.style.display = "none";
+  crewMemberDiv.style.display = "none";
+  chainCodeDiv.style.display = "none";
 
-    function onScanSuccess(decodedText: string, decodedResult: any) {
-        console.log(`Scan result ${decodedText}`, decodedResult);
-        html5QrcodeScanner.clear();
+  function onScanSuccess(decodedText: string, decodedResult: Html5QrcodeResult) {
+    console.log(`Scan result ${decodedText}`, decodedResult);
+    html5QrcodeScanner.clear();
 
-        const crate = crateDecoder.decode(decodedText);
+    const crate = crateDecoder.decode(decodedText);
 
-        if (chainCodeDecoder.isValidChainCode(decodedText) || crate.type == CrateType.Unknown || urlParams.has('debug')) {
-            if (chainCodeDecoder.isValidChainCode(decodedText)) {
-                chainCodeDecoder.setChainCodeResult(decodedText, badgeDecoder);
-            } else {
-                crateDecoder.setResult(decodedText, badgeDecoder);
-            }
-        } else {
-            //start puzzle and wait for success
-            puzzle.style.display = 'block';
-            waitToSolvePuzzle().then(
-                function() {
-                    console.log("PUZZLE SUCCESS");
-                    crateDecoder.setResult(decodedText, badgeDecoder);
-                    puzzle.style.display = 'none';
-                },
-                function() {
-                    console.log("PUZZLE FAILURE");
-                }
-            );
-        }
+    if (
+      chainCodeDecoder.isValidChainCode(decodedText) ||
+      crate.type == CrateType.Unknown ||
+      urlParams.has("debug")
+    ) {
+      if (chainCodeDecoder.isValidChainCode(decodedText)) {
+        chainCodeDecoder.setChainCodeResult(decodedText, badgeDecoder);
+      } else {
+        crateDecoder.setResult(decodedText, badgeDecoder);
+      }
+    } else {
+      //start puzzle and wait for success
+      puzzle.style.display = "block";
+      waitToSolvePuzzle().then(
+        function () {
+          console.log("PUZZLE SUCCESS");
+          crateDecoder.setResult(decodedText, badgeDecoder);
+          puzzle.style.display = "none";
+        },
+        function () {
+          console.log("PUZZLE FAILURE");
+        },
+      );
     }
-    html5QrcodeScanner.render(onScanSuccess, undefined);
-    puzzle.style.display = 'none';
+  }
+  html5QrcodeScanner.render(onScanSuccess, undefined);
+  puzzle.style.display = "none";
 }
 
 function stopButton() {
-    logo.style.display = 'block';
-    resultsHeader.style.display = 'none';
-    contentsImage.style.display = 'none';
-    cargoHold.style.display = 'none';
-    html5QrcodeScanner.clear();
-    puzzle.style.display = 'none';
-    crewManifest.style.display = 'none';
-    crewMemberDiv.style.display = 'none';
-    chainCodeDiv.style.display = 'none';
+  logo.style.display = "block";
+  resultsHeader.style.display = "none";
+  contentsImage.style.display = "none";
+  cargoHold.style.display = "none";
+  html5QrcodeScanner.clear();
+  puzzle.style.display = "none";
+  crewManifest.style.display = "none";
+  crewMemberDiv.style.display = "none";
+  chainCodeDiv.style.display = "none";
 }
 
 function cargoHoldButton() {
-    logo.style.display = 'none';
-    resultsHeader.style.display = 'none';
-    contentsImage.style.display = 'none';
-    displayCargoHold(crateDecoder, chainCodeDecoder, badgeDecoder);
-    cargoHold.style.display = 'block';
-    html5QrcodeScanner.clear();
-    puzzle.style.display = 'none';
-    crewManifest.style.display = 'none';
-    crewMemberDiv.style.display = 'none';
-    chainCodeDiv.style.display = 'none';
+  logo.style.display = "none";
+  resultsHeader.style.display = "none";
+  contentsImage.style.display = "none";
+  displayCargoHold(crateDecoder, chainCodeDecoder, badgeDecoder);
+  cargoHold.style.display = "block";
+  html5QrcodeScanner.clear();
+  puzzle.style.display = "none";
+  crewManifest.style.display = "none";
+  crewMemberDiv.style.display = "none";
+  chainCodeDiv.style.display = "none";
 }
 
 function crewManifestButton() {
-    logo.style.display = 'none';
-    resultsHeader.style.display = 'none';
-    contentsImage.style.display = 'none';
-    cargoHold.style.display = 'none';
-    html5QrcodeScanner.clear();
-    puzzle.style.display = 'none';
-    crewManifest.style.display = 'block';
-    crewMemberDiv.style.display = 'none';
-    displayCrewManifest(crewMembers);
-    chainCodeDiv.style.display = 'none';
+  logo.style.display = "none";
+  resultsHeader.style.display = "none";
+  contentsImage.style.display = "none";
+  cargoHold.style.display = "none";
+  html5QrcodeScanner.clear();
+  puzzle.style.display = "none";
+  crewManifest.style.display = "block";
+  crewMemberDiv.style.display = "none";
+  displayCrewManifest(crewMembers);
+  chainCodeDiv.style.display = "none";
 }
 
 function decodeChainCodeButton() {
-    logo.style.display = 'none';
-    resultsHeader.style.display = 'none';
-    contentsImage.style.display = 'none';
-    cargoHold.style.display = 'none';
-    html5QrcodeScanner.clear();
-    puzzle.style.display = 'none';
-    crewManifest.style.display = 'none';
-    crewMemberDiv.style.display = 'none';
-    chainCodeDiv.style.display = 'block';
-    displayChainCodeValue(chainCodeDecoder);
+  logo.style.display = "none";
+  resultsHeader.style.display = "none";
+  contentsImage.style.display = "none";
+  cargoHold.style.display = "none";
+  html5QrcodeScanner.clear();
+  puzzle.style.display = "none";
+  crewManifest.style.display = "none";
+  crewMemberDiv.style.display = "none";
+  chainCodeDiv.style.display = "block";
+  displayChainCodeValue(chainCodeDecoder);
 }
 
-document.getElementById('start-button')!.addEventListener('click', () => {
-    startButton();
+document.getElementById("start-button")!.addEventListener("click", () => {
+  startButton();
 });
 
-document.getElementById('stop-button')!.addEventListener('click', () => {
-    stopButton();
+document.getElementById("stop-button")!.addEventListener("click", () => {
+  stopButton();
 });
 
-document.getElementById('scanned-button')!.addEventListener('click', () => {
-    cargoHoldButton();
+document.getElementById("scanned-button")!.addEventListener("click", () => {
+  cargoHoldButton();
 });
 
-document.getElementById('crew-manifest-button')!.addEventListener('click', () => {
+document
+  .getElementById("crew-manifest-button")!
+  .addEventListener("click", () => {
     crewManifestButton();
-});
+  });
 
-document.getElementById('decode-chain-code-button')!.addEventListener('click', () => {
+document
+  .getElementById("decode-chain-code-button")!
+  .addEventListener("click", () => {
     decodeChainCodeButton();
-});
+  });
