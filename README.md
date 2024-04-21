@@ -29,3 +29,9 @@ See [https://josephrkramer.github.io/batuu-scanner2/?puzzle](https://josephrkram
 ### Debug mode for no puzzle and extra scan code display
 
 See [https://josephrkramer.github.io/batuu-scanner2/?debug](https://josephrkramer.github.io/batuu-scanner2/?debug)
+
+### Grant all badges
+
+See [https://josephrkramer.github.io/batuu-scanner2/?allbadges](https://josephrkramer.github.io/batuu-scanner2/?addbadges)
+
+May of these badges are mutually exclusive in a single event. This feature is to be used by team members for easy review of art and text copy and should be removed and/or disabled prior to an event.
