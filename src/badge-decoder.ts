@@ -1,4 +1,4 @@
-import { ChainCodeDecoder } from "./chain-code";
+import { ChainCodeAlignmentCode, ChainCodeDecoder } from "./chain-code";
 import { CrateDecoder, CrateType } from "./crate-decoder";
 
 export const BadgeCode = Object.freeze({
@@ -289,8 +289,8 @@ export class BadgeDecoder {
     if (
       chainCodeDecoder.chainCodeLength() >=
         chainCodeDecoder.MIN_CHAIN_CODE_SIZE &&
-      chainCodeDecoder.chainCode.includes("DARK1") &&
-      chainCodeDecoder.chainCode.includes("LIGHT")
+      chainCodeDecoder.chainCode.includes(ChainCodeAlignmentCode.Dark) &&
+      chainCodeDecoder.chainCode.includes(ChainCodeAlignmentCode.Light)
     ) {
       this.add(BadgeCode.Character_AARC);
     } else {

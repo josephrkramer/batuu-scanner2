@@ -1,4 +1,4 @@
-import { ChainCodeDecoder } from "../src/chain-code";
+import { ChainCodeAlignmentCode, ChainCodeDecoder } from "../src/chain-code";
 import { BadgeDecoder } from "../src/badge-decoder";
 import { beforeEach, describe, expect, it, vitest } from "vitest";
 
@@ -22,8 +22,8 @@ describe("ChainCodeDecoder", () => {
   });
 
   it("should decode a valid chain code", () => {
-    const chainCodePart = chainCodeDecoder.decode("DARK1");
-    expect(chainCodePart.code).toBe("DARK1");
+    const chainCodePart = chainCodeDecoder.decode(ChainCodeAlignmentCode.Dark);
+    expect(chainCodePart.code).toBe(ChainCodeAlignmentCode.Dark);
     expect(chainCodePart.description).toBe("Dark Side Alignment");
     expect(chainCodePart.value).toBe(-1);
     expect(chainCodePart.image).toContain("images/chaincode");
@@ -36,19 +36,27 @@ describe("ChainCodeDecoder", () => {
   });
 
   it("should check if a chain code is valid", () => {
-    expect(chainCodeDecoder.isValidChainCode("DARK1")).toBe(true);
+    expect(chainCodeDecoder.isValidChainCode(ChainCodeAlignmentCode.Dark)).toBe(
+      true,
+    );
     expect(chainCodeDecoder.isValidChainCode("INVALID")).toBe(false);
   });
 
   it("should get the length of the chain code", () => {
     expect(chainCodeDecoder.chainCodeLength()).toBe(0);
-    chainCodeDecoder.setChainCodeResult("DARK1", badgeDecoder);
+    chainCodeDecoder.setChainCodeResult(
+      ChainCodeAlignmentCode.Dark,
+      badgeDecoder,
+    );
     expect(chainCodeDecoder.chainCodeLength()).toBe(1);
   });
 
   it("should get the raw value of the chain code", () => {
     expect(chainCodeDecoder.rawValue()).toBe(0);
-    chainCodeDecoder.setChainCodeResult("DARK1", badgeDecoder);
+    chainCodeDecoder.setChainCodeResult(
+      ChainCodeAlignmentCode.Dark,
+      badgeDecoder,
+    );
     expect(chainCodeDecoder.rawValue()).toBe(-1);
   });
 
@@ -56,7 +64,10 @@ describe("ChainCodeDecoder", () => {
     const decodeButton = document.getElementById("decode-chain-code-button")!;
     expect(decodeButton.style.display).toBe("none");
     for (let i = 0; i < chainCodeDecoder.MIN_CHAIN_CODE_SIZE; i++) {
-      chainCodeDecoder.setChainCodeResult("DARK1", badgeDecoder);
+      chainCodeDecoder.setChainCodeResult(
+        ChainCodeAlignmentCode.Dark,
+        badgeDecoder,
+      );
     }
     expect(decodeButton.style.display).toBe("block");
   });
@@ -70,8 +81,14 @@ describe("ChainCodeDecoder", () => {
       badgeDecoder,
       "checkForChainCodeRelatedBadges",
     );
-    chainCodeDecoder.setChainCodeResult("DARK1", badgeDecoder);
-    expect(setChainCodeResultSpy).toHaveBeenCalledWith("DARK1", badgeDecoder);
+    chainCodeDecoder.setChainCodeResult(
+      ChainCodeAlignmentCode.Dark,
+      badgeDecoder,
+    );
+    expect(setChainCodeResultSpy).toHaveBeenCalledWith(
+      ChainCodeAlignmentCode.Dark,
+      badgeDecoder,
+    );
     expect(checkForChainCodeRelatedBadgesSpy).toHaveBeenCalledWith(
       chainCodeDecoder,
     );

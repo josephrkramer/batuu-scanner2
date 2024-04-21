@@ -1,9 +1,15 @@
 import { BadgeDecoder } from "./badge-decoder";
 
-export const ChainCodeAlignment = Object.freeze({
+export const ChainCodeAlignmentValue = Object.freeze({
   Dark: -1,
   Neutral: 0,
   Light: 1,
+});
+
+export const ChainCodeAlignmentCode = Object.freeze({
+  Dark: "DARK1",
+  Neutral: "NEUTR",
+  Light: "LIGHT",
 });
 
 export class ChainCodePart {
@@ -30,27 +36,27 @@ export class ChainCodeDecoder {
 
   constructor() {
     this.scanCodeToChainCodePart.set(
-      "DARK1",
+      ChainCodeAlignmentCode.Dark,
       new ChainCodePart({
-        code: "DARK1",
+        code: ChainCodeAlignmentCode.Dark,
         description: "Dark Side Alignment",
-        value: ChainCodeAlignment.Dark,
+        value: ChainCodeAlignmentValue.Dark,
       }),
     );
     this.scanCodeToChainCodePart.set(
-      "LIGHT",
+      ChainCodeAlignmentCode.Light,
       new ChainCodePart({
-        code: "LIGHT",
+        code: ChainCodeAlignmentCode.Light,
         description: "Light Side Alignment",
-        value: ChainCodeAlignment.Light,
+        value: ChainCodeAlignmentValue.Light,
       }),
     );
     this.scanCodeToChainCodePart.set(
-      "NEUTR",
+      ChainCodeAlignmentCode.Neutral,
       new ChainCodePart({
-        code: "NEUTR",
+        code: ChainCodeAlignmentCode.Neutral,
         description: "Neutral Alignment",
-        value: ChainCodeAlignment.Neutral,
+        value: ChainCodeAlignmentValue.Neutral,
       }),
     );
 
