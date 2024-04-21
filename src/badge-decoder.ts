@@ -50,7 +50,7 @@ export class BadgeDecoder {
         code: BadgeCode.Relic_Hunter,
         name: "Relic Hunter",
         description:
-          "You found all of the AARC relics hidden in the crates on Batuu.",
+          "Find all of the AARC relics hidden in the crates on Batuu.",
         image: "images/badge/relic-hunter.jpeg",
       }),
     );
@@ -59,7 +59,9 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.Well_Connected,
         name: "Well Connected",
-        description: "You interacted with every informant during the event.",
+        description: `"You just walk in like you belong." --Cassian Andor
+        
+        Interact with every informant during the event.`,
         image: "images/badge/well-connected.jpeg",
       }),
     );
@@ -68,8 +70,9 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.Resistance_Hero,
         name: "Resistance Hero",
-        description:
-          "We don't choose the light because we want to win. We choose it because it is the light.",
+        description: `"We don't choose the light because we want to win. We choose it because it is the light." --Rael Averross
+          
+          Make only Light Side choices during an event.`,
         image: "images/badge/resistance-hero.jpeg",
       }),
     );
@@ -78,7 +81,9 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.We_Have_Cookies,
         name: "We Have Cookies",
-        description: "Be careful not to choke on your aspirations.",
+        description: `"Be careful not to choke on your aspirations." --Darth Vader
+        
+        Make only Dark Side choices during an event.`,
         image: "images/badge/we-have-cookies.jpeg",
       }),
     );
@@ -87,7 +92,9 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.Bounty,
         name: "Bounty",
-        description: "You've been gathering dangerous cargo.",
+        description: `"You're not hauling rathtars on this freighter, are you?!" --Finn
+        
+        Scan a crate containing a creature.`,
         image: "images/badge/bounty.jpeg",
       }),
     );
@@ -96,7 +103,7 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.Character_AARC,
         name: "Character AARC",
-        description: `The future has many paths; choose wisely.
+        description: `"The future has many paths; choose wisely." --Anakin Skywalker
         
         Make both Light and Dark side choices during an event.`,
         image: "images/badge/character-aarc.jpeg",
@@ -118,8 +125,9 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.Amnesiac,
         name: "Amnesiac",
-        description:
-          "What were you expecting? It's the same space junk in the box every time.",
+        description: `What were you expecting? It's the same space junk in the box every time.
+          
+          Scan a crate you've already scanned previously.`,
         image: "images/badge/amnesiac.jpeg",
       }),
     );
