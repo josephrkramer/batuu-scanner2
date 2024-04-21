@@ -11,17 +11,6 @@ import {
 } from "html5-qrcode";
 import { waitToSolvePuzzle } from "../puzzle/15-puzzle";
 
-/* function docReady(fn: any) {
-    // see if DOM is already available
-    if (document.readyState === "complete"
-        || document.readyState === "interactive") {
-        // call on next available tick
-        setTimeout(fn, 1);
-    } else {
-        document.addEventListener("DOMContentLoaded", fn);
-    }
-} */
-
 //read parameters from the url
 const queryString = window.location.search;
 console.log(queryString);
