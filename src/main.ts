@@ -4,6 +4,7 @@ import { ChainCodeDecoder, displayChainCodeValue } from "./chain-code";
 import { displayCargoHold } from "./cargo-hold";
 import { BadgeDecoder } from "./badge-decoder";
 import {
+  Html5QrcodeResult,
   Html5QrcodeScanner,
   Html5QrcodeScanType,
   Html5QrcodeSupportedFormats,
@@ -88,11 +89,11 @@ if (urlParams.has("puzzle")) {
   puzzle.style.display = "block";
   //start puzzle and wait for success
   await waitToSolvePuzzle().then(
-    function (_value: any) {
+    function () {
       console.log("PUZZLE SUCCESS");
       puzzle.style.display = "none";
     },
-    function (_error: any) {
+    function () {
       console.log("PUZZLE FAILURE");
     },
   );
@@ -108,7 +109,7 @@ function startButton() {
   crewMemberDiv.style.display = "none";
   chainCodeDiv.style.display = "none";
 
-  function onScanSuccess(decodedText: string, decodedResult: any) {
+  function onScanSuccess(decodedText: string, decodedResult: Html5QrcodeResult) {
     console.log(`Scan result ${decodedText}`, decodedResult);
     html5QrcodeScanner.clear();
 
