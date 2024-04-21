@@ -1,6 +1,6 @@
 import { CrateDecoder, CrateType } from "./crate-decoder";
 import { CrewManifest, displayCrewManifest } from "./crew-manifest";
-import { ChainCodeDecoder, setChainCodeResult, checkDecodeButton, setChainCodeValue } from "./chain-code";
+import { ChainCodeDecoder, displayChainCodeValue } from "./chain-code";
 import { displayCargoHold } from "./cargo-hold";
 import { BadgeDecoder } from "./badge-decoder";
 import { Html5QrcodeScanner, Html5QrcodeScanType, Html5QrcodeSupportedFormats } from "html5-qrcode";
@@ -38,13 +38,6 @@ const badgeDecoder = new BadgeDecoder();
 
 console.log(`There are ${crateDecoder.getTotalNumberOfType(CrateType.Relic)} relics to be found`);
 
-//load chainCode from local storage
-const chainCode = localStorage.chainCode !== undefined ? JSON.parse(localStorage.chainCode) : new Array();
-console.log(`Chain code instantiated from local storage:`);
-console.log(chainCode);
-//check if the decode button should be enabled after an initial load from local storage
-checkDecodeButton(chainCode, chainCodeDecoder);
-
 //use the url with ?cargo to load test data into the app
 if (urlParams.has('cargo')) {
     console.log("Filling the cargo hold...");
@@ -58,9 +51,7 @@ if (urlParams.has('cargo')) {
 if (urlParams.has('reset')) {
     crateDecoder.reset();
     badgeDecoder.reset();
-
-    localStorage.removeItem('chainCode');    
-    chainCode.splice(0, chainCode.length);
+    chainCodeDecoder.reset();
 
     //force a reload of the page that will refresh the cache. Equivalent of Ctl+F5
     window.location.reload();
@@ -68,10 +59,6 @@ if (urlParams.has('reset')) {
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.delete('reset');
     window.location.search = urlParams.toString();
-}
-
-if (urlParams.has('debug')) {
-    //
 }
 
 
@@ -125,7 +112,7 @@ function startButton() {
 
         if (chainCodeDecoder.isValidChainCode(decodedText) || crate.type == CrateType.Unknown || urlParams.has('debug')) {
             if (chainCodeDecoder.isValidChainCode(decodedText)) {
-                setChainCodeResult(decodedText, chainCodeDecoder, chainCode, badgeDecoder);
+                chainCodeDecoder.setChainCodeResult(decodedText, badgeDecoder);
             } else {
                 crateDecoder.setResult(decodedText, badgeDecoder);
             }
@@ -164,7 +151,7 @@ function cargoHoldButton() {
     logo.style.display = 'none';
     resultsHeader.style.display = 'none';
     contentsImage.style.display = 'none';
-    displayCargoHold(crateDecoder, chainCode, chainCodeDecoder, badgeDecoder);
+    displayCargoHold(crateDecoder, chainCodeDecoder, badgeDecoder);
     cargoHold.style.display = 'block';
     html5QrcodeScanner.clear();
     puzzle.style.display = 'none';
@@ -196,7 +183,7 @@ function decodeChainCodeButton() {
     crewManifest.style.display = 'none';
     crewMemberDiv.style.display = 'none';
     chainCodeDiv.style.display = 'block';
-    setChainCodeValue(chainCode, chainCodeDecoder);
+    displayChainCodeValue(chainCodeDecoder);
 }
 
 document.getElementById('start-button')!.addEventListener('click', () => {

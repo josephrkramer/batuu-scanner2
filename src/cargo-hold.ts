@@ -2,7 +2,7 @@ import { displayChainCodeResult, ChainCodeDecoder } from "./chain-code";
 import { displayBadge, BadgeDecoder } from "./badge-decoder";
 import { CrateDecoder } from "./crate-decoder";
 
-export function displayCargoHold(crateDecoder: CrateDecoder, chainCode: string, chainCodeDecoder: ChainCodeDecoder, badgeDecoder: BadgeDecoder) {
+export function displayCargoHold(crateDecoder: CrateDecoder, chainCodeDecoder: ChainCodeDecoder, badgeDecoder: BadgeDecoder) {
     //read parameters from the url
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -51,14 +51,14 @@ export function displayCargoHold(crateDecoder: CrateDecoder, chainCode: string, 
         newCargoHoldList.push(crateTypeListItem);
     }
 
-    if (chainCode.length > 0) {
+    if (chainCodeDecoder.chainCodeLength() > 0) {
         //add chain code
         const chainCodeListItem = document.createElement('li');
         chainCodeListItem.className = "cargo-type-text";
         chainCodeListItem.appendChild(document.createTextNode("Chain Code"));
         const chainCodeList = document.createElement('ul');
         chainCodeListItem.appendChild(chainCodeList);
-        for (const code of chainCode) {
+        for (const code of chainCodeDecoder.chainCode) {
             const chainCodePart = chainCodeDecoder.decode(code);
             const scannedImage = document.createElement('img');
             scannedImage.className = "scanned-list-item-image";
