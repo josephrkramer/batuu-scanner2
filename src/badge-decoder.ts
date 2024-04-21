@@ -59,7 +59,7 @@ export class BadgeDecoder {
       BadgeCode.Well_Connected,
       new Badge({
         code: BadgeCode.Well_Connected,
-        name: "Well Connected",
+        name: "Well-Connected",
         description: `"You just walk in like you belong." --Cassian Andor
         
         Interact with every informant during the event.`,
