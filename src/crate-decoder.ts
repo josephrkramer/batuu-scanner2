@@ -30,6 +30,7 @@ export class CrateContents {
 
 export class CrateDecoder {
     contents = new Map<string, CrateContents>();
+    scannedCrates = new Set<string>();
 
     constructor() {
         this.contents.set('CAST09', new CrateContents({code: 'CAST09', contents: 'Training Remote', type: CrateType.Halcyon_Cargo}));
@@ -171,6 +172,18 @@ export class CrateDecoder {
         this.contents.set('AB_MN', new CrateContents({code: 'AB_MN', contents: 'Z-6 Jetpack', type: CrateType.Weapon}));
         this.contents.set('IJ_OP', new CrateContents({code: 'IJ_OP', contents: 'Batuu Sun Outfit', type: CrateType.Outfit}));
         this.contents.set('CAST04', new CrateContents({code: 'CAST04', contents: 'Resistance Coordinates', type: CrateType.Program}));
+
+        //Add custom overrides for the event
+        this.override(new CrateContents({code: 'JK_RS', contents: 'Evan\'s Manifesto', type: CrateType.Relic, image: 'images/halcyon_cargo.jpeg'}));
+        this.override(new CrateContents({code: 'JK_TU', contents: 'Tom\'s Vape Pen', type: CrateType.Relic, image: 'images/ports_of_call.jpeg'}));
+
+        //Keep track of the crates scanned so far and don't allow duplicates
+        //load from local storage
+        if (localStorage.cargo !== undefined) {
+            this.scannedCrates = new Set<string>(JSON.parse(localStorage.cargo));
+            console.log(`Cargo hold instantiated from local storage:`);
+            console.log(this.scannedCrates);
+        }
     }
 
     decode(code: string): CrateContents {
@@ -210,17 +223,26 @@ export class CrateDecoder {
         this.contents.set(crate.code, crate);
     }
 
-    sortCargoHold(cargoHold: Set<string>) {
-        const sortedCargoHold = new Map();
+    hasCrate(code: string): boolean {
+        return this.scannedCrates.has(code);
+    }
+
+    reset(): void {
+        this.scannedCrates.clear();
+        localStorage.removeItem('cargo');
+    }
+
+    sortCargoHold(): Map<string, Set<CrateContents>> {
+        const sortedCargoHold = new Map<string, Set<CrateContents>>();
 
         console.log("Sorting cargo...")
 
-        for (const code of cargoHold) {
+        for (const code of this.scannedCrates) {
             const crate = this.decode(code);
             if (!sortedCargoHold.has(crate.type)) {
-                sortedCargoHold.set(crate.type, new Set());
+                sortedCargoHold.set(crate.type, new Set<CrateContents>());
             }
-            const typeSet = sortedCargoHold.get(crate.type);
+            const typeSet = sortedCargoHold.get(crate.type)!;
             typeSet.add(crate);
         }
 
@@ -234,50 +256,50 @@ export class CrateDecoder {
         return contentsOfType.size;
     }
 
-    getScannedNumberOfType(type: string, scannedCrates: Set<string>) {
+    getScannedNumberOfType(type: string) {
         const fullScannedCrates = new Map();
-        for (const code of scannedCrates) {
+        for (const code of this.scannedCrates) {
             const crate = this.decode(code);
             fullScannedCrates.set(code, crate);
         }
         const contentsOfType = new Map([...fullScannedCrates].filter(([_, v])=>v.type===type));
         return contentsOfType.size;
     }
-}
 
-export function addToScanned(code: string, scannedCrates: Set<string>) {
-    console.log(`Adding ${code} to the scanned list`);
-    //add the item to the scannedCrates internal tracking
-    scannedCrates.add(code);
-
-    //store all of the scanned crates into local storage
-    localStorage.setItem('cargo', JSON.stringify(Array.from(scannedCrates)));
-}
-
-export function setResult(code: string, crateDecoder: CrateDecoder, scannedCrates: Set<string>, badgeDecoder: BadgeDecoder) {
-    const resultsHeader = document.getElementById('results-header')!;
-    const contentsImage = document.getElementById('contents-image')! as HTMLImageElement;
-
-    console.log(code);
-    //update the display text for the item
-    const crate = crateDecoder.decode(code);
-    console.log(crate);
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('debug')) {
-        resultsHeader.textContent = code + " - " + crate.contents;
-    } else {
-        resultsHeader.textContent = crate.contents;
+    addToScanned(code: string) {
+        console.log(`Adding ${code} to the scanned list`);
+        //add the item to the scannedCrates internal tracking
+        this.scannedCrates.add(code);
+    
+        //store all of the scanned crates into local storage
+        localStorage.setItem('cargo', JSON.stringify(Array.from(this.scannedCrates)));
     }
-    resultsHeader.style.display = 'block';
 
-    //display the image contents
-    contentsImage.style.display = 'block';
-    const imgUrl = new URL(`../${crate.image}`, import.meta.url).href
-    contentsImage.src = imgUrl;
-
-    //add the item to the scanned list if not previously scanned
-    badgeDecoder.checkForCrateRelatedBadges(code, scannedCrates, crateDecoder);
-    if (!scannedCrates.has(code)) {
-        addToScanned(code, scannedCrates);
+    setResult(code: string, badgeDecoder: BadgeDecoder) {
+        const resultsHeader = document.getElementById('results-header')!;
+        const contentsImage = document.getElementById('contents-image')! as HTMLImageElement;
+    
+        console.log(code);
+        //update the display text for the item
+        const crate = this.decode(code);
+        console.log(crate);
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('debug')) {
+            resultsHeader.textContent = code + " - " + crate.contents;
+        } else {
+            resultsHeader.textContent = crate.contents;
+        }
+        resultsHeader.style.display = 'block';
+    
+        //display the image contents
+        contentsImage.style.display = 'block';
+        const imgUrl = new URL(`../${crate.image}`, import.meta.url).href
+        contentsImage.src = imgUrl;
+    
+        //add the item to the scanned list if not previously scanned
+        badgeDecoder.checkForCrateRelatedBadges(code, this);
+        if (!this.scannedCrates.has(code)) {
+            this.addToScanned(code);
+        }
     }
 }

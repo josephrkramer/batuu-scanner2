@@ -127,15 +127,15 @@ export class BadgeDecoder {
         window.location.search = urlParams.toString();
     }
 
-    checkForCrateRelatedBadges(crateCode: string, scannedCrates: Set<string>, crateDecoder: CrateDecoder) {
+    checkForCrateRelatedBadges(crateCode: string, crateDecoder: CrateDecoder) {
         //Relic Hunter - all Relic "overridden" crates
         console.log(`Checking for ${CrateType.Relic} badge`);
-        if (!this.earnedBadges.has(BadgeCode.Relic_Hunter) && crateDecoder.getTotalNumberOfType(CrateType.Relic) === crateDecoder.getScannedNumberOfType(CrateType.Relic, scannedCrates)) {
+        if (!this.earnedBadges.has(BadgeCode.Relic_Hunter) && crateDecoder.getTotalNumberOfType(CrateType.Relic) === crateDecoder.getScannedNumberOfType(CrateType.Relic)) {
             this.add(BadgeCode.Relic_Hunter);
         }
 
         //Amnesiac - Scan the same crate again
-        if (!this.earnedBadges.has(BadgeCode.Amnesiac) && scannedCrates.has(crateCode)) {
+        if (!this.earnedBadges.has(BadgeCode.Amnesiac) && crateDecoder.hasCrate(crateCode)) {
             this.add(BadgeCode.Amnesiac);
         }
     }
