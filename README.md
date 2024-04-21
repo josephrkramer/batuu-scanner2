@@ -10,17 +10,22 @@ In this library, several changes have been applied over the original port:
 - Added a Crate Decoder class to interpret the codes returned by the crates in Galaxy's Edge.
 
 ## AARC Scanner
+
 See [https://josephrkramer.github.io/batuu-scanner2/](https://josephrkramer.github.io/batuu-scanner2/)
 ![Single Image of all Barcodes](single_image_of_all_barcodes.png "Single Image of all Barcodes")
 
 ### Pre-populate with cargo
+
 See [https://josephrkramer.github.io/batuu-scanner2/?cargo](https://josephrkramer.github.io/batuu-scanner2/?cargo)
 
 ### Empty the cargo bay
+
 See [https://josephrkramer.github.io/batuu-scanner2/?reset](https://josephrkramer.github.io/batuu-scanner2/?reset)
 
 ### Play the mini-game puzzle
+
 See [https://josephrkramer.github.io/batuu-scanner2/?puzzle](https://josephrkramer.github.io/batuu-scanner2/?puzzle)
 
 ### Debug mode for no puzzle and extra scan code display
+
 See [https://josephrkramer.github.io/batuu-scanner2/?debug](https://josephrkramer.github.io/batuu-scanner2/?debug)
