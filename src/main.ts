@@ -44,6 +44,16 @@ if (urlParams.has("cargo")) {
   crateDecoder.addToScanned("JK_RS");
 }
 
+//TODO: remove this before the event.
+if (urlParams.has("allbadges")) {
+  for (const badge of new Set([
+    ...badgeDecoder.codeToBadge.keys(),
+    ...badgeDecoder.unlistedCodeToBadge.keys(),
+  ])) {
+    badgeDecoder.add(badge);
+  }
+}
+
 if (urlParams.has("reset")) {
   crateDecoder.reset();
   badgeDecoder.reset();
