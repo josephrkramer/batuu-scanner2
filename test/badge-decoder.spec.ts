@@ -1,5 +1,5 @@
 import { BadgeCode, BadgeDecoder } from "../src/badge-decoder";
-import { ChainCodeDecoder } from "../src/chain-code";
+import { ChainCodeAlignmentCode, ChainCodeDecoder } from "../src/chain-code";
 import { beforeEach, describe, expect, it } from "vitest";
 import { CrateDecoder, CrateType } from "../src/crate-decoder";
 
@@ -123,7 +123,10 @@ describe("BadgeDecoder", () => {
   it("should check for Well Connected", () => {
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Well_Connected)).toBe(false);
     for (let i = 0; i < chainCodeDecoder.MAX_CHAIN_CODE_SIZE; i++) {
-      chainCodeDecoder.setChainCodeResult("LIGHT", badgeDecoder);
+      chainCodeDecoder.setChainCodeResult(
+        ChainCodeAlignmentCode.Light,
+        badgeDecoder,
+      );
     }
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Well_Connected)).toBe(true);
   });
@@ -133,9 +136,16 @@ describe("BadgeDecoder", () => {
       false,
     );
     for (let i = 0; i < chainCodeDecoder.MIN_CHAIN_CODE_SIZE; i++) {
-      chainCodeDecoder.setChainCodeResult("LIGHT", badgeDecoder);
+      chainCodeDecoder.setChainCodeResult(
+        ChainCodeAlignmentCode.Light,
+        badgeDecoder,
+      );
     }
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Resistance_Hero)).toBe(true);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Character_AARC)).toBe(false);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.We_Have_Cookies)).toBe(
+      false,
+    );
   });
 
   it("should check for We Have Cookies", () => {
@@ -143,8 +153,42 @@ describe("BadgeDecoder", () => {
       false,
     );
     for (let i = 0; i < chainCodeDecoder.MIN_CHAIN_CODE_SIZE; i++) {
-      chainCodeDecoder.setChainCodeResult("DARK1", badgeDecoder);
+      chainCodeDecoder.setChainCodeResult(
+        ChainCodeAlignmentCode.Dark,
+        badgeDecoder,
+      );
     }
     expect(badgeDecoder.earnedBadges.has(BadgeCode.We_Have_Cookies)).toBe(true);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Resistance_Hero)).toBe(
+      false,
+    );
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Character_AARC)).toBe(false);
+  });
+
+  it("should check for Chracter AARC", () => {
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Character_AARC)).toBe(false);
+    chainCodeDecoder.setChainCodeResult(
+      ChainCodeAlignmentCode.Dark,
+      badgeDecoder,
+    );
+    chainCodeDecoder.setChainCodeResult(
+      ChainCodeAlignmentCode.Dark,
+      badgeDecoder,
+    );
+    chainCodeDecoder.setChainCodeResult(
+      ChainCodeAlignmentCode.Dark,
+      badgeDecoder,
+    );
+    chainCodeDecoder.setChainCodeResult(
+      ChainCodeAlignmentCode.Light,
+      badgeDecoder,
+    );
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Character_AARC)).toBe(true);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.We_Have_Cookies)).toBe(
+      false,
+    );
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Resistance_Hero)).toBe(
+      false,
+    );
   });
 });

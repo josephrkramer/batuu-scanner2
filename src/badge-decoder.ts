@@ -1,4 +1,4 @@
-import { ChainCodeDecoder } from "./chain-code";
+import { ChainCodeAlignmentCode, ChainCodeDecoder } from "./chain-code";
 import { CrateDecoder, CrateType } from "./crate-decoder";
 
 export const BadgeCode = Object.freeze({
@@ -10,6 +10,7 @@ export const BadgeCode = Object.freeze({
   Resistance_Hero: "p35e8",
   We_Have_Cookies: "090xk",
   Bounty: "8tpao",
+  Character_AARC: "pk41z",
 });
 
 export class Badge {
@@ -88,6 +89,17 @@ export class BadgeDecoder {
         name: "Bounty",
         description: "You've been gathering dangerous cargo.",
         image: "images/badge/bounty.jpeg",
+      }),
+    );
+    this.codeToBadge.set(
+      BadgeCode.Character_AARC,
+      new Badge({
+        code: BadgeCode.Character_AARC,
+        name: "Character AARC",
+        description: `The future has many paths; choose wisely.
+        
+        Make both Light and Dark side choices during an event.`,
+        image: "images/badge/character-aarc.jpeg",
       }),
     );
 
@@ -271,6 +283,18 @@ export class BadgeDecoder {
       this.add(BadgeCode.We_Have_Cookies);
     } else {
       this.remove(BadgeCode.We_Have_Cookies);
+    }
+
+    //Character AARC - make both light and dark side choices
+    if (
+      chainCodeDecoder.chainCodeLength() >=
+        chainCodeDecoder.MIN_CHAIN_CODE_SIZE &&
+      chainCodeDecoder.chainCode.includes(ChainCodeAlignmentCode.Dark) &&
+      chainCodeDecoder.chainCode.includes(ChainCodeAlignmentCode.Light)
+    ) {
+      this.add(BadgeCode.Character_AARC);
+    } else {
+      this.remove(BadgeCode.Character_AARC);
     }
   }
 }

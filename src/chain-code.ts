@@ -1,9 +1,15 @@
 import { BadgeDecoder } from "./badge-decoder";
 
-export const ChainCodeAlignment = Object.freeze({
+export const ChainCodeAlignmentValue = Object.freeze({
   Dark: -1,
   Neutral: 0,
   Light: 1,
+});
+
+export const ChainCodeAlignmentCode = Object.freeze({
+  Dark: "DARK1",
+  Neutral: "NEUTR",
+  Light: "LIGHT",
 });
 
 export class ChainCodePart {
@@ -26,45 +32,46 @@ export class ChainCodeDecoder {
   MAX_CHAIN_CODE_SIZE = 5;
   MEETING_TIME = "7:30pm";
   //load chainCode from local storage
-  chainCode =
-    localStorage.chainCode !== undefined
-      ? JSON.parse(localStorage.chainCode)
-      : new Array<ChainCodePart>();
+  chainCode = new Array<string>();
 
   constructor() {
     this.scanCodeToChainCodePart.set(
-      "DARK1",
+      ChainCodeAlignmentCode.Dark,
       new ChainCodePart({
-        code: "DARK1",
+        code: ChainCodeAlignmentCode.Dark,
         description: "Dark Side Alignment",
-        value: ChainCodeAlignment.Dark,
+        value: ChainCodeAlignmentValue.Dark,
       }),
     );
     this.scanCodeToChainCodePart.set(
-      "LIGHT",
+      ChainCodeAlignmentCode.Light,
       new ChainCodePart({
-        code: "LIGHT",
+        code: ChainCodeAlignmentCode.Light,
         description: "Light Side Alignment",
-        value: ChainCodeAlignment.Light,
+        value: ChainCodeAlignmentValue.Light,
       }),
     );
     this.scanCodeToChainCodePart.set(
-      "NEUTR",
+      ChainCodeAlignmentCode.Neutral,
       new ChainCodePart({
-        code: "NEUTR",
+        code: ChainCodeAlignmentCode.Neutral,
         description: "Neutral Alignment",
-        value: ChainCodeAlignment.Neutral,
+        value: ChainCodeAlignmentValue.Neutral,
       }),
     );
 
-    console.log(`Chain code instantiated from local storage:`);
-    console.log(this.chainCode);
+    if (localStorage.chainCode !== undefined) {
+      this.chainCode = new Array<string>(JSON.parse(localStorage.chainCode));
+      console.log(`Chain code instantiated from local storage:`);
+      console.log(this.chainCode);
+    }
+
     //check if the decode button should be enabled after an initial load from local storage
     this.checkDecodeButton();
   }
 
   reset(): void {
-    this.chainCode = new Array<ChainCodePart>();
+    this.chainCode = new Array<string>();
     localStorage.removeItem("chainCode");
     this.checkDecodeButton();
   }
