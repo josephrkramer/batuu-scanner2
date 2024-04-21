@@ -127,34 +127,34 @@ export class BadgeDecoder {
         window.location.search = urlParams.toString();
     }
 
-    checkForCrateRelatedBadges(crateCode: string, scannedCrates: Set<string>, crateDecoder: CrateDecoder) {
+    checkForCrateRelatedBadges(crateCode: string, crateDecoder: CrateDecoder) {
         //Relic Hunter - all Relic "overridden" crates
         console.log(`Checking for ${CrateType.Relic} badge`);
-        if (!this.earnedBadges.has(BadgeCode.Relic_Hunter) && crateDecoder.getTotalNumberOfType(CrateType.Relic) === crateDecoder.getScannedNumberOfType(CrateType.Relic, scannedCrates)) {
+        if (!this.earnedBadges.has(BadgeCode.Relic_Hunter) && crateDecoder.getTotalNumberOfType(CrateType.Relic) === crateDecoder.getScannedNumberOfType(CrateType.Relic)) {
             this.add(BadgeCode.Relic_Hunter);
         }
 
         //Amnesiac - Scan the same crate again
-        if (!this.earnedBadges.has(BadgeCode.Amnesiac) && scannedCrates.has(crateCode)) {
+        if (!this.earnedBadges.has(BadgeCode.Amnesiac) && crateDecoder.hasCrate(crateCode)) {
             this.add(BadgeCode.Amnesiac);
         }
     }
 
-    checkForChainCodeRelatedBadges(chainCode: Array<string>, chainCodeDecoder: ChainCodeDecoder) {
+    checkForChainCodeRelatedBadges(chainCodeDecoder: ChainCodeDecoder) {
         //Well Connected - all NPCs visited
-        if (!this.earnedBadges.has(BadgeCode.Well_Connected) && chainCode.length >= chainCodeDecoder.MAX_CHAIN_CODE_SIZE) {
+        if (!this.earnedBadges.has(BadgeCode.Well_Connected) && chainCodeDecoder.chainCodeLength() >= chainCodeDecoder.MAX_CHAIN_CODE_SIZE) {
             this.add(BadgeCode.Well_Connected);
         }
 
         //Resistance Hero - only light side codes
-        if (chainCode.length >= chainCodeDecoder.MIN_CHAIN_CODE_SIZE && chainCodeDecoder.rawValue(chainCode) === chainCode.length) {
+        if (chainCodeDecoder.chainCodeLength() >= chainCodeDecoder.MIN_CHAIN_CODE_SIZE && chainCodeDecoder.rawValue() === chainCodeDecoder.chainCodeLength()) {
             this.add(BadgeCode.Resistance_Hero);
         } else {
             this.remove(BadgeCode.Resistance_Hero);
         }
 
         //We Have Cookies - only dark side codes
-        if (chainCode.length >= chainCodeDecoder.MIN_CHAIN_CODE_SIZE && (chainCodeDecoder.rawValue(chainCode) * -1) === chainCode.length) {
+        if (chainCodeDecoder.chainCodeLength() >= chainCodeDecoder.MIN_CHAIN_CODE_SIZE && (chainCodeDecoder.rawValue() * -1) === chainCodeDecoder.chainCodeLength()) {
             this.add(BadgeCode.We_Have_Cookies);
         } else {
             this.remove(BadgeCode.We_Have_Cookies);

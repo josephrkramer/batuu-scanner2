@@ -25,11 +25,24 @@ export class ChainCodeDecoder {
     MIN_CHAIN_CODE_SIZE = 3;
     MAX_CHAIN_CODE_SIZE = 5;
     MEETING_TIME = '7:30pm';
+    //load chainCode from local storage
+    chainCode = localStorage.chainCode !== undefined ? JSON.parse(localStorage.chainCode) : new Array<ChainCodePart>();
 
     constructor() {
         this.scanCodeToChainCodePart.set('DARK1', new ChainCodePart({code: 'DARK1', description: 'Dark Side Alignment', value: ChainCodeAlignment.Dark}));
         this.scanCodeToChainCodePart.set('LIGHT', new ChainCodePart({code: 'LIGHT', description: 'Light Side Alignment', value: ChainCodeAlignment.Light}));
         this.scanCodeToChainCodePart.set('NEUTR', new ChainCodePart({code: 'NEUTR', description: 'Neutral Alignment', value: ChainCodeAlignment.Neutral}));
+
+        console.log(`Chain code instantiated from local storage:`);
+        console.log(this.chainCode);
+        //check if the decode button should be enabled after an initial load from local storage
+        this.checkDecodeButton();
+    }
+
+    reset(): void {
+        this.chainCode = new Array<ChainCodePart>();
+        localStorage.removeItem('chainCode');
+        this.checkDecodeButton();
     }
 
     getRandomInt(max: number) {
@@ -57,37 +70,41 @@ export class ChainCodeDecoder {
         return this.scanCodeToChainCodePart.has(code);
     }
 
-    rawValue(chainCode: Array<string>): number {
+    chainCodeLength(): number {
+        return this.chainCode.length;
+    }
+
+    rawValue(): number {
         let value = 0;
-        for (const code of chainCode) {
+        for (const code of this.chainCode) {
             const chainCodePart = this.decode(code);
             value += chainCodePart.value;
         }
         return value;
     }
-}
 
-export function setChainCodeResult(code: string, chainCodeDecoder: ChainCodeDecoder, chainCode: Array<string>, badgeDecoder: BadgeDecoder) {
-    console.log(`Valid Chain Code Detected: ${code}`);
-    const chainCodePart = chainCodeDecoder.decode(code);
+    checkDecodeButton(): void {
+        console.log(`Chain code length: ${this.chainCode.length}`);
+        if (this.chainCode.length >= this.MIN_CHAIN_CODE_SIZE) {
+            const decodeButton = document.getElementById('decode-chain-code-button')!;
+            decodeButton.style.display = 'block';
+        }
+    }
 
-    displayChainCodeResult(chainCodePart);
-
-    //add the item to the chainCode internal tracking
-    chainCode.push(code);
-
-    //store all of the scanned crates into local storage
-    localStorage.chainCode = JSON.stringify(chainCode);
-
-    checkDecodeButton(chainCode, chainCodeDecoder);
-    badgeDecoder.checkForChainCodeRelatedBadges(chainCode, chainCodeDecoder);
-}
-
-export function checkDecodeButton(chainCode: Array<string>, chainCodeDecoder: ChainCodeDecoder) {
-    console.log(`Chain code length: ${chainCode.length}`);
-    if (chainCode.length >= chainCodeDecoder.MIN_CHAIN_CODE_SIZE) {
-        const decodeButton = document.getElementById('decode-chain-code-button')!;
-        decodeButton.style.display = 'block';
+    setChainCodeResult(code: string, badgeDecoder: BadgeDecoder) {
+        console.log(`Valid Chain Code Detected: ${code}`);
+        const chainCodePart = this.decode(code);
+    
+        displayChainCodeResult(chainCodePart);
+    
+        //add the item to the chainCode internal tracking
+        this.chainCode.push(code);
+    
+        //store all of the scanned crates into local storage
+        localStorage.chainCode = JSON.stringify(this.chainCode);
+    
+        this.checkDecodeButton();
+        badgeDecoder.checkForChainCodeRelatedBadges(this);
     }
 }
 
@@ -112,12 +129,12 @@ export function displayChainCodeResult(chainCodePart: ChainCodePart) {
     contentsImage.src = chainCodePart.image;
 }
 
-export function setChainCodeValue(chainCode: Array<string>, chainCodeDecoder: ChainCodeDecoder) {
+export function displayChainCodeValue(chainCodeDecoder: ChainCodeDecoder) {
     const chainCodeHeader = document.getElementById('chain-code-title')!;
-    chainCodeHeader.textContent = "Chain Code Value: " + chainCodeDecoder.rawValue(chainCode);
+    chainCodeHeader.textContent = "Chain Code Value: " + chainCodeDecoder.rawValue();
 
     const chainCodeMessage = document.getElementById('chain-code-message')!;
-    if (chainCode.length < chainCodeDecoder.MAX_CHAIN_CODE_SIZE) {
+    if (chainCodeDecoder.chainCodeLength() < chainCodeDecoder.MAX_CHAIN_CODE_SIZE) {
         chainCodeMessage.textContent = `There are still more informants to contact, but make sure you meet with your AARC Agent at ${chainCodeDecoder.MEETING_TIME}`;
     } else {
         chainCodeMessage.textContent = `Well, done! You've met with all of our informants. Be ready to meet with your AARC Agent at ${chainCodeDecoder.MEETING_TIME}`;

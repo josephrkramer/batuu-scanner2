@@ -1,6 +1,6 @@
-import { CrateDecoder, CrateContents, CrateType, addToScanned, setResult } from "./crate-decoder";
+import { CrateDecoder, CrateType } from "./crate-decoder";
 import { CrewManifest, displayCrewManifest } from "./crew-manifest";
-import { ChainCodeDecoder, setChainCodeResult, checkDecodeButton, setChainCodeValue } from "./chain-code";
+import { ChainCodeDecoder, displayChainCodeValue } from "./chain-code";
 import { displayCargoHold } from "./cargo-hold";
 import { BadgeDecoder } from "./badge-decoder";
 import { Html5QrcodeScanner, Html5QrcodeScanType, Html5QrcodeSupportedFormats } from "html5-qrcode";
@@ -36,51 +36,22 @@ const crewMembers = new CrewManifest();
 const chainCodeDecoder = new ChainCodeDecoder();
 const badgeDecoder = new BadgeDecoder();
 
-//Add custom overrides
-crateDecoder.override(new CrateContents({code: 'JK_RS', contents: 'Evan\'s Manifesto', type: CrateType.Relic, image: 'images/halcyon_cargo.jpeg'}));
-crateDecoder.override(new CrateContents({code: 'JK_TU', contents: 'Tom\'s Vape Pen', type: CrateType.Relic, image: 'images/ports_of_call.jpeg'}));
-
 console.log(`There are ${crateDecoder.getTotalNumberOfType(CrateType.Relic)} relics to be found`);
-
-//Keep track of the crates scanned so far and don't allow duplicates
-//load from local storage
-let scannedCrates: Set<string>;
-if (localStorage.cargo !== undefined) {
-    scannedCrates = new Set<string>(JSON.parse(localStorage.cargo));
-} else {
-    scannedCrates = new Set<string>();
-
-}
-//const scannedCrates = new Set<string>(JSON.parse(localStorage.getItem('cargo')));
-console.log(`Cargo hold instantiated from local storage:`);
-console.log(scannedCrates);
-
-//load chainCode from local storage
-const chainCode = localStorage.chainCode !== undefined ? JSON.parse(localStorage.chainCode) : new Array();
-console.log(`Chain code instantiated from local storage:`);
-console.log(chainCode);
-//check if the decode button should be enabled after an initial load from local storage
-checkDecodeButton(chainCode, chainCodeDecoder);
 
 //use the url with ?cargo to load test data into the app
 if (urlParams.has('cargo')) {
     console.log("Filling the cargo hold...");
-    addToScanned('FAL11', scannedCrates);
-    addToScanned('CD_LM', scannedCrates);
-    addToScanned('JK_TU', scannedCrates);
-    addToScanned('AB_QR', scannedCrates);
-    addToScanned('JK_RS', scannedCrates);
+    crateDecoder.addToScanned('FAL11');
+    crateDecoder.addToScanned('CD_LM');
+    crateDecoder.addToScanned('JK_TU');
+    crateDecoder.addToScanned('AB_QR');
+    crateDecoder.addToScanned('JK_RS');
 }
 
 if (urlParams.has('reset')) {
-    //remove our state from local storage
-    localStorage.removeItem('cargo');
-    localStorage.removeItem('chainCode');
-    //remove our state from internal memory
-    scannedCrates.clear();
-    chainCode.splice(0, chainCode.length);
-
+    crateDecoder.reset();
     badgeDecoder.reset();
+    chainCodeDecoder.reset();
 
     //force a reload of the page that will refresh the cache. Equivalent of Ctl+F5
     window.location.reload();
@@ -88,10 +59,6 @@ if (urlParams.has('reset')) {
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.delete('reset');
     window.location.search = urlParams.toString();
-}
-
-if (urlParams.has('debug')) {
-    //
 }
 
 
@@ -145,9 +112,9 @@ function startButton() {
 
         if (chainCodeDecoder.isValidChainCode(decodedText) || crate.type == CrateType.Unknown || urlParams.has('debug')) {
             if (chainCodeDecoder.isValidChainCode(decodedText)) {
-                setChainCodeResult(decodedText, chainCodeDecoder, chainCode, badgeDecoder);
+                chainCodeDecoder.setChainCodeResult(decodedText, badgeDecoder);
             } else {
-                setResult(decodedText, crateDecoder, scannedCrates, badgeDecoder);
+                crateDecoder.setResult(decodedText, badgeDecoder);
             }
         } else {
             //start puzzle and wait for success
@@ -155,7 +122,7 @@ function startButton() {
             waitToSolvePuzzle().then(
                 function() {
                     console.log("PUZZLE SUCCESS");
-                    setResult(decodedText, crateDecoder, scannedCrates, badgeDecoder);
+                    crateDecoder.setResult(decodedText, badgeDecoder);
                     puzzle.style.display = 'none';
                 },
                 function() {
@@ -184,7 +151,7 @@ function cargoHoldButton() {
     logo.style.display = 'none';
     resultsHeader.style.display = 'none';
     contentsImage.style.display = 'none';
-    displayCargoHold(crateDecoder, scannedCrates, chainCode, chainCodeDecoder, badgeDecoder);
+    displayCargoHold(crateDecoder, chainCodeDecoder, badgeDecoder);
     cargoHold.style.display = 'block';
     html5QrcodeScanner.clear();
     puzzle.style.display = 'none';
@@ -216,7 +183,7 @@ function decodeChainCodeButton() {
     crewManifest.style.display = 'none';
     crewMemberDiv.style.display = 'none';
     chainCodeDiv.style.display = 'block';
-    setChainCodeValue(chainCode, chainCodeDecoder);
+    displayChainCodeValue(chainCodeDecoder);
 }
 
 document.getElementById('start-button')!.addEventListener('click', () => {

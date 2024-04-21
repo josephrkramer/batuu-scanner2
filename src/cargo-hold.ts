@@ -1,14 +1,14 @@
 import { displayChainCodeResult, ChainCodeDecoder } from "./chain-code";
 import { displayBadge, BadgeDecoder } from "./badge-decoder";
-import { setResult, CrateDecoder } from "./crate-decoder";
+import { CrateDecoder } from "./crate-decoder";
 
-export function displayCargoHold(crateDecoder: CrateDecoder, scannedCrates: Set<string>, chainCode: string, chainCodeDecoder: ChainCodeDecoder, badgeDecoder: BadgeDecoder) {
+export function displayCargoHold(crateDecoder: CrateDecoder, chainCodeDecoder: ChainCodeDecoder, badgeDecoder: BadgeDecoder) {
     //read parameters from the url
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
 
     console.log('Building the cargo hold display');
-    const sortedCargoHold = crateDecoder.sortCargoHold(scannedCrates);
+    const sortedCargoHold = crateDecoder.sortCargoHold();
     const newCargoHoldList = [];
 
     for (const crateType of sortedCargoHold.keys()) {
@@ -23,7 +23,7 @@ export function displayCargoHold(crateDecoder: CrateDecoder, scannedCrates: Set<
         crateTypeListItem.appendChild(crateTypeList);
 
         //populate type list with each instance of that type
-        for (const crate of sortedCargoHold.get(crateType)) {
+        for (const crate of sortedCargoHold.get(crateType)!) {
             //load the image
             const scannedImage = document.createElement('img');
             scannedImage.className = "scanned-list-item-image";
@@ -33,7 +33,7 @@ export function displayCargoHold(crateDecoder: CrateDecoder, scannedCrates: Set<
             scannedImage.addEventListener('click', () => {
                 const cargoHold = document.getElementById('cargo-hold')!;
                 cargoHold.style.display = 'none';
-                setResult(crate.code, crateDecoder, scannedCrates, badgeDecoder);
+                crateDecoder.setResult(crate.code, badgeDecoder);
             });
 
             //add the item to the scanned list
@@ -51,14 +51,14 @@ export function displayCargoHold(crateDecoder: CrateDecoder, scannedCrates: Set<
         newCargoHoldList.push(crateTypeListItem);
     }
 
-    if (chainCode.length > 0) {
+    if (chainCodeDecoder.chainCodeLength() > 0) {
         //add chain code
         const chainCodeListItem = document.createElement('li');
         chainCodeListItem.className = "cargo-type-text";
         chainCodeListItem.appendChild(document.createTextNode("Chain Code"));
         const chainCodeList = document.createElement('ul');
         chainCodeListItem.appendChild(chainCodeList);
-        for (const code of chainCode) {
+        for (const code of chainCodeDecoder.chainCode) {
             const chainCodePart = chainCodeDecoder.decode(code);
             const scannedImage = document.createElement('img');
             scannedImage.className = "scanned-list-item-image";
