@@ -14,6 +14,7 @@ export const BadgeCode = Object.freeze({
   Jawa: "ado5t",
   I_Shot_First: "b39i1",
   Outer_Rim_Regalia: "93l9i",
+  Its_My_Honor: "0a183",
 });
 
 export class Badge {
@@ -165,6 +166,17 @@ export class BadgeDecoder {
           
           Awarded by the Halcyon: The Legacy Contines team.`,
         image: "images/badge/outer-rim-regalia.jpeg",
+      }),
+    );
+    this.unlistedCodeToBadge.set(
+      BadgeCode.Its_My_Honor,
+      new Badge({
+        code: BadgeCode.Its_My_Honor,
+        name: "It's My Honor",
+        description: `Starcruiser Cast Member
+          
+          Awarded by the Halcyon: The Legacy Contines team.`,
+        image: "images/badge/its-my-honor.jpeg",
       }),
     );
 
