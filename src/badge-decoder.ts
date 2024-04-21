@@ -13,6 +13,7 @@ export const BadgeCode = Object.freeze({
   Character_AARC: "pk41z",
   Jawa: "ado5t",
   I_Shot_First: "b39i1",
+  Outer_Rim_Regalia: "93l9i",
 });
 
 export class Badge {
@@ -153,6 +154,17 @@ export class BadgeDecoder {
           
           Scan a single crate for the second time.`,
         image: "images/badge/amnesiac.jpeg",
+      }),
+    );
+    this.unlistedCodeToBadge.set(
+      BadgeCode.Outer_Rim_Regalia,
+      new Badge({
+        code: BadgeCode.Outer_Rim_Regalia,
+        name: "Outer Rim Regalia",
+        description: `"Do or do not, there is no try" --Yoda
+          
+          Awarded by the Halcyon: The Legacy Contines team.`,
+        image: "images/badge/outer-rim-regalia.jpeg",
       }),
     );
 
