@@ -11,6 +11,7 @@ export const BadgeCode = Object.freeze({
   We_Have_Cookies: "090xk",
   Bounty: "8tpao",
   Character_AARC: "pk41z",
+  Jawa: "ado5t",
 });
 
 export class Badge {
@@ -107,6 +108,17 @@ export class BadgeDecoder {
         
         Make both Light and Dark side choices during an event.`,
         image: "images/badge/character-aarc.jpeg",
+      }),
+    );
+    this.codeToBadge.set(
+      BadgeCode.Jawa,
+      new Badge({
+        code: BadgeCode.Jawa,
+        name: "Jawa",
+        description: `"UTINNI!" --Dathcha
+        
+        Scan 20+ crates.`,
+        image: "images/badge/jawa.jpeg",
       }),
     );
 
@@ -259,6 +271,14 @@ export class BadgeDecoder {
     const bountySet = new Set(["GI_QR", "KL_QR", "FAL26"]);
     if (!this.earnedBadges.has(BadgeCode.Bounty) && bountySet.has(crateCode)) {
       this.add(BadgeCode.Bounty);
+    }
+
+    //Jawa - Scan 20+ crates
+    if (
+      !this.earnedBadges.has(BadgeCode.Jawa) &&
+      crateDecoder.scannedCrates.size >= 20
+    ) {
+      this.add(BadgeCode.Jawa);
     }
   }
 
