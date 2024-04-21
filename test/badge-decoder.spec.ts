@@ -87,6 +87,7 @@ describe("BadgeDecoder", () => {
   it("should check for Amnesiac", () => {
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Amnesiac)).toBe(false);
     crateDecoder.setResult("JK_RS", badgeDecoder);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Amnesiac)).toBe(false);
     crateDecoder.setResult("JK_RS", badgeDecoder);
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Amnesiac)).toBe(true);
   });

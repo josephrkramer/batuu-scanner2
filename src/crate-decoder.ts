@@ -1244,7 +1244,7 @@ export class CrateDecoder {
 
   getTotalNumberOfType(type: string) {
     const contentsOfType = new Map(
-      [...this.contents].filter(element => element[1].type === type),
+      [...this.contents].filter((element) => element[1].type === type),
     );
     return contentsOfType.size;
   }
@@ -1256,7 +1256,7 @@ export class CrateDecoder {
       fullScannedCrates.set(code, crate);
     }
     const contentsOfType = new Map(
-      [...fullScannedCrates].filter(element => element[1].type === type),
+      [...fullScannedCrates].filter((element) => element[1].type === type),
     );
     return contentsOfType.size;
   }
@@ -1296,10 +1296,10 @@ export class CrateDecoder {
     const imgUrl = new URL(`../${crate.image}`, import.meta.url).href;
     contentsImage.src = imgUrl;
 
+    //add the item to the scanned list if not previously scanned
+    badgeDecoder.checkForCrateRelatedBadges(code, this);
     if (!this.scannedCrates.has(code)) {
       this.addToScanned(code);
     }
-    //add the item to the scanned list if not previously scanned
-    badgeDecoder.checkForCrateRelatedBadges(code, this);
   }
 }

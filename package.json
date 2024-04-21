@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "vitest",
-    "lint": "eslint . --ext .ts",
-    "lint-fix": "eslint . --ext .ts --fix",
+    "lint": "prettier . --check && eslint . --ext .ts",
+    "lint-fix": "prettier . --write && eslint . --ext .ts --fix",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
