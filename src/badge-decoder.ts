@@ -59,7 +59,7 @@ export class BadgeDecoder {
       BadgeCode.Well_Connected,
       new Badge({
         code: BadgeCode.Well_Connected,
-        name: "Well Connected",
+        name: "Well-Connected",
         description: `"You just walk in like you belong." --Cassian Andor
         
         Interact with every informant during the event.`,
@@ -139,7 +139,7 @@ export class BadgeDecoder {
         name: "Amnesiac",
         description: `What were you expecting? It's the same space junk in the box every time.
           
-          Scan a crate you've already scanned previously.`,
+          Scan a single crate for the second time.`,
         image: "images/badge/amnesiac.jpeg",
       }),
     );
