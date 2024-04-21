@@ -126,6 +126,13 @@ describe("BadgeDecoder", () => {
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Jawa)).toBe(true);
   });
 
+  it("should check for I Shot First", () => {
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.I_Shot_First)).toBe(false);
+    crateDecoder.setResult("FG_RS", badgeDecoder);
+    crateDecoder.setResult("AB_OP", badgeDecoder);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.I_Shot_First)).toBe(true);
+  });
+
   //Chain Code Related Badges
 
   it("should check for Well Connected", () => {
