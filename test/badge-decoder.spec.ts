@@ -92,6 +92,32 @@ describe("BadgeDecoder", () => {
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Amnesiac)).toBe(true);
   });
 
+  it("should check for Bounty", () => {
+    //not granted on irrelevant scan
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Bounty)).toBe(false);
+    crateDecoder.setResult("JK_RS", badgeDecoder);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Bounty)).toBe(false);
+
+    crateDecoder.setResult("GI_QR", badgeDecoder);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Bounty)).toBe(true);
+
+    //clear the badges and scanned crates for the next check
+    badgeDecoder.reset();
+    crateDecoder.reset();
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Bounty)).toBe(false);
+
+    crateDecoder.setResult("KL_QR", badgeDecoder);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Bounty)).toBe(true);
+
+    //clear the badges and scanned crates for the next check
+    badgeDecoder.reset();
+    crateDecoder.reset();
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Bounty)).toBe(false);
+
+    crateDecoder.setResult("FAL26", badgeDecoder);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Bounty)).toBe(true);
+  });
+
   //Chain Code Related Badges
 
   it("should check for Well Connected", () => {

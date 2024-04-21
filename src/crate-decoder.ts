@@ -685,7 +685,7 @@ export class CrateDecoder {
       "CAST17",
       new CrateContents({
         code: "CAST17",
-        contents: "All-Kit [Halcyon Cargo]",
+        contents: "All-Kit",
         type: CrateType.Halcyon_Cargo,
       }),
     );
@@ -709,7 +709,7 @@ export class CrateDecoder {
       "EF_PQ",
       new CrateContents({
         code: "EF_PQ",
-        contents: "Osteo Fragmenter [Parts & Scraps]",
+        contents: "Osteo Fragmenter",
         type: CrateType.Parts_and_Scraps,
       }),
     );
@@ -1077,7 +1077,7 @@ export class CrateDecoder {
       "DE_OP",
       new CrateContents({
         code: "DE_OP",
-        contents: "Jawa Outfit [Outfit]",
+        contents: "Jawa Outfit",
         type: CrateType.Outfit,
       }),
     );
