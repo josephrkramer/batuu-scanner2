@@ -205,7 +205,11 @@ export class BadgeDecoder {
       }
     }
     if (modifiedParams) {
-      window.location.search = urlParams.toString();
+      history.replaceState(
+        null,
+        "",
+        window.location.href.split("?")[0] + "?" + urlParams.toString(),
+      );
     }
   }
 
@@ -239,7 +243,11 @@ export class BadgeDecoder {
     const urlCodes = new Set(urlParams.getAll("b"));
     if (!urlCodes.has(code)) {
       urlParams.append("b", code);
-      window.location.search = urlParams.toString();
+      history.replaceState(
+        null,
+        "",
+        window.location.href.split("?")[0] + "?" + urlParams.toString(),
+      );
     }
   }
 
@@ -257,7 +265,11 @@ export class BadgeDecoder {
     const urlCodes = new Set(urlParams.getAll("b"));
     if (urlCodes.has(code)) {
       urlParams.delete("b", code);
-      window.location.search = urlParams.toString();
+      history.replaceState(
+        null,
+        "",
+        window.location.href.split("?")[0] + "?" + urlParams.toString(),
+      );
     }
   }
 
@@ -271,7 +283,11 @@ export class BadgeDecoder {
     localStorage.removeItem("badges");
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.delete("b");
-    window.location.search = urlParams.toString();
+    history.replaceState(
+      null,
+      "",
+      window.location.href.split("?")[0] + "?" + urlParams.toString(),
+    );
   }
 
   checkForCrateRelatedBadges(crateCode: string, crateDecoder: CrateDecoder) {
