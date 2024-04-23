@@ -189,6 +189,10 @@ export class BadgeDecoder {
     for (const code of urlParams.getAll("b")) {
       if (!this.earnedBadges.has(code)) {
         this.earnedBadges.add(code);
+        //Display badges granted via the URL and/or QR Code Scan
+        displayBadge(this.decode(code));
+        const logo = document.getElementById("logo")!;
+        logo.style.display = "none";
       }
     }
     localStorage.setItem(
@@ -249,6 +253,7 @@ export class BadgeDecoder {
         window.location.href.split("?")[0] + "?" + urlParams.toString(),
       );
     }
+    displayBadge(this.decode(code));
   }
 
   remove(code: string) {
@@ -391,25 +396,25 @@ export class BadgeDecoder {
 }
 
 export function displayBadge(badge: Badge) {
-  const resultsHeader = document.getElementById("results-header")!;
-  const contentsImage = document.getElementById(
-    "contents-image",
+  const badgeText = document.getElementById("badge-text-large")!;
+  const badgeImage = document.getElementById(
+    "badge-image-large",
   )! as HTMLImageElement;
+  const badgeDiv = document.getElementById("badge-large")!;
 
   //update the display text for the item
   console.log(badge);
   //read parameters from the url
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.has("debug")) {
-    resultsHeader.textContent =
+    badgeText.textContent =
       badge.code + " - " + badge.name + ": " + badge.description;
   } else {
-    resultsHeader.textContent = badge.name + ": " + badge.description;
+    badgeText.textContent = badge.name + ": " + badge.description;
   }
-  resultsHeader.style.display = "block";
+  badgeDiv.style.display = "block";
 
   //display the image contents
-  contentsImage.style.display = "block";
   const imgUrl = new URL(`../${badge.image}`, import.meta.url).href;
-  contentsImage.src = imgUrl;
+  badgeImage.src = imgUrl;
 }

@@ -24,6 +24,7 @@ const puzzle = document.getElementById("puzzle")!;
 const crewManifest = document.getElementById("crew-manifest")!;
 const crewMemberDiv = document.getElementById("crew-member")!;
 const chainCodeDiv = document.getElementById("chain-code")!;
+const badgeDiv = document.getElementById("badge-large")!;
 
 const crateDecoder = new CrateDecoder();
 const crewMembers = new CrewManifest();
@@ -107,6 +108,7 @@ function startButton() {
   crewManifest.style.display = "none";
   crewMemberDiv.style.display = "none";
   chainCodeDiv.style.display = "none";
+  badgeDiv.style.display = "none";
 
   function onScanSuccess(
     decodedText: string,
@@ -156,6 +158,7 @@ function stopButton() {
   crewManifest.style.display = "none";
   crewMemberDiv.style.display = "none";
   chainCodeDiv.style.display = "none";
+  badgeDiv.style.display = "none";
 }
 
 function cargoHoldButton() {
@@ -169,6 +172,7 @@ function cargoHoldButton() {
   crewManifest.style.display = "none";
   crewMemberDiv.style.display = "none";
   chainCodeDiv.style.display = "none";
+  badgeDiv.style.display = "none";
 }
 
 function crewManifestButton() {
@@ -182,6 +186,7 @@ function crewManifestButton() {
   crewMemberDiv.style.display = "none";
   displayCrewManifest(crewMembers);
   chainCodeDiv.style.display = "none";
+  badgeDiv.style.display = "none";
 }
 
 function decodeChainCodeButton() {
@@ -195,6 +200,7 @@ function decodeChainCodeButton() {
   crewMemberDiv.style.display = "none";
   chainCodeDiv.style.display = "block";
   displayChainCodeValue(chainCodeDecoder);
+  badgeDiv.style.display = "none";
 }
 
 document.getElementById("start-button")!.addEventListener("click", () => {
