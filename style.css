@@ -22,6 +22,20 @@ div {
   padding-bottom: 70px;
 }
 
+#badge-large {
+  display: none;
+}
+
+#badge-image-large {
+  max-width: 100%;
+}
+
+#badge-text-large {
+  text-align: center;
+  padding-top: 70px;
+  padding-bottom: 70px;
+}
+
 #cargo-hold-title {
   text-align: center;
   padding-top: 70px;

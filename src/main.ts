@@ -1,6 +1,10 @@
 import { CrateDecoder, CrateType } from "./crate-decoder";
 import { CrewManifest, displayCrewManifest } from "./crew-manifest";
-import { ChainCodeDecoder, displayChainCodeValue } from "./chain-code";
+import {
+  ChainCodeAlignmentCode,
+  ChainCodeDecoder,
+  displayChainCodeValue,
+} from "./chain-code";
 import { displayCargoHold } from "./cargo-hold";
 import { BadgeDecoder } from "./badge-decoder";
 import {
@@ -24,6 +28,7 @@ const puzzle = document.getElementById("puzzle")!;
 const crewManifest = document.getElementById("crew-manifest")!;
 const crewMemberDiv = document.getElementById("crew-member")!;
 const chainCodeDiv = document.getElementById("chain-code")!;
+const badgeDiv = document.getElementById("badge-large")!;
 
 const crateDecoder = new CrateDecoder();
 const crewMembers = new CrewManifest();
@@ -45,7 +50,18 @@ if (urlParams.has("cargo")) {
 }
 
 //TODO: remove this before the event.
-if (urlParams.has("allbadges")) {
+if (urlParams.has("everything")) {
+  for (const code of crateDecoder.contents.keys()) {
+    crateDecoder.addToScanned(code);
+  }
+  for (let i = 0; i < chainCodeDecoder.MAX_CHAIN_CODE_SIZE; i++) {
+    chainCodeDecoder.setChainCodeResult(
+      ChainCodeAlignmentCode.Dark,
+      badgeDecoder,
+    );
+  }
+}
+if (urlParams.has("allbadges") || urlParams.has("everything")) {
   for (const badge of new Set([
     ...badgeDecoder.codeToBadge.keys(),
     ...badgeDecoder.unlistedCodeToBadge.keys(),
@@ -107,6 +123,7 @@ function startButton() {
   crewManifest.style.display = "none";
   crewMemberDiv.style.display = "none";
   chainCodeDiv.style.display = "none";
+  badgeDiv.style.display = "none";
 
   function onScanSuccess(
     decodedText: string,
@@ -156,6 +173,7 @@ function stopButton() {
   crewManifest.style.display = "none";
   crewMemberDiv.style.display = "none";
   chainCodeDiv.style.display = "none";
+  badgeDiv.style.display = "none";
 }
 
 function cargoHoldButton() {
@@ -169,6 +187,7 @@ function cargoHoldButton() {
   crewManifest.style.display = "none";
   crewMemberDiv.style.display = "none";
   chainCodeDiv.style.display = "none";
+  badgeDiv.style.display = "none";
 }
 
 function crewManifestButton() {
@@ -182,6 +201,7 @@ function crewManifestButton() {
   crewMemberDiv.style.display = "none";
   displayCrewManifest(crewMembers);
   chainCodeDiv.style.display = "none";
+  badgeDiv.style.display = "none";
 }
 
 function decodeChainCodeButton() {
@@ -195,6 +215,7 @@ function decodeChainCodeButton() {
   crewMemberDiv.style.display = "none";
   chainCodeDiv.style.display = "block";
   displayChainCodeValue(chainCodeDecoder);
+  badgeDiv.style.display = "none";
 }
 
 document.getElementById("start-button")!.addEventListener("click", () => {
