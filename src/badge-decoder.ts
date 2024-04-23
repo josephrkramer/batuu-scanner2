@@ -15,6 +15,7 @@ export const BadgeCode = Object.freeze({
   I_Shot_First: "b39i1",
   Outer_Rim_Regalia: "93l9i",
   Its_My_Honor: "0a183",
+  The_Best_Teacher: "j3rqx",
 });
 
 export class Badge {
@@ -133,6 +134,17 @@ export class BadgeDecoder {
         
         Collect more than one weapon.`,
         image: "images/badge/i-shot-first.jpeg",
+      }),
+    );
+    this.codeToBadge.set(
+      BadgeCode.The_Best_Teacher,
+      new Badge({
+        code: BadgeCode.The_Best_Teacher,
+        name: "The Best Teacher",
+        description: `"Never tell me the odds." --Han Solo
+        
+        Scan 20+ non-event crates.`,
+        image: "images/badge/the-best-teacher.jpeg",
       }),
     );
 
@@ -348,6 +360,18 @@ export class BadgeDecoder {
     ) {
       this.add(BadgeCode.I_Shot_First);
     }
+
+    //The Best Teacher - 20+ non-event crates
+    if (
+      !this.earnedBadges.has(BadgeCode.The_Best_Teacher) &&
+      crateDecoder.scannedCrates.size -
+        crateDecoder.getScannedNumberOfType(CrateType.Relic) >=
+        20
+    ) {
+      this.add(BadgeCode.The_Best_Teacher);
+    }
+
+    //
   }
 
   checkForChainCodeRelatedBadges(chainCodeDecoder: ChainCodeDecoder) {

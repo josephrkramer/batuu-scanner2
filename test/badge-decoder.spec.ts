@@ -142,6 +142,22 @@ describe("BadgeDecoder", () => {
     expect(badgeDecoder.earnedBadges.has(BadgeCode.I_Shot_First)).toBe(true);
   });
 
+  it("should check for The Best Teacher", () => {
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.The_Best_Teacher)).toBe(
+      false,
+    );
+    crateDecoder.setResult("FG_RS", badgeDecoder);
+    crateDecoder.setResult("AB_OP", badgeDecoder);
+    for (const code of crateDecoder.contents.keys()) {
+      if (crateDecoder.decode(code).type !== CrateType.Relic) {
+        crateDecoder.setResult(code, badgeDecoder);
+      }
+    }
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.The_Best_Teacher)).toBe(
+      true,
+    );
+  });
+
   //Chain Code Related Badges
 
   it("should check for Well Connected", () => {
