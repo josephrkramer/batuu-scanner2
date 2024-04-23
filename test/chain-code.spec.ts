@@ -15,6 +15,15 @@ describe("ChainCodeDecoder", () => {
   decodeButton.id = "decode-chain-code-button";
   decodeButton.style.display = "none";
   document.body.appendChild(decodeButton);
+  const badgeText: HTMLElement = document.createElement("h1");
+  badgeText.id = "badge-text-large";
+  document.body.appendChild(badgeText);
+  const badgeImage: HTMLElement = document.createElement("img");
+  badgeImage.id = "badge-image-large";
+  document.body.appendChild(badgeImage);
+  const badgeDiv: HTMLElement = document.createElement("div");
+  badgeDiv.id = "badge-large";
+  document.body.appendChild(badgeDiv);
 
   beforeEach(() => {
     badgeDecoder.reset();
