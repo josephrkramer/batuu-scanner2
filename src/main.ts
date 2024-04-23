@@ -1,6 +1,10 @@
 import { CrateDecoder, CrateType } from "./crate-decoder";
 import { CrewManifest, displayCrewManifest } from "./crew-manifest";
-import { ChainCodeDecoder, displayChainCodeValue } from "./chain-code";
+import {
+  ChainCodeAlignmentCode,
+  ChainCodeDecoder,
+  displayChainCodeValue,
+} from "./chain-code";
 import { displayCargoHold } from "./cargo-hold";
 import { BadgeDecoder } from "./badge-decoder";
 import {
@@ -46,7 +50,18 @@ if (urlParams.has("cargo")) {
 }
 
 //TODO: remove this before the event.
-if (urlParams.has("allbadges")) {
+if (urlParams.has("everything")) {
+  for (const code of crateDecoder.contents.keys()) {
+    crateDecoder.addToScanned(code);
+  }
+  for (let i = 0; i < chainCodeDecoder.MAX_CHAIN_CODE_SIZE; i++) {
+    chainCodeDecoder.setChainCodeResult(
+      ChainCodeAlignmentCode.Dark,
+      badgeDecoder,
+    );
+  }
+}
+if (urlParams.has("allbadges") || urlParams.has("everything")) {
   for (const badge of new Set([
     ...badgeDecoder.codeToBadge.keys(),
     ...badgeDecoder.unlistedCodeToBadge.keys(),
