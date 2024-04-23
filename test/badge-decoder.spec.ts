@@ -156,6 +156,30 @@ describe("BadgeDecoder", () => {
     );
   });
 
+  it("should check for Relic Enthusiast", () => {
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Relic_Enthusiast)).toBe(
+      false,
+    );
+
+    let i = 0;
+    for (const code of crateDecoder.contents.keys()) {
+      //All crates are now Relics
+      const crate = crateDecoder.decode(code);
+      crate.type = CrateType.Relic;
+
+      //Add crate
+      crateDecoder.setResult(code, badgeDecoder);
+
+      //If we have five crates, exit the loop
+      if (i++ >= 5) {
+        break;
+      }
+    }
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Relic_Enthusiast)).toBe(
+      true,
+    );
+  });
+
   //Chain Code Related Badges
 
   it("should check for Well Connected", () => {

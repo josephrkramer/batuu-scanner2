@@ -16,6 +16,7 @@ export const BadgeCode = Object.freeze({
   Outer_Rim_Regalia: "93l9i",
   Its_My_Honor: "0a183",
   The_Best_Teacher: "j3rqx",
+  Relic_Enthusiast: "71uia",
 });
 
 export class Badge {
@@ -145,6 +146,17 @@ export class BadgeDecoder {
         
         Scan 20+ non-event crates.`,
         image: "images/badge/the-best-teacher.jpeg",
+      }),
+    );
+    this.codeToBadge.set(
+      BadgeCode.Relic_Enthusiast,
+      new Badge({
+        code: BadgeCode.Relic_Enthusiast,
+        name: "Relic Enthusiast",
+        description: `"I’m a rogue archaeologist, not a protocol droid." --Dr. Chelli Aphra
+        
+        Collect 5+ relics.`,
+        image: "images/badge/relic-enthusiast.jpeg",
       }),
     );
 
@@ -371,7 +383,13 @@ export class BadgeDecoder {
       this.add(BadgeCode.The_Best_Teacher);
     }
 
-    //
+    //Relic Enthusiast - Collect 5+ Relics
+    if (
+      !this.earnedBadges.has(BadgeCode.Relic_Enthusiast) &&
+      crateDecoder.getScannedNumberOfType(CrateType.Relic) >= 5
+    ) {
+      this.add(BadgeCode.Relic_Enthusiast);
+    }
   }
 
   checkForChainCodeRelatedBadges(chainCodeDecoder: ChainCodeDecoder) {
