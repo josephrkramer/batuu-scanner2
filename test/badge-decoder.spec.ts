@@ -146,8 +146,6 @@ describe("BadgeDecoder", () => {
     expect(badgeDecoder.earnedBadges.has(BadgeCode.The_Best_Teacher)).toBe(
       false,
     );
-    crateDecoder.setResult("FG_RS", badgeDecoder);
-    crateDecoder.setResult("AB_OP", badgeDecoder);
     for (const code of crateDecoder.contents.keys()) {
       if (crateDecoder.decode(code).type !== CrateType.Relic) {
         crateDecoder.setResult(code, badgeDecoder);
@@ -156,6 +154,52 @@ describe("BadgeDecoder", () => {
     expect(badgeDecoder.earnedBadges.has(BadgeCode.The_Best_Teacher)).toBe(
       true,
     );
+  });
+
+  it("should check for Relic Enthusiast", () => {
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Relic_Enthusiast)).toBe(
+      false,
+    );
+
+    let i = 0;
+    for (const code of crateDecoder.contents.keys()) {
+      //All crates are now Relics
+      const crate = crateDecoder.decode(code);
+      crate.type = CrateType.Relic;
+
+      //Add crate
+      crateDecoder.setResult(code, badgeDecoder);
+
+      //If we have five crates, exit the loop
+      if (i++ >= 5) {
+        break;
+      }
+    }
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Relic_Enthusiast)).toBe(
+      true,
+    );
+  });
+
+  it("should check for Relic Archivist", () => {
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Relic_Archivist)).toBe(
+      false,
+    );
+
+    let i = 0;
+    for (const code of crateDecoder.contents.keys()) {
+      //All crates are now Relics
+      const crate = crateDecoder.decode(code);
+      crate.type = CrateType.Relic;
+
+      //Add crate
+      crateDecoder.setResult(code, badgeDecoder);
+
+      //If we have five crates, exit the loop
+      if (i++ >= 10) {
+        break;
+      }
+    }
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Relic_Archivist)).toBe(true);
   });
 
   //Chain Code Related Badges
