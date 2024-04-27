@@ -137,6 +137,7 @@ export class ChainCodeDecoder {
 
     this.checkDecodeButton();
     badgeDecoder.checkForChainCodeRelatedBadges(this);
+    badgeDecoder.checkForEventRelatedBadges();
   }
 }
 

@@ -1301,5 +1301,6 @@ export class CrateDecoder {
     if (!this.scannedCrates.has(code)) {
       this.addToScanned(code);
     }
+    badgeDecoder.checkForEventRelatedBadges();
   }
 }

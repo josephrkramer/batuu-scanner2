@@ -1,6 +1,6 @@
 import { ChainCodeAlignmentCode, ChainCodeDecoder } from "./chain-code";
 import { CrateDecoder, CrateType } from "./crate-decoder";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(customParseFormat);
 
@@ -21,6 +21,8 @@ export const BadgeCode = Object.freeze({
   The_Best_Teacher: "j3rqx",
   Relic_Enthusiast: "71uia",
   Relic_Archivist: "ph15a",
+  Frequent_Flyer_2: "p0mwe",
+  Frequent_Flyer_5: "5340m",
 });
 
 export class Badge {
@@ -37,13 +39,17 @@ export class Badge {
   }
 }
 
+export const BADGE_DATE_FORMAT = "YYMMDD";
 export class EarnedBadge {
   code: string;
-  earnedAt: string;
+  date: string;
 
-  constructor({ code = "", earnedAt = dayjs().format("YYMMDD") }) {
+  constructor({
+    code = "",
+    earnedAt = dayjs().startOf("date").format(BADGE_DATE_FORMAT),
+  }) {
     this.code = code;
-    this.earnedAt = earnedAt;
+    this.date = earnedAt;
   }
 }
 
@@ -51,6 +57,11 @@ export class BadgeDecoder {
   codeToBadge = new Map<string, Badge>();
   unlistedCodeToBadge = new Map<string, Badge>();
   earnedBadges = new Map<string, EarnedBadge>();
+  eventDates = new Set<string>([
+    dayjs("2024-03-01").startOf("date").format(BADGE_DATE_FORMAT),
+    dayjs("2024-10-02").startOf("date").format(BADGE_DATE_FORMAT),
+    dayjs("2024-10-06").startOf("date").format(BADGE_DATE_FORMAT),
+  ]);
 
   constructor() {
     //listed badges
@@ -185,6 +196,28 @@ export class BadgeDecoder {
         image: "images/badge/relic-archivist.jpeg",
       }),
     );
+    this.codeToBadge.set(
+      BadgeCode.Frequent_Flyer_2,
+      new Badge({
+        code: BadgeCode.Frequent_Flyer_2,
+        name: "Frequent Flyer",
+        description: `"Fly casual." --Han Solo
+        
+        Attend 2+ events.`,
+        image: "images/badge/frequent-flyer-2.jpeg",
+      }),
+    );
+    this.codeToBadge.set(
+      BadgeCode.Frequent_Flyer_5,
+      new Badge({
+        code: BadgeCode.Frequent_Flyer_5,
+        name: "Veteran Flyer",
+        description: `"I've flown from one side of this galaxy to the other..." --Han Solo
+        
+        Attend 5+ events.`,
+        image: "images/badge/frequent-flyer-5.jpeg",
+      }),
+    );
 
     //unlisted badges
     this.unlistedCodeToBadge.set(
@@ -302,8 +335,11 @@ export class BadgeDecoder {
     }
   }
 
-  add(code: string) {
-    const badge = new EarnedBadge({ code: code });
+  add(code: string, date: Dayjs = dayjs().startOf("date")) {
+    const badge = new EarnedBadge({
+      code: code,
+      earnedAt: date.format(BADGE_DATE_FORMAT),
+    });
 
     console.log(`Badge ${badge.code} earned`);
     //adding again is not harmful as it is a set
@@ -490,6 +526,47 @@ export class BadgeDecoder {
     }
   }
 
+  checkForEventRelatedBadges() {
+    /*console.log(
+      `Checking for event related badges: attened ${this.eventsAttended().size} events`,
+    );
+    console.log(this.eventDates);
+    console.log(this.eventsAttended());*/
+    //Check for Frequent Flyer
+    if (
+      !this.earnedBadges.has(BadgeCode.Frequent_Flyer_2) &&
+      this.eventsAttended().size >= 2
+    ) {
+      this.add(BadgeCode.Frequent_Flyer_2);
+    }
+
+    //Check for Veteran Flyer
+    if (
+      !this.earnedBadges.has(BadgeCode.Frequent_Flyer_5) &&
+      this.eventsAttended().size >= 5
+    ) {
+      this.add(BadgeCode.Frequent_Flyer_5);
+    }
+  }
+
+  today() {
+    return dayjs().startOf("date").format(BADGE_DATE_FORMAT);
+  }
+
+  eventsAttended() {
+    const attended = new Set<string>();
+    if (this.eventDates.has(this.today())) {
+      attended.add(this.today());
+    }
+    for (const earnedBadge of this.earnedBadges.values()) {
+      if (this.eventDates.has(earnedBadge.date)) {
+        attended.add(earnedBadge.date);
+      }
+    }
+
+    return attended;
+  }
+
   badgeParamToEarnedBadge(codeAndDate: string): EarnedBadge {
     const code = codeAndDate.substring(0, 5);
     const date = codeAndDate.substring(5);
@@ -501,7 +578,7 @@ export class BadgeDecoder {
   }
 
   earnedBadgeToBadgeParam(earnedBadge: EarnedBadge): string {
-    return earnedBadge.code + earnedBadge.earnedAt;
+    return earnedBadge.code + earnedBadge.date;
   }
 
   displayBadge(badge: Badge) {
@@ -523,7 +600,10 @@ export class BadgeDecoder {
       badgeText.textContent = badge.name + ": " + badge.description;
     }
     if (this.earnedBadges.has(badge.code)) {
-      const date = dayjs(this.earnedBadges.get(badge.code)!.earnedAt, "YYMMDD");
+      const date = dayjs(
+        this.earnedBadges.get(badge.code)!.date,
+        BADGE_DATE_FORMAT,
+      );
       badgeDate.textContent = "Earned on " + date.format("MMM D, YYYY");
     } else {
       badgeDate.textContent = "Badge not earned";

@@ -1,4 +1,9 @@
-import { BadgeCode, BadgeDecoder, EarnedBadge } from "../src/badge-decoder";
+import {
+  BadgeCode,
+  BadgeDecoder,
+  EarnedBadge,
+  BADGE_DATE_FORMAT,
+} from "../src/badge-decoder";
 import { ChainCodeAlignmentCode, ChainCodeDecoder } from "../src/chain-code";
 import { beforeEach, describe, expect, it } from "vitest";
 import { CrateDecoder, CrateType } from "../src/crate-decoder";
@@ -289,7 +294,6 @@ describe("BadgeDecoder", () => {
       code: BadgeCode.I_Shot_First,
       earnedAt: "000705",
     });
-    ("b39i1");
     const codeAndDate = BadgeCode.I_Shot_First + "000705";
     expect(badgeDecoder.badgeParamToEarnedBadge(codeAndDate)).toStrictEqual(
       earnedBadge,
@@ -301,10 +305,59 @@ describe("BadgeDecoder", () => {
       code: BadgeCode.I_Shot_First,
       earnedAt: "000705",
     });
-    ("b39i1");
     const codeAndDate = BadgeCode.I_Shot_First + "000705";
     expect(badgeDecoder.earnedBadgeToBadgeParam(earnedBadge)).toStrictEqual(
       codeAndDate,
+    );
+  });
+
+  //check for event related badges
+  it("should check for Frequent Flyer", () => {
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Frequent_Flyer_2)).toBe(
+      false,
+    );
+    badgeDecoder.eventDates.add(badgeDecoder.today());
+    badgeDecoder.add(
+      BadgeCode.Gayas_Microphone,
+      dayjs("2024-03-01").startOf("date"),
+    );
+    crateDecoder.setResult("JK_RS", badgeDecoder);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Frequent_Flyer_2)).toBe(
+      true,
+    );
+  });
+
+  it("should check for Veteran Flyer", () => {
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Frequent_Flyer_5)).toBe(
+      false,
+    );
+
+    badgeDecoder.add(
+      BadgeCode.Gayas_Microphone,
+      dayjs("2024-03-01").startOf("date"),
+    );
+    badgeDecoder.eventDates.add(
+      dayjs("2024-03-02").startOf("date").format(BADGE_DATE_FORMAT),
+    );
+    badgeDecoder.add(BadgeCode.Amnesiac, dayjs("2024-03-02").startOf("date"));
+    badgeDecoder.eventDates.add(
+      dayjs("2024-03-03").startOf("date").format(BADGE_DATE_FORMAT),
+    );
+    badgeDecoder.add(BadgeCode.Bounty, dayjs("2024-03-03").startOf("date"));
+    badgeDecoder.eventDates.add(
+      dayjs("2024-03-04").startOf("date").format(BADGE_DATE_FORMAT),
+    );
+    badgeDecoder.add(BadgeCode.Bounty, dayjs("2024-03-04").startOf("date"));
+    badgeDecoder.eventDates.add(
+      dayjs("2024-03-05").startOf("date").format(BADGE_DATE_FORMAT),
+    );
+    badgeDecoder.add(
+      BadgeCode.I_Shot_First,
+      dayjs("2024-03-05").startOf("date"),
+    );
+    crateDecoder.setResult("JK_RS", badgeDecoder);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Frequent_Flyer_5)).toBe(
+      true,
     );
   });
 });
