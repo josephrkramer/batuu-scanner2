@@ -42,14 +42,14 @@ export class Badge {
 export const BADGE_DATE_FORMAT = "YYMMDD";
 export class EarnedBadge {
   code: string;
-  earnedAt: string;
+  date: string;
 
   constructor({
     code = "",
     earnedAt = dayjs().startOf("date").format(BADGE_DATE_FORMAT),
   }) {
     this.code = code;
-    this.earnedAt = earnedAt;
+    this.date = earnedAt;
   }
 }
 
@@ -559,8 +559,8 @@ export class BadgeDecoder {
       attended.add(this.today());
     }
     for (const earnedBadge of this.earnedBadges.values()) {
-      if (this.eventDates.has(earnedBadge.earnedAt)) {
-        attended.add(earnedBadge.earnedAt);
+      if (this.eventDates.has(earnedBadge.date)) {
+        attended.add(earnedBadge.date);
       }
     }
 
@@ -578,7 +578,7 @@ export class BadgeDecoder {
   }
 
   earnedBadgeToBadgeParam(earnedBadge: EarnedBadge): string {
-    return earnedBadge.code + earnedBadge.earnedAt;
+    return earnedBadge.code + earnedBadge.date;
   }
 
   displayBadge(badge: Badge) {
@@ -601,7 +601,7 @@ export class BadgeDecoder {
     }
     if (this.earnedBadges.has(badge.code)) {
       const date = dayjs(
-        this.earnedBadges.get(badge.code)!.earnedAt,
+        this.earnedBadges.get(badge.code)!.date,
         BADGE_DATE_FORMAT,
       );
       badgeDate.textContent = "Earned on " + date.format("MMM D, YYYY");
