@@ -1,5 +1,8 @@
 import { ChainCodeAlignmentCode, ChainCodeDecoder } from "./chain-code";
 import { CrateDecoder, CrateType } from "./crate-decoder";
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+dayjs.extend(customParseFormat);
 
 export const BadgeCode = Object.freeze({
   Gayas_Microphone: "31nne",
@@ -31,6 +34,16 @@ export class Badge {
     this.name = name;
     this.description = description;
     this.image = image;
+  }
+}
+
+export class EarnedBadge {
+  code: string;
+  earnedAt: dayjs.Dayjs;
+
+  constructor({ code = "", earnedAt = dayjs() }) {
+    this.code = code;
+    this.earnedAt = earnedAt;
   }
 }
 
@@ -454,6 +467,16 @@ export class BadgeDecoder {
     } else {
       this.remove(BadgeCode.Character_AARC);
     }
+  }
+
+  badgeParamToEarnedBadge(codeAndDate: string): EarnedBadge {
+    const code = codeAndDate.substring(0, 5);
+    const date = codeAndDate.substring(5);
+    return new EarnedBadge({ code: code, earnedAt: dayjs(date, "YYMMDD") });
+  }
+
+  earnedBadgeToBadgeParam(earnedBadge: EarnedBadge): string {
+    return earnedBadge.code + earnedBadge.earnedAt.format("YYMMDD");
   }
 }
 

@@ -1,7 +1,10 @@
-import { BadgeCode, BadgeDecoder } from "../src/badge-decoder";
+import { BadgeCode, BadgeDecoder, EarnedBadge } from "../src/badge-decoder";
 import { ChainCodeAlignmentCode, ChainCodeDecoder } from "../src/chain-code";
 import { beforeEach, describe, expect, it } from "vitest";
 import { CrateDecoder, CrateType } from "../src/crate-decoder";
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+dayjs.extend(customParseFormat);
 
 describe("BadgeDecoder", () => {
   const badgeDecoder: BadgeDecoder = new BadgeDecoder();
@@ -273,6 +276,30 @@ describe("BadgeDecoder", () => {
     );
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Resistance_Hero)).toBe(
       false,
+    );
+  });
+
+  it("should decode a url parameter into an EarnedBadge", () => {
+    const earnedBadge = new EarnedBadge({
+      code: BadgeCode.I_Shot_First,
+      earnedAt: dayjs("000705", "YYMMDD"),
+    });
+    ("b39i1");
+    const codeAndDate = BadgeCode.I_Shot_First + "000705";
+    expect(badgeDecoder.badgeParamToEarnedBadge(codeAndDate)).toStrictEqual(
+      earnedBadge,
+    );
+  });
+
+  it("should convert an EarnedBadge into a url parameter", () => {
+    const earnedBadge = new EarnedBadge({
+      code: BadgeCode.I_Shot_First,
+      earnedAt: dayjs("000705", "YYMMDD"),
+    });
+    ("b39i1");
+    const codeAndDate = BadgeCode.I_Shot_First + "000705";
+    expect(badgeDecoder.earnedBadgeToBadgeParam(earnedBadge)).toStrictEqual(
+      codeAndDate,
     );
   });
 });
