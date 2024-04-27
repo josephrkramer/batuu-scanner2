@@ -212,7 +212,7 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.Frequent_Flyer_5,
         name: "Veteran Flyer",
-        description: `"I've flown from one side of this galaxy to the other..." --Han Solo
+        description: `"In my book, experience outranks everything." --Captain Rex
         
         Attend 5+ events.`,
         image: "images/badge/frequent-flyer-5.jpeg",
