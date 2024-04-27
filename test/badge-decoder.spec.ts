@@ -289,7 +289,6 @@ describe("BadgeDecoder", () => {
       code: BadgeCode.I_Shot_First,
       earnedAt: "000705",
     });
-    ("b39i1");
     const codeAndDate = BadgeCode.I_Shot_First + "000705";
     expect(badgeDecoder.badgeParamToEarnedBadge(codeAndDate)).toStrictEqual(
       earnedBadge,
@@ -301,10 +300,25 @@ describe("BadgeDecoder", () => {
       code: BadgeCode.I_Shot_First,
       earnedAt: "000705",
     });
-    ("b39i1");
     const codeAndDate = BadgeCode.I_Shot_First + "000705";
     expect(badgeDecoder.earnedBadgeToBadgeParam(earnedBadge)).toStrictEqual(
       codeAndDate,
+    );
+  });
+
+  //check for event related badges
+  it("should check for Frequent Flyer", () => {
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Frequent_Flyer_2)).toBe(
+      false,
+    );
+    badgeDecoder.eventDates.add(badgeDecoder.today());
+    badgeDecoder.add(
+      BadgeCode.Gayas_Microphone,
+      dayjs("2024-03-01").startOf("date"),
+    );
+    crateDecoder.setResult("JK_RS", badgeDecoder);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Frequent_Flyer_2)).toBe(
+      true,
     );
   });
 });
