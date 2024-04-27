@@ -60,7 +60,9 @@ export class BadgeDecoder {
         code: BadgeCode.Gayas_Microphone,
         name: "Gaya's Microphone",
         description:
-          "You participated in the March 1, 2024 event and helped retrieve Gaya's Microphone.",
+          `"I'm a Rockstar Queen!" --Gaya
+          
+          Participated in an event and helped retrieve Gaya's Microphone.`,
         image: "images/badge/gaya-mic.jpeg",
       }),
     );
