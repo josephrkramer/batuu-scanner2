@@ -282,7 +282,7 @@ describe("BadgeDecoder", () => {
   it("should decode a url parameter into an EarnedBadge", () => {
     const earnedBadge = new EarnedBadge({
       code: BadgeCode.I_Shot_First,
-      earnedAt: dayjs("000705", "YYMMDD"),
+      earnedAt: "000705",
     });
     ("b39i1");
     const codeAndDate = BadgeCode.I_Shot_First + "000705";
@@ -294,7 +294,7 @@ describe("BadgeDecoder", () => {
   it("should convert an EarnedBadge into a url parameter", () => {
     const earnedBadge = new EarnedBadge({
       code: BadgeCode.I_Shot_First,
-      earnedAt: dayjs("000705", "YYMMDD"),
+      earnedAt: "000705",
     });
     ("b39i1");
     const codeAndDate = BadgeCode.I_Shot_First + "000705";

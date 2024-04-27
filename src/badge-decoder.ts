@@ -39,9 +39,9 @@ export class Badge {
 
 export class EarnedBadge {
   code: string;
-  earnedAt: dayjs.Dayjs;
+  earnedAt: string;
 
-  constructor({ code = "", earnedAt = dayjs() }) {
+  constructor({ code = "", earnedAt = dayjs().format("YYMMDD") }) {
     this.code = code;
     this.earnedAt = earnedAt;
   }
@@ -50,7 +50,7 @@ export class EarnedBadge {
 export class BadgeDecoder {
   codeToBadge = new Map<string, Badge>();
   unlistedCodeToBadge = new Map<string, Badge>();
-  earnedBadges = new Set<string>();
+  earnedBadges = new Map<string, EarnedBadge>();
 
   constructor() {
     //listed badges
@@ -230,40 +230,48 @@ export class BadgeDecoder {
     );
 
     if (localStorage.badges !== undefined) {
-      this.earnedBadges = new Set(JSON.parse(localStorage.badges));
+      this.earnedBadges = new Map<string, EarnedBadge>(JSON.parse(localStorage.badges));
+      console.log(this.earnedBadges);
     }
 
     const urlParams = new URLSearchParams(window.location.search);
     //load new url params into local storage
-    for (const code of urlParams.getAll("b")) {
-      if (!this.earnedBadges.has(code)) {
-        this.earnedBadges.add(code);
+    for (const codeAndDate of urlParams.getAll("b")) {
+      const badge = this.badgeParamToEarnedBadge(codeAndDate);
+      if (!this.earnedBadges.has(badge.code)) {
         //Display badges granted via the URL and/or QR Code Scan
-        displayBadge(this.decode(code));
+        displayBadge(this.decode(badge.code));
         const logo = document.getElementById("logo")!;
         logo.style.display = "none";
       }
+      this.earnedBadges.set(badge.code, badge);
     }
     localStorage.setItem(
       "badges",
-      JSON.stringify(Array.from(this.earnedBadges)),
+      JSON.stringify(Array.from(this.earnedBadges.entries())),
     );
     //load new local storage badges into the url params
-    let modifiedParams = false;
-    for (const code of this.earnedBadges) {
-      const urlBadges = new Set(urlParams.getAll("b"));
-      if (!urlBadges.has(code)) {
-        urlParams.append("b", code);
-        modifiedParams = true;
+    const urlBadges = new Set(urlParams.getAll("b"));
+    const urlBadgesMap = new Map<string, EarnedBadge>();
+    for (const badgeParam of urlBadges) {
+      const badge = this.badgeParamToEarnedBadge(badgeParam);
+      urlBadgesMap.set(badge.code, badge);
+    }
+    for (const badge of this.earnedBadges.values()) {
+      if (!urlBadgesMap.has(badge.code)) {
+        urlBadgesMap.set(badge.code, badge);
       }
     }
-    if (modifiedParams) {
-      history.replaceState(
-        null,
-        "",
-        window.location.href.split("?")[0] + "?" + urlParams.toString(),
-      );
+    //rebuild fresh url params to remove duplicate badge codes
+    urlParams.delete("b");
+    for (const badge of urlBadgesMap.values()) {
+      urlParams.append("b", this.earnedBadgeToBadgeParam(badge));
     }
+    history.replaceState(
+      null,
+      "",
+      window.location.href.split("?")[0] + "?" + urlParams.toString(),
+    );
   }
 
   decode(code: string): Badge {
@@ -283,9 +291,12 @@ export class BadgeDecoder {
   }
 
   add(code: string) {
-    console.log(`Badge ${code} earned`);
+    const badge = new EarnedBadge({ code: code });
+
+    console.log(`Badge ${badge.code} earned`);
     //adding again is not harmful as it is a set
-    this.earnedBadges.add(code);
+
+    this.earnedBadges.set(badge.code, badge);
     localStorage.setItem(
       "badges",
       JSON.stringify(Array.from(this.earnedBadges)),
@@ -293,16 +304,14 @@ export class BadgeDecoder {
 
     //Add the badge to the url if not already in url
     const urlParams = new URLSearchParams(window.location.search);
-    const urlCodes = new Set(urlParams.getAll("b"));
-    if (!urlCodes.has(code)) {
-      urlParams.append("b", code);
-      history.replaceState(
-        null,
-        "",
-        window.location.href.split("?")[0] + "?" + urlParams.toString(),
-      );
-    }
-    displayBadge(this.decode(code));
+    urlParams.append("b", this.earnedBadgeToBadgeParam(badge));
+
+    history.replaceState(
+      null,
+      "",
+      window.location.href.split("?")[0] + "?" + urlParams.toString(),
+    );
+    displayBadge(this.decode(badge.code));
   }
 
   remove(code: string) {
@@ -329,7 +338,7 @@ export class BadgeDecoder {
 
   allKeys() {
     //all possible listed badges + all earned unlisted badges
-    return new Set([...this.codeToBadge.keys(), ...this.earnedBadges]);
+    return new Set([...this.codeToBadge.keys(), ...this.earnedBadges.keys()]);
   }
 
   reset() {
@@ -472,11 +481,11 @@ export class BadgeDecoder {
   badgeParamToEarnedBadge(codeAndDate: string): EarnedBadge {
     const code = codeAndDate.substring(0, 5);
     const date = codeAndDate.substring(5);
-    return new EarnedBadge({ code: code, earnedAt: dayjs(date, "YYMMDD") });
+    return new EarnedBadge({ code: code, earnedAt: date });
   }
 
   earnedBadgeToBadgeParam(earnedBadge: EarnedBadge): string {
-    return earnedBadge.code + earnedBadge.earnedAt.format("YYMMDD");
+    return earnedBadge.code + earnedBadge.earnedAt;
   }
 }
 
