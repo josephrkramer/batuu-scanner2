@@ -1,7 +1,10 @@
-import { BadgeCode, BadgeDecoder } from "../src/badge-decoder";
+import { BadgeCode, BadgeDecoder, EarnedBadge } from "../src/badge-decoder";
 import { ChainCodeAlignmentCode, ChainCodeDecoder } from "../src/chain-code";
 import { beforeEach, describe, expect, it } from "vitest";
 import { CrateDecoder, CrateType } from "../src/crate-decoder";
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+dayjs.extend(customParseFormat);
 
 describe("BadgeDecoder", () => {
   const badgeDecoder: BadgeDecoder = new BadgeDecoder();
@@ -19,6 +22,9 @@ describe("BadgeDecoder", () => {
   const badgeText: HTMLElement = document.createElement("h1");
   badgeText.id = "badge-text-large";
   document.body.appendChild(badgeText);
+  const badgeDate: HTMLElement = document.createElement("h1");
+  badgeDate.id = "badge-date-large";
+  document.body.appendChild(badgeDate);
   const badgeImage: HTMLElement = document.createElement("img");
   badgeImage.id = "badge-image-large";
   document.body.appendChild(badgeImage);
@@ -36,7 +42,9 @@ describe("BadgeDecoder", () => {
     const badge = badgeDecoder.decode(BadgeCode.Gayas_Microphone);
     expect(badge.name).toBe("Gaya's Microphone");
     expect(badge.description).toBe(
-      "You participated in the March 1, 2024 event and helped retrieve Gaya's Microphone.",
+      `"I'm a Rockstar Queen!" --Gaya
+          
+          Participated in an event and helped retrieve Gaya's Microphone.`,
     );
   });
 
@@ -273,6 +281,30 @@ describe("BadgeDecoder", () => {
     );
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Resistance_Hero)).toBe(
       false,
+    );
+  });
+
+  it("should decode a url parameter into an EarnedBadge", () => {
+    const earnedBadge = new EarnedBadge({
+      code: BadgeCode.I_Shot_First,
+      earnedAt: "000705",
+    });
+    ("b39i1");
+    const codeAndDate = BadgeCode.I_Shot_First + "000705";
+    expect(badgeDecoder.badgeParamToEarnedBadge(codeAndDate)).toStrictEqual(
+      earnedBadge,
+    );
+  });
+
+  it("should convert an EarnedBadge into a url parameter", () => {
+    const earnedBadge = new EarnedBadge({
+      code: BadgeCode.I_Shot_First,
+      earnedAt: "000705",
+    });
+    ("b39i1");
+    const codeAndDate = BadgeCode.I_Shot_First + "000705";
+    expect(badgeDecoder.earnedBadgeToBadgeParam(earnedBadge)).toStrictEqual(
+      codeAndDate,
     );
   });
 });

@@ -1,5 +1,5 @@
 import { displayChainCodeResult, ChainCodeDecoder } from "./chain-code";
-import { displayBadge, BadgeDecoder } from "./badge-decoder";
+import { BadgeDecoder } from "./badge-decoder";
 import { CrateDecoder } from "./crate-decoder";
 
 export function displayCargoHold(
@@ -127,7 +127,7 @@ function displayBadgeList(badgeDecoder: BadgeDecoder) {
     scannedImage.addEventListener("click", () => {
       const cargoHold = document.getElementById("cargo-hold")!;
       cargoHold.style.display = "none";
-      displayBadge(badge);
+      badgeDecoder.displayBadge(badge);
     });
 
     //add the item to the scanned list

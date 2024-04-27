@@ -1,5 +1,8 @@
 import { ChainCodeAlignmentCode, ChainCodeDecoder } from "./chain-code";
 import { CrateDecoder, CrateType } from "./crate-decoder";
+import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+dayjs.extend(customParseFormat);
 
 export const BadgeCode = Object.freeze({
   Gayas_Microphone: "31nne",
@@ -34,10 +37,20 @@ export class Badge {
   }
 }
 
+export class EarnedBadge {
+  code: string;
+  earnedAt: string;
+
+  constructor({ code = "", earnedAt = dayjs().format("YYMMDD") }) {
+    this.code = code;
+    this.earnedAt = earnedAt;
+  }
+}
+
 export class BadgeDecoder {
   codeToBadge = new Map<string, Badge>();
   unlistedCodeToBadge = new Map<string, Badge>();
-  earnedBadges = new Set<string>();
+  earnedBadges = new Map<string, EarnedBadge>();
 
   constructor() {
     //listed badges
@@ -46,8 +59,9 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.Gayas_Microphone,
         name: "Gaya's Microphone",
-        description:
-          "You participated in the March 1, 2024 event and helped retrieve Gaya's Microphone.",
+        description: `"I'm a Rockstar Queen!" --Gaya
+          
+          Participated in an event and helped retrieve Gaya's Microphone.`,
         image: "images/badge/gaya-mic.jpeg",
       }),
     );
@@ -217,40 +231,59 @@ export class BadgeDecoder {
     );
 
     if (localStorage.badges !== undefined) {
-      this.earnedBadges = new Set(JSON.parse(localStorage.badges));
+      this.earnedBadges = new Map<string, EarnedBadge>(
+        JSON.parse(localStorage.badges),
+      );
+      console.log(this.earnedBadges);
     }
 
     const urlParams = new URLSearchParams(window.location.search);
     //load new url params into local storage
-    for (const code of urlParams.getAll("b")) {
-      if (!this.earnedBadges.has(code)) {
-        this.earnedBadges.add(code);
+    for (const codeAndDate of urlParams.getAll("b")) {
+      const badge = this.badgeParamToEarnedBadge(codeAndDate);
+      if (
+        !this.codeToBadge.has(badge.code) &&
+        !this.unlistedCodeToBadge.has(badge.code)
+      ) {
+        urlParams.delete("b", codeAndDate);
+        continue;
+      }
+      if (!this.earnedBadges.has(badge.code)) {
+        this.earnedBadges.set(badge.code, badge);
         //Display badges granted via the URL and/or QR Code Scan
-        displayBadge(this.decode(code));
+        this.displayBadge(this.decode(badge.code));
         const logo = document.getElementById("logo")!;
         logo.style.display = "none";
+      } else {
+        this.earnedBadges.set(badge.code, badge);
       }
     }
     localStorage.setItem(
       "badges",
-      JSON.stringify(Array.from(this.earnedBadges)),
+      JSON.stringify(Array.from(this.earnedBadges.entries())),
     );
     //load new local storage badges into the url params
-    let modifiedParams = false;
-    for (const code of this.earnedBadges) {
-      const urlBadges = new Set(urlParams.getAll("b"));
-      if (!urlBadges.has(code)) {
-        urlParams.append("b", code);
-        modifiedParams = true;
+    const urlBadges = new Set(urlParams.getAll("b"));
+    const urlBadgesMap = new Map<string, EarnedBadge>();
+    for (const badgeParam of urlBadges) {
+      const badge = this.badgeParamToEarnedBadge(badgeParam);
+      urlBadgesMap.set(badge.code, badge);
+    }
+    for (const badge of this.earnedBadges.values()) {
+      if (!urlBadgesMap.has(badge.code)) {
+        urlBadgesMap.set(badge.code, badge);
       }
     }
-    if (modifiedParams) {
-      history.replaceState(
-        null,
-        "",
-        window.location.href.split("?")[0] + "?" + urlParams.toString(),
-      );
+    //rebuild fresh url params to remove duplicate badge codes
+    urlParams.delete("b");
+    for (const badge of urlBadgesMap.values()) {
+      urlParams.append("b", this.earnedBadgeToBadgeParam(badge));
     }
+    history.replaceState(
+      null,
+      "",
+      window.location.href.split("?")[0] + "?" + urlParams.toString(),
+    );
   }
 
   decode(code: string): Badge {
@@ -270,9 +303,12 @@ export class BadgeDecoder {
   }
 
   add(code: string) {
-    console.log(`Badge ${code} earned`);
+    const badge = new EarnedBadge({ code: code });
+
+    console.log(`Badge ${badge.code} earned`);
     //adding again is not harmful as it is a set
-    this.earnedBadges.add(code);
+
+    this.earnedBadges.set(badge.code, badge);
     localStorage.setItem(
       "badges",
       JSON.stringify(Array.from(this.earnedBadges)),
@@ -280,16 +316,14 @@ export class BadgeDecoder {
 
     //Add the badge to the url if not already in url
     const urlParams = new URLSearchParams(window.location.search);
-    const urlCodes = new Set(urlParams.getAll("b"));
-    if (!urlCodes.has(code)) {
-      urlParams.append("b", code);
-      history.replaceState(
-        null,
-        "",
-        window.location.href.split("?")[0] + "?" + urlParams.toString(),
-      );
-    }
-    displayBadge(this.decode(code));
+    urlParams.append("b", this.earnedBadgeToBadgeParam(badge));
+
+    history.replaceState(
+      null,
+      "",
+      window.location.href.split("?")[0] + "?" + urlParams.toString(),
+    );
+    this.displayBadge(this.decode(badge.code));
   }
 
   remove(code: string) {
@@ -316,7 +350,7 @@ export class BadgeDecoder {
 
   allKeys() {
     //all possible listed badges + all earned unlisted badges
-    return new Set([...this.codeToBadge.keys(), ...this.earnedBadges]);
+    return new Set([...this.codeToBadge.keys(), ...this.earnedBadges.keys()]);
   }
 
   reset() {
@@ -455,28 +489,49 @@ export class BadgeDecoder {
       this.remove(BadgeCode.Character_AARC);
     }
   }
-}
 
-export function displayBadge(badge: Badge) {
-  const badgeText = document.getElementById("badge-text-large")!;
-  const badgeImage = document.getElementById(
-    "badge-image-large",
-  )! as HTMLImageElement;
-  const badgeDiv = document.getElementById("badge-large")!;
-
-  //update the display text for the item
-  console.log(badge);
-  //read parameters from the url
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.has("debug")) {
-    badgeText.textContent =
-      badge.code + " - " + badge.name + ": " + badge.description;
-  } else {
-    badgeText.textContent = badge.name + ": " + badge.description;
+  badgeParamToEarnedBadge(codeAndDate: string): EarnedBadge {
+    const code = codeAndDate.substring(0, 5);
+    const date = codeAndDate.substring(5);
+    if (date.length < 6) {
+      return new EarnedBadge({ code: code });
+    } else {
+      return new EarnedBadge({ code: code, earnedAt: date });
+    }
   }
-  badgeDiv.style.display = "block";
 
-  //display the image contents
-  const imgUrl = new URL(`../${badge.image}`, import.meta.url).href;
-  badgeImage.src = imgUrl;
+  earnedBadgeToBadgeParam(earnedBadge: EarnedBadge): string {
+    return earnedBadge.code + earnedBadge.earnedAt;
+  }
+
+  displayBadge(badge: Badge) {
+    const badgeText = document.getElementById("badge-text-large")!;
+    const badgeDate = document.getElementById("badge-date-large")!;
+    const badgeImage = document.getElementById(
+      "badge-image-large",
+    )! as HTMLImageElement;
+    const badgeDiv = document.getElementById("badge-large")!;
+
+    //update the display text for the item
+    console.log(badge);
+    //read parameters from the url
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has("debug")) {
+      badgeText.textContent =
+        badge.code + " - " + badge.name + ": " + badge.description;
+    } else {
+      badgeText.textContent = badge.name + ": " + badge.description;
+    }
+    if (this.earnedBadges.has(badge.code)) {
+      const date = dayjs(this.earnedBadges.get(badge.code)!.earnedAt, "YYMMDD");
+      badgeDate.textContent = "Earned on " + date.format("MMM D, YYYY");
+    } else {
+      badgeDate.textContent = "Badge not earned";
+    }
+    badgeDiv.style.display = "block";
+
+    //display the image contents
+    const imgUrl = new URL(`../${badge.image}`, import.meta.url).href;
+    badgeImage.src = imgUrl;
+  }
 }

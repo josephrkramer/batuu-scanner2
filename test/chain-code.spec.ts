@@ -18,6 +18,9 @@ describe("ChainCodeDecoder", () => {
   const badgeText: HTMLElement = document.createElement("h1");
   badgeText.id = "badge-text-large";
   document.body.appendChild(badgeText);
+  const badgeDate: HTMLElement = document.createElement("h1");
+  badgeDate.id = "badge-date-large";
+  document.body.appendChild(badgeDate);
   const badgeImage: HTMLElement = document.createElement("img");
   badgeImage.id = "badge-image-large";
   document.body.appendChild(badgeImage);
