@@ -22,6 +22,9 @@ describe("BadgeDecoder", () => {
   const badgeText: HTMLElement = document.createElement("h1");
   badgeText.id = "badge-text-large";
   document.body.appendChild(badgeText);
+  const badgeDate: HTMLElement = document.createElement("h1");
+  badgeDate.id = "badge-date-large";
+  document.body.appendChild(badgeDate);
   const badgeImage: HTMLElement = document.createElement("img");
   badgeImage.id = "badge-image-large";
   document.body.appendChild(badgeImage);
@@ -39,7 +42,9 @@ describe("BadgeDecoder", () => {
     const badge = badgeDecoder.decode(BadgeCode.Gayas_Microphone);
     expect(badge.name).toBe("Gaya's Microphone");
     expect(badge.description).toBe(
-      "You participated in the March 1, 2024 event and helped retrieve Gaya's Microphone.",
+      `"I'm a Rockstar Queen!" --Gaya
+          
+          Participated in an event and helped retrieve Gaya's Microphone.`,
     );
   });
 
