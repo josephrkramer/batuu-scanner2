@@ -1,3 +1,5 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=josephrkramer_batuu-scanner2&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=josephrkramer_batuu-scanner2)
+
 # Batuu Scanner
 
 Javascript Batuu Code Scanner based on [Html5-QRCode](https://github.com/mebjas/html5-qrcode). With additions of Galaxy's Edge Aztec Code mapping based on [Andrew Mohawk's Star Wars Aztec Barcodes](https://github.com/AndrewMohawk/StarwarsAztec). Puzzle based on [15 Puzzle by arnisritins](https://github.com/arnisritins/15-Puzzle).
