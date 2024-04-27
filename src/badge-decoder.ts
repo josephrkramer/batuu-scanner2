@@ -493,28 +493,41 @@ export class BadgeDecoder {
 
     //Resistance Hero - only light side codes
     if (
+      !this.earnedBadges.has(BadgeCode.Resistance_Hero) &&
       chainCodeDecoder.chainCodeLength() >=
         chainCodeDecoder.MIN_CHAIN_CODE_SIZE &&
       chainCodeDecoder.rawValue() === chainCodeDecoder.chainCodeLength()
     ) {
       this.add(BadgeCode.Resistance_Hero);
     } else {
-      this.remove(BadgeCode.Resistance_Hero);
+      if (
+        this.earnedBadges.has(BadgeCode.Resistance_Hero) &&
+        this.earnedBadges.get(BadgeCode.Resistance_Hero)?.date === this.today()
+      ) {
+        this.remove(BadgeCode.Resistance_Hero);
+      }
     }
 
     //We Have Cookies - only dark side codes
     if (
+      !this.earnedBadges.has(BadgeCode.We_Have_Cookies) &&
       chainCodeDecoder.chainCodeLength() >=
         chainCodeDecoder.MIN_CHAIN_CODE_SIZE &&
       chainCodeDecoder.rawValue() * -1 === chainCodeDecoder.chainCodeLength()
     ) {
       this.add(BadgeCode.We_Have_Cookies);
     } else {
-      this.remove(BadgeCode.We_Have_Cookies);
+      if (
+        this.earnedBadges.has(BadgeCode.We_Have_Cookies) &&
+        this.earnedBadges.get(BadgeCode.We_Have_Cookies)?.date === this.today()
+      ) {
+        this.remove(BadgeCode.We_Have_Cookies);
+      }
     }
 
     //Character AARC - make both light and dark side choices
     if (
+      !this.earnedBadges.has(BadgeCode.Character_AARC) &&
       chainCodeDecoder.chainCodeLength() >=
         chainCodeDecoder.MIN_CHAIN_CODE_SIZE &&
       chainCodeDecoder.chainCode.includes(ChainCodeAlignmentCode.Dark) &&
@@ -522,7 +535,12 @@ export class BadgeDecoder {
     ) {
       this.add(BadgeCode.Character_AARC);
     } else {
-      this.remove(BadgeCode.Character_AARC);
+      if (
+        this.earnedBadges.has(BadgeCode.Character_AARC) &&
+        this.earnedBadges.get(BadgeCode.Character_AARC)?.date === this.today()
+      ) {
+        this.remove(BadgeCode.Character_AARC);
+      }
     }
   }
 
