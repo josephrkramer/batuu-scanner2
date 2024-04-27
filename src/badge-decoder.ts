@@ -526,12 +526,25 @@ export class BadgeDecoder {
   }
 
   checkForEventRelatedBadges() {
+    /*console.log(
+      `Checking for event related badges: attened ${this.eventsAttended().size} events`,
+    );
+    console.log(this.eventDates);
+    console.log(this.eventsAttended());*/
     //Check for Frequent Flyer
     if (
       !this.earnedBadges.has(BadgeCode.Frequent_Flyer_2) &&
       this.eventsAttended().size >= 2
     ) {
       this.add(BadgeCode.Frequent_Flyer_2);
+    }
+
+    //Check for Veteran Flyer
+    if (
+      !this.earnedBadges.has(BadgeCode.Frequent_Flyer_5) &&
+      this.eventsAttended().size >= 5
+    ) {
+      this.add(BadgeCode.Frequent_Flyer_5);
     }
   }
 

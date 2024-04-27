@@ -321,4 +321,38 @@ describe("BadgeDecoder", () => {
       true,
     );
   });
+
+  it("should check for Veteran Flyer", () => {
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Frequent_Flyer_5)).toBe(
+      false,
+    );
+
+    badgeDecoder.add(
+      BadgeCode.Gayas_Microphone,
+      dayjs("2024-03-01").startOf("date"),
+    );
+    badgeDecoder.eventDates.add(
+      dayjs("2024-03-02").startOf("date").format("YYMMDD"),
+    );
+    badgeDecoder.add(BadgeCode.Amnesiac, dayjs("2024-03-02").startOf("date"));
+    badgeDecoder.eventDates.add(
+      dayjs("2024-03-03").startOf("date").format("YYMMDD"),
+    );
+    badgeDecoder.add(BadgeCode.Bounty, dayjs("2024-03-03").startOf("date"));
+    badgeDecoder.eventDates.add(
+      dayjs("2024-03-04").startOf("date").format("YYMMDD"),
+    );
+    badgeDecoder.add(BadgeCode.Bounty, dayjs("2024-03-04").startOf("date"));
+    badgeDecoder.eventDates.add(
+      dayjs("2024-03-05").startOf("date").format("YYMMDD"),
+    );
+    badgeDecoder.add(
+      BadgeCode.I_Shot_First,
+      dayjs("2024-03-05").startOf("date"),
+    );
+    crateDecoder.setResult("JK_RS", badgeDecoder);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Frequent_Flyer_5)).toBe(
+      true,
+    );
+  });
 });
