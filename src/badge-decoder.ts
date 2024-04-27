@@ -243,12 +243,14 @@ export class BadgeDecoder {
         continue;
       }
       if (!this.earnedBadges.has(badge.code)) {
+        this.earnedBadges.set(badge.code, badge);
         //Display badges granted via the URL and/or QR Code Scan
-        displayBadge(this.decode(badge.code));
+        this.displayBadge(this.decode(badge.code));
         const logo = document.getElementById("logo")!;
         logo.style.display = "none";
+      } else {
+        this.earnedBadges.set(badge.code, badge);
       }
-      this.earnedBadges.set(badge.code, badge);
     }
     localStorage.setItem(
       "badges",
@@ -315,7 +317,7 @@ export class BadgeDecoder {
       "",
       window.location.href.split("?")[0] + "?" + urlParams.toString(),
     );
-    displayBadge(this.decode(badge.code));
+    this.displayBadge(this.decode(badge.code));
   }
 
   remove(code: string) {
@@ -495,28 +497,35 @@ export class BadgeDecoder {
   earnedBadgeToBadgeParam(earnedBadge: EarnedBadge): string {
     return earnedBadge.code + earnedBadge.earnedAt;
   }
-}
 
-export function displayBadge(badge: Badge) {
-  const badgeText = document.getElementById("badge-text-large")!;
-  const badgeImage = document.getElementById(
-    "badge-image-large",
-  )! as HTMLImageElement;
-  const badgeDiv = document.getElementById("badge-large")!;
-
-  //update the display text for the item
-  console.log(badge);
-  //read parameters from the url
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.has("debug")) {
-    badgeText.textContent =
-      badge.code + " - " + badge.name + ": " + badge.description;
-  } else {
-    badgeText.textContent = badge.name + ": " + badge.description;
+  displayBadge(badge: Badge) {
+    const badgeText = document.getElementById("badge-text-large")!;
+    const badgeDate = document.getElementById("badge-date-large")!;
+    const badgeImage = document.getElementById(
+      "badge-image-large",
+    )! as HTMLImageElement;
+    const badgeDiv = document.getElementById("badge-large")!;
+  
+    //update the display text for the item
+    console.log(badge);
+    //read parameters from the url
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has("debug")) {
+      badgeText.textContent =
+        badge.code + " - " + badge.name + ": " + badge.description;
+    } else {
+      badgeText.textContent = badge.name + ": " + badge.description;
+    }
+    if (this.earnedBadges.has(badge.code)) {
+      const date = dayjs(this.earnedBadges.get(badge.code)!.earnedAt, "YYMMDD");
+      badgeDate.textContent = "Earned on " + date.format("MMM D, YYYY");
+    } else {
+      badgeDate.textContent = "Badge not earned";
+    }
+    badgeDiv.style.display = "block";
+  
+    //display the image contents
+    const imgUrl = new URL(`../${badge.image}`, import.meta.url).href;
+    badgeImage.src = imgUrl;
   }
-  badgeDiv.style.display = "block";
-
-  //display the image contents
-  const imgUrl = new URL(`../${badge.image}`, import.meta.url).href;
-  badgeImage.src = imgUrl;
 }

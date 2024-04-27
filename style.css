@@ -36,6 +36,11 @@ div {
   padding-bottom: 70px;
 }
 
+#badge-date-large {
+  text-align: center;
+  padding-bottom: 70px;
+}
+
 #cargo-hold-title {
   text-align: center;
   padding-top: 70px;
