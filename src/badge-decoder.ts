@@ -238,6 +238,10 @@ export class BadgeDecoder {
     //load new url params into local storage
     for (const codeAndDate of urlParams.getAll("b")) {
       const badge = this.badgeParamToEarnedBadge(codeAndDate);
+      if (!this.codeToBadge.has(badge.code) && !this.unlistedCodeToBadge.has(badge.code)) {
+        urlParams.delete("b", codeAndDate);
+        continue;
+      }
       if (!this.earnedBadges.has(badge.code)) {
         //Display badges granted via the URL and/or QR Code Scan
         displayBadge(this.decode(badge.code));
@@ -481,7 +485,11 @@ export class BadgeDecoder {
   badgeParamToEarnedBadge(codeAndDate: string): EarnedBadge {
     const code = codeAndDate.substring(0, 5);
     const date = codeAndDate.substring(5);
-    return new EarnedBadge({ code: code, earnedAt: date });
+    if (date.length < 6) {
+      return new EarnedBadge({ code: code });
+    } else {
+      return new EarnedBadge({ code: code, earnedAt: date });
+    }
   }
 
   earnedBadgeToBadgeParam(earnedBadge: EarnedBadge): string {
