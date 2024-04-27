@@ -59,8 +59,7 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.Gayas_Microphone,
         name: "Gaya's Microphone",
-        description:
-          `"I'm a Rockstar Queen!" --Gaya
+        description: `"I'm a Rockstar Queen!" --Gaya
           
           Participated in an event and helped retrieve Gaya's Microphone.`,
         image: "images/badge/gaya-mic.jpeg",
@@ -232,7 +231,9 @@ export class BadgeDecoder {
     );
 
     if (localStorage.badges !== undefined) {
-      this.earnedBadges = new Map<string, EarnedBadge>(JSON.parse(localStorage.badges));
+      this.earnedBadges = new Map<string, EarnedBadge>(
+        JSON.parse(localStorage.badges),
+      );
       console.log(this.earnedBadges);
     }
 
@@ -240,7 +241,10 @@ export class BadgeDecoder {
     //load new url params into local storage
     for (const codeAndDate of urlParams.getAll("b")) {
       const badge = this.badgeParamToEarnedBadge(codeAndDate);
-      if (!this.codeToBadge.has(badge.code) && !this.unlistedCodeToBadge.has(badge.code)) {
+      if (
+        !this.codeToBadge.has(badge.code) &&
+        !this.unlistedCodeToBadge.has(badge.code)
+      ) {
         urlParams.delete("b", codeAndDate);
         continue;
       }
@@ -507,7 +511,7 @@ export class BadgeDecoder {
       "badge-image-large",
     )! as HTMLImageElement;
     const badgeDiv = document.getElementById("badge-large")!;
-  
+
     //update the display text for the item
     console.log(badge);
     //read parameters from the url
@@ -525,7 +529,7 @@ export class BadgeDecoder {
       badgeDate.textContent = "Badge not earned";
     }
     badgeDiv.style.display = "block";
-  
+
     //display the image contents
     const imgUrl = new URL(`../${badge.image}`, import.meta.url).href;
     badgeImage.src = imgUrl;
