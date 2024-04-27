@@ -1,4 +1,9 @@
-import { BadgeCode, BadgeDecoder, EarnedBadge } from "../src/badge-decoder";
+import {
+  BadgeCode,
+  BadgeDecoder,
+  EarnedBadge,
+  BADGE_DATE_FORMAT,
+} from "../src/badge-decoder";
 import { ChainCodeAlignmentCode, ChainCodeDecoder } from "../src/chain-code";
 import { beforeEach, describe, expect, it } from "vitest";
 import { CrateDecoder, CrateType } from "../src/crate-decoder";
@@ -332,19 +337,19 @@ describe("BadgeDecoder", () => {
       dayjs("2024-03-01").startOf("date"),
     );
     badgeDecoder.eventDates.add(
-      dayjs("2024-03-02").startOf("date").format("YYMMDD"),
+      dayjs("2024-03-02").startOf("date").format(BADGE_DATE_FORMAT),
     );
     badgeDecoder.add(BadgeCode.Amnesiac, dayjs("2024-03-02").startOf("date"));
     badgeDecoder.eventDates.add(
-      dayjs("2024-03-03").startOf("date").format("YYMMDD"),
+      dayjs("2024-03-03").startOf("date").format(BADGE_DATE_FORMAT),
     );
     badgeDecoder.add(BadgeCode.Bounty, dayjs("2024-03-03").startOf("date"));
     badgeDecoder.eventDates.add(
-      dayjs("2024-03-04").startOf("date").format("YYMMDD"),
+      dayjs("2024-03-04").startOf("date").format(BADGE_DATE_FORMAT),
     );
     badgeDecoder.add(BadgeCode.Bounty, dayjs("2024-03-04").startOf("date"));
     badgeDecoder.eventDates.add(
-      dayjs("2024-03-05").startOf("date").format("YYMMDD"),
+      dayjs("2024-03-05").startOf("date").format(BADGE_DATE_FORMAT),
     );
     badgeDecoder.add(
       BadgeCode.I_Shot_First,
