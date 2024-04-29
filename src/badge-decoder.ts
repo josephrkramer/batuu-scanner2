@@ -24,6 +24,7 @@ export const BadgeCode = Object.freeze({
   Frequent_Flyer_2: "p0mwe",
   Frequent_Flyer_5: "5340m",
   Chewie_Were_Home: "g0tja",
+  Rose_Tico: "xh9g3",
 });
 
 export class Badge {
@@ -217,6 +218,17 @@ export class BadgeDecoder {
         
         Attend 5+ events.`,
         image: "images/badge/frequent-flyer-5.jpeg",
+      }),
+    );
+    this.codeToBadge.set(
+      BadgeCode.Rose_Tico,
+      new Badge({
+        code: BadgeCode.Rose_Tico,
+        name: "Rose Tico",
+        description: `"We are what they grow beyond." --Yoda
+        
+        Awarded by the Halcyon: The Legacy Contines team.`,
+        image: "images/badge/rose-tico.jpeg",
       }),
     );
 
