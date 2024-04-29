@@ -86,15 +86,18 @@ if (urlParams.has("reset")) {
 // ####### Web Cam Scanning #######
 
 // Square QR box with edge size = 70% of the smaller edge of the viewfinder.
-let qrboxFunction = function(viewfinderWidth: number, viewfinderHeight: number) {
-  let minEdgePercentage = 0.7; // 70%
-  let minEdgeSize = Math.min(viewfinderWidth, viewfinderHeight);
-  let qrboxSize = Math.floor(minEdgeSize * minEdgePercentage);
+const qrboxFunction = function (
+  viewfinderWidth: number,
+  viewfinderHeight: number,
+) {
+  const minEdgePercentage = 0.7; // 70%
+  const minEdgeSize = Math.min(viewfinderWidth, viewfinderHeight);
+  const qrboxSize = Math.floor(minEdgeSize * minEdgePercentage);
   return {
-      width: qrboxSize,
-      height: qrboxSize
+    width: qrboxSize,
+    height: qrboxSize,
   };
-}
+};
 
 const config = {
   fps: 10,
