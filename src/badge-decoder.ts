@@ -23,6 +23,7 @@ export const BadgeCode = Object.freeze({
   Relic_Archivist: "ph15a",
   Frequent_Flyer_2: "p0mwe",
   Frequent_Flyer_5: "5340m",
+  Chewie_Were_Home: "g0tja",
 });
 
 export class Badge {
@@ -260,6 +261,17 @@ export class BadgeDecoder {
           
           Awarded by the Halcyon: The Legacy Contines team.`,
         image: "images/badge/its-my-honor.jpeg",
+      }),
+    );
+    this.unlistedCodeToBadge.set(
+      BadgeCode.Chewie_Were_Home,
+      new Badge({
+        code: BadgeCode.Chewie_Were_Home,
+        name: "Chewie, We're Home",
+        description: `Batuu Cast Member
+          
+          Awarded by the Halcyon: The Legacy Contines team.`,
+        image: "images/badge/chewie-were-home.jpeg",
       }),
     );
 
