@@ -111,6 +111,14 @@ div {
   white-space: pre-line;
 }
 
+.html5-qrcode-element {
+  font-size: 36px;
+  width: 100%;
+  background-color: white;
+  color: black;
+  padding: 36px;
+}
+
 hr {
   margin-top: 32px;
 }
