@@ -1273,7 +1273,7 @@ export class CrateDecoder {
     );
   }
 
-  setResult(code: string, badgeDecoder: BadgeDecoder) {
+  displayCrateContents(code: string): void {
     const resultsHeader = document.getElementById("results-header")!;
     const contentsImage = document.getElementById(
       "contents-image",
@@ -1295,6 +1295,10 @@ export class CrateDecoder {
     contentsImage.style.display = "block";
     const imgUrl = new URL(`../${crate.image}`, import.meta.url).href;
     contentsImage.src = imgUrl;
+  }
+
+  setResult(code: string, badgeDecoder: BadgeDecoder) {
+    this.displayCrateContents(code);
 
     //add the item to the scanned list if not previously scanned
     badgeDecoder.checkForCrateRelatedBadges(code, this);

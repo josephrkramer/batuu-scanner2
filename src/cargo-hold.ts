@@ -37,7 +37,7 @@ export function displayCargoHold(
       scannedImage.addEventListener("click", () => {
         const cargoHold = document.getElementById("cargo-hold")!;
         cargoHold.style.display = "none";
-        crateDecoder.setResult(crate.code, badgeDecoder);
+        crateDecoder.displayCrateContents(crate.code);
       });
 
       //add the item to the scanned list
