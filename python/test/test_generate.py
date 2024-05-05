@@ -12,3 +12,10 @@ def test_generate_barcode():
     gen.generate_barcode(filename=filename, code=code)
     assert path.exists()
     os.remove(path)
+
+def test_generate_all():
+    gen = AztecGenerator()
+    gen.genererate_all()
+    for filename in gen.all_codes.keys():
+        path = Path(f"{os.getcwd()}/images/aztec/{filename}.png")
+        assert path.exists()
