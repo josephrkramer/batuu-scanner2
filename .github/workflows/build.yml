@@ -19,6 +19,17 @@ jobs:
         run: npm run build --if-present
       - name: Test and coverage
         run: npm run test -- --coverage
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install python dependencies
+        run: sudo apt update
+        run: sudo apt install ghostscript
+        run: pip install -r python/requirements.txt
+      - name: Run tests
+        run: coverage run -m pytest
+        run: coverage xml
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
