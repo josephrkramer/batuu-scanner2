@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 import treepoem
 from pathlib import Path
 
@@ -32,7 +33,7 @@ class AztecGenerator:
 
     @classmethod
     def generate_barcode(self, filename: str, code: str):
-        path = Path(f"/workspaces/batuu-scanner2/images/aztec/{filename}.png")
+        path = Path(f"{os.getcwd()}/images/aztec/{filename}.png")
         if path.exists():
             print(f"{filename} already exists. Skipping")
         else:
