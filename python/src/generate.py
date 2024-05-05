@@ -32,7 +32,7 @@ class AztecGenerator:
     }
 
     @classmethod
-    def generate_barcode(self, filename: str, code: str):
+    def generate_barcode(cls, filename: str, code: str):
         path = Path(f"{os.getcwd()}/images/aztec/{filename}.png")
         if path.exists():
             print(f"{filename} already exists. Skipping")
@@ -45,9 +45,9 @@ class AztecGenerator:
             image.convert("1").save(path)
 
     @classmethod
-    def genererate_all(self):
-        for filename in self.all_codes.keys():
-            self.generate_barcode(filename, self.all_codes[filename])
+    def genererate_all(cls):
+        for filename in cls.all_codes.keys():
+            cls.generate_barcode(filename, cls.all_codes[filename])
 
 def main():
     gen = AztecGenerator()
