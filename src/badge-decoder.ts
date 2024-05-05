@@ -656,4 +656,8 @@ export class BadgeDecoder {
     const imgUrl = new URL(`../${badge.image}`, import.meta.url).href;
     badgeImage.src = imgUrl;
   }
+
+  isValidBadgeCode(code: string) {
+    return this.codeToBadge.has(code) || this.unlistedCodeToBadge.has(code);
+  }
 }

@@ -146,31 +146,35 @@ function startButton() {
     console.log(`Scan result ${decodedText}`, decodedResult);
     html5QrcodeScanner.clear();
 
-    const crate = crateDecoder.decode(decodedText);
-
-    if (
-      chainCodeDecoder.isValidChainCode(decodedText) ||
-      crate.type == CrateType.Unknown ||
-      urlParams.has("debug")
-    ) {
-      if (chainCodeDecoder.isValidChainCode(decodedText)) {
-        chainCodeDecoder.setChainCodeResult(decodedText, badgeDecoder);
-      } else {
-        crateDecoder.setResult(decodedText, badgeDecoder);
-      }
+    if (badgeDecoder.isValidBadgeCode(decodedText)) {
+      badgeDecoder.add(decodedText);
     } else {
-      //start puzzle and wait for success
-      puzzle.style.display = "block";
-      waitToSolvePuzzle().then(
-        function () {
-          console.log("PUZZLE SUCCESS");
+      const crate = crateDecoder.decode(decodedText);
+
+      if (
+        chainCodeDecoder.isValidChainCode(decodedText) ||
+        crate.type == CrateType.Unknown ||
+        urlParams.has("debug")
+      ) {
+        if (chainCodeDecoder.isValidChainCode(decodedText)) {
+          chainCodeDecoder.setChainCodeResult(decodedText, badgeDecoder);
+        } else {
           crateDecoder.setResult(decodedText, badgeDecoder);
-          puzzle.style.display = "none";
-        },
-        function () {
-          console.log("PUZZLE FAILURE");
-        },
-      );
+        }
+      } else {
+        //start puzzle and wait for success
+        puzzle.style.display = "block";
+        waitToSolvePuzzle().then(
+          function () {
+            console.log("PUZZLE SUCCESS");
+            crateDecoder.setResult(decodedText, badgeDecoder);
+            puzzle.style.display = "none";
+          },
+          function () {
+            console.log("PUZZLE FAILURE");
+          },
+        );
+      }
     }
   }
   html5QrcodeScanner.render(onScanSuccess, undefined);
