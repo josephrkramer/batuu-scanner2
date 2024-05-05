@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import treepoem
+from pathlib import Path
 
 all_codes = {
     "DARK1": "DARK1",
@@ -29,12 +30,16 @@ all_codes = {
 }
 
 def generate_barcode(filename: str, code: str):
-    print(f"Generating {filename}")
-    image = treepoem.generate_barcode(
-        barcode_type="azteccode",
-        data=code,
-    )
-    image.convert("1").save(f"../images/aztec/{filename}.png")
+    path = Path(f"../images/aztec/{filename}.png")
+    if path.exists():
+        print(f"{filename} already exists. Skipping")
+    else:
+        print(f"Generating {filename}")
+        image = treepoem.generate_barcode(
+            barcode_type="azteccode",
+            data=code,
+        )
+        image.convert("1").save(path)
 
 for filename in all_codes.keys():
     generate_barcode(filename, all_codes[filename])
