@@ -36,7 +36,7 @@ See [https://josephrkramer.github.io/batuu-scanner2/?debug](https://josephrkrame
 
 See [https://josephrkramer.github.io/batuu-scanner2/?allbadges](https://josephrkramer.github.io/batuu-scanner2/?allbadges)
 
-May of these badges are mutually exclusive in a single event. This feature is to be used by team members for easy review of art and text copy and should be removed and/or disabled prior to an event.
+Many of these badges are mutually exclusive in a single event. This feature is to be used by team members for easy review of art and text copy and should be removed and/or disabled prior to an event.
 
 ### Grant everything possible
 
