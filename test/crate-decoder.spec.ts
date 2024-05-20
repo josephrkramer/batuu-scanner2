@@ -14,6 +14,18 @@ describe("CrateDecoder", () => {
   const decodeButton: HTMLElement = document.createElement("button");
   decodeButton.id = "decode-chain-code-button";
   document.body.appendChild(decodeButton);
+  const badgeLarge: HTMLElement = document.createElement("div");
+  badgeLarge.id = "badge-large";
+  document.body.appendChild(badgeLarge);
+  const badgeTextLarge: HTMLElement = document.createElement("h1");
+  badgeTextLarge.id = "badge-text-large";
+  badgeLarge.appendChild(badgeTextLarge);
+  const badgeDateLarge: HTMLElement = document.createElement("h1");
+  badgeDateLarge.id = "badge-date-large";
+  badgeLarge.appendChild(badgeDateLarge);
+  const badgeImageLarge: HTMLElement = document.createElement("img");
+  badgeImageLarge.id = "badge-image-large";
+  badgeLarge.appendChild(badgeImageLarge);
 
   beforeEach(() => {
     badgeDecoder.reset();
