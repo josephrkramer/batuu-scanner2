@@ -25,6 +25,7 @@ export const BadgeCode = Object.freeze({
   Frequent_Flyer_5: "5340m",
   Chewie_Were_Home: "g0tja",
   Rose_Tico: "xh9g3",
+  First_Step: "tznoi",
 });
 
 export class Badge {
@@ -67,6 +68,17 @@ export class BadgeDecoder {
 
   constructor() {
     //listed badges
+    this.codeToBadge.set(
+      BadgeCode.First_Step,
+      new Badge({
+        code: BadgeCode.First_Step,
+        name: "First Step",
+        description: `"You’ve taken your first step into a larger world." --Obi-Wan Kenobi
+          
+          Scan a crate on Batuu.`,
+        image: "images/empty.jpeg",
+      }),
+    );
     this.codeToBadge.set(
       BadgeCode.Gayas_Microphone,
       new Badge({
@@ -503,6 +515,15 @@ export class BadgeDecoder {
       crateDecoder.getScannedNumberOfType(CrateType.Relic) >= 10
     ) {
       this.add(BadgeCode.Relic_Archivist);
+    }
+
+    //First Step - Scan at least one crate
+    if (
+      !this.earnedBadges.has(BadgeCode.First_Step) &&
+      crateCode != undefined &&
+      crateDecoder != undefined
+    ) {
+      this.add(BadgeCode.First_Step);
     }
   }
 

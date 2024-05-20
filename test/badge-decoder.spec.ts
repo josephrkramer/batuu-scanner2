@@ -215,6 +215,12 @@ describe("BadgeDecoder", () => {
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Relic_Archivist)).toBe(true);
   });
 
+  it("should check for First Step", () => {
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.First_Step)).toBe(false);
+    crateDecoder.setResult("JK_RS", badgeDecoder);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.First_Step)).toBe(true);
+  });
+
   //Chain Code Related Badges
 
   it("should check for Well Connected", () => {
