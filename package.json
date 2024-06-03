@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/josephrkramer/batuu-scanner2#readme",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^7.9.0",
+    "@typescript-eslint/eslint-plugin": "^7.11.0",
     "@typescript-eslint/parser": "^7.10.0",
     "@vitest/coverage-v8": "^1.6.0",
     "eslint": "^8.57.0",
