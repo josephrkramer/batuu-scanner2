@@ -1,4 +1,5 @@
 import { BadgeDecoder } from "./badge-decoder";
+import { ChainCodeAlignmentCode } from "./chain-code";
 
 export const CrateType = Object.freeze({
   Halcyon_Cargo: "Halcyon Cargo",
@@ -12,6 +13,7 @@ export const CrateType = Object.freeze({
   Ports_Of_Call: "Ports of Call",
   Relic: "Relic",
   Unknown: "Unknown",
+  Multiple_Choice: "Multiple Choice",
 });
 
 export class CrateContents {
@@ -19,18 +21,28 @@ export class CrateContents {
   contents: string;
   type: string;
   image: string;
+  alignment: string;
+  multipleChoice: CrateContents[] = [];
 
-  constructor({ code = "", contents = "", type = "", image = "" }) {
+  constructor({
+    code = "",
+    contents = "",
+    type = "",
+    image = "",
+    alignment = "",
+  }) {
     this.code = code;
     this.contents = contents;
     this.type = type;
     this.image = image;
+    this.alignment = alignment;
   }
 }
 
 export class CrateDecoder {
   contents = new Map<string, CrateContents>();
   scannedCrates = new Set<string>();
+  multipleChoiceScannedCrates = new Map<string, CrateContents>();
 
   constructor() {
     this.contents.set(
@@ -1164,12 +1176,51 @@ export class CrateDecoder {
       }),
     );
 
+    //Multiple Choice custom override crates
+    const chanceCubes = new CrateContents({
+      code: "FG_TU",
+      contents: "Chance Cubes",
+      type: CrateType.Multiple_Choice,
+      image: "images/crew/joe.png",
+    });
+    chanceCubes.multipleChoice.push(
+      new CrateContents({
+        code: chanceCubes.code,
+        contents: "Rigged Chance Cubes",
+        type: CrateType.Relic,
+        image: "images/badge/frequent-flyer-2.jpeg",
+        alignment: ChainCodeAlignmentCode.Dark,
+      }),
+    );
+    chanceCubes.multipleChoice.push(
+      new CrateContents({
+        code: chanceCubes.code,
+        contents: "Chance Cubes",
+        type: CrateType.Relic,
+        image: "images/badge/frequent-flyer-5.jpeg",
+        alignment: ChainCodeAlignmentCode.Light,
+      }),
+    );
+    this.override(chanceCubes);
+
     //Keep track of the crates scanned so far and don't allow duplicates
     //load from local storage
     if (localStorage.cargo !== undefined) {
       this.scannedCrates = new Set<string>(JSON.parse(localStorage.cargo));
       console.log(`Cargo hold instantiated from local storage:`);
       console.log(this.scannedCrates);
+    }
+
+    if (localStorage.multipleChoiceScannedCrates !== undefined) {
+      console.log("Starting load multiple choice crates from local storage");
+      this.multipleChoiceScannedCrates = new Map(
+        JSON.parse(localStorage.multipleChoiceScannedCrates),
+      );
+      console.log(`Multiple Choice hold instantiated from local storage:`);
+      console.log(this.multipleChoiceScannedCrates);
+      this.multipleChoiceScannedCrates.forEach((crate: CrateContents) => {
+        this.override(crate);
+      });
     }
   }
 
@@ -1221,6 +1272,8 @@ export class CrateDecoder {
   reset(): void {
     this.scannedCrates.clear();
     localStorage.removeItem("cargo");
+    this.multipleChoiceScannedCrates.clear();
+    localStorage.removeItem("multipleChoiceScannedCrates");
   }
 
   sortCargoHold(): Map<string, Set<CrateContents>> {
@@ -1273,6 +1326,19 @@ export class CrateDecoder {
     );
   }
 
+  addToScannedMultipleChoice(code: string, crate: CrateContents) {
+    console.log(`Adding ${code} to the scanned list`);
+    //add the item to the scannedCrates internal tracking
+    this.multipleChoiceScannedCrates.set(code, crate);
+    this.override(crate);
+
+    //store all of the scanned crates into local storage
+    localStorage.setItem(
+      "multipleChoiceScannedCrates",
+      JSON.stringify(Array.from(this.multipleChoiceScannedCrates.entries())),
+    );
+  }
+
   displayCrateContents(code: string): void {
     const resultsHeader = document.getElementById("results-header")!;
     const contentsImage = document.getElementById(
@@ -1298,7 +1364,11 @@ export class CrateDecoder {
   }
 
   setResult(code: string, badgeDecoder: BadgeDecoder) {
-    this.displayCrateContents(code);
+    if (this.contents.get(code)!.type == CrateType.Multiple_Choice) {
+      this.handleMultipleChoice(code, badgeDecoder);
+    } else {
+      this.displayCrateContents(code);
+    }
 
     //add the item to the scanned list if not previously scanned
     badgeDecoder.checkForCrateRelatedBadges(code, this);
@@ -1306,5 +1376,34 @@ export class CrateDecoder {
       this.addToScanned(code);
     }
     badgeDecoder.checkForEventRelatedBadges();
+  }
+
+  private handleMultipleChoice(code: string, badgeDecoder: BadgeDecoder) {
+    const multipleChoiceDiv = document.getElementById("multiple-choice")!;
+    multipleChoiceDiv.style.display = "block";
+    multipleChoiceDiv.innerHTML = "";
+
+    const parent = this.contents.get(code)!;
+    for (const child of parent.multipleChoice) {
+      const contentsImage = document.getElementById(
+        "contents-image",
+      )! as HTMLImageElement;
+      //display the image contents
+      const crate = this.decode(code);
+      contentsImage.style.display = "block";
+      const imgUrl = new URL(`../${crate.image}`, import.meta.url).href;
+      contentsImage.src = imgUrl;
+
+      const button = document.createElement("button");
+      button.className = "major-button";
+      button.textContent = child.contents;
+      button.addEventListener("click", () => {
+        this.override(child);
+        multipleChoiceDiv.style.display = "none";
+        this.addToScannedMultipleChoice(code, child);
+        this.setResult(child.code, badgeDecoder);
+      });
+      multipleChoiceDiv.appendChild(button);
+    }
   }
 }
