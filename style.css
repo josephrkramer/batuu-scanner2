@@ -22,6 +22,10 @@ div {
   padding-bottom: 70px;
 }
 
+#multiple-choice {
+  display: none;
+}
+
 #badge-large {
   display: none;
 }

@@ -36,6 +36,9 @@ describe("BadgeDecoder", () => {
   const badgeDiv: HTMLElement = document.createElement("div");
   badgeDiv.id = "badge-large";
   document.body.appendChild(badgeDiv);
+  const multipleChoiceDiv: HTMLElement = document.createElement("div");
+  multipleChoiceDiv.id = "multiple-choice";
+  document.body.appendChild(multipleChoiceDiv);
 
   beforeEach(() => {
     badgeDecoder.reset();
