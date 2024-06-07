@@ -106,6 +106,8 @@ const config = {
   // Only support camera scan type.
   supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA],
   formatsToSupport: [Html5QrcodeSupportedFormats.AZTEC],
+  //a vertical 4:3 aspect ratio
+  aspectRatio: 3/4,
 };
 
 const html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", config, false);
