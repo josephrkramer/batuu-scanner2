@@ -9,6 +9,7 @@ export default defineConfig({
   base: "./",
   test: {
     environment: "jsdom",
+    provider: "v8",
     coverage: {
       reporter: ["lcov", "text"],
     },
