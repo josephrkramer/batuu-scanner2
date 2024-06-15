@@ -3,13 +3,19 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import Logo from "./Logo";
+import Crate from "./Crate";
+import { CrateDecoder } from "./crate-decoder";
 
 function App() {
   const [count, setCount] = useState(0);
 
+  const crateDecoder = new CrateDecoder();
+  const crateToDisplay = crateDecoder.decode("FAL16");
+
   return (
     <>
       <Logo />
+      <Crate crate={crateToDisplay} />
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
