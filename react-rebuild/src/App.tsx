@@ -10,6 +10,7 @@ import { Html5QrcodeResult } from "html5-qrcode";
 import { CrewManifest } from "./crew-manifest";
 import { ChainCodeDecoder } from "./chain-code";
 import { BadgeDecoder } from "./badge-decoder";
+import { Button } from "antd";
 
 function App() {
   //read parameters from the url
@@ -69,7 +70,8 @@ function App() {
     }
   };
 
-  const [renderScanner, setRenderScanner] = useState(true);
+  const [renderLogo, setRenderLogo] = useState(true);
+  const [renderScanner, setRenderScanner] = useState(false);
   const scannerComp = (
     <Html5QrcodePlugin
       fps={10}
@@ -80,11 +82,24 @@ function App() {
     />
   );
 
+  function homeButton() {
+    setRenderLogo(true);
+    setRenderScanner(false);
+    setCrateToDisplay(undefined);
+  }
+  function scanButton() {
+    setRenderLogo(false);
+    setRenderScanner(true);
+    setCrateToDisplay(undefined);
+  }
+
   return (
     <>
-      <Logo />
+      {renderLogo ? <Logo /> : null}
       <Crate crate={crateToDisplay} />
       {renderScanner ? scannerComp : null}
+      <Button onClick={() => homeButton()}>Home</Button>
+      <Button onClick={() => scanButton()}>Scan</Button>
     </>
   );
 }
