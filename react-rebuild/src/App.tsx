@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import Logo from "./Logo";
 import Crate from "./Crate";
-import { CrateDecoder, CrateType } from "./crate-decoder";
+import { CrateDecoder, CrateType, CrateContents } from "./crate-decoder";
 import Html5QrcodePlugin from "./Html5QrcodePlugin";
 import { Html5QrcodeResult } from "html5-qrcode";
 import { CrewManifest } from "./crew-manifest";
@@ -17,23 +17,21 @@ function App() {
   console.log(queryString);
   const urlParams = new URLSearchParams(queryString);
 
-  const [count, setCount] = useState(0);
-
   const crateDecoder = new CrateDecoder();
   const crewMembers = new CrewManifest();
   const chainCodeDecoder = new ChainCodeDecoder();
   const badgeDecoder = new BadgeDecoder();
 
-  const [crateToDisplay, setCrateToDisplay] = useState(
-    crateDecoder.decode("FAL16"),
-  );
+  const [crateToDisplay, setCrateToDisplay] = useState<
+    CrateContents | undefined
+  >();
 
   const onNewScanResult = (
     decodedText: string,
     decodedResult: Html5QrcodeResult,
   ) => {
     console.log(`Scan result ${decodedText}`, decodedResult);
-    //html5QrcodeScanner.clear();
+    setRenderScanner(false);
 
     if (badgeDecoder.isValidBadgeCode(decodedText)) {
       badgeDecoder.add(decodedText);
@@ -71,36 +69,22 @@ function App() {
     }
   };
 
+  const [renderScanner, setRenderScanner] = useState(true);
+  const scannerComp = (
+    <Html5QrcodePlugin
+      fps={10}
+      qrbox={250}
+      disableFlip={false}
+      qrCodeSuccessCallback={onNewScanResult}
+      render={renderScanner}
+    />
+  );
+
   return (
     <>
       <Logo />
       <Crate crate={crateToDisplay} />
-      <Html5QrcodePlugin
-        fps={10}
-        qrbox={250}
-        disableFlip={false}
-        qrCodeSuccessCallback={onNewScanResult}
-      />
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {renderScanner ? scannerComp : null}
     </>
   );
 }
