@@ -10,7 +10,7 @@ import { Html5QrcodeResult } from "html5-qrcode";
 import { CrewManifest } from "./crew-manifest";
 import { ChainCodeDecoder } from "./chain-code";
 import { BadgeDecoder } from "./badge-decoder";
-import { Button } from "antd";
+import { Button, Flex } from "antd";
 
 function App() {
   //read parameters from the url
@@ -72,15 +72,16 @@ function App() {
 
   const [renderLogo, setRenderLogo] = useState(true);
   const [renderScanner, setRenderScanner] = useState(false);
-  const scannerComp = (
+  const scannerComp = () => (
     <Html5QrcodePlugin
       fps={10}
-      qrbox={250}
       disableFlip={false}
       qrCodeSuccessCallback={onNewScanResult}
       render={renderScanner}
     />
   );
+
+  scannerComp.force;
 
   function homeButton() {
     setRenderLogo(true);
@@ -94,13 +95,13 @@ function App() {
   }
 
   return (
-    <>
+    <Flex vertical>
       {renderLogo ? <Logo /> : null}
       <Crate crate={crateToDisplay} />
-      {renderScanner ? scannerComp : null}
+      {renderScanner ? scannerComp() : null}
       <Button onClick={() => homeButton()}>Home</Button>
       <Button onClick={() => scanButton()}>Scan</Button>
-    </>
+    </Flex>
   );
 }
 
