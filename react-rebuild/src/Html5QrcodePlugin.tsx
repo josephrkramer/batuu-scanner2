@@ -5,7 +5,7 @@ import {
   Html5QrcodeSupportedFormats,
 } from "html5-qrcode";
 import { Html5QrcodeScannerConfig } from "html5-qrcode/esm/html5-qrcode-scanner";
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { unmountComponentAtNode } from "react-dom";
 import useWindowDimensions from "./WindowDimensions";
 
@@ -60,16 +60,11 @@ const Html5QrcodePlugin = (props: {
   disableFlip?: boolean;
   render?: boolean;
 }) => {
-  const { height, width } = useWindowDimensions();
   // when component mounts
   useEffect(() => {
     // when component mounts
     const config = createConfig(props);
     const verbose = props.verbose === true;
-    if (!props.aspectRatio) {
-      config.aspectRatio = width / height;
-      console.log(`setting aspect ratio to ${config.aspectRatio}`);
-    }
     const html5QrcodeScanner = new Html5QrcodeScanner(
       qrcodeRegionId,
       config,
@@ -85,15 +80,38 @@ const Html5QrcodePlugin = (props: {
       props.qrCodeErrorCallback,
     );
 
+    function handleResize() {
+      html5QrcodeScanner
+        .clear()
+        .then(() => {
+          html5QrcodeScanner.render(
+            props.qrCodeSuccessCallback,
+            props.qrCodeErrorCallback,
+          );
+        })
+        .catch((error) => {
+          console.error("Failed to clear html5QrcodeScanner. ", error);
+        });
+    }
+
+    window.addEventListener("resize", handleResize);
+    screen.orientation.addEventListener("change", handleResize);
+
     // cleanup function when component will unmount
     return () => {
-      html5QrcodeScanner.clear().catch((error) => {
-        console.error("Failed to clear html5QrcodeScanner. ", error);
-      });
+      html5QrcodeScanner
+        .clear()
+        .then(() => {
+          window.removeEventListener("resize", handleResize);
+          screen.orientation.removeEventListener("change", handleResize);
+        })
+        .catch((error) => {
+          console.error("Failed to clear html5QrcodeScanner. ", error);
+        });
     };
-  }, []);
+  }, [props]);
 
-  if (!props.render) {
+  if (props.render !== undefined && !props.render) {
     return null;
   }
 

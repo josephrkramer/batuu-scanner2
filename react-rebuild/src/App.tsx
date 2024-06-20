@@ -72,16 +72,61 @@ function App() {
 
   const [renderLogo, setRenderLogo] = useState(true);
   const [renderScanner, setRenderScanner] = useState(false);
-  const scannerComp = () => (
+
+  function getAspectRatio() {
+    const { innerWidth: width, innerHeight: height } = window;
+
+    console.log(screen.orientation.type);
+    const ratio = width / height;
+    console.log(ratio);
+
+    return ratio;
+  }
+
+  const [aspectRatio, setAspectRatio] = useState(getAspectRatio());
+
+  useEffect(() => {
+    function handleResize() {
+      setAspectRatio(getAspectRatio());
+      /*
+      if (renderScanner) {
+        setRenderScanner(false);
+        setRenderScanner(true);
+      }
+        */
+    }
+
+    //window resize
+    window.addEventListener("resize", handleResize);
+    //phone screen orientation
+    screen.orientation.addEventListener("change", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      screen.orientation.removeEventListener("change", handleResize);
+    };
+  }, []);
+
+  /*
+  function handleRotation() {
+    if (renderScanner) {
+      console.log("APP ROTATION TRIGGERED");
+      setRenderScanner(false);
+      setRenderScanner(true);
+    }
+  }
+
+  screen.orientation.addEventListener("change", handleRotation);
+  */
+
+  const scannerComp = (
     <Html5QrcodePlugin
       fps={10}
       disableFlip={false}
       qrCodeSuccessCallback={onNewScanResult}
       render={renderScanner}
+      aspectRatio={aspectRatio}
     />
   );
-
-  scannerComp.force;
 
   function homeButton() {
     setRenderLogo(true);
@@ -98,7 +143,7 @@ function App() {
     <Flex vertical>
       {renderLogo ? <Logo /> : null}
       <Crate crate={crateToDisplay} />
-      {renderScanner ? scannerComp() : null}
+      {renderScanner ? scannerComp : null}
       <Button onClick={() => homeButton()}>Home</Button>
       <Button onClick={() => scanButton()}>Scan</Button>
     </Flex>

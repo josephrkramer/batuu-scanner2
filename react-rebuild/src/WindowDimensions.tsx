@@ -20,16 +20,15 @@ export default function useWindowDimensions() {
     function handleResize() {
       setWindowDimensions(getWindowDimensions());
     }
-    function handleRotation() {
-      console.log("SCREEN ROTATED");
-      handleResize();
-    }
 
     //window resize
     window.addEventListener("resize", handleResize);
     //phone screen orientation
-    screen.orientation.addEventListener("change", handleRotation);
-    return () => window.removeEventListener("resize", handleResize);
+    screen.orientation.addEventListener("change", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      screen.orientation.removeEventListener("change", handleResize);
+    };
   }, []);
 
   return windowDimensions;
