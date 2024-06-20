@@ -7,7 +7,6 @@ import {
 import { Html5QrcodeScannerConfig } from "html5-qrcode/esm/html5-qrcode-scanner";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { unmountComponentAtNode } from "react-dom";
-import useWindowDimensions from "./WindowDimensions";
 
 const qrcodeRegionId = "html5qr-code-full-region";
 
