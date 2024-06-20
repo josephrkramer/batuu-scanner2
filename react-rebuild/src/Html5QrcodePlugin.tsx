@@ -116,10 +116,10 @@ const Html5QrcodePlugin = (props: {
   }
 
   const style = {
-    width: "80vw",
-    height: "80vh",
-    minWidth: "80vw",
-    maxWidth: "80vw",
+    width: "85vw",
+    height: "85vh",
+    minWidth: "85vw",
+    maxWidth: "85vw",
   } as React.CSSProperties;
   return (
     //<Card style={style}>

@@ -10,7 +10,7 @@ import { Html5QrcodeResult } from "html5-qrcode";
 import { CrewManifest } from "./crew-manifest";
 import { ChainCodeDecoder } from "./chain-code";
 import { BadgeDecoder } from "./badge-decoder";
-import { Button, Flex } from "antd";
+import { Button, ConfigProvider, Flex, theme } from "antd";
 
 function App() {
   //read parameters from the url
@@ -140,13 +140,27 @@ function App() {
   }
 
   return (
-    <Flex vertical>
-      {renderLogo ? <Logo /> : null}
-      <Crate crate={crateToDisplay} />
-      {renderScanner ? scannerComp : null}
-      <Button onClick={() => homeButton()}>Home</Button>
-      <Button onClick={() => scanButton()}>Scan</Button>
-    </Flex>
+    <ConfigProvider
+      theme={{
+        // 1. Use dark algorithm
+        algorithm: theme.darkAlgorithm,
+
+        // 2. Combine dark algorithm and compact algorithm
+        // algorithm: [theme.darkAlgorithm, theme.compactAlgorithm],
+      }}
+    >
+      <Flex vertical>
+        {renderLogo ? <Logo /> : null}
+        <Crate crate={crateToDisplay} />
+        {renderScanner ? scannerComp : null}
+        <Button type="primary" onClick={() => homeButton()}>
+          Home
+        </Button>
+        <Button type="primary" onClick={() => scanButton()}>
+          Scan
+        </Button>
+      </Flex>
+    </ConfigProvider>
   );
 }
 
