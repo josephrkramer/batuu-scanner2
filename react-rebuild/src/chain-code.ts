@@ -115,11 +115,13 @@ export class ChainCodeDecoder {
     return value;
   }
 
+  //TODO: replace with react version
   checkDecodeButton(): void {
     console.log(`Chain code length: ${this.chainCode.length}`);
     if (this.chainCode.length >= this.MIN_CHAIN_CODE_SIZE) {
-      const decodeButton = document.getElementById("decode-chain-code-button")!;
-      decodeButton.style.display = "block";
+      //commented out to get everything param to work
+      //const decodeButton = document.getElementById("decode-chain-code-button")!;
+      //decodeButton.style.display = "block";
     }
   }
 
@@ -127,10 +129,12 @@ export class ChainCodeDecoder {
     console.log(`Valid Chain Code Detected: ${code}`);
     const chainCodePart = this.decode(code);
 
-    displayChainCodeResult(chainCodePart);
+    //TODO: replace with react version
+    //displayChainCodeResult(chainCodePart);
 
     //add the item to the chainCode internal tracking
     this.chainCode.push(code);
+    console.log(`Chain Code: ${this.chainCode}`);
 
     //store all of the scanned crates into local storage
     localStorage.chainCode = JSON.stringify(this.chainCode);
@@ -141,6 +145,7 @@ export class ChainCodeDecoder {
   }
 }
 
+/*
 export function displayChainCodeResult(chainCodePart: ChainCodePart) {
   const resultsHeader = document.getElementById("results-header")!;
   const contentsImage = document.getElementById(
@@ -163,6 +168,7 @@ export function displayChainCodeResult(chainCodePart: ChainCodePart) {
   //chain code image has already been corrected by vite
   contentsImage.src = chainCodePart.image;
 }
+  */
 
 export function displayChainCodeValue(chainCodeDecoder: ChainCodeDecoder) {
   const chainCodeHeader = document.getElementById("chain-code-title")!;

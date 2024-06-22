@@ -320,9 +320,11 @@ export class BadgeDecoder {
       if (!this.earnedBadges.has(badge.code)) {
         this.earnedBadges.set(badge.code, badge);
         //Display badges granted via the URL and/or QR Code Scan
-        this.displayBadge(this.decode(badge.code));
-        const logo = document.getElementById("logo")!;
-        logo.style.display = "none";
+        //TODO: replace display call with React version
+        //this.displayBadge(this.decode(badge.code));
+        //TODO: shut off logo the react way
+        //const logo = document.getElementById("logo")!;
+        //logo.style.display = "none";
       } else {
         this.earnedBadges.set(badge.code, badge);
       }
@@ -395,7 +397,8 @@ export class BadgeDecoder {
       "",
       window.location.href.split("?")[0] + "?" + urlParams.toString(),
     );
-    this.displayBadge(this.decode(badge.code));
+    //TODO: replace display call with React version
+    //this.displayBadge(this.decode(badge.code));
   }
 
   remove(code: string) {
@@ -644,6 +647,8 @@ export class BadgeDecoder {
     return earnedBadge.code + earnedBadge.date;
   }
 
+  //TODO: Replace with react version
+  /*
   displayBadge(badge: Badge) {
     const badgeText = document.getElementById("badge-text-large")!;
     const badgeDate = document.getElementById("badge-date-large")!;
@@ -677,6 +682,7 @@ export class BadgeDecoder {
     const imgUrl = new URL(`../${badge.image}`, import.meta.url).href;
     badgeImage.src = imgUrl;
   }
+    */
 
   isValidBadgeCode(code: string) {
     return this.codeToBadge.has(code) || this.unlistedCodeToBadge.has(code);

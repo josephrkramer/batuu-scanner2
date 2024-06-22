@@ -8,7 +8,7 @@ import { CrateDecoder, CrateType, CrateContents } from "./crate-decoder";
 import Html5QrcodePlugin from "./Html5QrcodePlugin";
 import { Html5QrcodeResult } from "html5-qrcode";
 import { CrewManifest } from "./crew-manifest";
-import { ChainCodeDecoder } from "./chain-code";
+import { ChainCodeAlignmentCode, ChainCodeDecoder } from "./chain-code";
 import { BadgeDecoder } from "./badge-decoder";
 import { Button, ConfigProvider, Flex, theme } from "antd";
 import CargoHold from "./CargoHold";
@@ -32,6 +32,50 @@ function App() {
     crateDecoder.addToScanned("JK_TU");
     crateDecoder.addToScanned("AB_QR");
     crateDecoder.addToScanned("JK_RS");
+  }
+  //delete param to ensure we don't get into a loop
+  if (urlParams.has("cargo")) {
+    urlParams.delete("cargo");
+    window.location.search = urlParams.toString();
+  }
+
+  //TODO: remove this before the event.
+  if (urlParams.has("everything")) {
+    for (const code of crateDecoder.contents.keys()) {
+      crateDecoder.addToScanned(code);
+    }
+    for (let i = 0; i < chainCodeDecoder.MAX_CHAIN_CODE_SIZE; i++) {
+      chainCodeDecoder.setChainCodeResult(
+        ChainCodeAlignmentCode.Dark,
+        badgeDecoder,
+      );
+    }
+  }
+  if (urlParams.has("allbadges") || urlParams.has("everything")) {
+    for (const badge of new Set([
+      ...badgeDecoder.codeToBadge.keys(),
+      ...badgeDecoder.unlistedCodeToBadge.keys(),
+    ])) {
+      badgeDecoder.add(badge);
+    }
+  }
+  //delete param to ensure we don't get into a loop
+  if (urlParams.has("everything")) {
+    urlParams.delete("everything");
+    window.location.search = urlParams.toString();
+  }
+
+  if (urlParams.has("reset")) {
+    crateDecoder.reset();
+    badgeDecoder.reset();
+    chainCodeDecoder.reset();
+
+    //force a reload of the page that will refresh the cache. Equivalent of Ctl+F5
+    window.location.reload();
+    //strip ?reset from the url so we don't get in a refresh loop
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.delete("reset");
+    window.location.search = urlParams.toString();
   }
 
   const [crateToDisplay, setCrateToDisplay] = useState<

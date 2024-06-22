@@ -1,4 +1,4 @@
-import { displayChainCodeResult, ChainCodeDecoder } from "./chain-code";
+import { ChainCodeDecoder } from "./chain-code";
 import { BadgeDecoder } from "./badge-decoder";
 import { CrateDecoder } from "./crate-decoder";
 
@@ -76,7 +76,8 @@ export function displayCargoHold(
       scannedImage.addEventListener("click", () => {
         const cargoHold = document.getElementById("cargo-hold")!;
         cargoHold.style.display = "none";
-        displayChainCodeResult(chainCodePart);
+        //TODO: Just use Preview
+        //displayChainCodeResult(chainCodePart);
       });
 
       //add the item to the scanned list
@@ -127,7 +128,8 @@ function displayBadgeList(badgeDecoder: BadgeDecoder) {
     scannedImage.addEventListener("click", () => {
       const cargoHold = document.getElementById("cargo-hold")!;
       cargoHold.style.display = "none";
-      badgeDecoder.displayBadge(badge);
+      //TODO: replace contents with React version
+      //badgeDecoder.displayBadge(badge);
     });
 
     //add the item to the scanned list
