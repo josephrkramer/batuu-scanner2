@@ -85,6 +85,9 @@ function App() {
   const [sortedCargoHold, setSortedCargoHold] = useState(
     crateDecoder.sortCargoHold(),
   );
+  const [badgesToDisplay, setBadgesToDisplay] = useState(
+    badgeDecoder.allBadges(),
+  );
 
   const onNewScanResult = (
     decodedText: string,
@@ -215,13 +218,23 @@ function App() {
 
         // 2. Combine dark algorithm and compact algorithm
         // algorithm: [theme.darkAlgorithm, theme.compactAlgorithm],
+
+        components: {
+          Image: {
+            colorBgMask: "rgba(0, 0, 0, 0.85)",
+          },
+        },
       }}
     >
       <Flex vertical>
         {renderLogo ? <Logo /> : null}
         <Crate crate={crateToDisplay} />
         {renderScanner ? scannerComp : null}
-        <CargoHold render={renderCargoHold} sortedCargoHold={sortedCargoHold} />
+        <CargoHold
+          render={renderCargoHold}
+          sortedCargoHold={sortedCargoHold}
+          badgesToDisplay={badgesToDisplay}
+        />
         <Button type="primary" onClick={() => homeButton()}>
           Home
         </Button>
