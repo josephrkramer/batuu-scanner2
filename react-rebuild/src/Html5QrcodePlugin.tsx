@@ -114,16 +114,10 @@ const Html5QrcodePlugin = (props: {
     return null;
   }
 
-  const style = {
-    width: "85vw",
-    height: "85vh",
-    minWidth: "85vw",
-    maxWidth: "85vw",
-  } as React.CSSProperties;
   return (
-    //<Card style={style}>
-    <div id={qrcodeRegionId} style={style} />
-    //</Card>
+    <Card>
+    <div id={qrcodeRegionId} />
+    </Card>
   );
 };
 
