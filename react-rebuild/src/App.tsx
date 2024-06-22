@@ -11,6 +11,7 @@ import { CrewManifest } from "./crew-manifest";
 import { ChainCodeDecoder } from "./chain-code";
 import { BadgeDecoder } from "./badge-decoder";
 import { Button, ConfigProvider, Flex, theme } from "antd";
+import CargoHold from "./CargoHold";
 
 function App() {
   //read parameters from the url
@@ -23,9 +24,23 @@ function App() {
   const chainCodeDecoder = new ChainCodeDecoder();
   const badgeDecoder = new BadgeDecoder();
 
+  //use the url with ?cargo to load test data into the app
+  if (urlParams.has("cargo")) {
+    console.log("Filling the cargo hold...");
+    crateDecoder.addToScanned("FAL11");
+    crateDecoder.addToScanned("CD_LM");
+    crateDecoder.addToScanned("JK_TU");
+    crateDecoder.addToScanned("AB_QR");
+    crateDecoder.addToScanned("JK_RS");
+  }
+
   const [crateToDisplay, setCrateToDisplay] = useState<
     CrateContents | undefined
   >();
+  const [renderCargoHold, setRenderCargoHold] = useState(false);
+  const [sortedCargoHold, setSortedCargoHold] = useState(
+    crateDecoder.sortCargoHold(),
+  );
 
   const onNewScanResult = (
     decodedText: string,
@@ -64,7 +79,7 @@ function App() {
             },
           );
           */
-        //crateDecoder.setResult(decodedText, badgeDecoder);
+        crateDecoder.setResult(decodedText, badgeDecoder);
         setCrateToDisplay(crateDecoder.decode(decodedText));
       }
     }
@@ -132,11 +147,20 @@ function App() {
     setRenderLogo(true);
     setRenderScanner(false);
     setCrateToDisplay(undefined);
+    setRenderCargoHold(false);
   }
   function scanButton() {
     setRenderLogo(false);
     setRenderScanner(true);
     setCrateToDisplay(undefined);
+    setRenderCargoHold(false);
+  }
+  function cargoHoldButton() {
+    setRenderLogo(false);
+    setRenderScanner(false);
+    setCrateToDisplay(undefined);
+    setRenderCargoHold(true);
+    setSortedCargoHold(crateDecoder.sortCargoHold());
   }
 
   return (
@@ -153,11 +177,15 @@ function App() {
         {renderLogo ? <Logo /> : null}
         <Crate crate={crateToDisplay} />
         {renderScanner ? scannerComp : null}
+        <CargoHold render={renderCargoHold} sortedCargoHold={sortedCargoHold} />
         <Button type="primary" onClick={() => homeButton()}>
           Home
         </Button>
         <Button type="primary" onClick={() => scanButton()}>
           Scan
+        </Button>
+        <Button type="primary" onClick={() => cargoHoldButton()}>
+          Cargo Hold
         </Button>
       </Flex>
     </ConfigProvider>

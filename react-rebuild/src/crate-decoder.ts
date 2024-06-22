@@ -1339,35 +1339,10 @@ export class CrateDecoder {
     );
   }
 
-  displayCrateContents(code: string): void {
-    const resultsHeader = document.getElementById("results-header")!;
-    const contentsImage = document.getElementById(
-      "contents-image",
-    )! as HTMLImageElement;
-
-    console.log(code);
-    //update the display text for the item
-    const crate = this.decode(code);
-    console.log(crate);
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has("debug")) {
-      resultsHeader.textContent = code + " - " + crate.contents;
-    } else {
-      resultsHeader.textContent = crate.contents;
-    }
-    resultsHeader.style.display = "block";
-
-    //display the image contents
-    contentsImage.style.display = "block";
-    const imgUrl = new URL(`../${crate.image}`, import.meta.url).href;
-    contentsImage.src = imgUrl;
-  }
-
   setResult(code: string, badgeDecoder: BadgeDecoder) {
+    //TODO: handle this complexity in the react rebuild
     if (this.contents.get(code)!.type == CrateType.Multiple_Choice) {
       this.handleMultipleChoice(code, badgeDecoder);
-    } else {
-      this.displayCrateContents(code);
     }
 
     //add the item to the scanned list if not previously scanned
