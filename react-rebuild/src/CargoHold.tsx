@@ -2,6 +2,7 @@ import { Card, List, Typography, Image } from "antd";
 import { CrateContents } from "./crate-decoder";
 import { BADGE_DATE_FORMAT, Badge, EarnedBadge } from "./badge-decoder";
 import dayjs from "dayjs";
+import { ChainCodeDecoder, ChainCodePart } from "./chain-code";
 
 function CargoHold(
   props: Readonly<{
@@ -9,7 +10,8 @@ function CargoHold(
     sortedCargoHold: Map<string, Set<CrateContents>>;
     badgesToDisplay: Badge[];
     earnedBadgesDatesMap: Map<string, EarnedBadge>;
-    chainCode: string[];
+    chainCode: ChainCodePart[];
+    chainCodeDecoder: ChainCodeDecoder;
   }>,
 ) {
   if (!props.render) {
@@ -20,7 +22,7 @@ function CargoHold(
     <Card>
       <Typography.Title level={3}>Scanned Crates</Typography.Title>
       {crateDisplay(props.sortedCargoHold)}
-      {chainCodeDisplay(props.chainCode)}
+      {chainCodeDisplay(props.chainCode, props.chainCodeDecoder)}
       {badgeDisplay(props.badgesToDisplay, props.earnedBadgesDatesMap)}
     </Card>
   );
@@ -57,7 +59,7 @@ function crateDisplay(sortedCargoHold: Map<string, Set<CrateContents>>) {
   return cargoHoldList;
 }
 
-function chainCodeDisplay(chainCode: string[]) {
+function chainCodeDisplay(chainCode: ChainCodePart[], chainCodeDecoder: ChainCodeDecoder) {
   return (
     <List
       itemLayout="horizontal"
@@ -67,8 +69,13 @@ function chainCodeDisplay(chainCode: string[]) {
       header={<Typography.Title level={4}>Chain Code</Typography.Title>}
       renderItem={(item) => (
         <List.Item>
-          <Typography.Text>{item}</Typography.Text>
-        </List.Item>
+            <Image
+              src={item.image}
+              width={50}
+              preview={{ toolbarRender: () => null }}
+            />
+            <Typography.Text>Chain Code Fragement</Typography.Text>
+          </List.Item>
       )}
     />
   );

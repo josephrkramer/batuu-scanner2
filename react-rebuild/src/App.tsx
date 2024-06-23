@@ -32,11 +32,13 @@ function App() {
   const [renderChainCodePiece, setRenderChainCodePiece] = useState<
     ChainCodePart | undefined
   >();
-  const [chainCode, setChainCode] = useState<string[]>([]);
+  const [chainCode, setChainCode] = useState<ChainCodePart[]>([]);
   const chainCodeDecoder = new ChainCodeDecoder(
     setRenderChainCodePiece,
     setChainCode,
   );
+  //setChainCode(chainCodeDecoder.chainCode);
+  //https://blog.logrocket.com/using-localstorage-react-hooks/
 
   const [renderLogo, setRenderLogo] = useState(true);
   const [newBadgesEarned, setNewBadgesEarned] = useState<Badge[] | undefined>();
@@ -224,7 +226,7 @@ function App() {
           badgesToDisplay={badgesToDisplay}
           earnedBadgesDatesMap={badgeDecoder.earnedBadges}
           chainCode={chainCode}
-        />
+          chainCodeDecoder={chainCodeDecoder}        />
         <EarnedBadges
           badges={newBadgesEarned}
           earnedBadgesDatesMap={badgeDecoder.earnedBadges}

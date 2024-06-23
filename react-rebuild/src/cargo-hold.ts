@@ -66,8 +66,7 @@ export function displayCargoHold(
     chainCodeListItem.appendChild(document.createTextNode("Chain Code"));
     const chainCodeList = document.createElement("ul");
     chainCodeListItem.appendChild(chainCodeList);
-    for (const code of chainCodeDecoder.chainCode) {
-      const chainCodePart = chainCodeDecoder.decode(code);
+    for (const chainCodePart of chainCodeDecoder.chainCode) {
       const scannedImage = document.createElement("img");
       scannedImage.className = "scanned-list-item-image";
       //chain code image location has already been corrected by vite
