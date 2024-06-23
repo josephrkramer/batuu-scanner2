@@ -1340,7 +1340,7 @@ export class CrateDecoder {
   }
 
   setResult(code: string, badgeDecoder: BadgeDecoder) {
-    //TODO: handle this complexity in the react rebuild
+    //TODO: handle this multiple choice complexity in the react rebuild
     if (this.contents.get(code)!.type == CrateType.Multiple_Choice) {
       this.handleMultipleChoice(code, badgeDecoder);
     }

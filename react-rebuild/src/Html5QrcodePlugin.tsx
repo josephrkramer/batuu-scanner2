@@ -116,7 +116,7 @@ const Html5QrcodePlugin = (props: {
 
   return (
     <Card>
-    <div id={qrcodeRegionId} />
+      <div id={qrcodeRegionId} />
     </Card>
   );
 };

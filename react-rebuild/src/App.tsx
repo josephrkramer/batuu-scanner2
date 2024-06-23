@@ -9,9 +9,10 @@ import Html5QrcodePlugin from "./Html5QrcodePlugin";
 import { Html5QrcodeResult } from "html5-qrcode";
 import { CrewManifest } from "./crew-manifest";
 import { ChainCodeAlignmentCode, ChainCodeDecoder } from "./chain-code";
-import { BadgeDecoder } from "./badge-decoder";
+import { Badge, BadgeDecoder } from "./badge-decoder";
 import { Button, ConfigProvider, Flex, theme } from "antd";
 import CargoHold from "./CargoHold";
+import EarnedBadges from "./EarnedBadges";
 
 function App() {
   //read parameters from the url
@@ -22,7 +23,14 @@ function App() {
   const crateDecoder = new CrateDecoder();
   const crewMembers = new CrewManifest();
   const chainCodeDecoder = new ChainCodeDecoder();
-  const badgeDecoder = new BadgeDecoder();
+
+  const [renderLogo, setRenderLogo] = useState(true);
+  const [newBadgesEarned, setNewBadgesEarned] = useState<Badge[] | undefined>();
+  const badgeDecoder = new BadgeDecoder(
+    newBadgesEarned,
+    setNewBadgesEarned,
+    setRenderLogo,
+  );
 
   //use the url with ?cargo to load test data into the app
   if (urlParams.has("cargo")) {
@@ -62,6 +70,11 @@ function App() {
   //delete param to ensure we don't get into a loop
   if (urlParams.has("everything")) {
     urlParams.delete("everything");
+    window.location.search = urlParams.toString();
+  }
+  //delete param to ensure we don't get into a loop
+  if (urlParams.has("allbadges")) {
+    urlParams.delete("allbadges");
     window.location.search = urlParams.toString();
   }
 
@@ -132,7 +145,6 @@ function App() {
     }
   };
 
-  const [renderLogo, setRenderLogo] = useState(true);
   const [renderScanner, setRenderScanner] = useState(false);
 
   const scannerComp = (
@@ -150,12 +162,14 @@ function App() {
     setRenderScanner(false);
     setCrateToDisplay(undefined);
     setRenderCargoHold(false);
+    setNewBadgesEarned(undefined);
   }
   function scanButton() {
     setRenderLogo(false);
     setRenderScanner(true);
     setCrateToDisplay(undefined);
     setRenderCargoHold(false);
+    setNewBadgesEarned(undefined);
   }
   function cargoHoldButton() {
     setRenderLogo(false);
@@ -163,6 +177,8 @@ function App() {
     setCrateToDisplay(undefined);
     setRenderCargoHold(true);
     setSortedCargoHold(crateDecoder.sortCargoHold());
+    setBadgesToDisplay(badgeDecoder.allBadges());
+    setNewBadgesEarned(undefined);
   }
 
   return (
@@ -190,6 +206,7 @@ function App() {
           sortedCargoHold={sortedCargoHold}
           badgesToDisplay={badgesToDisplay}
         />
+        <EarnedBadges badges={newBadgesEarned} />
         <Button type="primary" onClick={() => homeButton()}>
           Home
         </Button>

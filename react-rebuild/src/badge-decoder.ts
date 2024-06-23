@@ -65,6 +65,9 @@ export class EarnedBadge {
 }
 
 export class BadgeDecoder {
+  badgesToDisplay: Badge[] | undefined;
+  displayCallback: Function;
+  displayLogoCallback: Function;
   codeToBadge = new Map<string, Badge>();
   unlistedCodeToBadge = new Map<string, Badge>();
   earnedBadges = new Map<string, EarnedBadge>();
@@ -74,7 +77,15 @@ export class BadgeDecoder {
     dayjs("2024-10-06").startOf("date").format(BADGE_DATE_FORMAT),
   ]);
 
-  constructor() {
+  constructor(
+    badgesToDisplay: Badge[] | undefined,
+    displayCallback: Function,
+    displayLogoCallback: Function,
+  ) {
+    this.badgesToDisplay = badgesToDisplay;
+    this.displayCallback = displayCallback;
+    this.displayLogoCallback = displayLogoCallback;
+
     //listed badges
     this.codeToBadge.set(
       BadgeCode.First_Step,
@@ -310,11 +321,8 @@ export class BadgeDecoder {
       if (!this.earnedBadges.has(badge.code)) {
         this.earnedBadges.set(badge.code, badge);
         //Display badges granted via the URL and/or QR Code Scan
-        //TODO: replace display call with React version
-        //this.displayBadge(this.decode(badge.code));
-        //TODO: shut off logo the react way
-        //const logo = document.getElementById("logo")!;
-        //logo.style.display = "none";
+        this.displayBadge(this.decode(badge.code));
+        displayLogoCallback(false);
       } else {
         this.earnedBadges.set(badge.code, badge);
       }
@@ -387,8 +395,7 @@ export class BadgeDecoder {
       "",
       window.location.href.split("?")[0] + "?" + urlParams.toString(),
     );
-    //TODO: replace display call with React version
-    //this.displayBadge(this.decode(badge.code));
+    this.displayBadge(this.decode(badge.code));
   }
 
   remove(code: string) {
@@ -642,6 +649,13 @@ export class BadgeDecoder {
   }
 
   //TODO: Replace with react version
+  displayBadge(badge: Badge) {
+    if (this.badgesToDisplay === undefined) {
+      this.badgesToDisplay = [];
+    }
+    this.badgesToDisplay.push(badge);
+    this.displayCallback(this.badgesToDisplay);
+  }
   /*
   displayBadge(badge: Badge) {
     const badgeText = document.getElementById("badge-text-large")!;
