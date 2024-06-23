@@ -8,11 +8,17 @@ import { CrateDecoder, CrateType, CrateContents } from "./crate-decoder";
 import Html5QrcodePlugin from "./Html5QrcodePlugin";
 import { Html5QrcodeResult } from "html5-qrcode";
 import { CrewManifest } from "./crew-manifest";
-import { ChainCodeAlignmentCode, ChainCodeDecoder } from "./chain-code";
+import {
+  ChainCodeAlignmentCode,
+  ChainCodeDecoder,
+  ChainCodePart,
+  MAX_CHAIN_CODE_SIZE,
+} from "./chain-code";
 import { Badge, BadgeDecoder } from "./badge-decoder";
 import { Button, ConfigProvider, Flex, theme } from "antd";
 import CargoHold from "./CargoHold";
 import EarnedBadges from "./EarnedBadges";
+import ChainCodePartResult from "./ChainCodePartResult";
 
 function App() {
   //read parameters from the url
@@ -22,7 +28,15 @@ function App() {
 
   const crateDecoder = new CrateDecoder();
   const crewMembers = new CrewManifest();
-  const chainCodeDecoder = new ChainCodeDecoder();
+
+  const [renderChainCodePiece, setRenderChainCodePiece] = useState<
+    ChainCodePart | undefined
+  >();
+  const [chainCode, setChainCode] = useState<string[]>([]);
+  const chainCodeDecoder = new ChainCodeDecoder(
+    setRenderChainCodePiece,
+    setChainCode,
+  );
 
   const [renderLogo, setRenderLogo] = useState(true);
   const [newBadgesEarned, setNewBadgesEarned] = useState<Badge[] | undefined>();
@@ -52,7 +66,7 @@ function App() {
     for (const code of crateDecoder.contents.keys()) {
       crateDecoder.addToScanned(code);
     }
-    for (let i = 0; i < chainCodeDecoder.MAX_CHAIN_CODE_SIZE; i++) {
+    for (let i = 0; i < MAX_CHAIN_CODE_SIZE; i++) {
       chainCodeDecoder.setChainCodeResult(
         ChainCodeAlignmentCode.Dark,
         badgeDecoder,
@@ -163,6 +177,7 @@ function App() {
     setCrateToDisplay(undefined);
     setRenderCargoHold(false);
     setNewBadgesEarned(undefined);
+    setRenderChainCodePiece(undefined);
   }
   function scanButton() {
     setRenderLogo(false);
@@ -170,6 +185,7 @@ function App() {
     setCrateToDisplay(undefined);
     setRenderCargoHold(false);
     setNewBadgesEarned(undefined);
+    setRenderChainCodePiece(undefined);
   }
   function cargoHoldButton() {
     setRenderLogo(false);
@@ -179,6 +195,7 @@ function App() {
     setSortedCargoHold(crateDecoder.sortCargoHold());
     setBadgesToDisplay(badgeDecoder.allBadges());
     setNewBadgesEarned(undefined);
+    setRenderChainCodePiece(undefined);
   }
 
   return (
@@ -206,11 +223,13 @@ function App() {
           sortedCargoHold={sortedCargoHold}
           badgesToDisplay={badgesToDisplay}
           earnedBadgesDatesMap={badgeDecoder.earnedBadges}
+          chainCode={chainCode}
         />
         <EarnedBadges
           badges={newBadgesEarned}
           earnedBadgesDatesMap={badgeDecoder.earnedBadges}
         />
+        <ChainCodePartResult chainCodePart={renderChainCodePiece} />
         <Button type="primary" onClick={() => homeButton()}>
           Home
         </Button>

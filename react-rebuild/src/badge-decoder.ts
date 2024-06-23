@@ -1,4 +1,9 @@
-import { ChainCodeAlignmentCode, ChainCodeDecoder } from "./chain-code";
+import {
+  ChainCodeAlignmentCode,
+  ChainCodeDecoder,
+  MAX_CHAIN_CODE_SIZE,
+  MIN_CHAIN_CODE_SIZE,
+} from "./chain-code";
 import { CrateDecoder, CrateType } from "./crate-decoder";
 import dayjs, { Dayjs } from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
@@ -535,7 +540,7 @@ export class BadgeDecoder {
     //Well Connected - all NPCs visited
     if (
       !this.earnedBadges.has(BadgeCode.Well_Connected) &&
-      chainCodeDecoder.chainCodeLength() >= chainCodeDecoder.MAX_CHAIN_CODE_SIZE
+      chainCodeDecoder.chainCodeLength() >= MAX_CHAIN_CODE_SIZE
     ) {
       this.add(BadgeCode.Well_Connected);
     }
@@ -543,8 +548,7 @@ export class BadgeDecoder {
     //Resistance Hero - only light side codes
     if (
       !this.earnedBadges.has(BadgeCode.Resistance_Hero) &&
-      chainCodeDecoder.chainCodeLength() >=
-        chainCodeDecoder.MIN_CHAIN_CODE_SIZE &&
+      chainCodeDecoder.chainCodeLength() >= MIN_CHAIN_CODE_SIZE &&
       chainCodeDecoder.rawValue() === chainCodeDecoder.chainCodeLength()
     ) {
       this.add(BadgeCode.Resistance_Hero);
@@ -560,8 +564,7 @@ export class BadgeDecoder {
     //We Have Cookies - only dark side codes
     if (
       !this.earnedBadges.has(BadgeCode.We_Have_Cookies) &&
-      chainCodeDecoder.chainCodeLength() >=
-        chainCodeDecoder.MIN_CHAIN_CODE_SIZE &&
+      chainCodeDecoder.chainCodeLength() >= MIN_CHAIN_CODE_SIZE &&
       chainCodeDecoder.rawValue() * -1 === chainCodeDecoder.chainCodeLength()
     ) {
       this.add(BadgeCode.We_Have_Cookies);
@@ -577,8 +580,7 @@ export class BadgeDecoder {
     //Character AARC - make both light and dark side choices
     if (
       !this.earnedBadges.has(BadgeCode.Character_AARC) &&
-      chainCodeDecoder.chainCodeLength() >=
-        chainCodeDecoder.MIN_CHAIN_CODE_SIZE &&
+      chainCodeDecoder.chainCodeLength() >= MIN_CHAIN_CODE_SIZE &&
       chainCodeDecoder.chainCode.includes(ChainCodeAlignmentCode.Dark) &&
       chainCodeDecoder.chainCode.includes(ChainCodeAlignmentCode.Light)
     ) {

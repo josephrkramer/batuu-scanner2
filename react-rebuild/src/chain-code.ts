@@ -26,15 +26,24 @@ export class ChainCodePart {
   }
 }
 
+export const MIN_CHAIN_CODE_SIZE = 3;
+export const MAX_CHAIN_CODE_SIZE = 5;
+export const MEETING_TIME = "7:30pm";
+
 export class ChainCodeDecoder {
   scanCodeToChainCodePart = new Map<string, ChainCodePart>();
-  MIN_CHAIN_CODE_SIZE = 3;
-  MAX_CHAIN_CODE_SIZE = 5;
-  MEETING_TIME = "7:30pm";
   //load chainCode from local storage
   chainCode = new Array<string>();
+  renderChainCodePieceCallback: (chainCodePart: ChainCodePart) => void;
+  setChainCodeCallback: (chainCode: string[]) => void;
 
-  constructor() {
+  constructor(
+    renderChainCodePieceCallback: (chainCodePart: ChainCodePart) => void,
+    setChainCodeCallback: (chainCode: string[]) => void,
+  ) {
+    this.renderChainCodePieceCallback = renderChainCodePieceCallback;
+    this.setChainCodeCallback = setChainCodeCallback;
+
     this.scanCodeToChainCodePart.set(
       ChainCodeAlignmentCode.Dark,
       new ChainCodePart({
@@ -118,7 +127,7 @@ export class ChainCodeDecoder {
   //TODO: replace with react version
   checkDecodeButton(): void {
     console.log(`Chain code length: ${this.chainCode.length}`);
-    if (this.chainCode.length >= this.MIN_CHAIN_CODE_SIZE) {
+    if (this.chainCode.length >= MIN_CHAIN_CODE_SIZE) {
       //commented out to get everything param to work
       //const decodeButton = document.getElementById("decode-chain-code-button")!;
       //decodeButton.style.display = "block";
@@ -129,12 +138,12 @@ export class ChainCodeDecoder {
     console.log(`Valid Chain Code Detected: ${code}`);
     const chainCodePart = this.decode(code);
 
-    //TODO: replace with react version
-    //displayChainCodeResult(chainCodePart);
+    this.renderChainCodePieceCallback(chainCodePart);
 
     //add the item to the chainCode internal tracking
     this.chainCode.push(code);
     console.log(`Chain Code: ${this.chainCode}`);
+    this.setChainCodeCallback(this.chainCode);
 
     //store all of the scanned crates into local storage
     localStorage.chainCode = JSON.stringify(this.chainCode);
@@ -176,11 +185,9 @@ export function displayChainCodeValue(chainCodeDecoder: ChainCodeDecoder) {
     "Chain Code Value: " + chainCodeDecoder.rawValue();
 
   const chainCodeMessage = document.getElementById("chain-code-message")!;
-  if (
-    chainCodeDecoder.chainCodeLength() < chainCodeDecoder.MAX_CHAIN_CODE_SIZE
-  ) {
-    chainCodeMessage.textContent = `There are still more informants to contact, but make sure you meet with your AARC Agent at ${chainCodeDecoder.MEETING_TIME}`;
+  if (chainCodeDecoder.chainCodeLength() < MAX_CHAIN_CODE_SIZE) {
+    chainCodeMessage.textContent = `There are still more informants to contact, but make sure you meet with your AARC Agent at ${MEETING_TIME}`;
   } else {
-    chainCodeMessage.textContent = `Well, done! You've met with all of our informants. Be ready to meet with your AARC Agent at ${chainCodeDecoder.MEETING_TIME}`;
+    chainCodeMessage.textContent = `Well, done! You've met with all of our informants. Be ready to meet with your AARC Agent at ${MEETING_TIME}`;
   }
 }
