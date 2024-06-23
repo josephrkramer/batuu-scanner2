@@ -62,14 +62,6 @@ export class CrateDecoder {
       }),
     );
     this.contents.set(
-      "BC_ST",
-      new CrateContents({
-        code: "BC_ST",
-        contents: "Ewok Disguise",
-        type: CrateType.Outfit,
-      }),
-    );
-    this.contents.set(
       "AB_PQ",
       new CrateContents({
         code: "AB_PQ",

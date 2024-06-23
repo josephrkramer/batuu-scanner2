@@ -205,8 +205,12 @@ function App() {
           render={renderCargoHold}
           sortedCargoHold={sortedCargoHold}
           badgesToDisplay={badgesToDisplay}
+          earnedBadgesDatesMap={badgeDecoder.earnedBadges}
         />
-        <EarnedBadges badges={newBadgesEarned} />
+        <EarnedBadges
+          badges={newBadgesEarned}
+          earnedBadgesDatesMap={badgeDecoder.earnedBadges}
+        />
         <Button type="primary" onClick={() => homeButton()}>
           Home
         </Button>

@@ -1,13 +1,14 @@
-import { Avatar, Card, Flex, List, Space, Typography, Image } from "antd";
+import { Card, List, Typography, Image } from "antd";
 import { CrateContents } from "./crate-decoder";
-import Item from "antd/es/list/Item";
-import { Badge } from "./badge-decoder";
+import { BADGE_DATE_FORMAT, Badge, EarnedBadge } from "./badge-decoder";
+import dayjs from "dayjs";
 
 function CargoHold(
   props: Readonly<{
     render: boolean;
     sortedCargoHold: Map<string, Set<CrateContents>>;
     badgesToDisplay: Badge[];
+    earnedBadgesDatesMap: Map<string, EarnedBadge>;
   }>,
 ) {
   if (!props.render) {
@@ -18,7 +19,7 @@ function CargoHold(
     <Card>
       <Typography.Title level={3}>Scanned Crates</Typography.Title>
       {crateDisplay(props.sortedCargoHold)}
-      {badgeDisplay(props.badgesToDisplay)}
+      {badgeDisplay(props.badgesToDisplay, props.earnedBadgesDatesMap)}
     </Card>
   );
 }
@@ -54,7 +55,24 @@ function crateDisplay(sortedCargoHold: Map<string, Set<CrateContents>>) {
   return cargoHoldList;
 }
 
-function badgeDisplay(badgesToDisplay: Badge[]) {
+function badgeDisplay(
+  badgesToDisplay: Badge[],
+  earnedBadgesDatesMap: Map<string, EarnedBadge>,
+) {
+  function badgeEarnedDate(badge: Badge) {
+    //Check and Format Earned Badges date
+    let badgeDateString: string;
+    if (earnedBadgesDatesMap.has(badge.code)) {
+      const date = dayjs(
+        earnedBadgesDatesMap.get(badge.code)!.date,
+        BADGE_DATE_FORMAT,
+      );
+      badgeDateString = "Earned on " + date.format("MMM D, YYYY");
+    } else {
+      badgeDateString = "Badge not earned";
+    }
+    return badgeDateString;
+  }
   return (
     <List
       itemLayout="horizontal"
@@ -62,30 +80,35 @@ function badgeDisplay(badgesToDisplay: Badge[]) {
       size="small"
       //bordered
       header={<Typography.Title level={3}>Badges</Typography.Title>}
-      renderItem={(item) => (
+      renderItem={(badge) => (
         <List.Item>
           <List.Item.Meta
             avatar={
               <Image
-                src={item.image}
+                src={badge.image}
                 width={50}
                 preview={{
                   imageRender: () => (
                     <div>
-                      <Image src={item.image} preview={false} />
-                      <Typography.Title level={3}>{item.name}</Typography.Title>
-                      <Typography.Title level={4}>
-                        {item.quote}
+                      <Image src={badge.image} preview={false} />
+                      <Typography.Title level={3}>
+                        {badge.name}
                       </Typography.Title>
-                      <Typography.Text>{item.description}</Typography.Text>
+                      <Typography.Title level={4}>
+                        {badge.quote}
+                      </Typography.Title>
+                      <Typography.Text>{badge.description}</Typography.Text>
+                      <Typography.Title level={5}>
+                        {badgeEarnedDate(badge)}
+                      </Typography.Title>
                     </div>
                   ),
                   toolbarRender: () => null,
                 }}
               />
             }
-            title={item.name}
-            description={item.description}
+            title={badge.name}
+            description={badge.description}
           />
         </List.Item>
       )}
