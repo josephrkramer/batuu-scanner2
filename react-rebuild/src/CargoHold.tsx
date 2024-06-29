@@ -2,7 +2,7 @@ import { Card, List, Typography, Image } from "antd";
 import { CrateContents } from "./crate-decoder";
 import { BADGE_DATE_FORMAT, Badge, EarnedBadge } from "./badge-decoder";
 import dayjs from "dayjs";
-import { ChainCodeDecoder, ChainCodePart } from "./chain-code";
+import { ChainCodePart } from "./chain-code";
 
 function CargoHold(
   props: Readonly<{
