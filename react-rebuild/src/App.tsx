@@ -22,6 +22,7 @@ import ChainCodePartResult from "./ChainCodePartResult";
 import { useLocalStorage } from "./useLocalStorage";
 import { deleteUrlParam } from "./urlHelper";
 import { useLocalStorageMap } from "./useLocalStorageMap";
+import { useLocalStorageSet } from "./useLocalStorageSet";
 
 function App() {
   //read parameters from the url
@@ -29,7 +30,9 @@ function App() {
   console.log(queryString);
   const urlParams = new URLSearchParams(queryString);
 
-  const crateDecoder = new CrateDecoder();
+  const [scannedCrates, setScannedCrates] = useLocalStorageSet("cargo", new Set<string>());
+  const crateDecoder = new CrateDecoder(scannedCrates, setScannedCrates);
+
   const crewMembers = new CrewManifest();
 
   const [renderChainCodePiece, setRenderChainCodePiece] = useState<

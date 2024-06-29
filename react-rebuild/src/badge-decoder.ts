@@ -379,12 +379,13 @@ export class BadgeDecoder {
     console.log(`Badge ${badge.code} earned`);
     //adding again is not harmful as it is a set
 
+    //special case of adding directl to the earned badge map so it displays correctly
     this.earnedBadges.set(badge.code, badge);
-    //this.setEarnedBadges(this.earnedBadges);
-
+    const tempMap = new Map<string, EarnedBadge>(this.earnedBadges);
+    tempMap.set(badge.code, badge);
+    this.setEarnedBadges(tempMap);
 
     //Add the badge to the url if not already in url
-    const urlParams = new URLSearchParams(window.location.search);
     appendUrlParam("b", this.earnedBadgeToBadgeParam(badge));
     this.displayBadge(this.decode(badge.code));
   }
@@ -392,8 +393,9 @@ export class BadgeDecoder {
   remove(code: string) {
     console.log(`Badge ${code} revoked`);
     //deleting again is not harmful as it is a set
-    this.earnedBadges.delete(code);
-    //this.setEarnedBadges(this.earnedBadges);
+    const tempMap = new Map<string, EarnedBadge>(this.earnedBadges);
+    tempMap.delete(code);
+    this.setEarnedBadges(tempMap);
 
     //Add the badge to the url if not already in url
     const urlParams = new URLSearchParams(window.location.search);
@@ -413,7 +415,6 @@ export class BadgeDecoder {
   }
 
   reset() {
-    this.earnedBadges.clear();
     this.setNewBadgesEarned(undefined);
     this.setEarnedBadges(new Map<string, EarnedBadge>());
     deleteUrlParam("b");

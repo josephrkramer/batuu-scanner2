@@ -41,10 +41,14 @@ export class CrateContents {
 
 export class CrateDecoder {
   contents = new Map<string, CrateContents>();
-  scannedCrates = new Set<string>();
+  scannedCrates: Set<string>;
+  setScannedCrates: Function;
   multipleChoiceScannedCrates = new Map<string, CrateContents>();
 
-  constructor() {
+  constructor(scannedCrates: Set<string>, setScannedCrates: Function) {
+    this.scannedCrates = scannedCrates;
+    this.setScannedCrates = setScannedCrates;
+
     this.contents.set(
       "CAST09",
       new CrateContents({
@@ -1196,12 +1200,6 @@ export class CrateDecoder {
     this.override(chanceCubes);
 
     //Keep track of the crates scanned so far and don't allow duplicates
-    //load from local storage
-    if (localStorage.cargo !== undefined) {
-      this.scannedCrates = new Set<string>(JSON.parse(localStorage.cargo));
-      console.log(`Cargo hold instantiated from local storage:`);
-      console.log(this.scannedCrates);
-    }
 
     if (localStorage.multipleChoiceScannedCrates !== undefined) {
       console.log("Starting load multiple choice crates from local storage");
@@ -1262,8 +1260,7 @@ export class CrateDecoder {
   }
 
   reset(): void {
-    this.scannedCrates.clear();
-    localStorage.removeItem("cargo");
+    this.setScannedCrates(new Set<string>());
     this.multipleChoiceScannedCrates.clear();
     localStorage.removeItem("multipleChoiceScannedCrates");
   }
@@ -1309,13 +1306,9 @@ export class CrateDecoder {
   addToScanned(code: string) {
     console.log(`Adding ${code} to the scanned list`);
     //add the item to the scannedCrates internal tracking
-    this.scannedCrates.add(code);
-
-    //store all of the scanned crates into local storage
-    localStorage.setItem(
-      "cargo",
-      JSON.stringify(Array.from(this.scannedCrates)),
-    );
+    const tempSet = new Set(this.scannedCrates);
+    tempSet.add(code);
+    this.setScannedCrates(tempSet);
   }
 
   addToScannedMultipleChoice(code: string, crate: CrateContents) {
