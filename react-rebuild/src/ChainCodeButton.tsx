@@ -1,10 +1,10 @@
 import { Button } from "antd";
-import { MIN_CHAIN_CODE_SIZE } from "./chain-code";
+import { ChainCodePart, MIN_CHAIN_CODE_SIZE } from "./chain-code";
 
 function ChainCodeButton({
   chainCode,
   setRenderChainCodeValue,
-}: Readonly<{ chainCode: string[]; setRenderChainCodeValue: Function }>) {
+}: Readonly<{ chainCode: ChainCodePart[]; setRenderChainCodeValue: Function }>) {
   if (chainCode.length >= MIN_CHAIN_CODE_SIZE) {
     return (
       <Button
