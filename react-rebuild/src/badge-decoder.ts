@@ -71,7 +71,7 @@ export class EarnedBadge {
 }
 
 export class BadgeDecoder {
-  badgesToDisplay: Badge[] | undefined;
+  newBadgesEarned: Badge[] | undefined;
   displayCallback: Function;
   displayLogoCallback: Function;
   codeToBadge = new Map<string, Badge>();
@@ -88,7 +88,7 @@ export class BadgeDecoder {
     displayCallback: Function,
     displayLogoCallback: Function,
   ) {
-    this.badgesToDisplay = badgesToDisplay;
+    this.newBadgesEarned = badgesToDisplay;
     this.displayCallback = displayCallback;
     this.displayLogoCallback = displayLogoCallback;
 
@@ -652,11 +652,11 @@ export class BadgeDecoder {
 
   //TODO: Replace with react version
   displayBadge(badge: Badge) {
-    if (this.badgesToDisplay === undefined) {
-      this.badgesToDisplay = [];
+    if (this.newBadgesEarned === undefined) {
+      this.newBadgesEarned = [];
     }
-    this.badgesToDisplay.push(badge);
-    this.displayCallback(this.badgesToDisplay);
+    this.newBadgesEarned.push(badge);
+    this.displayCallback(this.newBadgesEarned);
   }
   /*
   displayBadge(badge: Badge) {

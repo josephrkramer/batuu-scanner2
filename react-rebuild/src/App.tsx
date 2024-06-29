@@ -117,9 +117,6 @@ function App() {
   const [sortedCargoHold, setSortedCargoHold] = useState(
     crateDecoder.sortCargoHold(),
   );
-  const [badgesToDisplay, setBadgesToDisplay] = useState(
-    badgeDecoder.allBadges(),
-  );
 
   const onNewScanResult = (
     decodedText: string,
@@ -198,7 +195,6 @@ function App() {
     setCrateToDisplay(undefined);
     setRenderCargoHold(true);
     setSortedCargoHold(crateDecoder.sortCargoHold());
-    setBadgesToDisplay(badgeDecoder.allBadges());
     setNewBadgesEarned(undefined);
     setRenderChainCodePiece(undefined);
   }
@@ -226,7 +222,7 @@ function App() {
         <CargoHold
           render={renderCargoHold}
           sortedCargoHold={sortedCargoHold}
-          badgesToDisplay={badgesToDisplay}
+          badgesToDisplay={badgeDecoder.allBadges()}
           earnedBadgesDatesMap={badgeDecoder.earnedBadges}
           chainCode={chainCode}
           chainCodeDecoder={chainCodeDecoder} />
