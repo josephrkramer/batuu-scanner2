@@ -23,6 +23,7 @@ import { useLocalStorageMap } from "./useLocalStorageMap";
 import { useLocalStorageSet } from "./useLocalStorageSet";
 import ChainCodeButton from "./ChainCodeButton";
 import ChainCodeValue from "./ChainCodeValue";
+import CrewManifestDisplay from "./CrewManifestDisplay";
 
 function App() {
   //read parameters from the url
@@ -36,6 +37,7 @@ function App() {
   );
   const crateDecoder = new CrateDecoder(scannedCrates, setScannedCrates);
 
+  const [renderCrewMembers, setRenderCrewMembers] = useState(false);
   const crewMembers = new CrewManifest();
 
   const [renderChainCodePiece, setRenderChainCodePiece] = useState<
@@ -207,6 +209,7 @@ function App() {
     setNewBadgesEarned(undefined);
     setRenderChainCodePiece(undefined);
     setRenderChainCodeValue(false);
+    setRenderCrewMembers(false);
   }
   function scanButton() {
     setRenderLogo(false);
@@ -216,6 +219,7 @@ function App() {
     setNewBadgesEarned(undefined);
     setRenderChainCodePiece(undefined);
     setRenderChainCodeValue(false);
+    setRenderCrewMembers(false);
   }
   function cargoHoldButton() {
     setRenderLogo(false);
@@ -226,6 +230,17 @@ function App() {
     setNewBadgesEarned(undefined);
     setRenderChainCodePiece(undefined);
     setRenderChainCodeValue(false);
+    setRenderCrewMembers(false);
+  }
+  function crewMemberButton() {
+    setRenderLogo(false);
+    setRenderScanner(false);
+    setCrateToDisplay(undefined);
+    setRenderCargoHold(false);
+    setNewBadgesEarned(undefined);
+    setRenderChainCodePiece(undefined);
+    setRenderChainCodeValue(false);
+    setRenderCrewMembers(true);
   }
 
   return (
@@ -264,6 +279,10 @@ function App() {
           render={renderChainCodeValue}
           chainCodeDecoder={chainCodeDecoder}
         />
+        <CrewManifestDisplay
+          render={renderCrewMembers}
+          crewMembers={crewMembers.crew}
+        />
         <Button type="primary" onClick={() => homeButton()}>
           Home
         </Button>
@@ -272,6 +291,9 @@ function App() {
         </Button>
         <Button type="primary" onClick={() => cargoHoldButton()}>
           Cargo Hold
+        </Button>
+        <Button type="primary" onClick={() => crewMemberButton()}>
+          Dossiers
         </Button>
         <ChainCodeButton
           chainCode={chainCode}
