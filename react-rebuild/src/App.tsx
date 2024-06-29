@@ -23,6 +23,8 @@ import { useLocalStorage } from "./useLocalStorage";
 import { deleteUrlParam } from "./urlHelper";
 import { useLocalStorageMap } from "./useLocalStorageMap";
 import { useLocalStorageSet } from "./useLocalStorageSet";
+import ChainCodeButton from "./ChainCodeButton";
+import ChainCodeValue from "./ChainCodeValue";
 
 function App() {
   //read parameters from the url
@@ -127,6 +129,17 @@ function App() {
   const [sortedCargoHold, setSortedCargoHold] = useState(
     crateDecoder.sortCargoHold(),
   );
+  const [renderChainCodeValue, setRenderChainCodeValue] = useState(false);
+  useEffect(() => {
+    if (renderChainCodeValue) {
+      setRenderLogo(false);
+      setRenderScanner(false);
+      setCrateToDisplay(undefined);
+      setRenderCargoHold(false);
+      setNewBadgesEarned(undefined);
+      setRenderChainCodePiece(undefined);
+    }
+  }, [renderChainCodeValue]);
 
   const onNewScanResult = (
     decodedText: string,
@@ -190,6 +203,7 @@ function App() {
     setRenderCargoHold(false);
     setNewBadgesEarned(undefined);
     setRenderChainCodePiece(undefined);
+    setRenderChainCodeValue(false);
   }
   function scanButton() {
     setRenderLogo(false);
@@ -198,6 +212,7 @@ function App() {
     setRenderCargoHold(false);
     setNewBadgesEarned(undefined);
     setRenderChainCodePiece(undefined);
+    setRenderChainCodeValue(false);
   }
   function cargoHoldButton() {
     setRenderLogo(false);
@@ -207,6 +222,7 @@ function App() {
     setSortedCargoHold(crateDecoder.sortCargoHold());
     setNewBadgesEarned(undefined);
     setRenderChainCodePiece(undefined);
+    setRenderChainCodeValue(false);
   }
 
   return (
@@ -241,6 +257,7 @@ function App() {
           badges={newBadgesEarned}
           earnedBadgesDatesMap={badgeDecoder.earnedBadges}
         />
+        <ChainCodeValue render={renderChainCodeValue} chainCodeDecoder={chainCodeDecoder} />
         <Button type="primary" onClick={() => homeButton()}>
           Home
         </Button>
@@ -250,6 +267,7 @@ function App() {
         <Button type="primary" onClick={() => cargoHoldButton()}>
           Cargo Hold
         </Button>
+        <ChainCodeButton chainCode={chainCode} setRenderChainCodeValue={setRenderChainCodeValue} />
       </Flex>
     </ConfigProvider>
   );

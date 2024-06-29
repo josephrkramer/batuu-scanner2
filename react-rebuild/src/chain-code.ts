@@ -168,6 +168,7 @@ export function displayChainCodeResult(chainCodePart: ChainCodePart) {
 }
   */
 
+/*
 export function displayChainCodeValue(chainCodeDecoder: ChainCodeDecoder) {
   const chainCodeHeader = document.getElementById("chain-code-title")!;
   chainCodeHeader.textContent =
@@ -180,3 +181,4 @@ export function displayChainCodeValue(chainCodeDecoder: ChainCodeDecoder) {
     chainCodeMessage.textContent = `Well, done! You've met with all of our informants. Be ready to meet with your AARC Agent at ${MEETING_TIME}`;
   }
 }
+  */
