@@ -14,13 +14,14 @@ import {
   ChainCodePart,
   MAX_CHAIN_CODE_SIZE,
 } from "./chain-code";
-import { Badge, BadgeDecoder } from "./badge-decoder";
+import { Badge, BadgeDecoder, EarnedBadge } from "./badge-decoder";
 import { Button, ConfigProvider, Flex, theme } from "antd";
 import CargoHold from "./CargoHold";
 import EarnedBadges from "./EarnedBadges";
 import ChainCodePartResult from "./ChainCodePartResult";
 import { useLocalStorage } from "./useLocalStorage";
 import { deleteUrlParam } from "./urlHelper";
+import { useLocalStorageMap } from "./useLocalStorageMap";
 
 function App() {
   //read parameters from the url
@@ -45,10 +46,16 @@ function App() {
 
   const [renderLogo, setRenderLogo] = useState(true);
   const [newBadgesEarned, setNewBadgesEarned] = useState<Badge[] | undefined>();
+  const [earnedBadges, setEarnedBadges] = useLocalStorageMap(
+    "badges",
+    new Map<string, EarnedBadge>(),
+  );
   const badgeDecoder = new BadgeDecoder(
     newBadgesEarned,
     setNewBadgesEarned,
     setRenderLogo,
+    earnedBadges,
+    setEarnedBadges,
   );
 
   //use the url with ?cargo to load test data into the app
@@ -101,10 +108,10 @@ function App() {
 
     //Try the individual stuff afterwards
     crateDecoder.reset();
-    badgeDecoder.reset();
 
     localStorage.clear();
     chainCodeDecoder.reset();
+    badgeDecoder.reset();
 
     //force a reload of the page that will refresh the cache. Equivalent of Ctl+F5
     //window.location.reload();

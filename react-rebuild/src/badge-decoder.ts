@@ -8,6 +8,8 @@ import { CrateDecoder, CrateType } from "./crate-decoder";
 import dayjs, { Dayjs } from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { appendUrlParam, deleteUrlParam } from "./urlHelper";
+import { useLocalStorageMap } from "./useLocalStorageMap";
+
 dayjs.extend(customParseFormat);
 
 export const BadgeCode = Object.freeze({
@@ -76,7 +78,8 @@ export class BadgeDecoder {
   displayLogoCallback: Function;
   codeToBadge = new Map<string, Badge>();
   unlistedCodeToBadge = new Map<string, Badge>();
-  earnedBadges = new Map<string, EarnedBadge>();
+  earnedBadges: Map<string, EarnedBadge>;
+  setEarnedBadges: Function;
   eventDates = new Set<string>([
     dayjs("2024-03-01").startOf("date").format(BADGE_DATE_FORMAT),
     dayjs("2024-10-02").startOf("date").format(BADGE_DATE_FORMAT),
@@ -87,10 +90,14 @@ export class BadgeDecoder {
     badgesToDisplay: Badge[] | undefined,
     displayCallback: Function,
     displayLogoCallback: Function,
+    earnedBadges: Map<string, EarnedBadge>,
+    setEarnedBadges: Function,
   ) {
     this.newBadgesEarned = badgesToDisplay;
     this.displayCallback = displayCallback;
     this.displayLogoCallback = displayLogoCallback;
+    this.earnedBadges = earnedBadges;
+    this.setEarnedBadges = setEarnedBadges;
 
     //listed badges
     this.codeToBadge.set(
@@ -306,13 +313,6 @@ export class BadgeDecoder {
       }),
     );
 
-    if (localStorage.badges !== undefined) {
-      this.earnedBadges = new Map<string, EarnedBadge>(
-        JSON.parse(localStorage.badges),
-      );
-      console.log(this.earnedBadges);
-    }
-
     const urlParams = new URLSearchParams(window.location.search);
     //load new url params into local storage
     for (const codeAndDate of urlParams.getAll("b")) {
@@ -324,19 +324,18 @@ export class BadgeDecoder {
         deleteUrlParam("b", codeAndDate);
         continue;
       }
-      if (!this.earnedBadges.has(badge.code)) {
-        this.earnedBadges.set(badge.code, badge);
+      if (!earnedBadges.has(badge.code)) {
+        earnedBadges.set(badge.code, badge);
         //Display badges granted via the URL and/or QR Code Scan
         this.displayBadge(this.decode(badge.code));
         displayLogoCallback(false);
       } else {
-        this.earnedBadges.set(badge.code, badge);
+        earnedBadges.set(badge.code, badge);
       }
     }
-    localStorage.setItem(
-      "badges",
-      JSON.stringify(Array.from(this.earnedBadges.entries())),
-    );
+
+    //TODO is the the loading loop problem?
+    //setEarnedBadges(earnedBadges);
     //load new local storage badges into the url params
     const urlBadges = new Set(urlParams.getAll("b"));
     const urlBadgesMap = new Map<string, EarnedBadge>();
@@ -344,7 +343,7 @@ export class BadgeDecoder {
       const badge = this.badgeParamToEarnedBadge(badgeParam);
       urlBadgesMap.set(badge.code, badge);
     }
-    for (const badge of this.earnedBadges.values()) {
+    for (const badge of earnedBadges.values()) {
       if (!urlBadgesMap.has(badge.code)) {
         urlBadgesMap.set(badge.code, badge);
       }
@@ -382,20 +381,12 @@ export class BadgeDecoder {
     //adding again is not harmful as it is a set
 
     this.earnedBadges.set(badge.code, badge);
-    localStorage.setItem(
-      "badges",
-      JSON.stringify(Array.from(this.earnedBadges)),
-    );
+    //this.setEarnedBadges(this.earnedBadges);
+
 
     //Add the badge to the url if not already in url
     const urlParams = new URLSearchParams(window.location.search);
-    urlParams.append("b", this.earnedBadgeToBadgeParam(badge));
-
-    history.replaceState(
-      null,
-      "",
-      window.location.href.split("?")[0] + "?" + urlParams.toString(),
-    );
+    appendUrlParam("b", this.earnedBadgeToBadgeParam(badge));
     this.displayBadge(this.decode(badge.code));
   }
 
@@ -403,21 +394,13 @@ export class BadgeDecoder {
     console.log(`Badge ${code} revoked`);
     //deleting again is not harmful as it is a set
     this.earnedBadges.delete(code);
-    localStorage.setItem(
-      "badges",
-      JSON.stringify(Array.from(this.earnedBadges)),
-    );
+    //this.setEarnedBadges(this.earnedBadges);
 
     //Add the badge to the url if not already in url
     const urlParams = new URLSearchParams(window.location.search);
     const urlCodes = new Set(urlParams.getAll("b"));
     if (urlCodes.has(code)) {
       deleteUrlParam("b", code);
-      history.replaceState(
-        null,
-        "",
-        window.location.href.split("?")[0] + "?" + urlParams.toString(),
-      );
     }
   }
 
@@ -432,14 +415,10 @@ export class BadgeDecoder {
 
   reset() {
     this.earnedBadges.clear();
+    this.newBadgesEarned = undefined;
+    this.setEarnedBadges(new Map<string, EarnedBadge>());
     localStorage.removeItem("badges");
-    const urlParams = new URLSearchParams(window.location.search);
     deleteUrlParam("b");
-    history.replaceState(
-      null,
-      "",
-      window.location.href.split("?")[0] + "?" + urlParams.toString(),
-    );
   }
 
   checkForCrateRelatedBadges(crateCode: string, crateDecoder: CrateDecoder) {
