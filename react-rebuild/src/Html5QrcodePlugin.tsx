@@ -3,10 +3,11 @@ import {
   Html5QrcodeScanType,
   Html5QrcodeScanner,
   Html5QrcodeSupportedFormats,
+  QrcodeErrorCallback,
+  QrcodeSuccessCallback,
 } from "html5-qrcode";
 import { Html5QrcodeScannerConfig } from "html5-qrcode/esm/html5-qrcode-scanner";
-import { useEffect, useLayoutEffect, useState } from "react";
-import { unmountComponentAtNode } from "react-dom";
+import { useEffect } from "react";
 
 const qrcodeRegionId = "html5qr-code-full-region";
 
@@ -51,9 +52,9 @@ const createConfig = (props: {
 };
 
 const Html5QrcodePlugin = (props: {
-  verbose?: any;
-  qrCodeSuccessCallback?: any;
-  qrCodeErrorCallback?: any;
+  verbose?: boolean;
+  qrCodeSuccessCallback: QrcodeSuccessCallback;
+  qrCodeErrorCallback?: QrcodeErrorCallback;
   fps?: number;
   aspectRatio?: number;
   disableFlip?: boolean;
