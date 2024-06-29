@@ -56,6 +56,13 @@ function crateDisplay(sortedCargoHold: Map<string, Set<CrateContents>>) {
     );
     cargoHoldList.push(list);
   }
+  if (cargoHoldList.length == 0) {
+    return <List
+    itemLayout="horizontal"
+    dataSource={[]}
+    size="small"
+  />
+  }
   return cargoHoldList;
 }
 
@@ -66,7 +73,7 @@ function chainCodeDisplay(chainCode: ChainCodePart[], chainCodeDecoder: ChainCod
       dataSource={chainCode}
       size="small"
       //bordered
-      header={<Typography.Title level={4}>Chain Code</Typography.Title>}
+      header={<Typography.Title level={3}>Chain Code</Typography.Title>}
       renderItem={(item) => (
         <List.Item>
             <Image
