@@ -8,7 +8,6 @@ import { CrateDecoder, CrateType } from "./crate-decoder";
 import dayjs, { Dayjs } from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { appendUrlParam, deleteUrlParam } from "./urlHelper";
-import { useLocalStorageMap } from "./useLocalStorageMap";
 
 dayjs.extend(customParseFormat);
 
@@ -74,7 +73,7 @@ export class EarnedBadge {
 
 export class BadgeDecoder {
   newBadgesEarned: Badge[] | undefined;
-  displayCallback: Function;
+  setNewBadgesEarned: Function;
   displayLogoCallback: Function;
   codeToBadge = new Map<string, Badge>();
   unlistedCodeToBadge = new Map<string, Badge>();
@@ -87,14 +86,14 @@ export class BadgeDecoder {
   ]);
 
   constructor(
-    badgesToDisplay: Badge[] | undefined,
-    displayCallback: Function,
+    newBadgesEarned: Badge[] | undefined,
+    setNewBadgesEarned: Function,
     displayLogoCallback: Function,
     earnedBadges: Map<string, EarnedBadge>,
     setEarnedBadges: Function,
   ) {
-    this.newBadgesEarned = badgesToDisplay;
-    this.displayCallback = displayCallback;
+    this.newBadgesEarned = newBadgesEarned;
+    this.setNewBadgesEarned = setNewBadgesEarned;
     this.displayLogoCallback = displayLogoCallback;
     this.earnedBadges = earnedBadges;
     this.setEarnedBadges = setEarnedBadges;
@@ -415,9 +414,8 @@ export class BadgeDecoder {
 
   reset() {
     this.earnedBadges.clear();
-    this.newBadgesEarned = undefined;
+    this.setNewBadgesEarned(undefined);
     this.setEarnedBadges(new Map<string, EarnedBadge>());
-    localStorage.removeItem("badges");
     deleteUrlParam("b");
   }
 
@@ -624,13 +622,13 @@ export class BadgeDecoder {
     return earnedBadge.code + earnedBadge.date;
   }
 
-  //TODO: Replace with react version
   displayBadge(badge: Badge) {
-    if (this.newBadgesEarned === undefined) {
-      this.newBadgesEarned = [];
+    const displayArray = new Array<Badge>();
+    if (this.newBadgesEarned !== undefined) {
+      displayArray.push(...this.newBadgesEarned);
     }
-    this.newBadgesEarned.push(badge);
-    this.displayCallback(this.newBadgesEarned);
+    displayArray.push(badge);
+    this.setNewBadgesEarned(displayArray);
   }
   /*
   displayBadge(badge: Badge) {
