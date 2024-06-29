@@ -1,5 +1,4 @@
 import {
-  ChainCodeAlignmentCode,
   ChainCodeDecoder,
   MAX_CHAIN_CODE_SIZE,
   MIN_CHAIN_CODE_SIZE,
@@ -73,12 +72,14 @@ export class EarnedBadge {
 
 export class BadgeDecoder {
   newBadgesEarned: Badge[] | undefined;
-  setNewBadgesEarned: Function;
-  displayLogoCallback: Function;
+  setNewBadgesEarned: React.Dispatch<React.SetStateAction<Badge[] | undefined>>;
+  displayLogoCallback: React.Dispatch<React.SetStateAction<boolean>>;
   codeToBadge = new Map<string, Badge>();
   unlistedCodeToBadge = new Map<string, Badge>();
   earnedBadges: Map<string, EarnedBadge>;
-  setEarnedBadges: Function;
+  setEarnedBadges: React.Dispatch<
+    React.SetStateAction<Map<string, EarnedBadge>>
+  >;
   eventDates = new Set<string>([
     dayjs("2024-03-01").startOf("date").format(BADGE_DATE_FORMAT),
     dayjs("2024-10-02").startOf("date").format(BADGE_DATE_FORMAT),
@@ -87,10 +88,14 @@ export class BadgeDecoder {
 
   constructor(
     newBadgesEarned: Badge[] | undefined,
-    setNewBadgesEarned: Function,
-    displayLogoCallback: Function,
+    setNewBadgesEarned: React.Dispatch<
+      React.SetStateAction<Badge[] | undefined>
+    >,
+    displayLogoCallback: React.Dispatch<React.SetStateAction<boolean>>,
     earnedBadges: Map<string, EarnedBadge>,
-    setEarnedBadges: Function,
+    setEarnedBadges: React.Dispatch<
+      React.SetStateAction<Map<string, EarnedBadge>>
+    >,
   ) {
     this.newBadgesEarned = newBadgesEarned;
     this.setNewBadgesEarned = setNewBadgesEarned;

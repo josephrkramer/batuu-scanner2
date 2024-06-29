@@ -42,10 +42,13 @@ export class CrateContents {
 export class CrateDecoder {
   contents = new Map<string, CrateContents>();
   scannedCrates: Set<string>;
-  setScannedCrates: Function;
+  setScannedCrates: React.Dispatch<React.SetStateAction<Set<string>>>;
   multipleChoiceScannedCrates = new Map<string, CrateContents>();
 
-  constructor(scannedCrates: Set<string>, setScannedCrates: Function) {
+  constructor(
+    scannedCrates: Set<string>,
+    setScannedCrates: React.Dispatch<React.SetStateAction<Set<string>>>,
+  ) {
     this.scannedCrates = scannedCrates;
     this.setScannedCrates = setScannedCrates;
 

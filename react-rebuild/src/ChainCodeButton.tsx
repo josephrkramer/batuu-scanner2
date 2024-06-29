@@ -4,7 +4,10 @@ import { ChainCodePart, MIN_CHAIN_CODE_SIZE } from "./chain-code";
 function ChainCodeButton({
   chainCode,
   setRenderChainCodeValue,
-}: Readonly<{ chainCode: ChainCodePart[]; setRenderChainCodeValue: Function }>) {
+}: Readonly<{
+  chainCode: ChainCodePart[];
+  setRenderChainCodeValue: Function;
+}>) {
   if (chainCode.length >= MIN_CHAIN_CODE_SIZE) {
     return (
       <Button
