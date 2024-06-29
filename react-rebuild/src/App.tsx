@@ -235,7 +235,7 @@ function App() {
           badgesToDisplay={badgeDecoder.allBadges()}
           earnedBadgesDatesMap={badgeDecoder.earnedBadges}
           chainCode={chainCode}
-          chainCodeDecoder={chainCodeDecoder} />
+        />
         <ChainCodePartResult chainCodePart={renderChainCodePiece} />
         <EarnedBadges
           badges={newBadgesEarned}

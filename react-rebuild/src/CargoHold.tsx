@@ -11,7 +11,6 @@ function CargoHold(
     badgesToDisplay: Badge[];
     earnedBadgesDatesMap: Map<string, EarnedBadge>;
     chainCode: ChainCodePart[];
-    chainCodeDecoder: ChainCodeDecoder;
   }>,
 ) {
   if (!props.render) {
@@ -22,7 +21,7 @@ function CargoHold(
     <Card>
       <Typography.Title level={3}>Scanned Crates</Typography.Title>
       {crateDisplay(props.sortedCargoHold)}
-      {chainCodeDisplay(props.chainCode, props.chainCodeDecoder)}
+      {chainCodeDisplay(props.chainCode)}
       {badgeDisplay(props.badgesToDisplay, props.earnedBadgesDatesMap)}
     </Card>
   );
@@ -66,7 +65,7 @@ function crateDisplay(sortedCargoHold: Map<string, Set<CrateContents>>) {
   return cargoHoldList;
 }
 
-function chainCodeDisplay(chainCode: ChainCodePart[], chainCodeDecoder: ChainCodeDecoder) {
+function chainCodeDisplay(chainCode: ChainCodePart[]) {
   return (
     <List
       itemLayout="horizontal"
