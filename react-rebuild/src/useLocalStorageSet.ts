@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-function getStorageValueSet(key: string, defaultValue: any) {
+function getStorageValueSet<T>(key: string, defaultValue: Set<T>): Set<T> {
   // getting stored value
   const saved = localStorage.getItem(key);
   if (saved) {
@@ -10,7 +10,10 @@ function getStorageValueSet(key: string, defaultValue: any) {
   }
 }
 
-export const useLocalStorageSet = (key: string, defaultValue: any) => {
+export const useLocalStorageSet = <T>(
+  key: string,
+  defaultValue: Set<T>,
+): [Set<T>, React.Dispatch<React.SetStateAction<Set<T>>>] => {
   const [value, setValue] = useState(() => {
     return getStorageValueSet(key, defaultValue);
   });

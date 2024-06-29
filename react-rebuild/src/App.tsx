@@ -32,7 +32,10 @@ function App() {
   console.log(queryString);
   const urlParams = new URLSearchParams(queryString);
 
-  const [scannedCrates, setScannedCrates] = useLocalStorageSet("cargo", new Set<string>());
+  const [scannedCrates, setScannedCrates] = useLocalStorageSet(
+    "cargo",
+    new Set<string>(),
+  );
   const crateDecoder = new CrateDecoder(scannedCrates, setScannedCrates);
 
   const crewMembers = new CrewManifest();
@@ -40,7 +43,10 @@ function App() {
   const [renderChainCodePiece, setRenderChainCodePiece] = useState<
     ChainCodePart | undefined
   >();
-  const [chainCode, setChainCode] = useLocalStorage("chainCode", new Array<ChainCodePart>());
+  const [chainCode, setChainCode] = useLocalStorage(
+    "chainCode",
+    new Array<ChainCodePart>(),
+  );
   const chainCodeDecoder = new ChainCodeDecoder(
     chainCode,
     setRenderChainCodePiece,
@@ -107,7 +113,6 @@ function App() {
   }
 
   if (urlParams.has("reset")) {
-    
     //strip ?reset from the url so we don't get in a refresh loop
     deleteUrlParam("reset");
 
@@ -257,7 +262,10 @@ function App() {
           badges={newBadgesEarned}
           earnedBadgesDatesMap={badgeDecoder.earnedBadges}
         />
-        <ChainCodeValue render={renderChainCodeValue} chainCodeDecoder={chainCodeDecoder} />
+        <ChainCodeValue
+          render={renderChainCodeValue}
+          chainCodeDecoder={chainCodeDecoder}
+        />
         <Button type="primary" onClick={() => homeButton()}>
           Home
         </Button>
@@ -267,7 +275,10 @@ function App() {
         <Button type="primary" onClick={() => cargoHoldButton()}>
           Cargo Hold
         </Button>
-        <ChainCodeButton chainCode={chainCode} setRenderChainCodeValue={setRenderChainCodeValue} />
+        <ChainCodeButton
+          chainCode={chainCode}
+          setRenderChainCodeValue={setRenderChainCodeValue}
+        />
       </Flex>
     </ConfigProvider>
   );

@@ -555,7 +555,8 @@ export class BadgeDecoder {
     if (
       !this.earnedBadges.has(BadgeCode.Character_AARC) &&
       chainCodeDecoder.chainCodeLength() >= MIN_CHAIN_CODE_SIZE &&
-      Math.abs(chainCodeDecoder.rawValue()) !== chainCodeDecoder.chainCodeLength()
+      Math.abs(chainCodeDecoder.rawValue()) !==
+        chainCodeDecoder.chainCodeLength()
     ) {
       this.add(BadgeCode.Character_AARC);
     } else {

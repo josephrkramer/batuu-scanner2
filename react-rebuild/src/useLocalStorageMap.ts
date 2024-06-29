@@ -1,16 +1,22 @@
 import { useState, useEffect } from "react";
 
-function getStorageValueMap(key: string, defaultValue: any) {
+function getStorageValueMap<T>(
+  key: string,
+  defaultValue: Map<string, T>,
+): Map<string, T> {
   // getting stored value
   const saved = localStorage.getItem(key);
   if (saved) {
-    return new Map<string, any>(JSON.parse(saved));
+    return new Map<string, T>(JSON.parse(saved));
   } else {
     return defaultValue;
   }
 }
 
-export const useLocalStorageMap = (key: string, defaultValue: any) => {
+export const useLocalStorageMap = <T>(
+  key: string,
+  defaultValue: Map<string, T>,
+): [Map<string, T>, React.Dispatch<React.SetStateAction<Map<string, T>>>] => {
   const [value, setValue] = useState(() => {
     return getStorageValueMap(key, defaultValue);
   });

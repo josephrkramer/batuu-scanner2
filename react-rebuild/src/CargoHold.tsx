@@ -56,11 +56,7 @@ function crateDisplay(sortedCargoHold: Map<string, Set<CrateContents>>) {
     cargoHoldList.push(list);
   }
   if (cargoHoldList.length == 0) {
-    return <List
-    itemLayout="horizontal"
-    dataSource={[]}
-    size="small"
-  />
+    return <List itemLayout="horizontal" dataSource={[]} size="small" />;
   }
   return cargoHoldList;
 }
@@ -75,13 +71,13 @@ function chainCodeDisplay(chainCode: ChainCodePart[]) {
       header={<Typography.Title level={3}>Chain Code</Typography.Title>}
       renderItem={(item) => (
         <List.Item>
-            <Image
-              src={item.image}
-              width={50}
-              preview={{ toolbarRender: () => null }}
-            />
-            <Typography.Text>Chain Code Fragement</Typography.Text>
-          </List.Item>
+          <Image
+            src={item.image}
+            width={50}
+            preview={{ toolbarRender: () => null }}
+          />
+          <Typography.Text>Chain Code Fragement</Typography.Text>
+        </List.Item>
       )}
     />
   );
