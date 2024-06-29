@@ -33,14 +33,16 @@ export const MEETING_TIME = "7:30pm";
 export class ChainCodeDecoder {
   scanCodeToChainCodePart = new Map<string, ChainCodePart>();
   //load chainCode from local storage
-  chainCode = new Array<ChainCodePart>();
+  chainCode: ChainCodePart[];
   renderChainCodePieceCallback: (chainCodePart: ChainCodePart) => void;
   setChainCodeCallback: (chainCode: ChainCodePart[]) => void;
 
   constructor(
+    chainCode: ChainCodePart[],
     renderChainCodePieceCallback: (chainCodePart: ChainCodePart) => void,
     setChainCodeCallback: (chainCode: ChainCodePart[]) => void,
   ) {
+    this.chainCode = chainCode;
     this.renderChainCodePieceCallback = renderChainCodePieceCallback;
     this.setChainCodeCallback = setChainCodeCallback;
 
@@ -69,22 +71,14 @@ export class ChainCodeDecoder {
       }),
     );
 
-    if (localStorage.chainCode !== undefined) {
-      this.chainCode = new Array<ChainCodePart>(JSON.parse(localStorage.chainCode)).flatMap((chainCodePiece) => chainCodePiece);
-      console.log(`Chain code instantiated from local storage:`);
-      console.log(this.chainCode);
-      //TODO: why does this cause infinite redirects?
-      //setChainCodeCallback(this.chainCode);
-      //https://blog.logrocket.com/using-localstorage-react-hooks/
-    }
-
     //check if the decode button should be enabled after an initial load from local storage
     this.checkDecodeButton();
   }
 
   reset(): void {
-    this.chainCode = new Array<ChainCodePart>();
-    localStorage.removeItem("chainCode");
+    //this.chainCode = [];
+    //localStorage.removeItem("chainCode");
+    this.setChainCodeCallback(new Array<ChainCodePart>());
     this.checkDecodeButton();
   }
 
@@ -143,16 +137,7 @@ export class ChainCodeDecoder {
     this.renderChainCodePieceCallback(chainCodePart);
 
     //add the item to the chainCode internal tracking
-    this.chainCode.push(chainCodePart);
-    console.log(`Chain Code: ${this.chainCode}`);
-    this.setChainCodeCallback(this.chainCode);
-
-    //store all of the scanned crates into local storage
-    localStorage.setItem("chainCode", JSON.stringify(Array.from(this.chainCode)));
-
-    console.log(`Chain code stored in local storage:`);
-    console.log(localStorage.chainCode);
-
+    this.setChainCodeCallback(this.chainCode.concat([chainCodePart]));
 
     this.checkDecodeButton();
     badgeDecoder.checkForChainCodeRelatedBadges(this);

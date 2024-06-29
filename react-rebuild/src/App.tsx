@@ -19,6 +19,7 @@ import { Button, ConfigProvider, Flex, theme } from "antd";
 import CargoHold from "./CargoHold";
 import EarnedBadges from "./EarnedBadges";
 import ChainCodePartResult from "./ChainCodePartResult";
+import { useLocalStorage } from "./useLocalStorage";
 
 function App() {
   //read parameters from the url
@@ -32,8 +33,9 @@ function App() {
   const [renderChainCodePiece, setRenderChainCodePiece] = useState<
     ChainCodePart | undefined
   >();
-  const [chainCode, setChainCode] = useState<ChainCodePart[]>([]);
+  const [chainCode, setChainCode] = useLocalStorage("chainCode", new Array<ChainCodePart>());
   const chainCodeDecoder = new ChainCodeDecoder(
+    chainCode,
     setRenderChainCodePiece,
     setChainCode,
   );
@@ -95,16 +97,22 @@ function App() {
   }
 
   if (urlParams.has("reset")) {
+    
+    //strip ?reset from the url so we don't get in a refresh loop
+    const url = new URL(window.location.href);
+    //url.searchParams.set('key', value);
+    url.searchParams.delete("reset");
+    window.history.pushState(null, '', url.toString());
+
+    //Try the individual stuff afterwards
     crateDecoder.reset();
     badgeDecoder.reset();
+
+    localStorage.clear();
     chainCodeDecoder.reset();
 
     //force a reload of the page that will refresh the cache. Equivalent of Ctl+F5
-    window.location.reload();
-    //strip ?reset from the url so we don't get in a refresh loop
-    const urlParams = new URLSearchParams(window.location.search);
-    urlParams.delete("reset");
-    window.location.search = urlParams.toString();
+    //window.location.reload();
   }
 
   const [crateToDisplay, setCrateToDisplay] = useState<
@@ -226,12 +234,12 @@ function App() {
           badgesToDisplay={badgesToDisplay}
           earnedBadgesDatesMap={badgeDecoder.earnedBadges}
           chainCode={chainCode}
-          chainCodeDecoder={chainCodeDecoder}        />
+          chainCodeDecoder={chainCodeDecoder} />
+        <ChainCodePartResult chainCodePart={renderChainCodePiece} />
         <EarnedBadges
           badges={newBadgesEarned}
           earnedBadgesDatesMap={badgeDecoder.earnedBadges}
         />
-        <ChainCodePartResult chainCodePart={renderChainCodePiece} />
         <Button type="primary" onClick={() => homeButton()}>
           Home
         </Button>
