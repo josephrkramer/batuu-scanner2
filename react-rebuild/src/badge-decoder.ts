@@ -7,6 +7,7 @@ import {
 import { CrateDecoder, CrateType } from "./crate-decoder";
 import dayjs, { Dayjs } from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import { deleteUrlParam } from "./urlHelper";
 dayjs.extend(customParseFormat);
 
 export const BadgeCode = Object.freeze({
@@ -320,7 +321,7 @@ export class BadgeDecoder {
         !this.codeToBadge.has(badge.code) &&
         !this.unlistedCodeToBadge.has(badge.code)
       ) {
-        urlParams.delete("b", codeAndDate);
+        deleteUrlParam("b", codeAndDate);
         continue;
       }
       if (!this.earnedBadges.has(badge.code)) {
@@ -349,7 +350,7 @@ export class BadgeDecoder {
       }
     }
     //rebuild fresh url params to remove duplicate badge codes
-    urlParams.delete("b");
+    deleteUrlParam("b");
     for (const badge of urlBadgesMap.values()) {
       urlParams.append("b", this.earnedBadgeToBadgeParam(badge));
     }
@@ -416,7 +417,7 @@ export class BadgeDecoder {
     const urlParams = new URLSearchParams(window.location.search);
     const urlCodes = new Set(urlParams.getAll("b"));
     if (urlCodes.has(code)) {
-      urlParams.delete("b", code);
+      deleteUrlParam("b", code);
       history.replaceState(
         null,
         "",
@@ -438,7 +439,7 @@ export class BadgeDecoder {
     this.earnedBadges.clear();
     localStorage.removeItem("badges");
     const urlParams = new URLSearchParams(window.location.search);
-    urlParams.delete("b");
+    deleteUrlParam("b");
     history.replaceState(
       null,
       "",

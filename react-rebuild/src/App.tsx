@@ -20,6 +20,7 @@ import CargoHold from "./CargoHold";
 import EarnedBadges from "./EarnedBadges";
 import ChainCodePartResult from "./ChainCodePartResult";
 import { useLocalStorage } from "./useLocalStorage";
+import { deleteUrlParam } from "./urlHelper";
 
 function App() {
   //read parameters from the url
@@ -61,8 +62,7 @@ function App() {
   }
   //delete param to ensure we don't get into a loop
   if (urlParams.has("cargo")) {
-    urlParams.delete("cargo");
-    window.location.search = urlParams.toString();
+    deleteUrlParam("cargo");
   }
 
   //TODO: remove this before the event.
@@ -87,22 +87,17 @@ function App() {
   }
   //delete param to ensure we don't get into a loop
   if (urlParams.has("everything")) {
-    urlParams.delete("everything");
-    window.location.search = urlParams.toString();
+    deleteUrlParam("everything");
   }
   //delete param to ensure we don't get into a loop
   if (urlParams.has("allbadges")) {
-    urlParams.delete("allbadges");
-    window.location.search = urlParams.toString();
+    deleteUrlParam("allbadges");
   }
 
   if (urlParams.has("reset")) {
     
     //strip ?reset from the url so we don't get in a refresh loop
-    const url = new URL(window.location.href);
-    //url.searchParams.set('key', value);
-    url.searchParams.delete("reset");
-    window.history.pushState(null, '', url.toString());
+    deleteUrlParam("reset");
 
     //Try the individual stuff afterwards
     crateDecoder.reset();
