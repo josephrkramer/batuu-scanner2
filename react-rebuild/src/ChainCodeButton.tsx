@@ -6,7 +6,7 @@ function ChainCodeButton({
   setRenderChainCodeValue,
 }: Readonly<{
   chainCode: ChainCodePart[];
-  setRenderChainCodeValue: Function;
+  setRenderChainCodeValue: React.Dispatch<React.SetStateAction<boolean>>;
 }>) {
   if (chainCode.length >= MIN_CHAIN_CODE_SIZE) {
     return (
