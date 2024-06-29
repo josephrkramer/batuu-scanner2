@@ -7,7 +7,7 @@ import {
 import { CrateDecoder, CrateType } from "./crate-decoder";
 import dayjs, { Dayjs } from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import { deleteUrlParam } from "./urlHelper";
+import { appendUrlParam, deleteUrlParam } from "./urlHelper";
 dayjs.extend(customParseFormat);
 
 export const BadgeCode = Object.freeze({
@@ -352,13 +352,8 @@ export class BadgeDecoder {
     //rebuild fresh url params to remove duplicate badge codes
     deleteUrlParam("b");
     for (const badge of urlBadgesMap.values()) {
-      urlParams.append("b", this.earnedBadgeToBadgeParam(badge));
+      appendUrlParam("b", this.earnedBadgeToBadgeParam(badge));
     }
-    history.replaceState(
-      null,
-      "",
-      window.location.href.split("?")[0] + "?" + urlParams.toString(),
-    );
   }
 
   decode(code: string): Badge {

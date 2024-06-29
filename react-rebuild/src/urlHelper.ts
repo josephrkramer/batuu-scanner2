@@ -9,3 +9,9 @@ export function setUrlParam(key: string, value: string) {
     url.searchParams.set(key, value);
     window.history.pushState({}, '', url.href);
 }
+
+export function appendUrlParam(key: string, value: string) {
+    const url = new URL(window.location.href);
+    url.searchParams.append(key, value);
+    window.history.pushState({}, '', url.href);
+}
