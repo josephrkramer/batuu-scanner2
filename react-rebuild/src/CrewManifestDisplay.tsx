@@ -76,10 +76,10 @@ function crewMemberAttribute(text: string, content: string) {
   }
   return (
     <>
-    <Typography.Text>
-      <b>{text}:</b> {content}
-    </Typography.Text>
-    <br/>
+      <Typography.Text>
+        <b>{text}:</b> {content}
+      </Typography.Text>
+      <br />
     </>
   );
 }

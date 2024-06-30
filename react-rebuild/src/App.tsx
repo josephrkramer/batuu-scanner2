@@ -24,6 +24,7 @@ import { useLocalStorageSet } from "./useLocalStorageSet";
 import ChainCodeButton from "./ChainCodeButton";
 import ChainCodeValue from "./ChainCodeValue";
 import CrewManifestDisplay from "./CrewManifestDisplay";
+import MultipeChoiceCrate from "./MultipeChoiceCrate";
 
 function App() {
   //read parameters from the url
@@ -31,11 +32,30 @@ function App() {
   console.log(queryString);
   const urlParams = new URLSearchParams(queryString);
 
+  const [crateToDisplay, setCrateToDisplay] = useState<
+    CrateContents | undefined
+  >();
+
   const [scannedCrates, setScannedCrates] = useLocalStorageSet(
     "cargo",
     new Set<string>(),
   );
-  const crateDecoder = new CrateDecoder(scannedCrates, setScannedCrates);
+  const [multipleChoiceScannedCrates, setMultipleChoiceScannedCrates] =
+    useLocalStorageMap(
+      "multipleChoiceScannedCrates",
+      new Map<string, CrateContents>(),
+    );
+  const [renderMultipleChoiceCrateCode, setRenderMultipleChoiceCrateCode] =
+    useState<string | undefined>();
+  const crateDecoder = new CrateDecoder(
+    scannedCrates,
+    setScannedCrates,
+    multipleChoiceScannedCrates,
+    setMultipleChoiceScannedCrates,
+    renderMultipleChoiceCrateCode,
+    setRenderMultipleChoiceCrateCode,
+    setCrateToDisplay,
+  );
 
   const [renderCrewMembers, setRenderCrewMembers] = useState(false);
   const crewMembers = new CrewManifest();
@@ -52,8 +72,6 @@ function App() {
     setRenderChainCodePiece,
     setChainCode,
   );
-  //setChainCode(chainCodeDecoder.chainCode);
-  //https://blog.logrocket.com/using-localstorage-react-hooks/
 
   const [renderLogo, setRenderLogo] = useState(true);
   const [newBadgesEarned, setNewBadgesEarned] = useState<Badge[] | undefined>();
@@ -127,9 +145,6 @@ function App() {
     //window.location.reload();
   }
 
-  const [crateToDisplay, setCrateToDisplay] = useState<
-    CrateContents | undefined
-  >();
   const [renderCargoHold, setRenderCargoHold] = useState(false);
   const [sortedCargoHold, setSortedCargoHold] = useState(
     crateDecoder.sortCargoHold(),
@@ -184,7 +199,6 @@ function App() {
           );
           */
         crateDecoder.setResult(decodedText, badgeDecoder);
-        setCrateToDisplay(crateDecoder.decode(decodedText));
       }
     }
   };
@@ -271,6 +285,13 @@ function App() {
           chainCode={chainCode}
         />
         <ChainCodePartResult chainCodePart={renderChainCodePiece} />
+        <MultipeChoiceCrate
+          multipleChoiceCrateCode={renderMultipleChoiceCrateCode}
+          crateDecoder={crateDecoder}
+          badgeDecoder={badgeDecoder}
+          setCrateToDisplay={setCrateToDisplay}
+          setRenderMultipleChoiceCrateCode={setRenderMultipleChoiceCrateCode}
+        />
         <EarnedBadges
           badges={newBadgesEarned}
           earnedBadgesDatesMap={badgeDecoder.earnedBadges}
