@@ -70,14 +70,10 @@ export class ChainCodeDecoder {
         value: ChainCodeAlignmentValue.Neutral,
       }),
     );
-
-    //check if the decode button should be enabled after an initial load from local storage
-    this.checkDecodeButton();
   }
 
   reset(): void {
     this.setChainCodeCallback(new Array<ChainCodePart>());
-    this.checkDecodeButton();
   }
 
   getRandomInt(max: number) {
@@ -118,16 +114,6 @@ export class ChainCodeDecoder {
     return value;
   }
 
-  //TODO: replace with react version
-  checkDecodeButton(): void {
-    console.log(`Chain code length: ${this.chainCode.length}`);
-    if (this.chainCode.length >= MIN_CHAIN_CODE_SIZE) {
-      //commented out to get everything param to work
-      //const decodeButton = document.getElementById("decode-chain-code-button")!;
-      //decodeButton.style.display = "block";
-    }
-  }
-
   setChainCodeResult(code: string, badgeDecoder: BadgeDecoder) {
     console.log(`Valid Chain Code Detected: ${code}`);
     const chainCodePart = this.decode(code);
@@ -137,7 +123,6 @@ export class ChainCodeDecoder {
     //add the item to the chainCode internal tracking
     this.setChainCodeCallback(this.chainCode.concat([chainCodePart]));
 
-    this.checkDecodeButton();
     badgeDecoder.checkForChainCodeRelatedBadges(this);
     badgeDecoder.checkForEventRelatedBadges();
   }
