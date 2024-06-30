@@ -384,7 +384,7 @@ export class BadgeDecoder {
     console.log(`Badge ${badge.code} earned`);
     //adding again is not harmful as it is a set
 
-    //special case of adding directl to the earned badge map so it displays correctly
+    //special case of adding directly to the earned badge map so it displays correctly
     this.earnedBadges.set(badge.code, badge);
     const tempMap = new Map<string, EarnedBadge>(this.earnedBadges);
     tempMap.set(badge.code, badge);
