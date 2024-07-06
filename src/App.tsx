@@ -25,6 +25,7 @@ import ChainCodeButton from "./ChainCodeButton";
 import ChainCodeValue from "./ChainCodeValue";
 import CrewManifestDisplay from "./CrewManifestDisplay";
 import MultipeChoiceCrate from "./MultipeChoiceCrate";
+import Puzzle from "./Puzzle";
 
 function App() {
   //read parameters from the url
@@ -105,6 +106,9 @@ function App() {
 
   const [renderScanner, setRenderScanner] = useState(false);
 
+  const [renderPuzzle, setRenderPuzzle] = useState(false);
+  const [puzzleSolved, setPuzzleSolved] = useState(false);
+
   //use the url with ?cargo to load test data into the app
   if (urlParams.has("cargo")) {
     console.log("Filling the cargo hold...");
@@ -163,6 +167,14 @@ function App() {
     //window.location.reload();
   }
 
+  //TODO: I think this is wrong
+  let tempDecodedText = "";
+  useEffect(() => {
+    setPuzzleSolved(false);
+    setRenderPuzzle(false);
+    crateDecoder.setResult(tempDecodedText, badgeDecoder);
+  }, [renderPuzzle, tempDecodedText]);
+
   const onNewScanResult = (
     decodedText: string,
     decodedResult: Html5QrcodeResult,
@@ -186,21 +198,8 @@ function App() {
           crateDecoder.setResult(decodedText, badgeDecoder);
         }
       } else {
-        /*
-          //start puzzle and wait for success
-          puzzle.style.display = "block";
-          waitToSolvePuzzle().then(
-            function () {
-              console.log("PUZZLE SUCCESS");
-              crateDecoder.setResult(decodedText, badgeDecoder);
-              puzzle.style.display = "none";
-            },
-            function () {
-              console.log("PUZZLE FAILURE");
-            },
-          );
-          */
-        crateDecoder.setResult(decodedText, badgeDecoder);
+        setRenderPuzzle(true);
+        tempDecodedText = decodedText;
       }
     }
   };
@@ -304,6 +303,7 @@ function App() {
           render={renderCrewMembers}
           crewMembers={crewMembers.crew}
         />
+        <Puzzle renderPuzzle={renderPuzzle} setPuzzleSolved={setPuzzleSolved} />
         <Button type="primary" onClick={() => homeButton()}>
           Home
         </Button>
