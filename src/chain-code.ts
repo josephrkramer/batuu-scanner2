@@ -83,14 +83,14 @@ export class ChainCodeDecoder {
 
   getRandomImage() {
     const randomNum = this.getRandomInt(8) + 1;
-    return `./chaincode${randomNum}.jpg`;
+    return `../chaincode${randomNum}.jpg`;
   }
 
   decode(code: string): ChainCodePart {
     console.log(`Decoding ${code}`);
     if (this.scanCodeToChainCodePart.has(code)) {
       const ccPart = this.scanCodeToChainCodePart.get(code)!;
-      const imgUrl = new URL(`../${this.getRandomImage()}`, import.meta.url)
+      const imgUrl = new URL(`${this.getRandomImage()}`, import.meta.url)
         .href;
       ccPart.image = imgUrl;
       return ccPart;
