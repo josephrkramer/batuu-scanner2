@@ -4,7 +4,6 @@ import { beforeEach, describe, expect, it, vitest } from "vitest";
 
 describe("CrateDecoder", () => {
   let crateDecoder: CrateDecoder;
-
   let scannedCrates: Set<string>;
   let setScannedCrates: CrateDecoder["setScannedCrates"];
   let multipleChoiceScannedCrates: Map<string, CrateContents>;
@@ -59,11 +58,13 @@ describe("CrateDecoder", () => {
 
   it("should return undefined for an unknown crate code", () => {
     const crateContents = crateDecoder.decode("invalid_code");
-    expect(crateContents).toEqual(new CrateContents({
+    expect(crateContents).toEqual(
+      new CrateContents({
         code: "?????",
         contents: "Unknown contents",
         type: CrateType.Unknown,
-      }));
+      }),
+    );
   });
 
   describe.skip("this check passes through local storage", () => {

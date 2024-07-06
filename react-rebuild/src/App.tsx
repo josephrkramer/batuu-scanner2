@@ -87,6 +87,24 @@ function App() {
     setEarnedBadges,
   );
 
+  const [renderCargoHold, setRenderCargoHold] = useState(false);
+  const [sortedCargoHold, setSortedCargoHold] = useState(
+    crateDecoder.sortCargoHold(),
+  );
+  const [renderChainCodeValue, setRenderChainCodeValue] = useState(false);
+  useEffect(() => {
+    if (renderChainCodeValue) {
+      setRenderLogo(false);
+      setRenderScanner(false);
+      setCrateToDisplay(undefined);
+      setRenderCargoHold(false);
+      setNewBadgesEarned(undefined);
+      setRenderChainCodePiece(undefined);
+    }
+  }, [renderChainCodeValue]);
+
+  const [renderScanner, setRenderScanner] = useState(false);
+
   //use the url with ?cargo to load test data into the app
   if (urlParams.has("cargo")) {
     console.log("Filling the cargo hold...");
@@ -145,22 +163,6 @@ function App() {
     //window.location.reload();
   }
 
-  const [renderCargoHold, setRenderCargoHold] = useState(false);
-  const [sortedCargoHold, setSortedCargoHold] = useState(
-    crateDecoder.sortCargoHold(),
-  );
-  const [renderChainCodeValue, setRenderChainCodeValue] = useState(false);
-  useEffect(() => {
-    if (renderChainCodeValue) {
-      setRenderLogo(false);
-      setRenderScanner(false);
-      setCrateToDisplay(undefined);
-      setRenderCargoHold(false);
-      setNewBadgesEarned(undefined);
-      setRenderChainCodePiece(undefined);
-    }
-  }, [renderChainCodeValue]);
-
   const onNewScanResult = (
     decodedText: string,
     decodedResult: Html5QrcodeResult,
@@ -202,8 +204,6 @@ function App() {
       }
     }
   };
-
-  const [renderScanner, setRenderScanner] = useState(false);
 
   const scannerComp = (
     <Html5QrcodePlugin
