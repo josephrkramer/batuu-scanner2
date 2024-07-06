@@ -1,5 +1,5 @@
 import { Card, Image } from "antd";
-import logo from "../images/aarc-aurebesh.jpg";
+import logo from "../public/aarc-aurebesh.jpg";
 
 function Logo() {
   return (

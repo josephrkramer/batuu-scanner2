@@ -45,7 +45,7 @@ describe("BadgeDecoder", () => {
       `"You’ve taken your first step into a larger world." --Obi-Wan Kenobi`,
     );
     expect(badge.description).toBe(`Scan a crate on Batuu.`);
-    expect(badge.image).toBe("images/badge/unearned-bw.jpeg");
+    expect(badge.image).toBe("./badge/unearned-bw.jpeg");
   });
 
   it("should decode an unlisted badge code", () => {
@@ -58,7 +58,7 @@ describe("BadgeDecoder", () => {
     expect(badge.description).toBe(
       "Find this badge in the source code of the datapad.",
     );
-    expect(badge.image).toBe("images/badge/slicer.jpeg");
+    expect(badge.image).toBe("./badge/slicer.jpeg");
   });
 
   it("should throw an error for an unknown badge code", () => {
