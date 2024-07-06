@@ -1,7 +1,13 @@
-import { ChainCodeAlignmentCode, ChainCodeDecoder } from "./chain-code";
+import {
+  ChainCodeDecoder,
+  MAX_CHAIN_CODE_SIZE,
+  MIN_CHAIN_CODE_SIZE,
+} from "./chain-code";
 import { CrateDecoder, CrateType } from "./crate-decoder";
 import dayjs, { Dayjs } from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
+import { appendUrlParam, deleteUrlParam } from "./urlHelper";
+
 dayjs.extend(customParseFormat);
 
 export const BadgeCode = Object.freeze({
@@ -31,12 +37,20 @@ export const BadgeCode = Object.freeze({
 export class Badge {
   code: string;
   name: string;
+  quote: string;
   description: string;
   image: string;
 
-  constructor({ code = "", name = "", description = "", image = "" } = {}) {
+  constructor({
+    code = "",
+    name = "",
+    quote = "",
+    description = "",
+    image = "",
+  } = {}) {
     this.code = code;
     this.name = name;
+    this.quote = quote;
     this.description = description;
     this.image = image;
   }
@@ -57,25 +71,46 @@ export class EarnedBadge {
 }
 
 export class BadgeDecoder {
+  newBadgesEarned: Badge[] | undefined;
+  setNewBadgesEarned: React.Dispatch<React.SetStateAction<Badge[] | undefined>>;
+  displayLogoCallback: React.Dispatch<React.SetStateAction<boolean>>;
   codeToBadge = new Map<string, Badge>();
   unlistedCodeToBadge = new Map<string, Badge>();
-  earnedBadges = new Map<string, EarnedBadge>();
+  earnedBadges: Map<string, EarnedBadge>;
+  setEarnedBadges: React.Dispatch<
+    React.SetStateAction<Map<string, EarnedBadge>>
+  >;
   eventDates = new Set<string>([
     dayjs("2024-03-01").startOf("date").format(BADGE_DATE_FORMAT),
     dayjs("2024-10-02").startOf("date").format(BADGE_DATE_FORMAT),
     dayjs("2024-10-06").startOf("date").format(BADGE_DATE_FORMAT),
   ]);
 
-  constructor() {
+  constructor(
+    newBadgesEarned: Badge[] | undefined,
+    setNewBadgesEarned: React.Dispatch<
+      React.SetStateAction<Badge[] | undefined>
+    >,
+    displayLogoCallback: React.Dispatch<React.SetStateAction<boolean>>,
+    earnedBadges: Map<string, EarnedBadge>,
+    setEarnedBadges: React.Dispatch<
+      React.SetStateAction<Map<string, EarnedBadge>>
+    >,
+  ) {
+    this.newBadgesEarned = newBadgesEarned;
+    this.setNewBadgesEarned = setNewBadgesEarned;
+    this.displayLogoCallback = displayLogoCallback;
+    this.earnedBadges = earnedBadges;
+    this.setEarnedBadges = setEarnedBadges;
+
     //listed badges
     this.codeToBadge.set(
       BadgeCode.First_Step,
       new Badge({
         code: BadgeCode.First_Step,
         name: "First Step",
-        description: `"You’ve taken your first step into a larger world." --Obi-Wan Kenobi
-          
-          Scan a crate on Batuu.`,
+        quote: `"You’ve taken your first step into a larger world." --Obi-Wan Kenobi`,
+        description: `Scan a crate on Batuu.`,
         image: "images/empty.jpeg",
       }),
     );
@@ -84,9 +119,8 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.Gayas_Microphone,
         name: "Gaya's Microphone",
-        description: `"I'm a Rockstar Queen!" --Gaya
-          
-          Participated in an event and helped retrieve Gaya's Microphone.`,
+        quote: `"I'm a Rockstar Queen!" --Gaya`,
+        description: `Participated in an event and helped retrieve Gaya's Microphone.`,
         image: "images/badge/gaya-mic.jpeg",
       }),
     );
@@ -105,9 +139,8 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.Well_Connected,
         name: "Well-Connected",
-        description: `"You just walk in like you belong." --Cassian Andor
-        
-        Interact with every informant during the event.`,
+        quote: `"You just walk in like you belong." --Cassian Andor`,
+        description: `Interact with every informant during the event.`,
         image: "images/badge/well-connected.jpeg",
       }),
     );
@@ -116,9 +149,8 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.Resistance_Hero,
         name: "Resistance Hero",
-        description: `"We don't choose the light because we want to win. We choose it because it is the light." --Rael Averross
-          
-          Make only Light Side choices during an event.`,
+        quote: `"We don't choose the light because we want to win. We choose it because it is the light." --Rael Averross`,
+        description: `Make only Light Side choices during an event.`,
         image: "images/badge/resistance-hero.jpeg",
       }),
     );
@@ -127,9 +159,8 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.We_Have_Cookies,
         name: "We Have Cookies",
-        description: `"Be careful not to choke on your aspirations." --Darth Vader
-        
-        Make only Dark Side choices during an event.`,
+        quote: `"Be careful not to choke on your aspirations." --Darth Vader`,
+        description: `Make only Dark Side choices during an event.`,
         image: "images/badge/we-have-cookies.jpeg",
       }),
     );
@@ -138,9 +169,8 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.Bounty,
         name: "Bounty",
-        description: `"You're not hauling rathtars on this freighter, are you?!" --Finn
-        
-        Scan a crate containing a creature.`,
+        quote: `"You're not hauling rathtars on this freighter, are you?!" --Finn`,
+        description: `Scan a crate containing a creature.`,
         image: "images/badge/bounty.jpeg",
       }),
     );
@@ -149,9 +179,8 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.Character_AARC,
         name: "Character AARC",
-        description: `"The future has many paths; choose wisely." --Anakin Skywalker
-        
-        Make both Light and Dark side choices during an event.`,
+        quote: `"The future has many paths; choose wisely." --Anakin Skywalker`,
+        description: `Make both Light and Dark side choices during an event.`,
         image: "images/badge/character-aarc.jpeg",
       }),
     );
@@ -160,9 +189,8 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.Jawa,
         name: "Jawa",
-        description: `"UTINNI!" --Dathcha
-        
-        Scan 20+ crates.`,
+        quote: `"UTINNI!" --Dathcha`,
+        description: `Scan 20+ crates.`,
         image: "images/badge/jawa.jpeg",
       }),
     );
@@ -171,9 +199,8 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.I_Shot_First,
         name: "I Shot First",
-        description: `"I’m a Mandalorian. Weapons are part of my religion." --Din Djarin
-        
-        Collect more than one weapon.`,
+        quote: `"I’m a Mandalorian. Weapons are part of my religion." --Din Djarin`,
+        description: `Collect more than one weapon.`,
         image: "images/badge/i-shot-first.jpeg",
       }),
     );
@@ -182,9 +209,8 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.The_Best_Teacher,
         name: "The Best Teacher",
-        description: `"Never tell me the odds." --Han Solo
-        
-        Scan 20+ non-event crates.`,
+        quote: `"Never tell me the odds." --Han Solo`,
+        description: `Scan 20+ non-event crates.`,
         image: "images/badge/the-best-teacher.jpeg",
       }),
     );
@@ -193,9 +219,8 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.Relic_Enthusiast,
         name: "Relic Enthusiast",
-        description: `"I’m a rogue archaeologist, not a protocol droid." --Dr. Chelli Aphra
-        
-        Collect 5+ relics.`,
+        quote: `"I’m a rogue archaeologist, not a protocol droid." --Dr. Chelli Aphra`,
+        description: `Collect 5+ relics.`,
         image: "images/badge/relic-enthusiast.jpeg",
       }),
     );
@@ -204,9 +229,8 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.Relic_Archivist,
         name: "Relic Archivist",
-        description: `"Relics of a bygone era." --Bo-Katan Kryze
-        
-        Collect 10+ relics.`,
+        quote: `"Relics of a bygone era." --Bo-Katan Kryze`,
+        description: `Collect 10+ relics.`,
         image: "images/badge/relic-archivist.jpeg",
       }),
     );
@@ -215,9 +239,8 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.Frequent_Flyer_2,
         name: "Frequent Flyer",
-        description: `"Fly casual." --Han Solo
-        
-        Attend 2+ events.`,
+        quote: `"Fly casual." --Han Solo`,
+        description: `Attend 2+ events.`,
         image: "images/badge/frequent-flyer-2.jpeg",
       }),
     );
@@ -226,9 +249,8 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.Frequent_Flyer_5,
         name: "Veteran Flyer",
-        description: `"In my book, experience outranks everything." --Captain Rex
-        
-        Attend 5+ events.`,
+        quote: `"In my book, experience outranks everything." --Captain Rex`,
+        description: `Attend 5+ events.`,
         image: "images/badge/frequent-flyer-5.jpeg",
       }),
     );
@@ -237,9 +259,8 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.Rose_Tico,
         name: "Rose Tico",
-        description: `"We are what they grow beyond." --Yoda
-        
-        Awarded by the Halcyon: The Legacy Contines team.`,
+        quote: `"We are what they grow beyond." --Yoda`,
+        description: `Awarded by the Halcyon: The Legacy Contines team.`,
         image: "images/badge/rose-tico.jpeg",
       }),
     );
@@ -250,7 +271,8 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.Slicer,
         name: "Slicer",
-        description: "You sure are a sneaky one. Raithe would be proud.",
+        quote: "You sure are a sneaky one. Raithe would be proud.",
+        description: "Find this badge in the source code of the datapad.",
         image: "images/badge/slicer.jpeg",
       }),
     );
@@ -259,9 +281,8 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.Amnesiac,
         name: "Amnesiac",
-        description: `What were you expecting? It's the same space junk in the box every time.
-          
-          Scan a single crate for the second time.`,
+        quote: `What were you expecting? It's the same space junk in the box every time.`,
+        description: `Scan a single crate for the second time.`,
         image: "images/badge/amnesiac.jpeg",
       }),
     );
@@ -270,9 +291,8 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.Outer_Rim_Regalia,
         name: "Outer Rim Regalia",
-        description: `"Do or do not, there is no try" --Yoda
-          
-          Awarded by the Halcyon: The Legacy Contines team.`,
+        quote: `"Do or do not, there is no try" --Yoda`,
+        description: `Awarded by the Halcyon: The Legacy Contines team.`,
         image: "images/badge/outer-rim-regalia.jpeg",
       }),
     );
@@ -281,9 +301,8 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.Its_My_Honor,
         name: "It's My Honor",
-        description: `Starcruiser Cast Member
-          
-          Awarded by the Halcyon: The Legacy Contines team.`,
+        quote: `Starcruiser Cast Member`,
+        description: `Awarded by the Halcyon: The Legacy Contines team.`,
         image: "images/badge/its-my-honor.jpeg",
       }),
     );
@@ -292,19 +311,11 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.Chewie_Were_Home,
         name: "Chewie, We're Home",
-        description: `Batuu Cast Member
-          
-          Awarded by the Halcyon: The Legacy Contines team.`,
+        quote: `Batuu Cast Member`,
+        description: `Awarded by the Halcyon: The Legacy Contines team.`,
         image: "images/badge/chewie-were-home.jpeg",
       }),
     );
-
-    if (localStorage.badges !== undefined) {
-      this.earnedBadges = new Map<string, EarnedBadge>(
-        JSON.parse(localStorage.badges),
-      );
-      console.log(this.earnedBadges);
-    }
 
     const urlParams = new URLSearchParams(window.location.search);
     //load new url params into local storage
@@ -314,23 +325,21 @@ export class BadgeDecoder {
         !this.codeToBadge.has(badge.code) &&
         !this.unlistedCodeToBadge.has(badge.code)
       ) {
-        urlParams.delete("b", codeAndDate);
+        deleteUrlParam("b", codeAndDate);
         continue;
       }
-      if (!this.earnedBadges.has(badge.code)) {
-        this.earnedBadges.set(badge.code, badge);
+      if (!earnedBadges.has(badge.code)) {
+        earnedBadges.set(badge.code, badge);
         //Display badges granted via the URL and/or QR Code Scan
         this.displayBadge(this.decode(badge.code));
-        const logo = document.getElementById("logo")!;
-        logo.style.display = "none";
+        displayLogoCallback(false);
       } else {
-        this.earnedBadges.set(badge.code, badge);
+        earnedBadges.set(badge.code, badge);
       }
     }
-    localStorage.setItem(
-      "badges",
-      JSON.stringify(Array.from(this.earnedBadges.entries())),
-    );
+
+    //TODO is the the loading loop problem?
+    //setEarnedBadges(earnedBadges);
     //load new local storage badges into the url params
     const urlBadges = new Set(urlParams.getAll("b"));
     const urlBadgesMap = new Map<string, EarnedBadge>();
@@ -338,21 +347,16 @@ export class BadgeDecoder {
       const badge = this.badgeParamToEarnedBadge(badgeParam);
       urlBadgesMap.set(badge.code, badge);
     }
-    for (const badge of this.earnedBadges.values()) {
+    for (const badge of earnedBadges.values()) {
       if (!urlBadgesMap.has(badge.code)) {
         urlBadgesMap.set(badge.code, badge);
       }
     }
     //rebuild fresh url params to remove duplicate badge codes
-    urlParams.delete("b");
+    deleteUrlParam("b");
     for (const badge of urlBadgesMap.values()) {
-      urlParams.append("b", this.earnedBadgeToBadgeParam(badge));
+      appendUrlParam("b", this.earnedBadgeToBadgeParam(badge));
     }
-    history.replaceState(
-      null,
-      "",
-      window.location.href.split("?")[0] + "?" + urlParams.toString(),
-    );
   }
 
   decode(code: string): Badge {
@@ -380,43 +384,31 @@ export class BadgeDecoder {
     console.log(`Badge ${badge.code} earned`);
     //adding again is not harmful as it is a set
 
-    this.earnedBadges.set(badge.code, badge);
-    localStorage.setItem(
-      "badges",
-      JSON.stringify(Array.from(this.earnedBadges)),
-    );
+    //special case of adding directly to the earned badge map so it displays correctly
+    const tempMap = new Map<string, EarnedBadge>(this.earnedBadges);
+    tempMap.set(badge.code, badge);
+    //TODO: was this the right thing to do?
+    this.earnedBadges = tempMap;
+    this.setEarnedBadges(tempMap);
 
     //Add the badge to the url if not already in url
-    const urlParams = new URLSearchParams(window.location.search);
-    urlParams.append("b", this.earnedBadgeToBadgeParam(badge));
-
-    history.replaceState(
-      null,
-      "",
-      window.location.href.split("?")[0] + "?" + urlParams.toString(),
-    );
+    appendUrlParam("b", this.earnedBadgeToBadgeParam(badge));
     this.displayBadge(this.decode(badge.code));
   }
 
   remove(code: string) {
     console.log(`Badge ${code} revoked`);
     //deleting again is not harmful as it is a set
-    this.earnedBadges.delete(code);
-    localStorage.setItem(
-      "badges",
-      JSON.stringify(Array.from(this.earnedBadges)),
-    );
+    const tempMap = new Map<string, EarnedBadge>(this.earnedBadges);
+    tempMap.delete(code);
+    this.earnedBadges = tempMap;
+    this.setEarnedBadges(tempMap);
 
     //Add the badge to the url if not already in url
     const urlParams = new URLSearchParams(window.location.search);
     const urlCodes = new Set(urlParams.getAll("b"));
     if (urlCodes.has(code)) {
-      urlParams.delete("b", code);
-      history.replaceState(
-        null,
-        "",
-        window.location.href.split("?")[0] + "?" + urlParams.toString(),
-      );
+      deleteUrlParam("b", code);
     }
   }
 
@@ -425,16 +417,16 @@ export class BadgeDecoder {
     return new Set([...this.codeToBadge.keys(), ...this.earnedBadges.keys()]);
   }
 
+  allBadges() {
+    return Array.from(this.allKeys()).map((code) => this.decode(code));
+  }
+
   reset() {
-    this.earnedBadges.clear();
-    localStorage.removeItem("badges");
-    const urlParams = new URLSearchParams(window.location.search);
-    urlParams.delete("b");
-    history.replaceState(
-      null,
-      "",
-      window.location.href.split("?")[0] + "?" + urlParams.toString(),
-    );
+    this.newBadgesEarned = undefined;
+    this.setNewBadgesEarned(undefined);
+    this.earnedBadges = new Map<string, EarnedBadge>();
+    this.setEarnedBadges(new Map<string, EarnedBadge>());
+    deleteUrlParam("b");
   }
 
   checkForCrateRelatedBadges(crateCode: string, crateDecoder: CrateDecoder) {
@@ -531,7 +523,7 @@ export class BadgeDecoder {
     //Well Connected - all NPCs visited
     if (
       !this.earnedBadges.has(BadgeCode.Well_Connected) &&
-      chainCodeDecoder.chainCodeLength() >= chainCodeDecoder.MAX_CHAIN_CODE_SIZE
+      chainCodeDecoder.chainCodeLength() >= MAX_CHAIN_CODE_SIZE
     ) {
       this.add(BadgeCode.Well_Connected);
     }
@@ -539,16 +531,19 @@ export class BadgeDecoder {
     //Resistance Hero - only light side codes
     if (
       !this.earnedBadges.has(BadgeCode.Resistance_Hero) &&
-      chainCodeDecoder.chainCodeLength() >=
-        chainCodeDecoder.MIN_CHAIN_CODE_SIZE &&
+      chainCodeDecoder.chainCodeLength() >= MIN_CHAIN_CODE_SIZE &&
       chainCodeDecoder.rawValue() === chainCodeDecoder.chainCodeLength()
     ) {
+      console.log("ADDING RESISTANCE HERO");
       this.add(BadgeCode.Resistance_Hero);
     } else {
+      console.log(this.earnedBadges.get(BadgeCode.Resistance_Hero)?.date);
+      console.log(this.today());
       if (
-        this.earnedBadges.has(BadgeCode.Resistance_Hero) &&
+        //this.earnedBadges.has(BadgeCode.Resistance_Hero) &&
         this.earnedBadges.get(BadgeCode.Resistance_Hero)?.date === this.today()
       ) {
+        console.log("REMOVING RESISTANCE HERO");
         this.remove(BadgeCode.Resistance_Hero);
       }
     }
@@ -556,16 +551,19 @@ export class BadgeDecoder {
     //We Have Cookies - only dark side codes
     if (
       !this.earnedBadges.has(BadgeCode.We_Have_Cookies) &&
-      chainCodeDecoder.chainCodeLength() >=
-        chainCodeDecoder.MIN_CHAIN_CODE_SIZE &&
+      chainCodeDecoder.chainCodeLength() >= MIN_CHAIN_CODE_SIZE &&
       chainCodeDecoder.rawValue() * -1 === chainCodeDecoder.chainCodeLength()
     ) {
+      console.log("ADDING WE HAVE COOKIES");
       this.add(BadgeCode.We_Have_Cookies);
     } else {
+      console.log(this.earnedBadges.get(BadgeCode.We_Have_Cookies)?.date);
+      console.log(this.today());
       if (
-        this.earnedBadges.has(BadgeCode.We_Have_Cookies) &&
+        //this.earnedBadges.has(BadgeCode.We_Have_Cookies) &&
         this.earnedBadges.get(BadgeCode.We_Have_Cookies)?.date === this.today()
       ) {
+        console.log("REMOVING WE HAVE COOKIES");
         this.remove(BadgeCode.We_Have_Cookies);
       }
     }
@@ -573,17 +571,24 @@ export class BadgeDecoder {
     //Character AARC - make both light and dark side choices
     if (
       !this.earnedBadges.has(BadgeCode.Character_AARC) &&
-      chainCodeDecoder.chainCodeLength() >=
-        chainCodeDecoder.MIN_CHAIN_CODE_SIZE &&
-      chainCodeDecoder.chainCode.includes(ChainCodeAlignmentCode.Dark) &&
-      chainCodeDecoder.chainCode.includes(ChainCodeAlignmentCode.Light)
+      chainCodeDecoder.chainCodeLength() >= MIN_CHAIN_CODE_SIZE &&
+      Math.abs(chainCodeDecoder.rawValue()) !==
+        chainCodeDecoder.chainCodeLength()
     ) {
+      if (this.earnedBadges.has(BadgeCode.Resistance_Hero)) {
+        this.remove(BadgeCode.Resistance_Hero);
+      }
+      if (this.earnedBadges.has(BadgeCode.We_Have_Cookies)) {
+        this.remove(BadgeCode.We_Have_Cookies);
+      }
+      console.log("ADDING CHARACTER AARC");
       this.add(BadgeCode.Character_AARC);
     } else {
       if (
         this.earnedBadges.has(BadgeCode.Character_AARC) &&
         this.earnedBadges.get(BadgeCode.Character_AARC)?.date === this.today()
       ) {
+        console.log("REMOVING CHARACTER AARC");
         this.remove(BadgeCode.Character_AARC);
       }
     }
@@ -645,37 +650,12 @@ export class BadgeDecoder {
   }
 
   displayBadge(badge: Badge) {
-    const badgeText = document.getElementById("badge-text-large")!;
-    const badgeDate = document.getElementById("badge-date-large")!;
-    const badgeImage = document.getElementById(
-      "badge-image-large",
-    )! as HTMLImageElement;
-    const badgeDiv = document.getElementById("badge-large")!;
-
-    //update the display text for the item
-    console.log(badge);
-    //read parameters from the url
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has("debug")) {
-      badgeText.textContent =
-        badge.code + " - " + badge.name + ": " + badge.description;
-    } else {
-      badgeText.textContent = badge.name + ": " + badge.description;
+    const displayArray = new Array<Badge>();
+    if (this.newBadgesEarned !== undefined) {
+      displayArray.push(...this.newBadgesEarned);
     }
-    if (this.earnedBadges.has(badge.code)) {
-      const date = dayjs(
-        this.earnedBadges.get(badge.code)!.date,
-        BADGE_DATE_FORMAT,
-      );
-      badgeDate.textContent = "Earned on " + date.format("MMM D, YYYY");
-    } else {
-      badgeDate.textContent = "Badge not earned";
-    }
-    badgeDiv.style.display = "block";
-
-    //display the image contents
-    const imgUrl = new URL(`../${badge.image}`, import.meta.url).href;
-    badgeImage.src = imgUrl;
+    displayArray.push(badge);
+    this.setNewBadgesEarned(displayArray);
   }
 
   isValidBadgeCode(code: string) {

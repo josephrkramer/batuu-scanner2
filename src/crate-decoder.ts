@@ -41,24 +41,49 @@ export class CrateContents {
 
 export class CrateDecoder {
   contents = new Map<string, CrateContents>();
-  scannedCrates = new Set<string>();
-  multipleChoiceScannedCrates = new Map<string, CrateContents>();
+  scannedCrates: Set<string>;
+  setScannedCrates: React.Dispatch<React.SetStateAction<Set<string>>>;
+  multipleChoiceScannedCrates: Map<string, CrateContents>;
+  setMultipleChoiceScannedCrates: React.Dispatch<
+    React.SetStateAction<Map<string, CrateContents>>
+  >;
+  renderMultipleChoiceCrateCode: string | undefined;
+  setRenderMultipleChoiceCrateCode: React.Dispatch<
+    React.SetStateAction<string | undefined>
+  >;
+  setCrateToDisplay: React.Dispatch<
+    React.SetStateAction<CrateContents | undefined>
+  >;
 
-  constructor() {
+  constructor(
+    scannedCrates: Set<string>,
+    setScannedCrates: React.Dispatch<React.SetStateAction<Set<string>>>,
+    multipleChoiceScannedCrates: Map<string, CrateContents>,
+    setMultipleChoiceScannedCrates: React.Dispatch<
+      React.SetStateAction<Map<string, CrateContents>>
+    >,
+    renderMultipleChoiceCrateCode: string | undefined,
+    setRenderMultipleChoiceCrateCode: React.Dispatch<
+      React.SetStateAction<string | undefined>
+    >,
+    setCrateToDisplay: React.Dispatch<
+      React.SetStateAction<CrateContents | undefined>
+    >,
+  ) {
+    this.scannedCrates = scannedCrates;
+    this.setScannedCrates = setScannedCrates;
+    this.multipleChoiceScannedCrates = multipleChoiceScannedCrates;
+    this.setMultipleChoiceScannedCrates = setMultipleChoiceScannedCrates;
+    this.renderMultipleChoiceCrateCode = renderMultipleChoiceCrateCode;
+    this.setRenderMultipleChoiceCrateCode = setRenderMultipleChoiceCrateCode;
+    this.setCrateToDisplay = setCrateToDisplay;
+
     this.contents.set(
       "CAST09",
       new CrateContents({
         code: "CAST09",
         contents: "Training Remote",
         type: CrateType.Halcyon_Cargo,
-      }),
-    );
-    this.contents.set(
-      "BC_ST",
-      new CrateContents({
-        code: "BC_ST",
-        contents: "Ewok Disguise",
-        type: CrateType.Outfit,
       }),
     );
     this.contents.set(
@@ -1203,25 +1228,10 @@ export class CrateDecoder {
     );
     this.override(chanceCubes);
 
-    //Keep track of the crates scanned so far and don't allow duplicates
-    //load from local storage
-    if (localStorage.cargo !== undefined) {
-      this.scannedCrates = new Set<string>(JSON.parse(localStorage.cargo));
-      console.log(`Cargo hold instantiated from local storage:`);
-      console.log(this.scannedCrates);
-    }
-
-    if (localStorage.multipleChoiceScannedCrates !== undefined) {
-      console.log("Starting load multiple choice crates from local storage");
-      this.multipleChoiceScannedCrates = new Map(
-        JSON.parse(localStorage.multipleChoiceScannedCrates),
-      );
-      console.log(`Multiple Choice hold instantiated from local storage:`);
-      console.log(this.multipleChoiceScannedCrates);
-      this.multipleChoiceScannedCrates.forEach((crate: CrateContents) => {
-        this.override(crate);
-      });
-    }
+    //Override chosen scanned crates loaded from local storage
+    this.multipleChoiceScannedCrates.forEach((crate: CrateContents) => {
+      this.override(crate);
+    });
   }
 
   decode(code: string): CrateContents {
@@ -1270,10 +1280,10 @@ export class CrateDecoder {
   }
 
   reset(): void {
-    this.scannedCrates.clear();
-    localStorage.removeItem("cargo");
-    this.multipleChoiceScannedCrates.clear();
-    localStorage.removeItem("multipleChoiceScannedCrates");
+    this.scannedCrates = new Set<string>();
+    this.setScannedCrates(new Set<string>());
+    this.multipleChoiceScannedCrates = new Map<string, CrateContents>();
+    this.setMultipleChoiceScannedCrates(new Map<string, CrateContents>());
   }
 
   sortCargoHold(): Map<string, Set<CrateContents>> {
@@ -1317,93 +1327,34 @@ export class CrateDecoder {
   addToScanned(code: string) {
     console.log(`Adding ${code} to the scanned list`);
     //add the item to the scannedCrates internal tracking
-    this.scannedCrates.add(code);
-
-    //store all of the scanned crates into local storage
-    localStorage.setItem(
-      "cargo",
-      JSON.stringify(Array.from(this.scannedCrates)),
-    );
+    const tempSet = new Set(this.scannedCrates);
+    tempSet.add(code);
+    this.scannedCrates = tempSet;
+    this.setScannedCrates(tempSet);
   }
 
   addToScannedMultipleChoice(code: string, crate: CrateContents) {
     console.log(`Adding ${code} to the scanned list`);
     //add the item to the scannedCrates internal tracking
-    this.multipleChoiceScannedCrates.set(code, crate);
-    this.override(crate);
-
-    //store all of the scanned crates into local storage
-    localStorage.setItem(
-      "multipleChoiceScannedCrates",
-      JSON.stringify(Array.from(this.multipleChoiceScannedCrates.entries())),
+    const tempMap = new Map<string, CrateContents>(
+      this.multipleChoiceScannedCrates,
     );
-  }
-
-  displayCrateContents(code: string): void {
-    const resultsHeader = document.getElementById("results-header")!;
-    const contentsImage = document.getElementById(
-      "contents-image",
-    )! as HTMLImageElement;
-
-    console.log(code);
-    //update the display text for the item
-    const crate = this.decode(code);
-    console.log(crate);
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has("debug")) {
-      resultsHeader.textContent = code + " - " + crate.contents;
-    } else {
-      resultsHeader.textContent = crate.contents;
-    }
-    resultsHeader.style.display = "block";
-
-    //display the image contents
-    contentsImage.style.display = "block";
-    const imgUrl = new URL(`../${crate.image}`, import.meta.url).href;
-    contentsImage.src = imgUrl;
+    tempMap.set(code, crate);
+    this.setMultipleChoiceScannedCrates(tempMap);
+    this.override(crate);
   }
 
   setResult(code: string, badgeDecoder: BadgeDecoder) {
     if (this.contents.get(code)!.type == CrateType.Multiple_Choice) {
-      this.handleMultipleChoice(code, badgeDecoder);
+      this.setRenderMultipleChoiceCrateCode(code);
     } else {
-      this.displayCrateContents(code);
-    }
-
-    //add the item to the scanned list if not previously scanned
-    badgeDecoder.checkForCrateRelatedBadges(code, this);
-    if (!this.scannedCrates.has(code)) {
-      this.addToScanned(code);
-    }
-    badgeDecoder.checkForEventRelatedBadges();
-  }
-
-  private handleMultipleChoice(code: string, badgeDecoder: BadgeDecoder) {
-    const multipleChoiceDiv = document.getElementById("multiple-choice")!;
-    multipleChoiceDiv.style.display = "block";
-    multipleChoiceDiv.innerHTML = "";
-
-    const parent = this.contents.get(code)!;
-    for (const child of parent.multipleChoice) {
-      const contentsImage = document.getElementById(
-        "contents-image",
-      )! as HTMLImageElement;
-      //display the image contents
-      const crate = this.decode(code);
-      contentsImage.style.display = "block";
-      const imgUrl = new URL(`../${crate.image}`, import.meta.url).href;
-      contentsImage.src = imgUrl;
-
-      const button = document.createElement("button");
-      button.className = "major-button";
-      button.textContent = child.contents;
-      button.addEventListener("click", () => {
-        this.override(child);
-        multipleChoiceDiv.style.display = "none";
-        this.addToScannedMultipleChoice(code, child);
-        this.setResult(child.code, badgeDecoder);
-      });
-      multipleChoiceDiv.appendChild(button);
+      this.setCrateToDisplay(this.decode(code));
+      //add the item to the scanned list if not previously scanned
+      badgeDecoder.checkForCrateRelatedBadges(code, this);
+      if (!this.scannedCrates.has(code)) {
+        this.addToScanned(code);
+      }
+      badgeDecoder.checkForEventRelatedBadges();
     }
   }
 }
