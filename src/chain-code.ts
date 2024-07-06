@@ -83,7 +83,7 @@ export class ChainCodeDecoder {
 
   getRandomImage() {
     const randomNum = this.getRandomInt(8) + 1;
-    return `images/chaincode${randomNum}.jpg`;
+    return `./chaincode${randomNum}.jpg`;
   }
 
   decode(code: string): ChainCodePart {

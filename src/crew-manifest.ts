@@ -65,7 +65,7 @@ However, the peace was not to last. The First Order soon became a big enough thr
         species: "Human",
         affiliation: "Rebellion//Resistance",
         type: CrewMemberType.Faction_Leader,
-        image: "images/crew/rook.png",
+        image: "./crew/rook.png",
       }),
     );
     this.addCrewMember(
@@ -83,7 +83,7 @@ However, the peace was not to last. The First Order soon became a big enough thr
         species: "Human",
         affiliation: "Self",
         type: CrewMemberType.NPC,
-        image: "images/crew/jax.png",
+        image: "./crew/jax.png",
       }),
     );
     this.addCrewMember(
@@ -99,7 +99,7 @@ However, the peace was not to last. The First Order soon became a big enough thr
         species: "Human",
         affiliation: "The Cause",
         type: CrewMemberType.Faction_Leader,
-        image: "images/crew/lias.png",
+        image: "./crew/lias.png",
       }),
     );
     this.addCrewMember(
@@ -115,7 +115,7 @@ However, the peace was not to last. The First Order soon became a big enough thr
         species: "HUMAN",
         affiliation: "ANCHORITE AND RUMORS OF ANOTHER AFFILIATION",
         type: CrewMemberType.NPC,
-        image: "images/crew/tayla.png",
+        image: "./crew/tayla.png",
       }),
     );
     this.addCrewMember(
@@ -131,7 +131,7 @@ However, the peace was not to last. The First Order soon became a big enough thr
         species: "Human",
         affiliation: undefined,
         type: CrewMemberType.NPC,
-        image: "images/crew/zilla.png",
+        image: "./crew/zilla.png",
       }),
     );
     this.addCrewMember(
@@ -151,7 +151,7 @@ However, the peace was not to last. The First Order soon became a big enough thr
         species: "Human",
         affiliation: "First Order",
         type: CrewMemberType.Faction_Leader,
-        image: "images/crew/evant.png",
+        image: "./crew/evant.png",
       }),
     );
     this.addCrewMember(
@@ -167,7 +167,7 @@ However, the peace was not to last. The First Order soon became a big enough thr
         species: "Human",
         affiliation: "None",
         type: CrewMemberType.NPC,
-        image: "images/crew/pyke.png",
+        image: "./crew/pyke.png",
       }),
     );
     this.addCrewMember(
@@ -182,7 +182,7 @@ However, the peace was not to last. The First Order soon became a big enough thr
         species: undefined,
         affiliation: "Unaffiliated",
         type: CrewMemberType.NPC,
-        image: "images/crew/joe.png",
+        image: "./crew/joe.png",
       }),
     );
     /*this.addCrewMember(new CrewMember({

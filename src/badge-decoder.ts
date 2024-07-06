@@ -111,7 +111,7 @@ export class BadgeDecoder {
         name: "First Step",
         quote: `"You’ve taken your first step into a larger world." --Obi-Wan Kenobi`,
         description: `Scan a crate on Batuu.`,
-        image: "images/empty.jpeg",
+        image: "./empty.jpeg",
       }),
     );
     this.codeToBadge.set(
@@ -121,7 +121,7 @@ export class BadgeDecoder {
         name: "Gaya's Microphone",
         quote: `"I'm a Rockstar Queen!" --Gaya`,
         description: `Participated in an event and helped retrieve Gaya's Microphone.`,
-        image: "images/badge/gaya-mic.jpeg",
+        image: "./badge/gaya-mic.jpeg",
       }),
     );
     this.codeToBadge.set(
@@ -131,7 +131,7 @@ export class BadgeDecoder {
         name: "Relic Hunter",
         description:
           "Find all of the AARC relics hidden in the crates on Batuu.",
-        image: "images/badge/relic-hunter.jpeg",
+        image: "./badge/relic-hunter.jpeg",
       }),
     );
     this.codeToBadge.set(
@@ -141,7 +141,7 @@ export class BadgeDecoder {
         name: "Well-Connected",
         quote: `"You just walk in like you belong." --Cassian Andor`,
         description: `Interact with every informant during the event.`,
-        image: "images/badge/well-connected.jpeg",
+        image: "./badge/well-connected.jpeg",
       }),
     );
     this.codeToBadge.set(
@@ -151,7 +151,7 @@ export class BadgeDecoder {
         name: "Resistance Hero",
         quote: `"We don't choose the light because we want to win. We choose it because it is the light." --Rael Averross`,
         description: `Make only Light Side choices during an event.`,
-        image: "images/badge/resistance-hero.jpeg",
+        image: "./badge/resistance-hero.jpeg",
       }),
     );
     this.codeToBadge.set(
@@ -161,7 +161,7 @@ export class BadgeDecoder {
         name: "We Have Cookies",
         quote: `"Be careful not to choke on your aspirations." --Darth Vader`,
         description: `Make only Dark Side choices during an event.`,
-        image: "images/badge/we-have-cookies.jpeg",
+        image: "./badge/we-have-cookies.jpeg",
       }),
     );
     this.codeToBadge.set(
@@ -171,7 +171,7 @@ export class BadgeDecoder {
         name: "Bounty",
         quote: `"You're not hauling rathtars on this freighter, are you?!" --Finn`,
         description: `Scan a crate containing a creature.`,
-        image: "images/badge/bounty.jpeg",
+        image: "./badge/bounty.jpeg",
       }),
     );
     this.codeToBadge.set(
@@ -181,7 +181,7 @@ export class BadgeDecoder {
         name: "Character AARC",
         quote: `"The future has many paths; choose wisely." --Anakin Skywalker`,
         description: `Make both Light and Dark side choices during an event.`,
-        image: "images/badge/character-aarc.jpeg",
+        image: "./badge/character-aarc.jpeg",
       }),
     );
     this.codeToBadge.set(
@@ -191,7 +191,7 @@ export class BadgeDecoder {
         name: "Jawa",
         quote: `"UTINNI!" --Dathcha`,
         description: `Scan 20+ crates.`,
-        image: "images/badge/jawa.jpeg",
+        image: "./badge/jawa.jpeg",
       }),
     );
     this.codeToBadge.set(
@@ -201,7 +201,7 @@ export class BadgeDecoder {
         name: "I Shot First",
         quote: `"I’m a Mandalorian. Weapons are part of my religion." --Din Djarin`,
         description: `Collect more than one weapon.`,
-        image: "images/badge/i-shot-first.jpeg",
+        image: "./badge/i-shot-first.jpeg",
       }),
     );
     this.codeToBadge.set(
@@ -211,7 +211,7 @@ export class BadgeDecoder {
         name: "The Best Teacher",
         quote: `"Never tell me the odds." --Han Solo`,
         description: `Scan 20+ non-event crates.`,
-        image: "images/badge/the-best-teacher.jpeg",
+        image: "./badge/the-best-teacher.jpeg",
       }),
     );
     this.codeToBadge.set(
@@ -221,7 +221,7 @@ export class BadgeDecoder {
         name: "Relic Enthusiast",
         quote: `"I’m a rogue archaeologist, not a protocol droid." --Dr. Chelli Aphra`,
         description: `Collect 5+ relics.`,
-        image: "images/badge/relic-enthusiast.jpeg",
+        image: "./badge/relic-enthusiast.jpeg",
       }),
     );
     this.codeToBadge.set(
@@ -231,7 +231,7 @@ export class BadgeDecoder {
         name: "Relic Archivist",
         quote: `"Relics of a bygone era." --Bo-Katan Kryze`,
         description: `Collect 10+ relics.`,
-        image: "images/badge/relic-archivist.jpeg",
+        image: "./badge/relic-archivist.jpeg",
       }),
     );
     this.codeToBadge.set(
@@ -241,7 +241,7 @@ export class BadgeDecoder {
         name: "Frequent Flyer",
         quote: `"Fly casual." --Han Solo`,
         description: `Attend 2+ events.`,
-        image: "images/badge/frequent-flyer-2.jpeg",
+        image: "./badge/frequent-flyer-2.jpeg",
       }),
     );
     this.codeToBadge.set(
@@ -251,7 +251,7 @@ export class BadgeDecoder {
         name: "Veteran Flyer",
         quote: `"In my book, experience outranks everything." --Captain Rex`,
         description: `Attend 5+ events.`,
-        image: "images/badge/frequent-flyer-5.jpeg",
+        image: "./badge/frequent-flyer-5.jpeg",
       }),
     );
     this.codeToBadge.set(
@@ -261,7 +261,7 @@ export class BadgeDecoder {
         name: "Rose Tico",
         quote: `"We are what they grow beyond." --Yoda`,
         description: `Awarded by the Halcyon: The Legacy Contines team.`,
-        image: "images/badge/rose-tico.jpeg",
+        image: "./badge/rose-tico.jpeg",
       }),
     );
 
@@ -273,7 +273,7 @@ export class BadgeDecoder {
         name: "Slicer",
         quote: "You sure are a sneaky one. Raithe would be proud.",
         description: "Find this badge in the source code of the datapad.",
-        image: "images/badge/slicer.jpeg",
+        image: "./badge/slicer.jpeg",
       }),
     );
     this.unlistedCodeToBadge.set(
@@ -283,7 +283,7 @@ export class BadgeDecoder {
         name: "Amnesiac",
         quote: `What were you expecting? It's the same space junk in the box every time.`,
         description: `Scan a single crate for the second time.`,
-        image: "images/badge/amnesiac.jpeg",
+        image: "./badge/amnesiac.jpeg",
       }),
     );
     this.unlistedCodeToBadge.set(
@@ -293,7 +293,7 @@ export class BadgeDecoder {
         name: "Outer Rim Regalia",
         quote: `"Do or do not, there is no try" --Yoda`,
         description: `Awarded by the Halcyon: The Legacy Contines team.`,
-        image: "images/badge/outer-rim-regalia.jpeg",
+        image: "./badge/outer-rim-regalia.jpeg",
       }),
     );
     this.unlistedCodeToBadge.set(
@@ -303,7 +303,7 @@ export class BadgeDecoder {
         name: "It's My Honor",
         quote: `Starcruiser Cast Member`,
         description: `Awarded by the Halcyon: The Legacy Contines team.`,
-        image: "images/badge/its-my-honor.jpeg",
+        image: "./badge/its-my-honor.jpeg",
       }),
     );
     this.unlistedCodeToBadge.set(
@@ -313,7 +313,7 @@ export class BadgeDecoder {
         name: "Chewie, We're Home",
         quote: `Batuu Cast Member`,
         description: `Awarded by the Halcyon: The Legacy Contines team.`,
-        image: "images/badge/chewie-were-home.jpeg",
+        image: "./badge/chewie-were-home.jpeg",
       }),
     );
 
@@ -365,7 +365,7 @@ export class BadgeDecoder {
       //Cloning the badge so we can overwrite the image value without altering the original
       const cloneBadge = structuredClone(this.codeToBadge.get(code))!;
       if (!this.earnedBadges.has(code)) {
-        cloneBadge.image = "images/badge/unearned-bw.jpeg";
+        cloneBadge.image = "./badge/unearned-bw.jpeg";
       }
       return cloneBadge;
     } else if (this.unlistedCodeToBadge.has(code)) {

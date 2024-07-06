@@ -1189,7 +1189,7 @@ export class CrateDecoder {
         code: "JK_RS",
         contents: "Evan's Manifesto",
         type: CrateType.Relic,
-        image: "images/halcyon_cargo.jpeg",
+        image: "./halcyon_cargo.jpeg",
       }),
     );
     this.override(
@@ -1197,7 +1197,7 @@ export class CrateDecoder {
         code: "JK_TU",
         contents: "Tom's Vape Pen",
         type: CrateType.Relic,
-        image: "images/ports_of_call.jpeg",
+        image: "./ports_of_call.jpeg",
       }),
     );
 
@@ -1206,14 +1206,14 @@ export class CrateDecoder {
       code: "FG_TU",
       contents: "Chance Cubes",
       type: CrateType.Multiple_Choice,
-      image: "images/crew/joe.png",
+      image: "./crew/joe.png",
     });
     chanceCubes.multipleChoice.push(
       new CrateContents({
         code: chanceCubes.code,
         contents: "Rigged Chance Cubes",
         type: CrateType.Relic,
-        image: "images/badge/frequent-flyer-2.jpeg",
+        image: "./badge/frequent-flyer-2.jpeg",
         alignment: ChainCodeAlignmentCode.Dark,
       }),
     );
@@ -1222,7 +1222,7 @@ export class CrateDecoder {
         code: chanceCubes.code,
         contents: "Chance Cubes",
         type: CrateType.Relic,
-        image: "images/badge/frequent-flyer-5.jpeg",
+        image: "./badge/frequent-flyer-5.jpeg",
         alignment: ChainCodeAlignmentCode.Light,
       }),
     );
@@ -1239,25 +1239,25 @@ export class CrateDecoder {
       const crate = this.contents.get(code)!;
       if (crate.image === undefined || crate.image == "") {
         if (crate.type == CrateType.Halcyon_Cargo) {
-          crate.image = "images/halcyon_cargo.jpeg";
+          crate.image = "./halcyon_cargo.jpeg";
         } else if (crate.type == CrateType.Outfit) {
-          crate.image = "images/outfit.jpeg";
+          crate.image = "./outfit.jpeg";
         } else if (crate.type == CrateType.Empty) {
-          crate.image = "images/empty.jpeg";
+          crate.image = "./empty.jpeg";
         } else if (crate.type == CrateType.Weapon) {
-          crate.image = "images/weapon.jpeg";
+          crate.image = "./weapon.jpeg";
         } else if (crate.type == CrateType.Cargo) {
-          crate.image = "images/cargo.jpeg";
+          crate.image = "./cargo.jpeg";
         } else if (crate.type == CrateType.Parts_and_Scraps) {
-          crate.image = "images/parts_and_scraps.jpeg";
+          crate.image = "./parts_and_scraps.jpeg";
         } else if (crate.type == CrateType.Program) {
-          crate.image = "images/program.jpeg";
+          crate.image = "./program.jpeg";
         } else if (crate.type == CrateType.Vehicle) {
-          crate.image = "images/vehicle.jpeg";
+          crate.image = "./vehicle.jpeg";
         } else if (crate.type == CrateType.Ports_Of_Call) {
-          crate.image = "images/ports_of_call.jpeg";
+          crate.image = "./ports_of_call.jpeg";
         } else {
-          crate.image = "images/aarc.jpg";
+          crate.image = "./aarc.jpg";
         }
       }
 
