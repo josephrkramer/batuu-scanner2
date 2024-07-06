@@ -552,7 +552,7 @@ export class BadgeDecoder {
     if (
       !this.earnedBadges.has(BadgeCode.We_Have_Cookies) &&
       chainCodeDecoder.chainCodeLength() >= MIN_CHAIN_CODE_SIZE &&
-      (chainCodeDecoder.rawValue() * -1) === chainCodeDecoder.chainCodeLength()
+      chainCodeDecoder.rawValue() * -1 === chainCodeDecoder.chainCodeLength()
     ) {
       console.log("ADDING WE HAVE COOKIES");
       this.add(BadgeCode.We_Have_Cookies);

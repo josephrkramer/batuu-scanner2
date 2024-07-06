@@ -19,12 +19,11 @@ import { Setup } from "./Setup";
 dayjs.extend(customParseFormat);
 
 describe("BadgeDecoder", () => {
-  const { result: { current: {crateDecoder,
-    crewMembers,
-    chainCodeDecoder,
-    badgeDecoder,
-    reset,} } } = renderHook(() => Setup());
-      
+  const {
+    result: {
+      current: { crateDecoder, chainCodeDecoder, badgeDecoder, reset },
+    },
+  } = renderHook(() => Setup());
 
   beforeEach(() => {
     act(() => {
@@ -113,16 +112,16 @@ describe("BadgeDecoder", () => {
     );
   });
 
-    it("should reset the earned badges map and url params", () => {
-      act(() => {
-        badgeDecoder.earnedBadges.set(BadgeCode.First_Step, new EarnedBadge({}));
-        badgeDecoder.reset();
-      });
-      expect(badgeDecoder.earnedBadges.size).toBe(0);
-      expect(window.location.search).not.toContain(
-        `b=${BadgeCode.First_Step}${BADGE_DATE_FORMAT}`,
-      );
+  it("should reset the earned badges map and url params", () => {
+    act(() => {
+      badgeDecoder.earnedBadges.set(BadgeCode.First_Step, new EarnedBadge({}));
+      badgeDecoder.reset();
     });
+    expect(badgeDecoder.earnedBadges.size).toBe(0);
+    expect(window.location.search).not.toContain(
+      `b=${BadgeCode.First_Step}${BADGE_DATE_FORMAT}`,
+    );
+  });
 
   it("should check for crate related badges", () => {
     const crateDecoder = new CrateDecoder(
@@ -460,37 +459,49 @@ describe("BadgeDecoder", () => {
   });
 
   describe.skip("this check passes when run independently", () => {
-  it("should check for Chracter AARC with past badges", () => {
-    act(() => {
-      badgeDecoder.add(BadgeCode.We_Have_Cookies, dayjs("2024-03-01"));
-      badgeDecoder.add(BadgeCode.Resistance_Hero, dayjs("2024-03-01"));
+    it("should check for Chracter AARC with past badges", () => {
+      act(() => {
+        badgeDecoder.add(BadgeCode.We_Have_Cookies, dayjs("2024-03-01"));
+        badgeDecoder.add(BadgeCode.Resistance_Hero, dayjs("2024-03-01"));
+      });
+      expect(badgeDecoder.earnedBadges.has(BadgeCode.Resistance_Hero)).toBe(
+        true,
+      );
+      expect(badgeDecoder.earnedBadges.has(BadgeCode.We_Have_Cookies)).toBe(
+        true,
+      );
+      expect(badgeDecoder.earnedBadges.has(BadgeCode.Character_AARC)).toBe(
+        false,
+      );
+      act(() => {
+        chainCodeDecoder.setChainCodeResult(
+          ChainCodeAlignmentCode.Dark,
+          badgeDecoder,
+        );
+        chainCodeDecoder.setChainCodeResult(
+          ChainCodeAlignmentCode.Dark,
+          badgeDecoder,
+        );
+        chainCodeDecoder.setChainCodeResult(
+          ChainCodeAlignmentCode.Dark,
+          badgeDecoder,
+        );
+        chainCodeDecoder.setChainCodeResult(
+          ChainCodeAlignmentCode.Light,
+          badgeDecoder,
+        );
+      });
+      expect(badgeDecoder.earnedBadges.has(BadgeCode.Character_AARC)).toBe(
+        true,
+      );
+      expect(badgeDecoder.earnedBadges.has(BadgeCode.We_Have_Cookies)).toBe(
+        true,
+      );
+      expect(badgeDecoder.earnedBadges.has(BadgeCode.Resistance_Hero)).toBe(
+        true,
+      );
     });
-    expect(badgeDecoder.earnedBadges.has(BadgeCode.Resistance_Hero)).toBe(true);
-    expect(badgeDecoder.earnedBadges.has(BadgeCode.We_Have_Cookies)).toBe(true);
-    expect(badgeDecoder.earnedBadges.has(BadgeCode.Character_AARC)).toBe(false);
-    act(() => {
-      chainCodeDecoder.setChainCodeResult(
-        ChainCodeAlignmentCode.Dark,
-        badgeDecoder,
-      );
-      chainCodeDecoder.setChainCodeResult(
-        ChainCodeAlignmentCode.Dark,
-        badgeDecoder,
-      );
-      chainCodeDecoder.setChainCodeResult(
-        ChainCodeAlignmentCode.Dark,
-        badgeDecoder,
-      );
-      chainCodeDecoder.setChainCodeResult(
-        ChainCodeAlignmentCode.Light,
-        badgeDecoder,
-      );
-    });
-    expect(badgeDecoder.earnedBadges.has(BadgeCode.Character_AARC)).toBe(true);
-    expect(badgeDecoder.earnedBadges.has(BadgeCode.We_Have_Cookies)).toBe(true);
-    expect(badgeDecoder.earnedBadges.has(BadgeCode.Resistance_Hero)).toBe(true);
   });
-});
 
   it("should decode a url parameter into an EarnedBadge", () => {
     const earnedBadge = new EarnedBadge({

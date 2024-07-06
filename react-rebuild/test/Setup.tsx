@@ -8,6 +8,7 @@ import { useLocalStorage } from "../src/useLocalStorage";
 import { Badge, BadgeDecoder, EarnedBadge } from "../src/badge-decoder";
 
 export function Setup() {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [crateToDisplay, setCrateToDisplay] = useState<
     CrateContents | undefined
   >();
@@ -33,9 +34,11 @@ export function Setup() {
     setCrateToDisplay,
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [renderCrewMembers, setRenderCrewMembers] = useState(false);
   const crewMembers = new CrewManifest();
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [renderChainCodePiece, setRenderChainCodePiece] = useState<
     ChainCodePart | undefined
   >();
@@ -49,6 +52,7 @@ export function Setup() {
     setChainCode,
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [renderLogo, setRenderLogo] = useState(true);
   const [newBadgesEarned, setNewBadgesEarned] = useState<Badge[] | undefined>();
   const [earnedBadges, setEarnedBadges] = useLocalStorageMap(
@@ -63,7 +67,9 @@ export function Setup() {
     setEarnedBadges,
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [renderCargoHold, setRenderCargoHold] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [sortedCargoHold, setSortedCargoHold] = useState(
     crateDecoder.sortCargoHold(),
   );
@@ -79,6 +85,7 @@ export function Setup() {
     }
   }, [renderChainCodeValue]);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [renderScanner, setRenderScanner] = useState(false);
 
   const reset = () => {
@@ -91,7 +98,7 @@ export function Setup() {
     setCrateToDisplay(undefined);
     setChainCode(new Array<ChainCodePart>());
     setRenderChainCodeValue(false);
-  }
+  };
 
   return {
     crateDecoder,

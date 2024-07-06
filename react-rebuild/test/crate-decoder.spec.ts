@@ -1,4 +1,3 @@
-import { act } from "react";
 import { BadgeDecoder } from "../src/badge-decoder";
 import { CrateContents, CrateDecoder, CrateType } from "../src/crate-decoder";
 import { beforeEach, describe, expect, it, vitest } from "vitest";
