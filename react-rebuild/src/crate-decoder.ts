@@ -1280,7 +1280,9 @@ export class CrateDecoder {
   }
 
   reset(): void {
+    this.scannedCrates = new Set<string>();
     this.setScannedCrates(new Set<string>());
+    this.multipleChoiceScannedCrates = new Map<string, CrateContents>();
     this.setMultipleChoiceScannedCrates(new Map<string, CrateContents>());
   }
 
@@ -1327,6 +1329,7 @@ export class CrateDecoder {
     //add the item to the scannedCrates internal tracking
     const tempSet = new Set(this.scannedCrates);
     tempSet.add(code);
+    this.scannedCrates = tempSet;
     this.setScannedCrates(tempSet);
   }
 

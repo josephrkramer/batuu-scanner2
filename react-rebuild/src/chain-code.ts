@@ -73,6 +73,7 @@ export class ChainCodeDecoder {
   }
 
   reset(): void {
+    this.chainCode = new Array<ChainCodePart>();
     this.setChainCodeCallback(new Array<ChainCodePart>());
   }
 
@@ -121,7 +122,9 @@ export class ChainCodeDecoder {
     this.renderChainCodePieceCallback(chainCodePart);
 
     //add the item to the chainCode internal tracking
-    this.setChainCodeCallback(this.chainCode.concat([chainCodePart]));
+    const tempChainCode = this.chainCode.concat([chainCodePart]);
+    this.chainCode = tempChainCode;
+    this.setChainCodeCallback(tempChainCode);
 
     badgeDecoder.checkForChainCodeRelatedBadges(this);
     badgeDecoder.checkForEventRelatedBadges();

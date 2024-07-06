@@ -385,9 +385,10 @@ export class BadgeDecoder {
     //adding again is not harmful as it is a set
 
     //special case of adding directly to the earned badge map so it displays correctly
-    this.earnedBadges.set(badge.code, badge);
     const tempMap = new Map<string, EarnedBadge>(this.earnedBadges);
     tempMap.set(badge.code, badge);
+    //TODO: was this the right thing to do?
+    this.earnedBadges = tempMap;
     this.setEarnedBadges(tempMap);
 
     //Add the badge to the url if not already in url
@@ -400,6 +401,7 @@ export class BadgeDecoder {
     //deleting again is not harmful as it is a set
     const tempMap = new Map<string, EarnedBadge>(this.earnedBadges);
     tempMap.delete(code);
+    this.earnedBadges = tempMap;
     this.setEarnedBadges(tempMap);
 
     //Add the badge to the url if not already in url
@@ -420,7 +422,9 @@ export class BadgeDecoder {
   }
 
   reset() {
+    this.newBadgesEarned = undefined;
     this.setNewBadgesEarned(undefined);
+    this.earnedBadges = new Map<string, EarnedBadge>();
     this.setEarnedBadges(new Map<string, EarnedBadge>());
     deleteUrlParam("b");
   }
@@ -530,12 +534,16 @@ export class BadgeDecoder {
       chainCodeDecoder.chainCodeLength() >= MIN_CHAIN_CODE_SIZE &&
       chainCodeDecoder.rawValue() === chainCodeDecoder.chainCodeLength()
     ) {
+      console.log("ADDING RESISTANCE HERO");
       this.add(BadgeCode.Resistance_Hero);
     } else {
+      console.log(this.earnedBadges.get(BadgeCode.Resistance_Hero)?.date);
+      console.log(this.today());
       if (
-        this.earnedBadges.has(BadgeCode.Resistance_Hero) &&
+        //this.earnedBadges.has(BadgeCode.Resistance_Hero) &&
         this.earnedBadges.get(BadgeCode.Resistance_Hero)?.date === this.today()
       ) {
+        console.log("REMOVING RESISTANCE HERO");
         this.remove(BadgeCode.Resistance_Hero);
       }
     }
@@ -544,14 +552,18 @@ export class BadgeDecoder {
     if (
       !this.earnedBadges.has(BadgeCode.We_Have_Cookies) &&
       chainCodeDecoder.chainCodeLength() >= MIN_CHAIN_CODE_SIZE &&
-      chainCodeDecoder.rawValue() * -1 === chainCodeDecoder.chainCodeLength()
+      (chainCodeDecoder.rawValue() * -1) === chainCodeDecoder.chainCodeLength()
     ) {
+      console.log("ADDING WE HAVE COOKIES");
       this.add(BadgeCode.We_Have_Cookies);
     } else {
+      console.log(this.earnedBadges.get(BadgeCode.We_Have_Cookies)?.date);
+      console.log(this.today());
       if (
-        this.earnedBadges.has(BadgeCode.We_Have_Cookies) &&
+        //this.earnedBadges.has(BadgeCode.We_Have_Cookies) &&
         this.earnedBadges.get(BadgeCode.We_Have_Cookies)?.date === this.today()
       ) {
+        console.log("REMOVING WE HAVE COOKIES");
         this.remove(BadgeCode.We_Have_Cookies);
       }
     }
@@ -563,12 +575,20 @@ export class BadgeDecoder {
       Math.abs(chainCodeDecoder.rawValue()) !==
         chainCodeDecoder.chainCodeLength()
     ) {
+      if (this.earnedBadges.has(BadgeCode.Resistance_Hero)) {
+        this.remove(BadgeCode.Resistance_Hero);
+      }
+      if (this.earnedBadges.has(BadgeCode.We_Have_Cookies)) {
+        this.remove(BadgeCode.We_Have_Cookies);
+      }
+      console.log("ADDING CHARACTER AARC");
       this.add(BadgeCode.Character_AARC);
     } else {
       if (
         this.earnedBadges.has(BadgeCode.Character_AARC) &&
         this.earnedBadges.get(BadgeCode.Character_AARC)?.date === this.today()
       ) {
+        console.log("REMOVING CHARACTER AARC");
         this.remove(BadgeCode.Character_AARC);
       }
     }
