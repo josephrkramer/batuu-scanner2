@@ -90,8 +90,7 @@ export class ChainCodeDecoder {
     console.log(`Decoding ${code}`);
     if (this.scanCodeToChainCodePart.has(code)) {
       const ccPart = this.scanCodeToChainCodePart.get(code)!;
-      const imgUrl = new URL(`${this.getRandomImage()}`, import.meta.url)
-        .href;
+      const imgUrl = new URL(`${this.getRandomImage()}`, import.meta.url).href;
       ccPart.image = imgUrl;
       return ccPart;
     } else {
