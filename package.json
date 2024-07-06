@@ -11,6 +11,15 @@
     "preview": "vite preview",
     "test": "vitest"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josephrkramer/batuu-scanner2.git"
+  },
+  "author": "Joseph Kramer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/josephrkramer/batuu-scanner2/issues"
+  },
   "dependencies": {
     "antd": "^5.18.1",
     "dayjs": "^1.11.11",
