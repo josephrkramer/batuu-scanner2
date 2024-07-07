@@ -6,7 +6,7 @@ import {
 import { CrateDecoder, CrateType } from "./crate-decoder";
 import dayjs, { Dayjs } from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
-import { appendUrlParam, deleteUrlParam } from "./urlHelper";
+import { appendUrlParam, deleteUrlParam } from "../utils/urlHelper";
 
 dayjs.extend(customParseFormat);
 

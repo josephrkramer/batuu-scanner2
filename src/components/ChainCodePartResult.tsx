@@ -1,6 +1,6 @@
 import { Card, Image } from "antd";
 import Title from "antd/es/typography/Title";
-import { ChainCodePart } from "./chain-code";
+import { ChainCodePart } from "../services/chain-code";
 
 function ChainCodePartResult({
   chainCodePart,
@@ -11,7 +11,6 @@ function ChainCodePartResult({
         <Title level={2}>Chain Code Scan Successful</Title>
         <Image
           src={chainCodePart.image}
-          //width={500}
           preview={false}
         />
         <Title level={3}>Chain Code Piece</Title>

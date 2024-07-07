@@ -1,12 +1,10 @@
 import { Card, Image } from "antd";
-import logo from "../public/aarc-aurebesh.jpg";
 
 function Logo() {
   return (
     <Card>
       <Image
-        src={logo}
-        //width={500}
+        src={"./aarc-aurebesh.jpg"}
         preview={false}
       />
     </Card>

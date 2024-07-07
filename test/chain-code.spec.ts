@@ -1,9 +1,9 @@
-import { BadgeDecoder } from "../src/badge-decoder";
+import { BadgeDecoder } from "../src/services/badge-decoder";
 import {
   ChainCodeAlignmentCode,
   ChainCodeAlignmentValue,
   ChainCodeDecoder,
-} from "../src/chain-code";
+} from "../src/services/chain-code";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { beforeEach, describe, expect, it, vitest } from "vitest";

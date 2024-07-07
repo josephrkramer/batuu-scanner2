@@ -4,7 +4,7 @@ import {
   ChainCodeDecoder,
   MAX_CHAIN_CODE_SIZE,
   MEETING_TIME,
-} from "./chain-code";
+} from "../services/chain-code";
 
 function ChainCodeValue({
   render,

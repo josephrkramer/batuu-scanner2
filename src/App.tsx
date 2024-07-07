@@ -1,31 +1,31 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
-import Logo from "./Logo";
-import Crate from "./Crate";
-import { CrateDecoder, CrateType, CrateContents } from "./crate-decoder";
-import Html5QrcodePlugin from "./Html5QrcodePlugin";
+import Logo from "./components/Logo";
+import Crate from "./components/Crate";
+import { CrateDecoder, CrateType, CrateContents } from "./services/crate-decoder";
+import Html5QrcodePlugin from "./components/Html5QrcodePlugin";
 import { Html5QrcodeResult } from "html5-qrcode";
-import { CrewManifest } from "./crew-manifest";
+import { CrewManifest } from "./services/crew-manifest";
 import {
   ChainCodeAlignmentCode,
   ChainCodeDecoder,
   ChainCodePart,
   MAX_CHAIN_CODE_SIZE,
-} from "./chain-code";
-import { Badge, BadgeDecoder, EarnedBadge } from "./badge-decoder";
+} from "./services/chain-code";
+import { Badge, BadgeDecoder, EarnedBadge } from "./services/badge-decoder";
 import { Button, ConfigProvider, Flex, theme } from "antd";
-import CargoHold from "./CargoHold";
-import EarnedBadges from "./EarnedBadges";
-import ChainCodePartResult from "./ChainCodePartResult";
-import { useLocalStorage } from "./useLocalStorage";
-import { deleteUrlParam } from "./urlHelper";
-import { useLocalStorageMap } from "./useLocalStorageMap";
-import { useLocalStorageSet } from "./useLocalStorageSet";
-import ChainCodeButton from "./ChainCodeButton";
-import ChainCodeValue from "./ChainCodeValue";
-import CrewManifestDisplay from "./CrewManifestDisplay";
-import MultipeChoiceCrate from "./MultipeChoiceCrate";
-import Puzzle from "./Puzzle";
+import CargoHold from "./components/CargoHold";
+import EarnedBadges from "./components/EarnedBadges";
+import ChainCodePartResult from "./components/ChainCodePartResult";
+import { useLocalStorage } from "./hooks/useLocalStorage";
+import { deleteUrlParam } from "./utils/urlHelper";
+import { useLocalStorageMap } from "./hooks/useLocalStorageMap";
+import { useLocalStorageSet } from "./hooks/useLocalStorageSet";
+import ChainCodeButton from "./components/ChainCodeButton";
+import ChainCodeValue from "./components/ChainCodeValue";
+import CrewManifestDisplay from "./components/CrewManifestDisplay";
+import MultipeChoiceCrate from "./components/MultipeChoiceCrate";
+import Puzzle from "./components/Puzzle";
 
 function App() {
   //read parameters from the url
