@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import Logo from "./Logo";
 import Crate from "./Crate";
@@ -48,14 +48,26 @@ function App() {
     );
   const [renderMultipleChoiceCrateCode, setRenderMultipleChoiceCrateCode] =
     useState<string | undefined>();
-  const crateDecoder = new CrateDecoder(
-    scannedCrates,
-    setScannedCrates,
-    multipleChoiceScannedCrates,
-    setMultipleChoiceScannedCrates,
-    renderMultipleChoiceCrateCode,
-    setRenderMultipleChoiceCrateCode,
-    setCrateToDisplay,
+  const crateDecoder = useMemo(
+    () =>
+      new CrateDecoder(
+        scannedCrates,
+        setScannedCrates,
+        multipleChoiceScannedCrates,
+        setMultipleChoiceScannedCrates,
+        renderMultipleChoiceCrateCode,
+        setRenderMultipleChoiceCrateCode,
+        setCrateToDisplay,
+      ),
+    [
+      scannedCrates,
+      setScannedCrates,
+      multipleChoiceScannedCrates,
+      setMultipleChoiceScannedCrates,
+      renderMultipleChoiceCrateCode,
+      setRenderMultipleChoiceCrateCode,
+      setCrateToDisplay,
+    ],
   );
 
   const [renderCrewMembers, setRenderCrewMembers] = useState(false);
@@ -80,12 +92,22 @@ function App() {
     "badges",
     new Map<string, EarnedBadge>(),
   );
-  const badgeDecoder = new BadgeDecoder(
-    newBadgesEarned,
-    setNewBadgesEarned,
-    setRenderLogo,
-    earnedBadges,
-    setEarnedBadges,
+  const badgeDecoder = useMemo(
+    () =>
+      new BadgeDecoder(
+        newBadgesEarned,
+        setNewBadgesEarned,
+        setRenderLogo,
+        earnedBadges,
+        setEarnedBadges,
+      ),
+    [
+      newBadgesEarned,
+      setNewBadgesEarned,
+      setRenderLogo,
+      earnedBadges,
+      setEarnedBadges,
+    ],
   );
 
   const [renderCargoHold, setRenderCargoHold] = useState(false);
@@ -105,7 +127,9 @@ function App() {
   }, [renderChainCodeValue]);
 
   const [renderScanner, setRenderScanner] = useState(false);
-  const [scanResultForPuzzle, setScanResultForPuzzle] = useState<string | undefined>(undefined);
+  const [scanResultForPuzzle, setScanResultForPuzzle] = useState<
+    string | undefined
+  >(undefined);
 
   const [renderPuzzle, setRenderPuzzle] = useState(false);
   const [puzzleSolved, setPuzzleSolved] = useState(false);
@@ -175,7 +199,7 @@ function App() {
       crateDecoder.setResult(scanResultForPuzzle, badgeDecoder);
       setScanResultForPuzzle(undefined);
     }
-  }, [puzzleSolved, scanResultForPuzzle]);
+  }, [puzzleSolved, scanResultForPuzzle, crateDecoder, badgeDecoder]);
 
   const onNewScanResult = (
     decodedText: string,

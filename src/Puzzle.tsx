@@ -3,8 +3,8 @@ import { Button, Card } from "antd";
 function runThePuzzle(
   setPuzzleSolved: React.Dispatch<React.SetStateAction<boolean>>,
 ) {
-    //TODO: add puzzle here
-    /*
+  //TODO: add puzzle here
+  /*
     setPuzzleSolved will activate the React useState hook to
     syncronize the state across the app and cause the correct
     next steps to happen
