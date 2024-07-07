@@ -1,7 +1,7 @@
 import { Button, Card, Flex, Image } from "antd";
-import { CrateContents, CrateDecoder } from "./crate-decoder";
+import { CrateContents, CrateDecoder } from "../services/crate-decoder";
 import Title from "antd/es/typography/Title";
-import { BadgeDecoder } from "./badge-decoder";
+import { BadgeDecoder } from "../services/badge-decoder";
 
 function MultipeChoiceCrate({
   multipleChoiceCrateCode,

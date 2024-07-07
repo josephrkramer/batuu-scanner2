@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
-import { useLocalStorageSet } from "../src/useLocalStorageSet";
-import { useLocalStorageMap } from "../src/useLocalStorageMap";
-import { CrateContents, CrateDecoder } from "../src/crate-decoder";
-import { CrewManifest } from "../src/crew-manifest";
-import { ChainCodeDecoder, ChainCodePart } from "../src/chain-code";
-import { useLocalStorage } from "../src/useLocalStorage";
-import { Badge, BadgeDecoder, EarnedBadge } from "../src/badge-decoder";
+import { useLocalStorageSet } from "../src/hooks/useLocalStorageSet";
+import { useLocalStorageMap } from "../src/hooks/useLocalStorageMap";
+import { CrateContents, CrateDecoder } from "../src/services/crate-decoder";
+import { CrewManifest } from "../src/services/crew-manifest";
+import { ChainCodeDecoder, ChainCodePart } from "../src/services/chain-code";
+import { useLocalStorage } from "../src/hooks/useLocalStorage";
+import {
+  Badge,
+  BadgeDecoder,
+  EarnedBadge,
+} from "../src/services/badge-decoder";
 
 export function Setup() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

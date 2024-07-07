@@ -1,5 +1,5 @@
 import { Card, List, Typography, Image } from "antd";
-import { CrewMember } from "./crew-manifest";
+import { CrewMember } from "../services/crew-manifest";
 import { isNullOrUndefined } from "html5-qrcode/esm/core";
 
 function CrewManifestDisplay(

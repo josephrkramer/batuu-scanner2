@@ -1,5 +1,9 @@
 import { Card, Image, Typography } from "antd";
-import { BADGE_DATE_FORMAT, Badge, EarnedBadge } from "./badge-decoder";
+import {
+  BADGE_DATE_FORMAT,
+  Badge,
+  EarnedBadge,
+} from "../services/badge-decoder";
 import Title from "antd/es/typography/Title";
 import dayjs from "dayjs";
 
@@ -29,11 +33,7 @@ function EarnedBadges(
 
     displayBadges.push(
       <Card key={badge.code}>
-        <Image
-          src={badge.image}
-          //width={500}
-          preview={false}
-        />
+        <Image src={badge.image} preview={false} />
         <Title level={3}>{badge.name}</Title>
         <Title level={5}>{badge.quote}</Title>
         <Typography.Text>{badge.description}</Typography.Text>

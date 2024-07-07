@@ -185,18 +185,6 @@ However, the peace was not to last. The First Order soon became a big enough thr
         image: "./crew/joe.png",
       }),
     );
-    /*this.addCrewMember(new CrewMember({
-            name: undefined,
-            occupation: undefined,
-            biography: undefined,
-            companion: undefined,
-            vehicle: undefined,
-            homeworld: undefined,
-            species: undefined,
-            affiliation: undefined,
-            type: undefined,
-            image: undefined,
-        }));*/
   }
 
   addCrewMember(crewMemeber: CrewMember) {

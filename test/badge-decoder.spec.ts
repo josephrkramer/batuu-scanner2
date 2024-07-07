@@ -3,14 +3,14 @@ import {
   BadgeCode,
   BADGE_DATE_FORMAT,
   EarnedBadge,
-} from "../src/badge-decoder";
+} from "../src/services/badge-decoder";
 import {
   ChainCodeAlignmentCode,
   ChainCodeDecoder,
   MAX_CHAIN_CODE_SIZE,
   MIN_CHAIN_CODE_SIZE,
-} from "../src/chain-code";
-import { CrateDecoder, CrateType } from "../src/crate-decoder";
+} from "../src/services/chain-code";
+import { CrateDecoder, CrateType } from "../src/services/crate-decoder";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import { beforeEach, describe, expect, it, vitest } from "vitest";

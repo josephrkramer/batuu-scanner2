@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import { ChainCodePart, MIN_CHAIN_CODE_SIZE } from "./chain-code";
+import { ChainCodePart, MIN_CHAIN_CODE_SIZE } from "../services/chain-code";
 
 function ChainCodeButton({
   chainCode,

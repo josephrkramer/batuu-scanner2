@@ -1,5 +1,5 @@
 import { Card, Image } from "antd";
-import { CrateContents } from "./crate-decoder";
+import { CrateContents } from "../services/crate-decoder";
 import Title from "antd/es/typography/Title";
 
 function Crate({ crate }: Readonly<{ crate: CrateContents | undefined }>) {
@@ -7,11 +7,7 @@ function Crate({ crate }: Readonly<{ crate: CrateContents | undefined }>) {
     return (
       <Card>
         <Title level={2}>Crate Scan Successful</Title>
-        <Image
-          src={crate.image}
-          //width={500}
-          preview={false}
-        />
+        <Image src={crate.image} preview={false} />
         <Title level={3}>{crate.contents}</Title>
       </Card>
     );
