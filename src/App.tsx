@@ -105,6 +105,7 @@ function App() {
   }, [renderChainCodeValue]);
 
   const [renderScanner, setRenderScanner] = useState(false);
+  const [scanResultForPuzzle, setScanResultForPuzzle] = useState<string | undefined>(undefined);
 
   const [renderPuzzle, setRenderPuzzle] = useState(false);
   const [puzzleSolved, setPuzzleSolved] = useState(false);
@@ -167,13 +168,14 @@ function App() {
     //window.location.reload();
   }
 
-  //TODO: I think this is wrong
-  let tempDecodedText = "";
   useEffect(() => {
-    setPuzzleSolved(false);
-    setRenderPuzzle(false);
-    crateDecoder.setResult(tempDecodedText, badgeDecoder);
-  }, [renderPuzzle, tempDecodedText]);
+    if (puzzleSolved && scanResultForPuzzle !== undefined) {
+      setPuzzleSolved(false);
+      setRenderPuzzle(false);
+      crateDecoder.setResult(scanResultForPuzzle, badgeDecoder);
+      setScanResultForPuzzle(undefined);
+    }
+  }, [puzzleSolved, scanResultForPuzzle]);
 
   const onNewScanResult = (
     decodedText: string,
@@ -181,6 +183,7 @@ function App() {
   ) => {
     console.log(`Scan result ${decodedText}`, decodedResult);
     setRenderScanner(false);
+    setScanResultForPuzzle(decodedText);
 
     if (badgeDecoder.isValidBadgeCode(decodedText)) {
       badgeDecoder.add(decodedText);
@@ -199,7 +202,6 @@ function App() {
         }
       } else {
         setRenderPuzzle(true);
-        tempDecodedText = decodedText;
       }
     }
   };
