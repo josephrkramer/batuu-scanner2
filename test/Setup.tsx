@@ -5,7 +5,11 @@ import { CrateContents, CrateDecoder } from "../src/services/crate-decoder";
 import { CrewManifest } from "../src/services/crew-manifest";
 import { ChainCodeDecoder, ChainCodePart } from "../src/services/chain-code";
 import { useLocalStorage } from "../src/hooks/useLocalStorage";
-import { Badge, BadgeDecoder, EarnedBadge } from "../src/services/badge-decoder";
+import {
+  Badge,
+  BadgeDecoder,
+  EarnedBadge,
+} from "../src/services/badge-decoder";
 
 export function Setup() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

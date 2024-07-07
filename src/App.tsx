@@ -2,7 +2,11 @@ import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import Logo from "./components/Logo";
 import Crate from "./components/Crate";
-import { CrateDecoder, CrateType, CrateContents } from "./services/crate-decoder";
+import {
+  CrateDecoder,
+  CrateType,
+  CrateContents,
+} from "./services/crate-decoder";
 import Html5QrcodePlugin from "./components/Html5QrcodePlugin";
 import { Html5QrcodeResult } from "html5-qrcode";
 import { CrewManifest } from "./services/crew-manifest";

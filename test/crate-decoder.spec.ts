@@ -1,5 +1,9 @@
 import { BadgeDecoder } from "../src/services/badge-decoder";
-import { CrateContents, CrateDecoder, CrateType } from "../src/services/crate-decoder";
+import {
+  CrateContents,
+  CrateDecoder,
+  CrateType,
+} from "../src/services/crate-decoder";
 import { beforeEach, describe, expect, it, vitest } from "vitest";
 
 describe("CrateDecoder", () => {

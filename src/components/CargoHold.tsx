@@ -1,6 +1,10 @@
 import { Card, List, Typography, Image } from "antd";
 import { CrateContents } from "../services/crate-decoder";
-import { BADGE_DATE_FORMAT, Badge, EarnedBadge } from "../services/badge-decoder";
+import {
+  BADGE_DATE_FORMAT,
+  Badge,
+  EarnedBadge,
+} from "../services/badge-decoder";
 import dayjs from "dayjs";
 import { ChainCodePart } from "../services/chain-code";
 

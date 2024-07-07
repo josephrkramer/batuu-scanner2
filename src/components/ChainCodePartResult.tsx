@@ -9,10 +9,7 @@ function ChainCodePartResult({
     return (
       <Card>
         <Title level={2}>Chain Code Scan Successful</Title>
-        <Image
-          src={chainCodePart.image}
-          preview={false}
-        />
+        <Image src={chainCodePart.image} preview={false} />
         <Title level={3}>Chain Code Piece</Title>
       </Card>
     );
