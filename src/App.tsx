@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import Logo from "./Logo";
 import Crate from "./Crate";
@@ -25,6 +25,7 @@ import ChainCodeButton from "./ChainCodeButton";
 import ChainCodeValue from "./ChainCodeValue";
 import CrewManifestDisplay from "./CrewManifestDisplay";
 import MultipeChoiceCrate from "./MultipeChoiceCrate";
+import Puzzle from "./Puzzle";
 
 function App() {
   //read parameters from the url
@@ -47,14 +48,26 @@ function App() {
     );
   const [renderMultipleChoiceCrateCode, setRenderMultipleChoiceCrateCode] =
     useState<string | undefined>();
-  const crateDecoder = new CrateDecoder(
-    scannedCrates,
-    setScannedCrates,
-    multipleChoiceScannedCrates,
-    setMultipleChoiceScannedCrates,
-    renderMultipleChoiceCrateCode,
-    setRenderMultipleChoiceCrateCode,
-    setCrateToDisplay,
+  const crateDecoder = useMemo(
+    () =>
+      new CrateDecoder(
+        scannedCrates,
+        setScannedCrates,
+        multipleChoiceScannedCrates,
+        setMultipleChoiceScannedCrates,
+        renderMultipleChoiceCrateCode,
+        setRenderMultipleChoiceCrateCode,
+        setCrateToDisplay,
+      ),
+    [
+      scannedCrates,
+      setScannedCrates,
+      multipleChoiceScannedCrates,
+      setMultipleChoiceScannedCrates,
+      renderMultipleChoiceCrateCode,
+      setRenderMultipleChoiceCrateCode,
+      setCrateToDisplay,
+    ],
   );
 
   const [renderCrewMembers, setRenderCrewMembers] = useState(false);
@@ -79,12 +92,22 @@ function App() {
     "badges",
     new Map<string, EarnedBadge>(),
   );
-  const badgeDecoder = new BadgeDecoder(
-    newBadgesEarned,
-    setNewBadgesEarned,
-    setRenderLogo,
-    earnedBadges,
-    setEarnedBadges,
+  const badgeDecoder = useMemo(
+    () =>
+      new BadgeDecoder(
+        newBadgesEarned,
+        setNewBadgesEarned,
+        setRenderLogo,
+        earnedBadges,
+        setEarnedBadges,
+      ),
+    [
+      newBadgesEarned,
+      setNewBadgesEarned,
+      setRenderLogo,
+      earnedBadges,
+      setEarnedBadges,
+    ],
   );
 
   const [renderCargoHold, setRenderCargoHold] = useState(false);
@@ -104,6 +127,12 @@ function App() {
   }, [renderChainCodeValue]);
 
   const [renderScanner, setRenderScanner] = useState(false);
+  const [scanResultForPuzzle, setScanResultForPuzzle] = useState<
+    string | undefined
+  >(undefined);
+
+  const [renderPuzzle, setRenderPuzzle] = useState(false);
+  const [puzzleSolved, setPuzzleSolved] = useState(false);
 
   //use the url with ?cargo to load test data into the app
   if (urlParams.has("cargo")) {
@@ -163,12 +192,22 @@ function App() {
     //window.location.reload();
   }
 
+  useEffect(() => {
+    if (puzzleSolved && scanResultForPuzzle !== undefined) {
+      setPuzzleSolved(false);
+      setRenderPuzzle(false);
+      crateDecoder.setResult(scanResultForPuzzle, badgeDecoder);
+      setScanResultForPuzzle(undefined);
+    }
+  }, [puzzleSolved, scanResultForPuzzle, crateDecoder, badgeDecoder]);
+
   const onNewScanResult = (
     decodedText: string,
     decodedResult: Html5QrcodeResult,
   ) => {
     console.log(`Scan result ${decodedText}`, decodedResult);
     setRenderScanner(false);
+    setScanResultForPuzzle(decodedText);
 
     if (badgeDecoder.isValidBadgeCode(decodedText)) {
       badgeDecoder.add(decodedText);
@@ -186,21 +225,7 @@ function App() {
           crateDecoder.setResult(decodedText, badgeDecoder);
         }
       } else {
-        /*
-          //start puzzle and wait for success
-          puzzle.style.display = "block";
-          waitToSolvePuzzle().then(
-            function () {
-              console.log("PUZZLE SUCCESS");
-              crateDecoder.setResult(decodedText, badgeDecoder);
-              puzzle.style.display = "none";
-            },
-            function () {
-              console.log("PUZZLE FAILURE");
-            },
-          );
-          */
-        crateDecoder.setResult(decodedText, badgeDecoder);
+        setRenderPuzzle(true);
       }
     }
   };
@@ -304,6 +329,7 @@ function App() {
           render={renderCrewMembers}
           crewMembers={crewMembers.crew}
         />
+        <Puzzle renderPuzzle={renderPuzzle} setPuzzleSolved={setPuzzleSolved} />
         <Button type="primary" onClick={() => homeButton()}>
           Home
         </Button>
