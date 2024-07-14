@@ -13,24 +13,25 @@ In this library, several changes have been applied over the original port:
 
 ## AARC Scanner
 
+### Test scanning of crates
+
 See [https://josephrkramer.github.io/batuu-scanner2/](https://josephrkramer.github.io/batuu-scanner2/)
+
+The following image can be used to test the scanning of crates.
+
 ![Single Image of all Barcodes](single_image_of_all_barcodes.png "Single Image of all Barcodes")
+
+### Data Management
+
+#### New events and full reset
+
+Use the dropdown in the upper right to reset the data back to proper states.
+
+![Reset Dropdown Screenshot](reset-screenshot.png "Reset Dropdown Screenshot")
 
 ### Pre-populate with cargo
 
 See [https://josephrkramer.github.io/batuu-scanner2/?cargo](https://josephrkramer.github.io/batuu-scanner2/?cargo)
-
-### Empty the cargo bay
-
-See [https://josephrkramer.github.io/batuu-scanner2/?reset](https://josephrkramer.github.io/batuu-scanner2/?reset)
-
-### Play the mini-game puzzle
-
-See [https://josephrkramer.github.io/batuu-scanner2/?puzzle](https://josephrkramer.github.io/batuu-scanner2/?puzzle)
-
-### Debug mode for no puzzle and extra scan code display
-
-See [https://josephrkramer.github.io/batuu-scanner2/?debug](https://josephrkramer.github.io/batuu-scanner2/?debug)
 
 ### Grant all badges
 

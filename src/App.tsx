@@ -30,6 +30,7 @@ import ChainCodeValue from "./components/ChainCodeValue";
 import CrewManifestDisplay from "./components/CrewManifestDisplay";
 import MultipeChoiceCrate from "./components/MultipeChoiceCrate";
 import Puzzle from "./components/Puzzle";
+import AdvancedDropdown from "./components/AdvancedDropdown";
 
 function App() {
   //read parameters from the url
@@ -181,21 +182,6 @@ function App() {
     deleteUrlParam("allbadges");
   }
 
-  if (urlParams.has("reset")) {
-    //strip ?reset from the url so we don't get in a refresh loop
-    deleteUrlParam("reset");
-
-    //Try the individual stuff afterwards
-    crateDecoder.reset();
-
-    localStorage.clear();
-    chainCodeDecoder.reset();
-    badgeDecoder.reset();
-
-    //force a reload of the page that will refresh the cache. Equivalent of Ctl+F5
-    //window.location.reload();
-  }
-
   useEffect(() => {
     if (puzzleSolved && scanResultForPuzzle !== undefined) {
       setPuzzleSolved(false);
@@ -302,6 +288,14 @@ function App() {
         },
       }}
     >
+      <Flex justify="flex-end">
+        <AdvancedDropdown
+          chainCodeDecoder={chainCodeDecoder}
+          badgeDecoder={badgeDecoder}
+          crateDecoder={crateDecoder}
+        />
+      </Flex>
+
       <Flex vertical>
         {renderLogo ? <Logo /> : null}
         <Crate crate={crateToDisplay} />
