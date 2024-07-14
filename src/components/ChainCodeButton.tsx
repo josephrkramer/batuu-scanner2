@@ -12,6 +12,7 @@ function ChainCodeButton({
     return (
       <Button
         type="primary"
+        size="large"
         onClick={() => {
           setRenderChainCodeValue(true);
         }}
