@@ -328,22 +328,28 @@ function App() {
           crewMembers={crewMembers.crew}
         />
         <Puzzle renderPuzzle={renderPuzzle} setPuzzleSolved={setPuzzleSolved} />
-        <Button type="primary" onClick={() => homeButton()}>
-          Home
-        </Button>
-        <Button type="primary" onClick={() => scanButton()}>
-          Scan
-        </Button>
-        <Button type="primary" onClick={() => cargoHoldButton()}>
-          Cargo Hold
-        </Button>
-        <Button type="primary" onClick={() => crewMemberButton()}>
-          Dossiers
-        </Button>
-        <ChainCodeButton
-          chainCode={chainCode}
-          setRenderChainCodeValue={setRenderChainCodeValue}
-        />
+        <Flex vertical gap="small">
+          <Button type="primary" size="large" onClick={() => homeButton()}>
+            Home
+          </Button>
+          <Button type="primary" size="large" onClick={() => scanButton()}>
+            Scan
+          </Button>
+          <Button type="primary" size="large" onClick={() => cargoHoldButton()}>
+            Cargo Hold
+          </Button>
+          <Button
+            type="primary"
+            size="large"
+            onClick={() => crewMemberButton()}
+          >
+            Dossiers
+          </Button>
+          <ChainCodeButton
+            chainCode={chainCode}
+            setRenderChainCodeValue={setRenderChainCodeValue}
+          />
+        </Flex>
       </Flex>
     </ConfigProvider>
   );
