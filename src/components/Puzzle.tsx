@@ -1,4 +1,4 @@
-import ReactGodot from "../../react-godot";
+import ReactGodot from "../../public/react-godot";
 
 function Puzzle({
   renderPuzzle,
