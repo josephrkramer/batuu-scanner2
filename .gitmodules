@@ -1,0 +1,6 @@
+[submodule "react-godot"]
+	path = react-godot
+	url = https://github.com/ezwang/react-godot.git
+[submodule "coolant-stabilizer"]
+	path = coolant-stabilizer
+	url = https://github.com/esburch/coolant-stabilizer.git

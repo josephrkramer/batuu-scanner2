@@ -1,32 +1,21 @@
-import { Button, Card } from "antd";
-
-function runThePuzzle(
-  setPuzzleSolved: React.Dispatch<React.SetStateAction<boolean>>,
-) {
-  //TODO: add puzzle here
-  /*
-    setPuzzleSolved will activate the React useState hook to
-    syncronize the state across the app and cause the correct
-    next steps to happen
-    */
-  setPuzzleSolved(true);
-}
+import ReactGodot from "../../react-godot";
 
 function Puzzle({
   renderPuzzle,
-  setPuzzleSolved,
+  //setPuzzleSolved,
 }: Readonly<{
   renderPuzzle: boolean;
-  setPuzzleSolved: React.Dispatch<React.SetStateAction<boolean>>;
+  //setPuzzleSolved: React.Dispatch<React.SetStateAction<boolean>>;
 }>) {
   if (renderPuzzle) {
-    //TODO: add the display elements here
     return (
-      <Card>
-        <Button onClick={() => runThePuzzle(setPuzzleSolved)}>
-          Solve the puzzle
-        </Button>
-      </Card>
+      <ReactGodot
+        script="coolant-stabilizer/index.js"
+        pck="coolant-stabilizer/index.pck"
+        wasm="coolant-stabilizer/index.wasm"
+        width={window.innerWidth}
+        height={window.innerHeight}
+      />
     );
   } else {
     return null;

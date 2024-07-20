@@ -2,5 +2,8 @@
   "sonarlint.connectedMode.project": {
     "connectionId": "josephrkramer",
     "projectKey": "josephrkramer_batuu-scanner2"
-  }
+  },
+  "githubPullRequests.ignoredPullRequestBranches": [
+    "master"
+  ]
 }
