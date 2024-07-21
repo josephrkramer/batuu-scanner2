@@ -566,14 +566,12 @@ export class BadgeDecoder {
       }
       console.log("ADDING CHARACTER AARC");
       this.add(BadgeCode.Character_AARC);
-    } else {
-      if (
-        this.earnedBadges.has(BadgeCode.Character_AARC) &&
-        this.earnedBadges.get(BadgeCode.Character_AARC)?.date === this.today()
-      ) {
-        console.log("REMOVING CHARACTER AARC");
-        this.remove(BadgeCode.Character_AARC);
-      }
+    } else if (
+      this.earnedBadges.has(BadgeCode.Character_AARC) &&
+      this.earnedBadges.get(BadgeCode.Character_AARC)?.date === this.today()
+    ) {
+      console.log("REMOVING CHARACTER AARC");
+      this.remove(BadgeCode.Character_AARC);
     }
   }
 
@@ -586,16 +584,12 @@ export class BadgeDecoder {
     ) {
       console.log("ADDING WE HAVE COOKIES");
       this.add(BadgeCode.We_Have_Cookies);
-    } else {
-      console.log(this.earnedBadges.get(BadgeCode.We_Have_Cookies)?.date);
-      console.log(this.today());
-      if (
-        //this.earnedBadges.has(BadgeCode.We_Have_Cookies) &&
-        this.earnedBadges.get(BadgeCode.We_Have_Cookies)?.date === this.today()
-      ) {
-        console.log("REMOVING WE HAVE COOKIES");
-        this.remove(BadgeCode.We_Have_Cookies);
-      }
+    } else if (
+      this.earnedBadges.has(BadgeCode.We_Have_Cookies) &&
+      this.earnedBadges.get(BadgeCode.We_Have_Cookies)?.date === this.today()
+    ) {
+      console.log("REMOVING WE HAVE COOKIES");
+      this.remove(BadgeCode.We_Have_Cookies);
     }
   }
 
@@ -608,16 +602,12 @@ export class BadgeDecoder {
     ) {
       console.log("ADDING RESISTANCE HERO");
       this.add(BadgeCode.Resistance_Hero);
-    } else {
-      console.log(this.earnedBadges.get(BadgeCode.Resistance_Hero)?.date);
-      console.log(this.today());
-      if (
-        //this.earnedBadges.has(BadgeCode.Resistance_Hero) &&
-        this.earnedBadges.get(BadgeCode.Resistance_Hero)?.date === this.today()
-      ) {
-        console.log("REMOVING RESISTANCE HERO");
-        this.remove(BadgeCode.Resistance_Hero);
-      }
+    } else if (
+      this.earnedBadges.has(BadgeCode.Resistance_Hero) &&
+      this.earnedBadges.get(BadgeCode.Resistance_Hero)?.date === this.today()
+    ) {
+      console.log("REMOVING RESISTANCE HERO");
+      this.remove(BadgeCode.Resistance_Hero);
     }
   }
 
