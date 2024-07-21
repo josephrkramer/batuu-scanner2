@@ -44,3 +44,22 @@ Many of these badges are mutually exclusive in a single event. This feature is t
 To be used for testing and copy review.
 
 See [https://josephrkramer.github.io/batuu-scanner2/?everything](https://josephrkramer.github.io/batuu-scanner2/?everything)
+
+## Development
+
+Be sure to load the submodules after cloning the repo.
+
+```
+git submodule init
+git submodule update
+```
+
+To update new versions of the puzzle, pull the new code and commit the changes.
+
+```
+cd public/coolant-stabilizer
+git pull
+cd ../..
+git add .
+git commit
+```
