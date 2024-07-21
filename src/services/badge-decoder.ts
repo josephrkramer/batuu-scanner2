@@ -430,48 +430,61 @@ export class BadgeDecoder {
   }
 
   checkForCrateRelatedBadges(crateCode: string, crateDecoder: CrateDecoder) {
-    //Relic Hunter - all Relic "overridden" crates
-    function isLastRelicCrate(crateCode: string, crateDecoder: CrateDecoder) {
-      //hasn't been scanned previously
-      return (
-        !crateDecoder.hasCrate(crateCode) &&
-        //is of type Relic
-        crateDecoder.decode(crateCode).type === CrateType.Relic &&
-        //The player has scanned all other Relics
-        crateDecoder.getTotalNumberOfType(CrateType.Relic) - 1 ===
-          crateDecoder.getScannedNumberOfType(CrateType.Relic)
-      );
-    }
-    console.log(`Checking for ${CrateType.Relic} badge`);
+    this.relicHunter(crateCode, crateDecoder);
+    this.amnesiac(crateDecoder, crateCode);
+    this.bounty(crateCode);
+    this.jawa(crateDecoder);
+    this.iShotFirst(crateDecoder, crateCode);
+    this.theBestTeacher(crateDecoder);
+    this.relicEnthusiast(crateDecoder);
+    this.relicArchivist(crateDecoder);
+    this.firstStep(crateCode, crateDecoder);
+  }
+
+  private firstStep(crateCode: string, crateDecoder: CrateDecoder) {
+    //First Step - Scan at least one crate
     if (
-      !this.earnedBadges.has(BadgeCode.Relic_Hunter) &&
-      isLastRelicCrate(crateCode, crateDecoder)
+      !this.earnedBadges.has(BadgeCode.First_Step) &&
+      crateCode != undefined &&
+      crateDecoder != undefined
     ) {
-      this.add(BadgeCode.Relic_Hunter);
+      this.add(BadgeCode.First_Step);
     }
+  }
 
-    //Amnesiac - Scan the same crate again
+  private relicArchivist(crateDecoder: CrateDecoder) {
+    //Relic Archivist - Collect 10+ Relics
     if (
-      !this.earnedBadges.has(BadgeCode.Amnesiac) &&
-      crateDecoder.hasCrate(crateCode)
+      !this.earnedBadges.has(BadgeCode.Relic_Archivist) &&
+      crateDecoder.getScannedNumberOfType(CrateType.Relic) >= 10
     ) {
-      this.add(BadgeCode.Amnesiac);
+      this.add(BadgeCode.Relic_Archivist);
     }
+  }
 
-    //Bounty - animal crates "GI_QR", "KL_QR", or "FAL26"
-    const bountySet = new Set(["GI_QR", "KL_QR", "FAL26"]);
-    if (!this.earnedBadges.has(BadgeCode.Bounty) && bountySet.has(crateCode)) {
-      this.add(BadgeCode.Bounty);
-    }
-
-    //Jawa - Scan 20+ crates
+  private relicEnthusiast(crateDecoder: CrateDecoder) {
+    //Relic Enthusiast - Collect 5+ Relics
     if (
-      !this.earnedBadges.has(BadgeCode.Jawa) &&
-      crateDecoder.scannedCrates.size >= 20
+      !this.earnedBadges.has(BadgeCode.Relic_Enthusiast) &&
+      crateDecoder.getScannedNumberOfType(CrateType.Relic) >= 5
     ) {
-      this.add(BadgeCode.Jawa);
+      this.add(BadgeCode.Relic_Enthusiast);
     }
+  }
 
+  private theBestTeacher(crateDecoder: CrateDecoder) {
+    //The Best Teacher - 20+ non-event crates
+    if (
+      !this.earnedBadges.has(BadgeCode.The_Best_Teacher) &&
+      crateDecoder.scannedCrates.size -
+        crateDecoder.getScannedNumberOfType(CrateType.Relic) >=
+        20
+    ) {
+      this.add(BadgeCode.The_Best_Teacher);
+    }
+  }
+
+  private iShotFirst(crateDecoder: CrateDecoder, crateCode: string) {
     //I Shot First - Scan more than one weapon
     if (
       !this.earnedBadges.has(BadgeCode.I_Shot_First) &&
@@ -482,40 +495,56 @@ export class BadgeDecoder {
     ) {
       this.add(BadgeCode.I_Shot_First);
     }
+  }
 
-    //The Best Teacher - 20+ non-event crates
+  private jawa(crateDecoder: CrateDecoder) {
+    //Jawa - Scan 20+ crates
     if (
-      !this.earnedBadges.has(BadgeCode.The_Best_Teacher) &&
-      crateDecoder.scannedCrates.size -
-        crateDecoder.getScannedNumberOfType(CrateType.Relic) >=
-        20
+      !this.earnedBadges.has(BadgeCode.Jawa) &&
+      crateDecoder.scannedCrates.size >= 20
     ) {
-      this.add(BadgeCode.The_Best_Teacher);
+      this.add(BadgeCode.Jawa);
     }
+  }
 
-    //Relic Enthusiast - Collect 5+ Relics
-    if (
-      !this.earnedBadges.has(BadgeCode.Relic_Enthusiast) &&
-      crateDecoder.getScannedNumberOfType(CrateType.Relic) >= 5
-    ) {
-      this.add(BadgeCode.Relic_Enthusiast);
+  private bounty(crateCode: string) {
+    //Bounty - animal crates "GI_QR", "KL_QR", or "FAL26"
+    const bountySet = new Set(["GI_QR", "KL_QR", "FAL26"]);
+    if (!this.earnedBadges.has(BadgeCode.Bounty) && bountySet.has(crateCode)) {
+      this.add(BadgeCode.Bounty);
     }
+  }
 
-    //Relic Archivist - Collect 10+ Relics
+  private amnesiac(crateDecoder: CrateDecoder, crateCode: string) {
+    //Amnesiac - Scan the same crate again
     if (
-      !this.earnedBadges.has(BadgeCode.Relic_Archivist) &&
-      crateDecoder.getScannedNumberOfType(CrateType.Relic) >= 10
+      !this.earnedBadges.has(BadgeCode.Amnesiac) &&
+      crateDecoder.hasCrate(crateCode)
     ) {
-      this.add(BadgeCode.Relic_Archivist);
+      this.add(BadgeCode.Amnesiac);
     }
+  }
 
-    //First Step - Scan at least one crate
+  private isLastRelicCrate(crateCode: string, crateDecoder: CrateDecoder) {
+    //hasn't been scanned previously
+    return (
+      !crateDecoder.hasCrate(crateCode) &&
+      //is of type Relic
+      crateDecoder.decode(crateCode).type === CrateType.Relic &&
+      //The player has scanned all other Relics
+      crateDecoder.getTotalNumberOfType(CrateType.Relic) - 1 ===
+        crateDecoder.getScannedNumberOfType(CrateType.Relic)
+    );
+  }
+
+  private relicHunter(crateCode: string, crateDecoder: CrateDecoder) {
+    //Relic Hunter - all Relic "overridden" crates
+    console.log(`Checking for ${CrateType.Relic} badge`);
     if (
-      !this.earnedBadges.has(BadgeCode.First_Step) &&
-      crateCode != undefined &&
-      crateDecoder != undefined
+      !this.earnedBadges.has(BadgeCode.Relic_Hunter) &&
+      this.isLastRelicCrate(crateCode, crateDecoder)
     ) {
-      this.add(BadgeCode.First_Step);
+      this.add(BadgeCode.Relic_Hunter);
     }
   }
 
