@@ -338,9 +338,6 @@ export class BadgeDecoder {
       }
     }
 
-    //TODO is the the loading loop problem?
-    //setEarnedBadges(earnedBadges);
-    //load new local storage badges into the url params
     const urlBadges = new Set(urlParams.getAll("b"));
     const urlBadgesMap = new Map<string, EarnedBadge>();
     for (const badgeParam of urlBadges) {
