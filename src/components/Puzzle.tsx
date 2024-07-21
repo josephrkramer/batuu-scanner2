@@ -2,10 +2,10 @@ import ReactGodot from "../../public/react-godot";
 
 function Puzzle({
   renderPuzzle,
-  //setPuzzleSolved,
+  setPuzzleSolved,
 }: Readonly<{
   renderPuzzle: boolean;
-  //setPuzzleSolved: React.Dispatch<React.SetStateAction<boolean>>;
+  setPuzzleSolved: React.Dispatch<React.SetStateAction<boolean>>;
 }>) {
   if (renderPuzzle) {
     return (
@@ -15,6 +15,9 @@ function Puzzle({
         wasm="coolant-stabilizer/index.wasm"
         width={window.innerWidth}
         height={window.innerHeight}
+        onExitFunc={() => {
+          setPuzzleSolved(true);
+        }}
       />
     );
   } else {

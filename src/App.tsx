@@ -327,10 +327,7 @@ function App() {
           render={renderCrewMembers}
           crewMembers={crewMembers.crew}
         />
-        <Puzzle
-          renderPuzzle={renderPuzzle}
-          //setPuzzleSolved={setPuzzleSolved}
-        />
+        <Puzzle renderPuzzle={renderPuzzle} setPuzzleSolved={setPuzzleSolved} />
         <Flex vertical gap="small">
           <Button type="primary" size="large" onClick={() => homeButton()}>
             Home
