@@ -137,26 +137,36 @@ export class CrateDecoder {
     if (this.contents.has(code)) {
       const crate = this.contents.get(code)!;
       if (crate.image === undefined || crate.image == "") {
-        if (crate.type == CrateType.Halcyon_Cargo) {
-          crate.image = "./halcyon_cargo.jpeg";
-        } else if (crate.type == CrateType.Outfit) {
-          crate.image = "./outfit.jpeg";
-        } else if (crate.type == CrateType.Empty) {
-          crate.image = "./empty.jpeg";
-        } else if (crate.type == CrateType.Weapon) {
-          crate.image = "./weapon.jpeg";
-        } else if (crate.type == CrateType.Cargo) {
-          crate.image = "./cargo.jpeg";
-        } else if (crate.type == CrateType.Parts_and_Scraps) {
-          crate.image = "./parts_and_scraps.jpeg";
-        } else if (crate.type == CrateType.Program) {
-          crate.image = "./program.jpeg";
-        } else if (crate.type == CrateType.Vehicle) {
-          crate.image = "./vehicle.jpeg";
-        } else if (crate.type == CrateType.Ports_Of_Call) {
-          crate.image = "./ports_of_call.jpeg";
-        } else {
-          crate.image = "./aarc.jpg";
+        switch (crate.type) {
+          case CrateType.Halcyon_Cargo:
+            crate.image = "./halcyon_cargo.jpeg";
+            break;
+          case CrateType.Outfit:
+            crate.image = "./outfit.jpeg";
+            break;
+          case CrateType.Empty:
+            crate.image = "./empty.jpeg";
+            break;
+          case CrateType.Weapon:
+            crate.image = "./weapon.jpeg";
+            break;
+          case CrateType.Cargo:
+            crate.image = "./cargo.jpeg";
+            break;
+          case CrateType.Parts_and_Scraps:
+            crate.image = "./parts_and_scraps.jpeg";
+            break;
+          case CrateType.Program:
+            crate.image = "./program.jpeg";
+            break;
+          case CrateType.Vehicle:
+            crate.image = "./vehicle.jpeg";
+            break;
+          case CrateType.Ports_Of_Call:
+            crate.image = "./ports_of_call.jpeg";
+            break;
+          default:
+            crate.image = "./aarc.jpg";
         }
       }
 

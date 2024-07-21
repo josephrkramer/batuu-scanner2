@@ -63,7 +63,11 @@ const Html5QrcodePlugin = (props: {
   // when component mounts
   useEffect(() => {
     // when component mounts
-    const config = createConfig(props);
+    const config = createConfig({
+      fps: props.fps,
+      aspectRatio: props.aspectRatio,
+      disableFlip: props.disableFlip,
+    });
     const verbose = props.verbose === true;
     const html5QrcodeScanner = new Html5QrcodeScanner(
       qrcodeRegionId,
@@ -72,7 +76,7 @@ const Html5QrcodePlugin = (props: {
     );
     // Suceess callback is required.
     if (!props.qrCodeSuccessCallback) {
-      throw "qrCodeSuccessCallback is required callback.";
+      throw new Error("qrCodeSuccessCallback is required callback.");
     }
 
     html5QrcodeScanner.render(

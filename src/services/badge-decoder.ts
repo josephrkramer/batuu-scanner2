@@ -338,9 +338,6 @@ export class BadgeDecoder {
       }
     }
 
-    //TODO is the the loading loop problem?
-    //setEarnedBadges(earnedBadges);
-    //load new local storage badges into the url params
     const urlBadges = new Set(urlParams.getAll("b"));
     const urlBadgesMap = new Map<string, EarnedBadge>();
     for (const badgeParam of urlBadges) {
@@ -360,7 +357,6 @@ export class BadgeDecoder {
   }
 
   decode(code: string): Badge {
-    console.log(`Decoding ${code}`);
     if (this.codeToBadge.has(code)) {
       //Cloning the badge so we can overwrite the image value without altering the original
       const cloneBadge = structuredClone(this.codeToBadge.get(code))!;
@@ -430,85 +426,18 @@ export class BadgeDecoder {
   }
 
   checkForCrateRelatedBadges(crateCode: string, crateDecoder: CrateDecoder) {
-    //Relic Hunter - all Relic "overridden" crates
-    function isLastRelicCrate(crateCode: string, crateDecoder: CrateDecoder) {
-      //hasn't been scanned previously
-      return (
-        !crateDecoder.hasCrate(crateCode) &&
-        //is of type Relic
-        crateDecoder.decode(crateCode).type === CrateType.Relic &&
-        //The player has scanned all other Relics
-        crateDecoder.getTotalNumberOfType(CrateType.Relic) - 1 ===
-          crateDecoder.getScannedNumberOfType(CrateType.Relic)
-      );
-    }
-    console.log(`Checking for ${CrateType.Relic} badge`);
-    if (
-      !this.earnedBadges.has(BadgeCode.Relic_Hunter) &&
-      isLastRelicCrate(crateCode, crateDecoder)
-    ) {
-      this.add(BadgeCode.Relic_Hunter);
-    }
+    this.relicHunter(crateCode, crateDecoder);
+    this.amnesiac(crateDecoder, crateCode);
+    this.bounty(crateCode);
+    this.jawa(crateDecoder);
+    this.iShotFirst(crateDecoder, crateCode);
+    this.theBestTeacher(crateDecoder);
+    this.relicEnthusiast(crateDecoder);
+    this.relicArchivist(crateDecoder);
+    this.firstStep(crateCode, crateDecoder);
+  }
 
-    //Amnesiac - Scan the same crate again
-    if (
-      !this.earnedBadges.has(BadgeCode.Amnesiac) &&
-      crateDecoder.hasCrate(crateCode)
-    ) {
-      this.add(BadgeCode.Amnesiac);
-    }
-
-    //Bounty - animal crates "GI_QR", "KL_QR", or "FAL26"
-    const bountySet = new Set(["GI_QR", "KL_QR", "FAL26"]);
-    if (!this.earnedBadges.has(BadgeCode.Bounty) && bountySet.has(crateCode)) {
-      this.add(BadgeCode.Bounty);
-    }
-
-    //Jawa - Scan 20+ crates
-    if (
-      !this.earnedBadges.has(BadgeCode.Jawa) &&
-      crateDecoder.scannedCrates.size >= 20
-    ) {
-      this.add(BadgeCode.Jawa);
-    }
-
-    //I Shot First - Scan more than one weapon
-    if (
-      !this.earnedBadges.has(BadgeCode.I_Shot_First) &&
-      //current scann is a weapon
-      crateDecoder.decode(crateCode).type === CrateType.Weapon &&
-      //at least 1 past weapon scan
-      crateDecoder.getScannedNumberOfType(CrateType.Weapon) >= 1
-    ) {
-      this.add(BadgeCode.I_Shot_First);
-    }
-
-    //The Best Teacher - 20+ non-event crates
-    if (
-      !this.earnedBadges.has(BadgeCode.The_Best_Teacher) &&
-      crateDecoder.scannedCrates.size -
-        crateDecoder.getScannedNumberOfType(CrateType.Relic) >=
-        20
-    ) {
-      this.add(BadgeCode.The_Best_Teacher);
-    }
-
-    //Relic Enthusiast - Collect 5+ Relics
-    if (
-      !this.earnedBadges.has(BadgeCode.Relic_Enthusiast) &&
-      crateDecoder.getScannedNumberOfType(CrateType.Relic) >= 5
-    ) {
-      this.add(BadgeCode.Relic_Enthusiast);
-    }
-
-    //Relic Archivist - Collect 10+ Relics
-    if (
-      !this.earnedBadges.has(BadgeCode.Relic_Archivist) &&
-      crateDecoder.getScannedNumberOfType(CrateType.Relic) >= 10
-    ) {
-      this.add(BadgeCode.Relic_Archivist);
-    }
-
+  private firstStep(crateCode: string, crateDecoder: CrateDecoder) {
     //First Step - Scan at least one crate
     if (
       !this.earnedBadges.has(BadgeCode.First_Step) &&
@@ -519,55 +448,109 @@ export class BadgeDecoder {
     }
   }
 
+  private relicArchivist(crateDecoder: CrateDecoder) {
+    //Relic Archivist - Collect 10+ Relics
+    if (
+      !this.earnedBadges.has(BadgeCode.Relic_Archivist) &&
+      crateDecoder.getScannedNumberOfType(CrateType.Relic) >= 10
+    ) {
+      this.add(BadgeCode.Relic_Archivist);
+    }
+  }
+
+  private relicEnthusiast(crateDecoder: CrateDecoder) {
+    //Relic Enthusiast - Collect 5+ Relics
+    if (
+      !this.earnedBadges.has(BadgeCode.Relic_Enthusiast) &&
+      crateDecoder.getScannedNumberOfType(CrateType.Relic) >= 5
+    ) {
+      this.add(BadgeCode.Relic_Enthusiast);
+    }
+  }
+
+  private theBestTeacher(crateDecoder: CrateDecoder) {
+    //The Best Teacher - 20+ non-event crates
+    if (
+      !this.earnedBadges.has(BadgeCode.The_Best_Teacher) &&
+      crateDecoder.scannedCrates.size -
+        crateDecoder.getScannedNumberOfType(CrateType.Relic) >=
+        20
+    ) {
+      this.add(BadgeCode.The_Best_Teacher);
+    }
+  }
+
+  private iShotFirst(crateDecoder: CrateDecoder, crateCode: string) {
+    //I Shot First - Scan more than one weapon
+    if (
+      !this.earnedBadges.has(BadgeCode.I_Shot_First) &&
+      //current scann is a weapon
+      crateDecoder.decode(crateCode).type === CrateType.Weapon &&
+      //at least 1 past weapon scan
+      crateDecoder.getScannedNumberOfType(CrateType.Weapon) >= 1
+    ) {
+      this.add(BadgeCode.I_Shot_First);
+    }
+  }
+
+  private jawa(crateDecoder: CrateDecoder) {
+    //Jawa - Scan 20+ crates
+    if (
+      !this.earnedBadges.has(BadgeCode.Jawa) &&
+      crateDecoder.scannedCrates.size >= 20
+    ) {
+      this.add(BadgeCode.Jawa);
+    }
+  }
+
+  private bounty(crateCode: string) {
+    //Bounty - animal crates "GI_QR", "KL_QR", or "FAL26"
+    const bountySet = new Set(["GI_QR", "KL_QR", "FAL26"]);
+    if (!this.earnedBadges.has(BadgeCode.Bounty) && bountySet.has(crateCode)) {
+      this.add(BadgeCode.Bounty);
+    }
+  }
+
+  private amnesiac(crateDecoder: CrateDecoder, crateCode: string) {
+    //Amnesiac - Scan the same crate again
+    if (
+      !this.earnedBadges.has(BadgeCode.Amnesiac) &&
+      crateDecoder.hasCrate(crateCode)
+    ) {
+      this.add(BadgeCode.Amnesiac);
+    }
+  }
+
+  private isLastRelicCrate(crateCode: string, crateDecoder: CrateDecoder) {
+    //hasn't been scanned previously
+    return (
+      !crateDecoder.hasCrate(crateCode) &&
+      //is of type Relic
+      crateDecoder.decode(crateCode).type === CrateType.Relic &&
+      //The player has scanned all other Relics
+      crateDecoder.getTotalNumberOfType(CrateType.Relic) - 1 ===
+        crateDecoder.getScannedNumberOfType(CrateType.Relic)
+    );
+  }
+
+  private relicHunter(crateCode: string, crateDecoder: CrateDecoder) {
+    //Relic Hunter - all Relic "overridden" crates
+    if (
+      !this.earnedBadges.has(BadgeCode.Relic_Hunter) &&
+      this.isLastRelicCrate(crateCode, crateDecoder)
+    ) {
+      this.add(BadgeCode.Relic_Hunter);
+    }
+  }
+
   checkForChainCodeRelatedBadges(chainCodeDecoder: ChainCodeDecoder) {
-    //Well Connected - all NPCs visited
-    if (
-      !this.earnedBadges.has(BadgeCode.Well_Connected) &&
-      chainCodeDecoder.chainCodeLength() >= MAX_CHAIN_CODE_SIZE
-    ) {
-      this.add(BadgeCode.Well_Connected);
-    }
+    this.wellConnected(chainCodeDecoder);
+    this.resistanceHero(chainCodeDecoder);
+    this.weHaveCookies(chainCodeDecoder);
+    this.characterAarc(chainCodeDecoder);
+  }
 
-    //Resistance Hero - only light side codes
-    if (
-      !this.earnedBadges.has(BadgeCode.Resistance_Hero) &&
-      chainCodeDecoder.chainCodeLength() >= MIN_CHAIN_CODE_SIZE &&
-      chainCodeDecoder.rawValue() === chainCodeDecoder.chainCodeLength()
-    ) {
-      console.log("ADDING RESISTANCE HERO");
-      this.add(BadgeCode.Resistance_Hero);
-    } else {
-      console.log(this.earnedBadges.get(BadgeCode.Resistance_Hero)?.date);
-      console.log(this.today());
-      if (
-        //this.earnedBadges.has(BadgeCode.Resistance_Hero) &&
-        this.earnedBadges.get(BadgeCode.Resistance_Hero)?.date === this.today()
-      ) {
-        console.log("REMOVING RESISTANCE HERO");
-        this.remove(BadgeCode.Resistance_Hero);
-      }
-    }
-
-    //We Have Cookies - only dark side codes
-    if (
-      !this.earnedBadges.has(BadgeCode.We_Have_Cookies) &&
-      chainCodeDecoder.chainCodeLength() >= MIN_CHAIN_CODE_SIZE &&
-      chainCodeDecoder.rawValue() * -1 === chainCodeDecoder.chainCodeLength()
-    ) {
-      console.log("ADDING WE HAVE COOKIES");
-      this.add(BadgeCode.We_Have_Cookies);
-    } else {
-      console.log(this.earnedBadges.get(BadgeCode.We_Have_Cookies)?.date);
-      console.log(this.today());
-      if (
-        //this.earnedBadges.has(BadgeCode.We_Have_Cookies) &&
-        this.earnedBadges.get(BadgeCode.We_Have_Cookies)?.date === this.today()
-      ) {
-        console.log("REMOVING WE HAVE COOKIES");
-        this.remove(BadgeCode.We_Have_Cookies);
-      }
-    }
-
+  private characterAarc(chainCodeDecoder: ChainCodeDecoder) {
     //Character AARC - make both light and dark side choices
     if (
       !this.earnedBadges.has(BadgeCode.Character_AARC) &&
@@ -583,23 +566,62 @@ export class BadgeDecoder {
       }
       console.log("ADDING CHARACTER AARC");
       this.add(BadgeCode.Character_AARC);
-    } else {
-      if (
-        this.earnedBadges.has(BadgeCode.Character_AARC) &&
-        this.earnedBadges.get(BadgeCode.Character_AARC)?.date === this.today()
-      ) {
-        console.log("REMOVING CHARACTER AARC");
-        this.remove(BadgeCode.Character_AARC);
-      }
+    } else if (
+      this.earnedBadges.has(BadgeCode.Character_AARC) &&
+      this.earnedBadges.get(BadgeCode.Character_AARC)?.date === this.today()
+    ) {
+      console.log("REMOVING CHARACTER AARC");
+      this.remove(BadgeCode.Character_AARC);
+    }
+  }
+
+  private weHaveCookies(chainCodeDecoder: ChainCodeDecoder) {
+    //We Have Cookies - only dark side codes
+    if (
+      !this.earnedBadges.has(BadgeCode.We_Have_Cookies) &&
+      chainCodeDecoder.chainCodeLength() >= MIN_CHAIN_CODE_SIZE &&
+      chainCodeDecoder.rawValue() * -1 === chainCodeDecoder.chainCodeLength()
+    ) {
+      console.log("ADDING WE HAVE COOKIES");
+      this.add(BadgeCode.We_Have_Cookies);
+    } else if (
+      this.earnedBadges.has(BadgeCode.We_Have_Cookies) &&
+      this.earnedBadges.get(BadgeCode.We_Have_Cookies)?.date === this.today()
+    ) {
+      console.log("REMOVING WE HAVE COOKIES");
+      this.remove(BadgeCode.We_Have_Cookies);
+    }
+  }
+
+  private resistanceHero(chainCodeDecoder: ChainCodeDecoder) {
+    //Resistance Hero - only light side codes
+    if (
+      !this.earnedBadges.has(BadgeCode.Resistance_Hero) &&
+      chainCodeDecoder.chainCodeLength() >= MIN_CHAIN_CODE_SIZE &&
+      chainCodeDecoder.rawValue() === chainCodeDecoder.chainCodeLength()
+    ) {
+      console.log("ADDING RESISTANCE HERO");
+      this.add(BadgeCode.Resistance_Hero);
+    } else if (
+      this.earnedBadges.has(BadgeCode.Resistance_Hero) &&
+      this.earnedBadges.get(BadgeCode.Resistance_Hero)?.date === this.today()
+    ) {
+      console.log("REMOVING RESISTANCE HERO");
+      this.remove(BadgeCode.Resistance_Hero);
+    }
+  }
+
+  private wellConnected(chainCodeDecoder: ChainCodeDecoder) {
+    //Well Connected - all NPCs visited
+    if (
+      !this.earnedBadges.has(BadgeCode.Well_Connected) &&
+      chainCodeDecoder.chainCodeLength() >= MAX_CHAIN_CODE_SIZE
+    ) {
+      this.add(BadgeCode.Well_Connected);
     }
   }
 
   checkForEventRelatedBadges() {
-    /*console.log(
-      `Checking for event related badges: attened ${this.eventsAttended().size} events`,
-    );
-    console.log(this.eventDates);
-    console.log(this.eventsAttended());*/
     //Check for Frequent Flyer
     if (
       !this.earnedBadges.has(BadgeCode.Frequent_Flyer_2) &&
