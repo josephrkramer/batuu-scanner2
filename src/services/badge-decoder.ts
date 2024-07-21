@@ -360,7 +360,6 @@ export class BadgeDecoder {
   }
 
   decode(code: string): Badge {
-    console.log(`Decoding ${code}`);
     if (this.codeToBadge.has(code)) {
       //Cloning the badge so we can overwrite the image value without altering the original
       const cloneBadge = structuredClone(this.codeToBadge.get(code))!;
@@ -539,7 +538,6 @@ export class BadgeDecoder {
 
   private relicHunter(crateCode: string, crateDecoder: CrateDecoder) {
     //Relic Hunter - all Relic "overridden" crates
-    console.log(`Checking for ${CrateType.Relic} badge`);
     if (
       !this.earnedBadges.has(BadgeCode.Relic_Hunter) &&
       this.isLastRelicCrate(crateCode, crateDecoder)
