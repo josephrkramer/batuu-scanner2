@@ -549,54 +549,13 @@ export class BadgeDecoder {
   }
 
   checkForChainCodeRelatedBadges(chainCodeDecoder: ChainCodeDecoder) {
-    //Well Connected - all NPCs visited
-    if (
-      !this.earnedBadges.has(BadgeCode.Well_Connected) &&
-      chainCodeDecoder.chainCodeLength() >= MAX_CHAIN_CODE_SIZE
-    ) {
-      this.add(BadgeCode.Well_Connected);
-    }
+    this.wellConnected(chainCodeDecoder);
+    this.resistanceHero(chainCodeDecoder);
+    this.weHaveCookies(chainCodeDecoder);
+    this.characterAarc(chainCodeDecoder);
+  }
 
-    //Resistance Hero - only light side codes
-    if (
-      !this.earnedBadges.has(BadgeCode.Resistance_Hero) &&
-      chainCodeDecoder.chainCodeLength() >= MIN_CHAIN_CODE_SIZE &&
-      chainCodeDecoder.rawValue() === chainCodeDecoder.chainCodeLength()
-    ) {
-      console.log("ADDING RESISTANCE HERO");
-      this.add(BadgeCode.Resistance_Hero);
-    } else {
-      console.log(this.earnedBadges.get(BadgeCode.Resistance_Hero)?.date);
-      console.log(this.today());
-      if (
-        //this.earnedBadges.has(BadgeCode.Resistance_Hero) &&
-        this.earnedBadges.get(BadgeCode.Resistance_Hero)?.date === this.today()
-      ) {
-        console.log("REMOVING RESISTANCE HERO");
-        this.remove(BadgeCode.Resistance_Hero);
-      }
-    }
-
-    //We Have Cookies - only dark side codes
-    if (
-      !this.earnedBadges.has(BadgeCode.We_Have_Cookies) &&
-      chainCodeDecoder.chainCodeLength() >= MIN_CHAIN_CODE_SIZE &&
-      chainCodeDecoder.rawValue() * -1 === chainCodeDecoder.chainCodeLength()
-    ) {
-      console.log("ADDING WE HAVE COOKIES");
-      this.add(BadgeCode.We_Have_Cookies);
-    } else {
-      console.log(this.earnedBadges.get(BadgeCode.We_Have_Cookies)?.date);
-      console.log(this.today());
-      if (
-        //this.earnedBadges.has(BadgeCode.We_Have_Cookies) &&
-        this.earnedBadges.get(BadgeCode.We_Have_Cookies)?.date === this.today()
-      ) {
-        console.log("REMOVING WE HAVE COOKIES");
-        this.remove(BadgeCode.We_Have_Cookies);
-      }
-    }
-
+  private characterAarc(chainCodeDecoder: ChainCodeDecoder) {
     //Character AARC - make both light and dark side choices
     if (
       !this.earnedBadges.has(BadgeCode.Character_AARC) &&
@@ -620,6 +579,60 @@ export class BadgeDecoder {
         console.log("REMOVING CHARACTER AARC");
         this.remove(BadgeCode.Character_AARC);
       }
+    }
+  }
+
+  private weHaveCookies(chainCodeDecoder: ChainCodeDecoder) {
+    //We Have Cookies - only dark side codes
+    if (
+      !this.earnedBadges.has(BadgeCode.We_Have_Cookies) &&
+      chainCodeDecoder.chainCodeLength() >= MIN_CHAIN_CODE_SIZE &&
+      chainCodeDecoder.rawValue() * -1 === chainCodeDecoder.chainCodeLength()
+    ) {
+      console.log("ADDING WE HAVE COOKIES");
+      this.add(BadgeCode.We_Have_Cookies);
+    } else {
+      console.log(this.earnedBadges.get(BadgeCode.We_Have_Cookies)?.date);
+      console.log(this.today());
+      if (
+        //this.earnedBadges.has(BadgeCode.We_Have_Cookies) &&
+        this.earnedBadges.get(BadgeCode.We_Have_Cookies)?.date === this.today()
+      ) {
+        console.log("REMOVING WE HAVE COOKIES");
+        this.remove(BadgeCode.We_Have_Cookies);
+      }
+    }
+  }
+
+  private resistanceHero(chainCodeDecoder: ChainCodeDecoder) {
+    //Resistance Hero - only light side codes
+    if (
+      !this.earnedBadges.has(BadgeCode.Resistance_Hero) &&
+      chainCodeDecoder.chainCodeLength() >= MIN_CHAIN_CODE_SIZE &&
+      chainCodeDecoder.rawValue() === chainCodeDecoder.chainCodeLength()
+    ) {
+      console.log("ADDING RESISTANCE HERO");
+      this.add(BadgeCode.Resistance_Hero);
+    } else {
+      console.log(this.earnedBadges.get(BadgeCode.Resistance_Hero)?.date);
+      console.log(this.today());
+      if (
+        //this.earnedBadges.has(BadgeCode.Resistance_Hero) &&
+        this.earnedBadges.get(BadgeCode.Resistance_Hero)?.date === this.today()
+      ) {
+        console.log("REMOVING RESISTANCE HERO");
+        this.remove(BadgeCode.Resistance_Hero);
+      }
+    }
+  }
+
+  private wellConnected(chainCodeDecoder: ChainCodeDecoder) {
+    //Well Connected - all NPCs visited
+    if (
+      !this.earnedBadges.has(BadgeCode.Well_Connected) &&
+      chainCodeDecoder.chainCodeLength() >= MAX_CHAIN_CODE_SIZE
+    ) {
+      this.add(BadgeCode.Well_Connected);
     }
   }
 
