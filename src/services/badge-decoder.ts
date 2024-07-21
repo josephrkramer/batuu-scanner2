@@ -622,11 +622,6 @@ export class BadgeDecoder {
   }
 
   checkForEventRelatedBadges() {
-    /*console.log(
-      `Checking for event related badges: attened ${this.eventsAttended().size} events`,
-    );
-    console.log(this.eventDates);
-    console.log(this.eventsAttended());*/
     //Check for Frequent Flyer
     if (
       !this.earnedBadges.has(BadgeCode.Frequent_Flyer_2) &&
