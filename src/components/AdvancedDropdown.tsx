@@ -15,10 +15,16 @@ function AdvancedDropdown({
   chainCodeDecoder,
   badgeDecoder,
   crateDecoder,
+  setRenderPuzzle,
+  setScanResultForPuzzle,
 }: Readonly<{
   chainCodeDecoder: ChainCodeDecoder;
   badgeDecoder: BadgeDecoder;
   crateDecoder: CrateDecoder;
+  setRenderPuzzle: React.Dispatch<React.SetStateAction<boolean>>;
+  setScanResultForPuzzle: React.Dispatch<
+    React.SetStateAction<string | undefined>
+  >;
 }>) {
   const confirmReset: PopconfirmProps["onConfirm"] = (e) => {
     console.log(e);
@@ -70,6 +76,19 @@ function AdvancedDropdown({
         >
           <Button danger>Reset</Button>
         </Popconfirm>
+      ),
+    },
+    {
+      key: "3",
+      label: (
+        <Button
+          onClick={() => {
+            setScanResultForPuzzle("AB_PQ");
+            setRenderPuzzle(true);
+          }}
+        >
+          Puzzle
+        </Button>
       ),
     },
   ];

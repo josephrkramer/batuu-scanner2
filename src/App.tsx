@@ -293,6 +293,8 @@ function App() {
           chainCodeDecoder={chainCodeDecoder}
           badgeDecoder={badgeDecoder}
           crateDecoder={crateDecoder}
+          setRenderPuzzle={setRenderPuzzle}
+          setScanResultForPuzzle={setScanResultForPuzzle}
         />
       </Flex>
 
