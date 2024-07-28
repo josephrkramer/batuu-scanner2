@@ -33,6 +33,7 @@ import Puzzle from "./components/Puzzle";
 import AdvancedDropdown from "./components/AdvancedDropdown";
 import { PasswordProtector } from "./services/password-protector";
 import PasswordCheck from "./components/PasswordCheck";
+import PasswordStatus from "./components/PasswordStatus";
 
 function App() {
   //read parameters from the url
@@ -146,6 +147,9 @@ function App() {
   const [renderPasswordCheck, setRenderPasswordCheck] = useState(false);
   const [postPasswordCheck, setPostPasswordCheck] = useState(false);
   const [passwordToCheck, setPasswordToCheck] = useState<string>("");
+  const [passwordStatus, setPasswordStatus] = useState<boolean | undefined>(
+    undefined,
+  );
 
   //use the url with ?cargo to load test data into the app
   if (urlParams.has("cargo")) {
@@ -271,6 +275,7 @@ function App() {
     setRenderChainCodeValue(false);
     setRenderCrewMembers(false);
     setRenderPasswordCheck(false);
+    setPasswordStatus(undefined);
   }
   function scanButton() {
     setRenderLogo(false);
@@ -282,6 +287,7 @@ function App() {
     setRenderChainCodeValue(false);
     setRenderCrewMembers(false);
     setRenderPasswordCheck(false);
+    setPasswordStatus(undefined);
   }
   function cargoHoldButton() {
     setRenderLogo(false);
@@ -294,6 +300,7 @@ function App() {
     setRenderChainCodeValue(false);
     setRenderCrewMembers(false);
     setRenderPasswordCheck(false);
+    setPasswordStatus(undefined);
   }
   function crewMemberButton() {
     setRenderLogo(false);
@@ -305,6 +312,7 @@ function App() {
     setRenderChainCodeValue(false);
     setRenderCrewMembers(true);
     setRenderPasswordCheck(false);
+    setPasswordStatus(undefined);
   }
   function displayPasswordCheck() {
     setRenderLogo(false);
@@ -316,6 +324,7 @@ function App() {
     setRenderChainCodeValue(false);
     setRenderCrewMembers(false);
     setRenderPasswordCheck(true);
+    setPasswordStatus(undefined);
   }
 
   return (
@@ -345,6 +354,7 @@ function App() {
       </Flex>
 
       <Flex vertical>
+        <PasswordStatus passwordCorrect={passwordStatus} />
         {renderLogo ? <Logo /> : null}
         <Crate crate={crateToDisplay} />
         {renderScanner ? scannerComp : null}
@@ -381,6 +391,8 @@ function App() {
           setRenderPasswordCheck={setRenderPasswordCheck}
           passwordToCheck={passwordToCheck}
           setPostPasswordCheck={setPostPasswordCheck}
+          setScanResultForPuzzle={setScanResultForPuzzle}
+          setPasswordCorrect={setPasswordStatus}
         />
         <Flex vertical gap="small">
           <Button type="primary" size="large" onClick={() => homeButton()}>
