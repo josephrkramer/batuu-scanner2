@@ -31,6 +31,8 @@ import CrewManifestDisplay from "./components/CrewManifestDisplay";
 import MultipeChoiceCrate from "./components/MultipeChoiceCrate";
 import Puzzle from "./components/Puzzle";
 import AdvancedDropdown from "./components/AdvancedDropdown";
+import { PasswordProtector } from "./services/password-protector";
+import PasswordCheck from "./components/PasswordCheck";
 
 function App() {
   //read parameters from the url
@@ -85,10 +87,10 @@ function App() {
     "chainCode",
     new Array<ChainCodePart>(),
   );
-  const chainCodeDecoder = new ChainCodeDecoder(
-    chainCode,
-    setRenderChainCodePiece,
-    setChainCode,
+  const chainCodeDecoder = useMemo(
+    () =>
+      new ChainCodeDecoder(chainCode, setRenderChainCodePiece, setChainCode),
+    [chainCode, setRenderChainCodePiece, setChainCode],
   );
 
   const [renderLogo, setRenderLogo] = useState(true);
@@ -138,6 +140,12 @@ function App() {
 
   const [renderPuzzle, setRenderPuzzle] = useState(false);
   const [puzzleSolved, setPuzzleSolved] = useState(false);
+
+  const passwordProtector = new PasswordProtector();
+
+  const [renderPasswordCheck, setRenderPasswordCheck] = useState(false);
+  const [postPasswordCheck, setPostPasswordCheck] = useState(false);
+  const [passwordToCheck, setPasswordToCheck] = useState<string>("");
 
   //use the url with ?cargo to load test data into the app
   if (urlParams.has("cargo")) {
@@ -199,24 +207,13 @@ function App() {
     setRenderScanner(false);
     setScanResultForPuzzle(decodedText);
 
-    if (badgeDecoder.isValidBadgeCode(decodedText)) {
-      badgeDecoder.add(decodedText);
+    // Password Check Here
+    if (passwordProtector.passwords.has(decodedText)) {
+      setPostPasswordCheck(false);
+      setPasswordToCheck(passwordProtector.passwords.get(decodedText)!);
+      displayPasswordCheck();
     } else {
-      const crate = crateDecoder.decode(decodedText);
-
-      if (
-        chainCodeDecoder.isValidChainCode(decodedText) ||
-        crate.type == CrateType.Unknown ||
-        urlParams.has("debug")
-      ) {
-        if (chainCodeDecoder.isValidChainCode(decodedText)) {
-          chainCodeDecoder.setChainCodeResult(decodedText, badgeDecoder);
-        } else {
-          crateDecoder.setResult(decodedText, badgeDecoder);
-        }
-      } else {
-        setRenderPuzzle(true);
-      }
+      setPostPasswordCheck(true);
     }
   };
 
@@ -230,6 +227,40 @@ function App() {
     />
   );
 
+  useEffect(() => {
+    if (postPasswordCheck && scanResultForPuzzle !== undefined) {
+      if (badgeDecoder.isValidBadgeCode(scanResultForPuzzle)) {
+        badgeDecoder.add(scanResultForPuzzle);
+        setScanResultForPuzzle(undefined);
+      } else {
+        const crate = crateDecoder.decode(scanResultForPuzzle);
+
+        if (
+          chainCodeDecoder.isValidChainCode(scanResultForPuzzle) ||
+          crate.type == CrateType.Unknown
+        ) {
+          if (chainCodeDecoder.isValidChainCode(scanResultForPuzzle)) {
+            chainCodeDecoder.setChainCodeResult(
+              scanResultForPuzzle,
+              badgeDecoder,
+            );
+          } else {
+            crateDecoder.setResult(scanResultForPuzzle, badgeDecoder);
+          }
+          setScanResultForPuzzle(undefined);
+        } else {
+          setRenderPuzzle(true);
+        }
+      }
+    }
+  }, [
+    postPasswordCheck,
+    scanResultForPuzzle,
+    crateDecoder,
+    badgeDecoder,
+    chainCodeDecoder,
+  ]);
+
   function homeButton() {
     setRenderLogo(true);
     setRenderScanner(false);
@@ -239,6 +270,7 @@ function App() {
     setRenderChainCodePiece(undefined);
     setRenderChainCodeValue(false);
     setRenderCrewMembers(false);
+    setRenderPasswordCheck(false);
   }
   function scanButton() {
     setRenderLogo(false);
@@ -249,6 +281,7 @@ function App() {
     setRenderChainCodePiece(undefined);
     setRenderChainCodeValue(false);
     setRenderCrewMembers(false);
+    setRenderPasswordCheck(false);
   }
   function cargoHoldButton() {
     setRenderLogo(false);
@@ -260,6 +293,7 @@ function App() {
     setRenderChainCodePiece(undefined);
     setRenderChainCodeValue(false);
     setRenderCrewMembers(false);
+    setRenderPasswordCheck(false);
   }
   function crewMemberButton() {
     setRenderLogo(false);
@@ -270,6 +304,18 @@ function App() {
     setRenderChainCodePiece(undefined);
     setRenderChainCodeValue(false);
     setRenderCrewMembers(true);
+    setRenderPasswordCheck(false);
+  }
+  function displayPasswordCheck() {
+    setRenderLogo(false);
+    setRenderScanner(false);
+    setCrateToDisplay(undefined);
+    setRenderCargoHold(false);
+    setNewBadgesEarned(undefined);
+    setRenderChainCodePiece(undefined);
+    setRenderChainCodeValue(false);
+    setRenderCrewMembers(false);
+    setRenderPasswordCheck(true);
   }
 
   return (
@@ -330,6 +376,12 @@ function App() {
           crewMembers={crewMembers.crew}
         />
         <Puzzle renderPuzzle={renderPuzzle} setPuzzleSolved={setPuzzleSolved} />
+        <PasswordCheck
+          renderPasswordCheck={renderPasswordCheck}
+          setRenderPasswordCheck={setRenderPasswordCheck}
+          passwordToCheck={passwordToCheck}
+          setPostPasswordCheck={setPostPasswordCheck}
+        />
         <Flex vertical gap="small">
           <Button type="primary" size="large" onClick={() => homeButton()}>
             Home
