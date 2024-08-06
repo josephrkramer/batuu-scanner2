@@ -26,7 +26,7 @@ function MultipeChoiceCrate({
       <Card>
         <Title level={2}>You Must Choose</Title>
         <Title level={3}>{parent.contents}</Title>
-        <Flex vertical>
+        <Flex vertical gap="small">
           {childButtons(
             parent,
             crateDecoder,

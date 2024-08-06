@@ -34,6 +34,7 @@ import AdvancedDropdown from "./components/AdvancedDropdown";
 import { PasswordProtector } from "./services/password-protector";
 import PasswordCheck from "./components/PasswordCheck";
 import PasswordStatus from "./components/PasswordStatus";
+import AlignmentQuestion from "./components/AlignmentQuestion";
 
 function App() {
   //read parameters from the url
@@ -148,6 +149,11 @@ function App() {
   const [postPasswordCheck, setPostPasswordCheck] = useState(false);
   const [passwordToCheck, setPasswordToCheck] = useState<string>("");
   const [passwordStatus, setPasswordStatus] = useState<boolean | undefined>(
+    undefined,
+  );
+
+  const [alignment, setAlignment] = useLocalStorage<string | undefined>(
+    "alignment",
     undefined,
   );
 
@@ -353,6 +359,13 @@ function App() {
         />
       </Flex>
 
+      {alignment ? null : (
+        <AlignmentQuestion
+          crewManifest={crewMembers}
+          setAlignment={setAlignment}
+        />
+      )}
+
       <Flex vertical>
         <PasswordStatus passwordCorrect={passwordStatus} />
         {renderLogo ? <Logo /> : null}
@@ -380,6 +393,8 @@ function App() {
         <ChainCodeValue
           render={renderChainCodeValue}
           chainCodeDecoder={chainCodeDecoder}
+          crewManifest={crewMembers}
+          alignment={alignment}
         />
         <CrewManifestDisplay
           render={renderCrewMembers}

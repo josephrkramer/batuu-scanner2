@@ -1,6 +1,8 @@
+import { ChainCodeAlignmentString } from "./chain-code";
+
 export const CrewMemberType = Object.freeze({
-  Faction_Leader: "AARC Agent",
-  NPC: "Informant",
+  Faction_Leader: "AARC Agents",
+  NPC: "Sources",
   Virtual: "Remote",
 });
 
@@ -15,6 +17,7 @@ export class CrewMember {
   affiliation: string;
   type: string;
   image: string;
+  alignment: string;
 
   constructor({
     name = "",
@@ -27,6 +30,7 @@ export class CrewMember {
     affiliation = "",
     type = "",
     image = "",
+    alignment = "",
   }) {
     this.name = name;
     this.occupation = occupation;
@@ -38,6 +42,7 @@ export class CrewMember {
     this.affiliation = affiliation;
     this.type = type;
     this.image = image;
+    this.alignment = alignment;
   }
 }
 
@@ -48,7 +53,7 @@ export class CrewManifest {
     //create empty arrays
     this.crew.set(CrewMemberType.Faction_Leader, new Array<CrewMember>());
     this.crew.set(CrewMemberType.NPC, new Array<CrewMember>());
-    this.crew.set(CrewMemberType.Virtual, new Array<CrewMember>());
+    //this.crew.set(CrewMemberType.Virtual, new Array<CrewMember>());
 
     this.addCrewMember(
       new CrewMember({
@@ -66,6 +71,7 @@ However, the peace was not to last. The First Order soon became a big enough thr
         affiliation: "Rebellion//Resistance",
         type: CrewMemberType.Faction_Leader,
         image: "./crew/rook.png",
+        alignment: ChainCodeAlignmentString.Light,
       }),
     );
     this.addCrewMember(
@@ -100,6 +106,7 @@ However, the peace was not to last. The First Order soon became a big enough thr
         affiliation: "The Cause",
         type: CrewMemberType.Faction_Leader,
         image: "./crew/lias.png",
+        alignment: ChainCodeAlignmentString.Neutral,
       }),
     );
     this.addCrewMember(
@@ -152,6 +159,7 @@ However, the peace was not to last. The First Order soon became a big enough thr
         affiliation: "First Order",
         type: CrewMemberType.Faction_Leader,
         image: "./crew/evant.png",
+        alignment: ChainCodeAlignmentString.Dark,
       }),
     );
     this.addCrewMember(
@@ -192,7 +200,7 @@ However, the peace was not to last. The First Order soon became a big enough thr
     typeList.push(crewMemeber);
   }
 
-  getLeaders() {
+  getLeaders(): CrewMember[] {
     return this.crew.get(CrewMemberType.Faction_Leader);
   }
 
