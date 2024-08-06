@@ -1,4 +1,4 @@
-import { SetStateAction, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import Logo from "./components/Logo";
 import Crate from "./components/Crate";
@@ -385,6 +385,7 @@ function App() {
         <ChainCodeValue
           render={renderChainCodeValue}
           chainCodeDecoder={chainCodeDecoder}
+          crewManifest={crewMembers}          
         />
         <CrewManifestDisplay
           render={renderCrewMembers}
