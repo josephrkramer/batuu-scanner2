@@ -1,4 +1,4 @@
-import { ChainCodeAlignmentCode } from "./chain-code";
+import { ChainCodeAlignmentString } from "./chain-code";
 
 export const CrewMemberType = Object.freeze({
   Faction_Leader: "AARC Agents",
@@ -71,7 +71,7 @@ However, the peace was not to last. The First Order soon became a big enough thr
         affiliation: "Rebellion//Resistance",
         type: CrewMemberType.Faction_Leader,
         image: "./crew/rook.png",
-        alignment: ChainCodeAlignmentCode.Light,
+        alignment: ChainCodeAlignmentString.Light,
       }),
     );
     this.addCrewMember(
@@ -106,7 +106,7 @@ However, the peace was not to last. The First Order soon became a big enough thr
         affiliation: "The Cause",
         type: CrewMemberType.Faction_Leader,
         image: "./crew/lias.png",
-        alignment: ChainCodeAlignmentCode.Neutral,
+        alignment: ChainCodeAlignmentString.Neutral,
       }),
     );
     this.addCrewMember(
@@ -159,7 +159,7 @@ However, the peace was not to last. The First Order soon became a big enough thr
         affiliation: "First Order",
         type: CrewMemberType.Faction_Leader,
         image: "./crew/evant.png",
-        alignment: ChainCodeAlignmentCode.Dark,
+        alignment: ChainCodeAlignmentString.Dark,
       }),
     );
     this.addCrewMember(

@@ -1,6 +1,7 @@
 import { BadgeDecoder } from "../src/services/badge-decoder";
 import {
   ChainCodeAlignmentCode,
+  ChainCodeAlignmentString,
   ChainCodeAlignmentValue,
   ChainCodeDecoder,
 } from "../src/services/chain-code";
@@ -90,5 +91,51 @@ describe("ChainCodeDecoder", () => {
     ];
     chainCodeDecoder.reset();
     expect(setChainCodeCallback).toHaveBeenCalledWith([]);
+  });
+
+  it("should return the correct alignment for a light side chain code", () => {
+    chainCodeDecoder.chainCode = [
+      chainCodeDecoder.decode(ChainCodeAlignmentCode.Light),
+      chainCodeDecoder.decode(ChainCodeAlignmentCode.Light),
+      chainCodeDecoder.decode(ChainCodeAlignmentCode.Light),
+    ];
+    expect(chainCodeDecoder.chainCodeAlignment()).toBe(
+      ChainCodeAlignmentString.Light,
+    );
+  });
+
+  it("should return the correct alignment for a dark side chain code", () => {
+    chainCodeDecoder.chainCode = [
+      chainCodeDecoder.decode(ChainCodeAlignmentCode.Dark),
+      chainCodeDecoder.decode(ChainCodeAlignmentCode.Dark),
+      chainCodeDecoder.decode(ChainCodeAlignmentCode.Dark),
+    ];
+    expect(chainCodeDecoder.chainCodeAlignment()).toBe(
+      ChainCodeAlignmentString.Dark,
+    );
+  });
+
+  it("should return the correct alignment for a neutral side chain code", () => {
+    chainCodeDecoder.chainCode = [
+      chainCodeDecoder.decode(ChainCodeAlignmentCode.Light),
+      chainCodeDecoder.decode(ChainCodeAlignmentCode.Neutral),
+      chainCodeDecoder.decode(ChainCodeAlignmentCode.Dark),
+    ];
+    expect(chainCodeDecoder.chainCodeAlignment()).toBe(
+      ChainCodeAlignmentString.Neutral,
+    );
+  });
+
+  it("should return the correct alignment for a mixed side chain code", () => {
+    chainCodeDecoder.chainCode = [
+      chainCodeDecoder.decode(ChainCodeAlignmentCode.Light),
+      chainCodeDecoder.decode(ChainCodeAlignmentCode.Light),
+      chainCodeDecoder.decode(ChainCodeAlignmentCode.Light),
+      chainCodeDecoder.decode(ChainCodeAlignmentCode.Dark),
+      chainCodeDecoder.decode(ChainCodeAlignmentCode.Dark),
+    ];
+    expect(chainCodeDecoder.chainCodeAlignment()).toBe(
+      ChainCodeAlignmentString.Neutral,
+    );
   });
 });

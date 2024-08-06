@@ -12,6 +12,12 @@ export const ChainCodeAlignmentCode = Object.freeze({
   Light: "LIGHT",
 });
 
+export const ChainCodeAlignmentString = Object.freeze({
+  Dark: "First Order",
+  Neutral: "Cause",
+  Light: "Light",
+});
+
 export class ChainCodePart {
   code: string;
   description: string;
@@ -112,6 +118,16 @@ export class ChainCodeDecoder {
       value += chainCodePart.value;
     }
     return value;
+  }
+
+  chainCodeAlignment(): string {
+    if (this.rawValue() >= 3) {
+      return ChainCodeAlignmentString.Light;
+    } else if (this.rawValue() <= -3) {
+      return ChainCodeAlignmentString.Dark;
+    } else {
+      return ChainCodeAlignmentString.Neutral;
+    }
   }
 
   setChainCodeResult(code: string, badgeDecoder: BadgeDecoder) {
