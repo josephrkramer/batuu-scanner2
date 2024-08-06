@@ -28,9 +28,11 @@ After the minimum of 3 chain code scans, the "Decode Chain Code" button will be 
 #### Test codes for scanning
 
 ##### Light
+
 ![Light Chain Code](public/aztec/LIGHT.png "Light Chain Code")
 
 ##### Dark
+
 ![Dark Chain Code](public/aztec/DARK1.png "Dark Chain Code")
 
 ### Data Management
