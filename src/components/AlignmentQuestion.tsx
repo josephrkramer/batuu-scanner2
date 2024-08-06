@@ -13,9 +13,9 @@ function AlignmentQuestion({
 }>) {
     return (
       <Card>
-        <Title level={2}>Welcome to AARC!</Title>
+        <Title level={2}>Welcome, recruit!</Title>
         <Title level={4}>Who is your recruiting agent?</Title>
-        <Flex vertical>
+        <Flex vertical gap="small">
           {childButtons(
             crewManifest,
             setAlignment,
