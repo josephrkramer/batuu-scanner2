@@ -385,7 +385,8 @@ function App() {
         <ChainCodeValue
           render={renderChainCodeValue}
           chainCodeDecoder={chainCodeDecoder}
-          crewManifest={crewMembers}          
+          crewManifest={crewMembers}
+          alignment={alignment}
         />
         <CrewManifestDisplay
           render={renderCrewMembers}
