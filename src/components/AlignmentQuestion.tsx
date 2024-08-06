@@ -7,29 +7,22 @@ function AlignmentQuestion({
   setAlignment,
 }: Readonly<{
   crewManifest: CrewManifest;
-  setAlignment: React.Dispatch<
-    React.SetStateAction<string | undefined>
-  >;
+  setAlignment: React.Dispatch<React.SetStateAction<string | undefined>>;
 }>) {
-    return (
-      <Card>
-        <Title level={2}>Welcome, recruit!</Title>
-        <Title level={4}>Who is your recruiting agent?</Title>
-        <Flex vertical gap="small">
-          {childButtons(
-            crewManifest,
-            setAlignment,
-          )}
-        </Flex>
-      </Card>
-    );
+  return (
+    <Card>
+      <Title level={2}>Welcome, recruit!</Title>
+      <Title level={4}>Who is your recruiting agent?</Title>
+      <Flex vertical gap="small">
+        {childButtons(crewManifest, setAlignment)}
+      </Flex>
+    </Card>
+  );
 }
 
 function childButtons(
-    crewManifest: CrewManifest,
-    setAlignment: React.Dispatch<
-        React.SetStateAction<string | undefined>
-    >,
+  crewManifest: CrewManifest,
+  setAlignment: React.Dispatch<React.SetStateAction<string | undefined>>,
 ) {
   const buttons = [];
   for (const agent of crewManifest.getLeaders()) {

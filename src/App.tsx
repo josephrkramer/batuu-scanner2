@@ -152,7 +152,10 @@ function App() {
     undefined,
   );
 
-  const [alignment, setAlignment] = useLocalStorage<string | undefined>("alignment", undefined);
+  const [alignment, setAlignment] = useLocalStorage<string | undefined>(
+    "alignment",
+    undefined,
+  );
 
   //use the url with ?cargo to load test data into the app
   if (urlParams.has("cargo")) {
@@ -356,7 +359,12 @@ function App() {
         />
       </Flex>
 
-      { alignment ? null : <AlignmentQuestion crewManifest={crewMembers} setAlignment={setAlignment} /> }
+      {alignment ? null : (
+        <AlignmentQuestion
+          crewManifest={crewMembers}
+          setAlignment={setAlignment}
+        />
+      )}
 
       <Flex vertical>
         <PasswordStatus passwordCorrect={passwordStatus} />
