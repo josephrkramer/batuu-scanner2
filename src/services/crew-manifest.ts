@@ -200,7 +200,7 @@ However, the peace was not to last. The First Order soon became a big enough thr
     typeList.push(crewMemeber);
   }
 
-  getLeaders() {
+  getLeaders(): CrewMember[] {
     return this.crew.get(CrewMemberType.Faction_Leader);
   }
 

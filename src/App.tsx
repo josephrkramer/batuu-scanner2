@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { SetStateAction, useEffect, useMemo, useState } from "react";
 import "./App.css";
 import Logo from "./components/Logo";
 import Crate from "./components/Crate";
@@ -34,6 +34,7 @@ import AdvancedDropdown from "./components/AdvancedDropdown";
 import { PasswordProtector } from "./services/password-protector";
 import PasswordCheck from "./components/PasswordCheck";
 import PasswordStatus from "./components/PasswordStatus";
+import AlignmentQuestion from "./components/AlignmentQuestion";
 
 function App() {
   //read parameters from the url
@@ -150,6 +151,8 @@ function App() {
   const [passwordStatus, setPasswordStatus] = useState<boolean | undefined>(
     undefined,
   );
+
+  const [alignment, setAlignment] = useLocalStorage<string | undefined>("alignment", undefined);
 
   //use the url with ?cargo to load test data into the app
   if (urlParams.has("cargo")) {
@@ -352,6 +355,8 @@ function App() {
           setScanResultForPuzzle={setScanResultForPuzzle}
         />
       </Flex>
+
+      { alignment ? null : <AlignmentQuestion crewManifest={crewMembers} setAlignment={setAlignment} /> }
 
       <Flex vertical>
         <PasswordStatus passwordCorrect={passwordStatus} />
