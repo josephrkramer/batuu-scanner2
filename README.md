@@ -21,6 +21,18 @@ The following image can be used to test the scanning of crates.
 
 ![Single Image of all Barcodes](single_image_of_all_barcodes.png "Single Image of all Barcodes")
 
+### Test scanning of chain code alignment
+
+After the minimum of 3 chain code scans, the "Decode Chain Code" button will be shown. This will display 1 to 2 alignments. If the initial alignment matched their choices in the event, the player will get a single alignment option. If the player made different choices in the game from their initial alignment, they will be shown both their derived alignment and their original alignment.
+
+#### Test codes for scanning
+
+##### Light
+![Light Chain Code](public/aztec/LIGHT.png "Light Chain Code")
+
+##### Dark
+![Dark Chain Code](public/aztec/DARK1.png "Dark Chain Code")
+
 ### Data Management
 
 #### New events and full reset
