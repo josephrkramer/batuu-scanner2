@@ -39,7 +39,7 @@ function ChainCodeValue({
       originalAlignment = (
         <Card>
           <Title level={3}>Original Alignment: {alignment}</Title>
-          <Typography.Paragraph>{`You have chose a path different from where you started. You now have a choice. Do you follow the path of your words or your actions?`}</Typography.Paragraph>
+          <Typography.Paragraph>{`You have chosen a path different from where you started. You now have a choice. Do you follow the path of your words or your actions?`}</Typography.Paragraph>
           <Image src={originalAgent.image} preview={false} />
           <Typography.Paragraph>{`You may choose to meet with your original AARC recruiting agent, ${originalAgent.name} at LOCATION, at ${MEETING_TIME}`}</Typography.Paragraph>
         </Card>
