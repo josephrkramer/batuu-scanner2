@@ -16,7 +16,7 @@ function ChainCodeValue({
   render: boolean;
   chainCodeDecoder: ChainCodeDecoder;
   crewManifest: CrewManifest;
-  alignment: string;
+  alignment: string | undefined;
 }>) {
   if (render) {
     const derivedAgent = crewManifest
