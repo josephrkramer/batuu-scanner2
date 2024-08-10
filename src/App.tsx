@@ -10,12 +10,7 @@ import {
 import Html5QrcodePlugin from "./components/Html5QrcodePlugin";
 import { Html5QrcodeResult } from "html5-qrcode";
 import { CrewManifest } from "./services/crew-manifest";
-import {
-  ChainCodeAlignmentCode,
-  ChainCodeDecoder,
-  ChainCodePart,
-  MAX_CHAIN_CODE_SIZE,
-} from "./services/chain-code";
+import { ChainCodeDecoder, ChainCodePart } from "./services/chain-code";
 import { Badge, BadgeDecoder, EarnedBadge } from "./services/badge-decoder";
 import { Button, ConfigProvider, Flex, theme } from "antd";
 import CargoHold from "./components/CargoHold";
