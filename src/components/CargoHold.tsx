@@ -55,7 +55,20 @@ function crateDisplay(sortedCargoHold: Map<string, Set<CrateContents>>) {
             <Image
               src={item.image}
               width={50}
-              preview={{ toolbarRender: () => null }}
+              preview={{
+                imageRender: () => (
+                  <div>
+                    <Image
+                      src={item.image}
+                      preview={false}
+                    />
+                    <Typography.Title level={3}>
+                      {item.contents}
+                    </Typography.Title>
+                  </div>
+                ),
+                toolbarRender: () => null
+              }}
             />
             <Typography.Text>{item.contents}</Typography.Text>
           </List.Item>
