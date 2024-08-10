@@ -15,6 +15,7 @@ function CargoHold(
     badgesToDisplay: Badge[];
     earnedBadgesDatesMap: Map<string, EarnedBadge>;
     chainCode: ChainCodePart[];
+    admin: boolean;
   }>,
 ) {
   if (!props.render) {
@@ -26,7 +27,7 @@ function CargoHold(
       <Typography.Title level={3}>Scanned Crates</Typography.Title>
       {crateDisplay(props.sortedCargoHold)}
       {chainCodeDisplay(props.chainCode)}
-      {badgeDisplay(props.badgesToDisplay, props.earnedBadgesDatesMap)}
+      {badgeDisplay(props.badgesToDisplay, props.earnedBadgesDatesMap, props.admin)}
     </Card>
   );
 }
@@ -90,6 +91,7 @@ function chainCodeDisplay(chainCode: ChainCodePart[]) {
 function badgeDisplay(
   badgesToDisplay: Badge[],
   earnedBadgesDatesMap: Map<string, EarnedBadge>,
+  admin: boolean,
 ) {
   function badgeEarnedDate(badge: Badge) {
     //Check and Format Earned Badges date
@@ -122,7 +124,7 @@ function badgeDisplay(
                 preview={{
                   imageRender: () => (
                     <div>
-                      <Image src={badge.image} preview={false} />
+                      <Image src={admin ? badge.aztec : badge.image} preview={false} />
                       <Typography.Title level={3}>
                         {badge.name}
                       </Typography.Title>

@@ -29,11 +29,12 @@ class AztecGenerator:
         "Frequent_Flyer_5": "5340m",
         "Chewie_Were_Home": "g0tja",
         "Rose_Tico": "xh9g3",
+        "First_Step": "tznoi",
     }
 
     @classmethod
     def generate_barcode(cls, filename: str, code: str):
-        path = Path(f"{os.getcwd()}/images/aztec/{filename}.png")
+        path = Path(f"{os.getcwd()}/public/aztec/{filename}.png")
         if path.exists():
             print(f"{filename} already exists. Skipping")
         else:

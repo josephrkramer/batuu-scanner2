@@ -40,6 +40,7 @@ export class Badge {
   quote: string;
   description: string;
   image: string;
+  aztec: string;
 
   constructor({
     code = "",
@@ -47,12 +48,14 @@ export class Badge {
     quote = "",
     description = "",
     image = "",
+    aztec = "",
   } = {}) {
     this.code = code;
     this.name = name;
     this.quote = quote;
     this.description = description;
     this.image = image;
+    this.aztec = aztec;
   }
 }
 
@@ -112,6 +115,7 @@ export class BadgeDecoder {
         quote: `"You’ve taken your first step into a larger world." --Obi-Wan Kenobi`,
         description: `Scan a crate on Batuu.`,
         image: "./empty.jpeg",
+        aztec: "./aztec/First_Step.png",
       }),
     );
     this.codeToBadge.set(
@@ -122,6 +126,7 @@ export class BadgeDecoder {
         quote: `"I'm a Rockstar Queen!" --Gaya`,
         description: `Participated in an event and helped retrieve Gaya's Microphone.`,
         image: "./badge/gaya-mic.jpeg",
+        aztec: "./aztec/Gayas_Microphone.png",
       }),
     );
     this.codeToBadge.set(
@@ -132,6 +137,7 @@ export class BadgeDecoder {
         description:
           "Find all of the AARC relics hidden in the crates on Batuu.",
         image: "./badge/relic-hunter.jpeg",
+        aztec: "./aztec/Relic_Hunter.png",
       }),
     );
     this.codeToBadge.set(
@@ -142,6 +148,7 @@ export class BadgeDecoder {
         quote: `"You just walk in like you belong." --Cassian Andor`,
         description: `Interact with every informant during the event.`,
         image: "./badge/well-connected.jpeg",
+        aztec: "./aztec/Well_Connected.png",
       }),
     );
     this.codeToBadge.set(
@@ -152,6 +159,7 @@ export class BadgeDecoder {
         quote: `"We don't choose the light because we want to win. We choose it because it is the light." --Rael Averross`,
         description: `Make only Light Side choices during an event.`,
         image: "./badge/resistance-hero.jpeg",
+        aztec: "./aztec/Resistance_Hero.png",
       }),
     );
     this.codeToBadge.set(
@@ -162,6 +170,7 @@ export class BadgeDecoder {
         quote: `"Be careful not to choke on your aspirations." --Darth Vader`,
         description: `Make only Dark Side choices during an event.`,
         image: "./badge/we-have-cookies.jpeg",
+        aztec: "./aztec/We_Have_Cookies.png",
       }),
     );
     this.codeToBadge.set(
@@ -172,6 +181,7 @@ export class BadgeDecoder {
         quote: `"You're not hauling rathtars on this freighter, are you?!" --Finn`,
         description: `Scan a crate containing a creature.`,
         image: "./badge/bounty.jpeg",
+        aztec: "./aztec/Bounty.png",
       }),
     );
     this.codeToBadge.set(
@@ -182,6 +192,7 @@ export class BadgeDecoder {
         quote: `"The future has many paths; choose wisely." --Anakin Skywalker`,
         description: `Make both Light and Dark side choices during an event.`,
         image: "./badge/character-aarc.jpeg",
+        aztec: "./aztec/Character_AARC.png",
       }),
     );
     this.codeToBadge.set(
@@ -192,6 +203,7 @@ export class BadgeDecoder {
         quote: `"UTINNI!" --Dathcha`,
         description: `Scan 20+ crates.`,
         image: "./badge/jawa.jpeg",
+        aztec: "./aztec/Jawa.png",
       }),
     );
     this.codeToBadge.set(
@@ -202,6 +214,7 @@ export class BadgeDecoder {
         quote: `"I’m a Mandalorian. Weapons are part of my religion." --Din Djarin`,
         description: `Collect more than one weapon.`,
         image: "./badge/i-shot-first.jpeg",
+        aztec: "./aztec/I_Shot_First.png",
       }),
     );
     this.codeToBadge.set(
@@ -212,6 +225,7 @@ export class BadgeDecoder {
         quote: `"Never tell me the odds." --Han Solo`,
         description: `Scan 20+ non-event crates.`,
         image: "./badge/the-best-teacher.jpeg",
+        aztec: "./aztec/The_Best_Teacher.png",
       }),
     );
     this.codeToBadge.set(
@@ -222,6 +236,7 @@ export class BadgeDecoder {
         quote: `"I’m a rogue archaeologist, not a protocol droid." --Dr. Chelli Aphra`,
         description: `Collect 5+ relics.`,
         image: "./badge/relic-enthusiast.jpeg",
+        aztec: "./aztec/Relic_Enthusiast.png",
       }),
     );
     this.codeToBadge.set(
@@ -232,6 +247,7 @@ export class BadgeDecoder {
         quote: `"Relics of a bygone era." --Bo-Katan Kryze`,
         description: `Collect 10+ relics.`,
         image: "./badge/relic-archivist.jpeg",
+        aztec: "./aztec/Relic_Archivist.png",
       }),
     );
     this.codeToBadge.set(
@@ -242,6 +258,7 @@ export class BadgeDecoder {
         quote: `"Fly casual." --Han Solo`,
         description: `Attend 2+ events.`,
         image: "./badge/frequent-flyer-2.jpeg",
+        aztec: "./aztec/Frequent_Flyer_2.png",
       }),
     );
     this.codeToBadge.set(
@@ -252,6 +269,7 @@ export class BadgeDecoder {
         quote: `"In my book, experience outranks everything." --Captain Rex`,
         description: `Attend 5+ events.`,
         image: "./badge/frequent-flyer-5.jpeg",
+        aztec: "./aztec/Frequent_Flyer_5.png",
       }),
     );
     this.codeToBadge.set(
@@ -262,6 +280,7 @@ export class BadgeDecoder {
         quote: `"We are what they grow beyond." --Yoda`,
         description: `Awarded by the Halcyon: The Legacy Contines team.`,
         image: "./badge/rose-tico.jpeg",
+        aztec: "./aztec/Rose_Tico.png",
       }),
     );
 
@@ -274,6 +293,7 @@ export class BadgeDecoder {
         quote: "You sure are a sneaky one. Raithe would be proud.",
         description: "Find this badge in the source code of the datapad.",
         image: "./badge/slicer.jpeg",
+        aztec: "./aztec/Slicer.png",
       }),
     );
     this.unlistedCodeToBadge.set(
@@ -284,6 +304,7 @@ export class BadgeDecoder {
         quote: `What were you expecting? It's the same space junk in the box every time.`,
         description: `Scan a single crate for the second time.`,
         image: "./badge/amnesiac.jpeg",
+        aztec: "./aztec/Amnesiac.png",
       }),
     );
     this.unlistedCodeToBadge.set(
@@ -294,6 +315,7 @@ export class BadgeDecoder {
         quote: `"Do or do not, there is no try" --Yoda`,
         description: `Awarded by the Halcyon: The Legacy Contines team.`,
         image: "./badge/outer-rim-regalia.jpeg",
+        aztec: "./aztec/Outer_Rim_Regalia.png",
       }),
     );
     this.unlistedCodeToBadge.set(
@@ -304,6 +326,7 @@ export class BadgeDecoder {
         quote: `Starcruiser Cast Member`,
         description: `Awarded by the Halcyon: The Legacy Contines team.`,
         image: "./badge/its-my-honor.jpeg",
+        aztec: "./aztec/Its_My_Honor.png",
       }),
     );
     this.unlistedCodeToBadge.set(
@@ -314,6 +337,7 @@ export class BadgeDecoder {
         quote: `Batuu Cast Member`,
         description: `Awarded by the Halcyon: The Legacy Contines team.`,
         image: "./badge/chewie-were-home.jpeg",
+        aztec: "./aztec/Chewie_Were_Home.png",
       }),
     );
 

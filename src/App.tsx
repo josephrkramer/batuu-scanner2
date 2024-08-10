@@ -157,6 +157,8 @@ function App() {
     undefined,
   );
 
+  const [admin, setAdmin] = useState(false);
+
   //use the url with ?cargo to load test data into the app
   if (urlParams.has("cargo")) {
     console.log("Filling the cargo hold...");
@@ -356,6 +358,8 @@ function App() {
           crateDecoder={crateDecoder}
           setRenderPuzzle={setRenderPuzzle}
           setScanResultForPuzzle={setScanResultForPuzzle}
+          admin={admin}
+          setAdmin={setAdmin}
         />
       </Flex>
 
@@ -377,6 +381,7 @@ function App() {
           badgesToDisplay={badgeDecoder.allBadges()}
           earnedBadgesDatesMap={badgeDecoder.earnedBadges}
           chainCode={chainCode}
+          admin={admin}
         />
         <ChainCodePartResult chainCodePart={renderChainCodePiece} />
         <MultipeChoiceCrate
