@@ -380,7 +380,7 @@ function App() {
           sortedCargoHold={sortedCargoHold}
           badgesToDisplay={badgeDecoder.allBadges(admin)}
           earnedBadgesDatesMap={badgeDecoder.earnedBadges}
-          chainCode={chainCode}
+          chainCode={admin ? chainCodeDecoder.adminChainCode() : chainCode}
           admin={admin}
         />
         <ChainCodePartResult chainCodePart={renderChainCodePiece} />

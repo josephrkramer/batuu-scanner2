@@ -23,12 +23,20 @@ export class ChainCodePart {
   description: string;
   value: number;
   image: string;
+  aztec: string;
 
-  constructor({ code = "", description = "", value = 0, image = "" }) {
+  constructor({
+    code = "",
+    description = "",
+    value = 0,
+    image = "",
+    aztec = "",
+  }) {
     this.code = code;
     this.description = description;
     this.value = value;
     this.image = image;
+    this.aztec = aztec;
   }
 }
 
@@ -58,6 +66,7 @@ export class ChainCodeDecoder {
         code: ChainCodeAlignmentCode.Dark,
         description: "Dark Side Alignment",
         value: ChainCodeAlignmentValue.Dark,
+        aztec: `./aztec/${ChainCodeAlignmentCode.Dark}.png`,
       }),
     );
     this.scanCodeToChainCodePart.set(
@@ -66,6 +75,7 @@ export class ChainCodeDecoder {
         code: ChainCodeAlignmentCode.Light,
         description: "Light Side Alignment",
         value: ChainCodeAlignmentValue.Light,
+        aztec: `./aztec/${ChainCodeAlignmentCode.Light}.png`,
       }),
     );
     this.scanCodeToChainCodePart.set(
@@ -74,6 +84,7 @@ export class ChainCodeDecoder {
         code: ChainCodeAlignmentCode.Neutral,
         description: "Neutral Alignment",
         value: ChainCodeAlignmentValue.Neutral,
+        aztec: `./aztec/${ChainCodeAlignmentCode.Neutral}.png`,
       }),
     );
   }
@@ -144,44 +155,8 @@ export class ChainCodeDecoder {
     badgeDecoder.checkForChainCodeRelatedBadges(this);
     badgeDecoder.checkForEventRelatedBadges();
   }
-}
 
-/*
-export function displayChainCodeResult(chainCodePart: ChainCodePart) {
-  const resultsHeader = document.getElementById("results-header")!;
-  const contentsImage = document.getElementById(
-    "contents-image",
-  )! as HTMLImageElement;
-
-  //update the display text for the item
-  console.log(chainCodePart);
-  //read parameters from the url
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.has("debug")) {
-    resultsHeader.textContent = chainCodePart.code + " - Chain Code Piece";
-  } else {
-    resultsHeader.textContent = "Chain Code Piece";
-  }
-  resultsHeader.style.display = "block";
-
-  //display the image contents
-  contentsImage.style.display = "block";
-  //chain code image has already been corrected by vite
-  contentsImage.src = chainCodePart.image;
-}
-  */
-
-/*
-export function displayChainCodeValue(chainCodeDecoder: ChainCodeDecoder) {
-  const chainCodeHeader = document.getElementById("chain-code-title")!;
-  chainCodeHeader.textContent =
-    "Chain Code Value: " + chainCodeDecoder.rawValue();
-
-  const chainCodeMessage = document.getElementById("chain-code-message")!;
-  if (chainCodeDecoder.chainCodeLength() < MAX_CHAIN_CODE_SIZE) {
-    chainCodeMessage.textContent = `There are still more informants to contact, but make sure you meet with your AARC Agent at ${MEETING_TIME}`;
-  } else {
-    chainCodeMessage.textContent = `Well, done! You've met with all of our informants. Be ready to meet with your AARC Agent at ${MEETING_TIME}`;
+  adminChainCode(): ChainCodePart[] {
+    return Array.from(this.scanCodeToChainCodePart.values());
   }
 }
-  */

@@ -26,7 +26,7 @@ function CargoHold(
     <Card>
       <Typography.Title level={3}>Scanned Crates</Typography.Title>
       {crateDisplay(props.sortedCargoHold)}
-      {chainCodeDisplay(props.chainCode)}
+      {chainCodeDisplay(props.chainCode, props.admin)}
       {badgeDisplay(
         props.badgesToDisplay,
         props.earnedBadgesDatesMap,
@@ -70,7 +70,7 @@ function crateDisplay(sortedCargoHold: Map<string, Set<CrateContents>>) {
   return cargoHoldList;
 }
 
-function chainCodeDisplay(chainCode: ChainCodePart[]) {
+function chainCodeDisplay(chainCode: ChainCodePart[], admin: boolean) {
   return (
     <List
       itemLayout="horizontal"
@@ -81,11 +81,13 @@ function chainCodeDisplay(chainCode: ChainCodePart[]) {
       renderItem={(item) => (
         <List.Item>
           <Image
-            src={item.image}
+            src={admin ? item.aztec : item.image}
             width={50}
             preview={{ toolbarRender: () => null }}
           />
-          <Typography.Text>Chain Code Fragement</Typography.Text>
+          <Typography.Text>
+            {admin ? item.description : "Chain Code Fragement"}
+          </Typography.Text>
         </List.Item>
       )}
     />
