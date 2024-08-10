@@ -38,7 +38,10 @@ function CargoHold(
 
 export default CargoHold;
 
-function crateDisplay(sortedCargoHold: Map<string, Set<CrateContents>>, admin: boolean) {
+function crateDisplay(
+  sortedCargoHold: Map<string, Set<CrateContents>>,
+  admin: boolean,
+) {
   const cargoHoldList = [];
   for (const crateType of sortedCargoHold.keys()) {
     const dataSource = Array.from(sortedCargoHold.get(crateType)!.values());
@@ -67,7 +70,7 @@ function crateDisplay(sortedCargoHold: Map<string, Set<CrateContents>>, admin: b
                     </Typography.Title>
                   </div>
                 ),
-                toolbarRender: () => null
+                toolbarRender: () => null,
               }}
             />
             <Typography.Text>{item.contents}</Typography.Text>

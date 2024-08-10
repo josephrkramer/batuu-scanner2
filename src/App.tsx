@@ -119,9 +119,11 @@ function App() {
     ],
   );
 
+  const [admin, setAdmin] = useLocalStorage<boolean>("admin", false);
+
   const [renderCargoHold, setRenderCargoHold] = useState(false);
   const [sortedCargoHold, setSortedCargoHold] = useState(
-    crateDecoder.sortCargoHold(),
+    crateDecoder.sortCargoHold(admin),
   );
   const [renderChainCodeValue, setRenderChainCodeValue] = useState(false);
   useEffect(() => {
@@ -156,8 +158,6 @@ function App() {
     "alignment",
     undefined,
   );
-
-  const [admin, setAdmin] = useLocalStorage<boolean>("admin", false);
 
   //use the url with ?cargo to load test data into the app
   if (urlParams.has("cargo")) {
@@ -302,7 +302,7 @@ function App() {
     setRenderScanner(false);
     setCrateToDisplay(undefined);
     setRenderCargoHold(true);
-    setSortedCargoHold(crateDecoder.sortCargoHold());
+    setSortedCargoHold(crateDecoder.sortCargoHold(admin));
     setNewBadgesEarned(undefined);
     setRenderChainCodePiece(undefined);
     setRenderChainCodeValue(false);
