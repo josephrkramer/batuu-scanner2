@@ -157,7 +157,7 @@ function App() {
     undefined,
   );
 
-  const [admin, setAdmin] = useState(false);
+  const [admin, setAdmin] = useLocalStorage<boolean>("admin", false);
 
   //use the url with ?cargo to load test data into the app
   if (urlParams.has("cargo")) {
