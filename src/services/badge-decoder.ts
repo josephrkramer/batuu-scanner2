@@ -380,11 +380,11 @@ export class BadgeDecoder {
     }
   }
 
-  decode(code: string): Badge {
+  decode(code: string, admin = false): Badge {
     if (this.codeToBadge.has(code)) {
       //Cloning the badge so we can overwrite the image value without altering the original
       const cloneBadge = structuredClone(this.codeToBadge.get(code))!;
-      if (!this.earnedBadges.has(code)) {
+      if (!admin && !this.earnedBadges.has(code)) {
         cloneBadge.image = "./badge/unearned-bw.jpeg";
       }
       return cloneBadge;
@@ -432,13 +432,18 @@ export class BadgeDecoder {
     }
   }
 
-  allKeys() {
-    //all possible listed badges + all earned unlisted badges
-    return new Set([...this.codeToBadge.keys(), ...this.earnedBadges.keys()]);
+  allKeys(admin = false) {
+    if (admin) {
+       //all possible listed badges + all possibe unlisted badges
+       return new Set([...this.codeToBadge.keys(), ...this.unlistedCodeToBadge.keys()])
+    } else {
+       //all possible listed badges + all earned unlisted badges
+      return new Set([...this.codeToBadge.keys(), ...this.earnedBadges.keys()]);
+    }
   }
 
-  allBadges() {
-    return Array.from(this.allKeys()).map((code) => this.decode(code));
+  allBadges(admin = false) {
+    return Array.from(this.allKeys(admin)).map((code) => this.decode(code, admin));
   }
 
   reset() {

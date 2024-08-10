@@ -378,7 +378,7 @@ function App() {
         <CargoHold
           render={renderCargoHold}
           sortedCargoHold={sortedCargoHold}
-          badgesToDisplay={badgeDecoder.allBadges()}
+          badgesToDisplay={badgeDecoder.allBadges(admin)}
           earnedBadgesDatesMap={badgeDecoder.earnedBadges}
           chainCode={chainCode}
           admin={admin}
