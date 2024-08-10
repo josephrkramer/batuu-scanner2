@@ -10,12 +10,7 @@ import {
 import Html5QrcodePlugin from "./components/Html5QrcodePlugin";
 import { Html5QrcodeResult } from "html5-qrcode";
 import { CrewManifest } from "./services/crew-manifest";
-import {
-  ChainCodeAlignmentCode,
-  ChainCodeDecoder,
-  ChainCodePart,
-  MAX_CHAIN_CODE_SIZE,
-} from "./services/chain-code";
+import { ChainCodeDecoder, ChainCodePart } from "./services/chain-code";
 import { Badge, BadgeDecoder, EarnedBadge } from "./services/badge-decoder";
 import { Button, ConfigProvider, Flex, theme } from "antd";
 import CargoHold from "./components/CargoHold";
@@ -119,9 +114,11 @@ function App() {
     ],
   );
 
+  const [admin, setAdmin] = useLocalStorage<boolean>("admin", false);
+
   const [renderCargoHold, setRenderCargoHold] = useState(false);
   const [sortedCargoHold, setSortedCargoHold] = useState(
-    crateDecoder.sortCargoHold(),
+    crateDecoder.sortCargoHold(admin),
   );
   const [renderChainCodeValue, setRenderChainCodeValue] = useState(false);
   useEffect(() => {
@@ -169,35 +166,6 @@ function App() {
   //delete param to ensure we don't get into a loop
   if (urlParams.has("cargo")) {
     deleteUrlParam("cargo");
-  }
-
-  //TODO: remove this before the event.
-  if (urlParams.has("everything")) {
-    for (const code of crateDecoder.contents.keys()) {
-      crateDecoder.addToScanned(code);
-    }
-    for (let i = 0; i < MAX_CHAIN_CODE_SIZE; i++) {
-      chainCodeDecoder.setChainCodeResult(
-        ChainCodeAlignmentCode.Dark,
-        badgeDecoder,
-      );
-    }
-  }
-  if (urlParams.has("allbadges") || urlParams.has("everything")) {
-    for (const badge of new Set([
-      ...badgeDecoder.codeToBadge.keys(),
-      ...badgeDecoder.unlistedCodeToBadge.keys(),
-    ])) {
-      badgeDecoder.add(badge);
-    }
-  }
-  //delete param to ensure we don't get into a loop
-  if (urlParams.has("everything")) {
-    deleteUrlParam("everything");
-  }
-  //delete param to ensure we don't get into a loop
-  if (urlParams.has("allbadges")) {
-    deleteUrlParam("allbadges");
   }
 
   useEffect(() => {
@@ -300,7 +268,7 @@ function App() {
     setRenderScanner(false);
     setCrateToDisplay(undefined);
     setRenderCargoHold(true);
-    setSortedCargoHold(crateDecoder.sortCargoHold());
+    setSortedCargoHold(crateDecoder.sortCargoHold(admin));
     setNewBadgesEarned(undefined);
     setRenderChainCodePiece(undefined);
     setRenderChainCodeValue(false);
@@ -356,6 +324,8 @@ function App() {
           crateDecoder={crateDecoder}
           setRenderPuzzle={setRenderPuzzle}
           setScanResultForPuzzle={setScanResultForPuzzle}
+          admin={admin}
+          setAdmin={setAdmin}
         />
       </Flex>
 
@@ -374,9 +344,10 @@ function App() {
         <CargoHold
           render={renderCargoHold}
           sortedCargoHold={sortedCargoHold}
-          badgesToDisplay={badgeDecoder.allBadges()}
+          badgesToDisplay={badgeDecoder.allBadges(admin)}
           earnedBadgesDatesMap={badgeDecoder.earnedBadges}
-          chainCode={chainCode}
+          chainCode={admin ? chainCodeDecoder.adminChainCode() : chainCode}
+          admin={admin}
         />
         <ChainCodePartResult chainCodePart={renderChainCodePiece} />
         <MultipeChoiceCrate

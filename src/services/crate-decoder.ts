@@ -195,12 +195,12 @@ export class CrateDecoder {
     this.setMultipleChoiceScannedCrates(new Map<string, CrateContents>());
   }
 
-  sortCargoHold(): Map<string, Set<CrateContents>> {
+  sortCargoHold(admin: boolean): Map<string, Set<CrateContents>> {
     const sortedCargoHold = new Map<string, Set<CrateContents>>();
 
     console.log("Sorting cargo...");
 
-    for (const code of this.scannedCrates) {
+    for (const code of admin ? this.contents.keys() : this.scannedCrates) {
       const crate = this.decode(code);
       if (!sortedCargoHold.has(crate.type)) {
         sortedCargoHold.set(crate.type, new Set<CrateContents>());

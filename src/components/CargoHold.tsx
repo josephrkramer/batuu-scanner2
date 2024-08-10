@@ -15,6 +15,7 @@ function CargoHold(
     badgesToDisplay: Badge[];
     earnedBadgesDatesMap: Map<string, EarnedBadge>;
     chainCode: ChainCodePart[];
+    admin: boolean;
   }>,
 ) {
   if (!props.render) {
@@ -24,16 +25,23 @@ function CargoHold(
   return (
     <Card>
       <Typography.Title level={3}>Scanned Crates</Typography.Title>
-      {crateDisplay(props.sortedCargoHold)}
-      {chainCodeDisplay(props.chainCode)}
-      {badgeDisplay(props.badgesToDisplay, props.earnedBadgesDatesMap)}
+      {crateDisplay(props.sortedCargoHold, props.admin)}
+      {chainCodeDisplay(props.chainCode, props.admin)}
+      {badgeDisplay(
+        props.badgesToDisplay,
+        props.earnedBadgesDatesMap,
+        props.admin,
+      )}
     </Card>
   );
 }
 
 export default CargoHold;
 
-function crateDisplay(sortedCargoHold: Map<string, Set<CrateContents>>) {
+function crateDisplay(
+  sortedCargoHold: Map<string, Set<CrateContents>>,
+  admin: boolean,
+) {
   const cargoHoldList = [];
   for (const crateType of sortedCargoHold.keys()) {
     const dataSource = Array.from(sortedCargoHold.get(crateType)!.values());
@@ -50,7 +58,20 @@ function crateDisplay(sortedCargoHold: Map<string, Set<CrateContents>>) {
             <Image
               src={item.image}
               width={50}
-              preview={{ toolbarRender: () => null }}
+              preview={{
+                imageRender: () => (
+                  <div>
+                    <Image
+                      src={admin ? `./crate/${item.code}.png` : item.image}
+                      preview={false}
+                    />
+                    <Typography.Title level={3}>
+                      {item.contents}
+                    </Typography.Title>
+                  </div>
+                ),
+                toolbarRender: () => null,
+              }}
             />
             <Typography.Text>{item.contents}</Typography.Text>
           </List.Item>
@@ -65,7 +86,7 @@ function crateDisplay(sortedCargoHold: Map<string, Set<CrateContents>>) {
   return cargoHoldList;
 }
 
-function chainCodeDisplay(chainCode: ChainCodePart[]) {
+function chainCodeDisplay(chainCode: ChainCodePart[], admin: boolean) {
   return (
     <List
       itemLayout="horizontal"
@@ -76,11 +97,13 @@ function chainCodeDisplay(chainCode: ChainCodePart[]) {
       renderItem={(item) => (
         <List.Item>
           <Image
-            src={item.image}
+            src={admin ? item.aztec : item.image}
             width={50}
             preview={{ toolbarRender: () => null }}
           />
-          <Typography.Text>Chain Code Fragement</Typography.Text>
+          <Typography.Text>
+            {admin ? item.description : "Chain Code Fragement"}
+          </Typography.Text>
         </List.Item>
       )}
     />
@@ -90,6 +113,7 @@ function chainCodeDisplay(chainCode: ChainCodePart[]) {
 function badgeDisplay(
   badgesToDisplay: Badge[],
   earnedBadgesDatesMap: Map<string, EarnedBadge>,
+  admin: boolean,
 ) {
   function badgeEarnedDate(badge: Badge) {
     //Check and Format Earned Badges date
@@ -122,7 +146,10 @@ function badgeDisplay(
                 preview={{
                   imageRender: () => (
                     <div>
-                      <Image src={badge.image} preview={false} />
+                      <Image
+                        src={admin ? badge.aztec : badge.image}
+                        preview={false}
+                      />
                       <Typography.Title level={3}>
                         {badge.name}
                       </Typography.Title>

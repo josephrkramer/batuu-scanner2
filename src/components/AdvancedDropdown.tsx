@@ -10,6 +10,7 @@ import {
 import { ChainCodeDecoder } from "../services/chain-code";
 import { BadgeDecoder } from "../services/badge-decoder";
 import { CrateDecoder } from "../services/crate-decoder";
+import React from "react";
 
 function AdvancedDropdown({
   chainCodeDecoder,
@@ -17,6 +18,8 @@ function AdvancedDropdown({
   crateDecoder,
   setRenderPuzzle,
   setScanResultForPuzzle,
+  admin,
+  setAdmin,
 }: Readonly<{
   chainCodeDecoder: ChainCodeDecoder;
   badgeDecoder: BadgeDecoder;
@@ -25,6 +28,8 @@ function AdvancedDropdown({
   setScanResultForPuzzle: React.Dispatch<
     React.SetStateAction<string | undefined>
   >;
+  admin: boolean;
+  setAdmin: React.Dispatch<React.SetStateAction<boolean>>;
 }>) {
   const confirmReset: PopconfirmProps["onConfirm"] = (e) => {
     console.log(e);
@@ -45,6 +50,12 @@ function AdvancedDropdown({
   const cancel: PopconfirmProps["onCancel"] = (e) => {
     console.log(e);
     message.error("Data unchanged");
+  };
+
+  const confirmAdmin: PopconfirmProps["onConfirm"] = (e) => {
+    console.log(e);
+    setAdmin(!admin);
+    message.success(`Admin mode set to ${!admin}`);
   };
 
   const items: MenuProps["items"] = [
@@ -89,6 +100,21 @@ function AdvancedDropdown({
         >
           Puzzle
         </Button>
+      ),
+    },
+    {
+      key: "4",
+      label: (
+        <Popconfirm
+          title="Toggle Admin Mode"
+          description="This will change base functionality of the app and is not intended for players. Are you sure want to continue?"
+          onConfirm={confirmAdmin}
+          onCancel={cancel}
+          okText="Yes"
+          cancelText="No"
+        >
+          <Button danger>Admin</Button>
+        </Popconfirm>
       ),
     },
   ];
