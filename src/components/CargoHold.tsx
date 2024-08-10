@@ -25,7 +25,7 @@ function CargoHold(
   return (
     <Card>
       <Typography.Title level={3}>Scanned Crates</Typography.Title>
-      {crateDisplay(props.sortedCargoHold)}
+      {crateDisplay(props.sortedCargoHold, props.admin)}
       {chainCodeDisplay(props.chainCode, props.admin)}
       {badgeDisplay(
         props.badgesToDisplay,
@@ -38,7 +38,7 @@ function CargoHold(
 
 export default CargoHold;
 
-function crateDisplay(sortedCargoHold: Map<string, Set<CrateContents>>) {
+function crateDisplay(sortedCargoHold: Map<string, Set<CrateContents>>, admin: boolean) {
   const cargoHoldList = [];
   for (const crateType of sortedCargoHold.keys()) {
     const dataSource = Array.from(sortedCargoHold.get(crateType)!.values());
@@ -59,7 +59,7 @@ function crateDisplay(sortedCargoHold: Map<string, Set<CrateContents>>) {
                 imageRender: () => (
                   <div>
                     <Image
-                      src={item.image}
+                      src={admin ? `./crate/${item.code}.png` : item.image}
                       preview={false}
                     />
                     <Typography.Title level={3}>
