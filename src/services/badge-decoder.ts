@@ -434,16 +434,21 @@ export class BadgeDecoder {
 
   allKeys(admin = false) {
     if (admin) {
-       //all possible listed badges + all possibe unlisted badges
-       return new Set([...this.codeToBadge.keys(), ...this.unlistedCodeToBadge.keys()])
+      //all possible listed badges + all possibe unlisted badges
+      return new Set([
+        ...this.codeToBadge.keys(),
+        ...this.unlistedCodeToBadge.keys(),
+      ]);
     } else {
-       //all possible listed badges + all earned unlisted badges
+      //all possible listed badges + all earned unlisted badges
       return new Set([...this.codeToBadge.keys(), ...this.earnedBadges.keys()]);
     }
   }
 
   allBadges(admin = false) {
-    return Array.from(this.allKeys(admin)).map((code) => this.decode(code, admin));
+    return Array.from(this.allKeys(admin)).map((code) =>
+      this.decode(code, admin),
+    );
   }
 
   reset() {

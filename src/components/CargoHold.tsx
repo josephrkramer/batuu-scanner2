@@ -27,7 +27,11 @@ function CargoHold(
       <Typography.Title level={3}>Scanned Crates</Typography.Title>
       {crateDisplay(props.sortedCargoHold)}
       {chainCodeDisplay(props.chainCode)}
-      {badgeDisplay(props.badgesToDisplay, props.earnedBadgesDatesMap, props.admin)}
+      {badgeDisplay(
+        props.badgesToDisplay,
+        props.earnedBadgesDatesMap,
+        props.admin,
+      )}
     </Card>
   );
 }
@@ -124,7 +128,10 @@ function badgeDisplay(
                 preview={{
                   imageRender: () => (
                     <div>
-                      <Image src={admin ? badge.aztec : badge.image} preview={false} />
+                      <Image
+                        src={admin ? badge.aztec : badge.image}
+                        preview={false}
+                      />
                       <Typography.Title level={3}>
                         {badge.name}
                       </Typography.Title>

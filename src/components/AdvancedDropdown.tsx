@@ -115,8 +115,8 @@ function AdvancedDropdown({
         >
           <Button danger>Admin</Button>
         </Popconfirm>
-      )
-    }
+      ),
+    },
   ];
 
   return (
