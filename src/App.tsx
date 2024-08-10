@@ -173,35 +173,6 @@ function App() {
     deleteUrlParam("cargo");
   }
 
-  //TODO: remove this before the event.
-  if (urlParams.has("everything")) {
-    for (const code of crateDecoder.contents.keys()) {
-      crateDecoder.addToScanned(code);
-    }
-    for (let i = 0; i < MAX_CHAIN_CODE_SIZE; i++) {
-      chainCodeDecoder.setChainCodeResult(
-        ChainCodeAlignmentCode.Dark,
-        badgeDecoder,
-      );
-    }
-  }
-  if (urlParams.has("allbadges") || urlParams.has("everything")) {
-    for (const badge of new Set([
-      ...badgeDecoder.codeToBadge.keys(),
-      ...badgeDecoder.unlistedCodeToBadge.keys(),
-    ])) {
-      badgeDecoder.add(badge);
-    }
-  }
-  //delete param to ensure we don't get into a loop
-  if (urlParams.has("everything")) {
-    deleteUrlParam("everything");
-  }
-  //delete param to ensure we don't get into a loop
-  if (urlParams.has("allbadges")) {
-    deleteUrlParam("allbadges");
-  }
-
   useEffect(() => {
     if (puzzleSolved && scanResultForPuzzle !== undefined) {
       setPuzzleSolved(false);
