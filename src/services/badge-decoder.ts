@@ -268,7 +268,7 @@ export class BadgeDecoder {
         code: BadgeCode.Rose_Tico,
         name: "Rose Tico",
         quote: `"We are what they grow beyond." --Yoda`,
-        description: `Awarded by the Halcyon: The Legacy Contines team.`,
+        description: `Awarded by the Halcyon: The Legacy Contines team for helping another player.`,
         image: "./badge/rose-tico.jpeg",
         aztec: "./aztec/Rose_Tico.png",
       }),
