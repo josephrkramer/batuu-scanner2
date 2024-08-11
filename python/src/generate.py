@@ -30,6 +30,7 @@ class AztecGenerator:
         "Chewie_Were_Home": "g0tja",
         "Rose_Tico": "xh9g3",
         "First_Step": "tznoi",
+        "Pathway_to_AARC": "ft4at",
     }
 
     crates = {

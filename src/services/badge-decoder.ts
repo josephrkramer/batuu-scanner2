@@ -32,6 +32,7 @@ export const BadgeCode = Object.freeze({
   Chewie_Were_Home: "g0tja",
   Rose_Tico: "xh9g3",
   First_Step: "tznoi",
+  Pathway_to_AARC: "ft4at",
 });
 
 export class Badge {
@@ -116,17 +117,6 @@ export class BadgeDecoder {
         description: `Scan a crate on Batuu.`,
         image: "./empty.jpeg",
         aztec: "./aztec/First_Step.png",
-      }),
-    );
-    this.codeToBadge.set(
-      BadgeCode.Gayas_Microphone,
-      new Badge({
-        code: BadgeCode.Gayas_Microphone,
-        name: "Gaya's Microphone",
-        quote: `"I'm a Rockstar Queen!" --Gaya`,
-        description: `Participated in an event and helped retrieve Gaya's Microphone.`,
-        image: "./badge/gaya-mic.jpeg",
-        aztec: "./aztec/Gayas_Microphone.png",
       }),
     );
     this.codeToBadge.set(
@@ -338,6 +328,28 @@ export class BadgeDecoder {
         description: `Awarded by the Halcyon: The Legacy Contines team.`,
         image: "./badge/chewie-were-home.jpeg",
         aztec: "./aztec/Chewie_Were_Home.png",
+      }),
+    );
+    this.unlistedCodeToBadge.set(
+      BadgeCode.Gayas_Microphone,
+      new Badge({
+        code: BadgeCode.Gayas_Microphone,
+        name: "Gaya's Microphone",
+        quote: `"I'm a Rockstar Queen!" --Gaya`,
+        description: `Participated in an event and helped retrieve Gaya's Microphone.`,
+        image: "./badge/gaya-mic.jpeg",
+        aztec: "./aztec/Gayas_Microphone.png",
+      }),
+    );
+    this.unlistedCodeToBadge.set(
+      BadgeCode.Pathway_to_AARC,
+      new Badge({
+        code: BadgeCode.Pathway_to_AARC,
+        name: "Pathway to AARC",
+        quote: `"Good Hunting!" --AARC Greeting`,
+        description: `Participated in the October Halcy-con event.`,
+        image: "./badge/pathway-to-aarc.jpeg",
+        aztec: "./aztec/Pathway_to_AARC.png",
       }),
     );
 
@@ -582,6 +594,7 @@ export class BadgeDecoder {
     this.resistanceHero(chainCodeDecoder);
     this.weHaveCookies(chainCodeDecoder);
     this.characterAarc(chainCodeDecoder);
+    this.pathwayToAarc(chainCodeDecoder);
   }
 
   private characterAarc(chainCodeDecoder: ChainCodeDecoder) {
@@ -652,6 +665,16 @@ export class BadgeDecoder {
       chainCodeDecoder.chainCodeLength() >= MAX_CHAIN_CODE_SIZE
     ) {
       this.add(BadgeCode.Well_Connected);
+    }
+  }
+
+  private pathwayToAarc(chainCodeDecoder: ChainCodeDecoder) {
+    //Pathway to AARC - Participate in the October event (visit 2 NPCs)
+    if (
+      !this.earnedBadges.has(BadgeCode.Pathway_to_AARC) &&
+      chainCodeDecoder.chainCodeLength() >= 2
+    ) {
+      this.add(BadgeCode.Pathway_to_AARC);
     }
   }
 
