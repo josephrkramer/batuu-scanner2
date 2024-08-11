@@ -5,5 +5,6 @@ export class PasswordProtector {
 
   constructor() {
     this.passwords.set(BadgeCode.Jawa, "jawa");
+    this.passwords.set("admin", "raithe");
   }
 }

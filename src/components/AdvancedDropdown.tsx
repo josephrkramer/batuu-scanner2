@@ -10,7 +10,7 @@ import {
 import { ChainCodeDecoder } from "../services/chain-code";
 import { BadgeDecoder } from "../services/badge-decoder";
 import { CrateDecoder } from "../services/crate-decoder";
-import React from "react";
+import React, { useEffect } from "react";
 
 function AdvancedDropdown({
   chainCodeDecoder,
@@ -20,6 +20,9 @@ function AdvancedDropdown({
   setScanResultForPuzzle,
   admin,
   setAdmin,
+  postPasswordCheck,
+  scanResultForPuzzle,
+  checkThisPassword,
 }: Readonly<{
   chainCodeDecoder: ChainCodeDecoder;
   badgeDecoder: BadgeDecoder;
@@ -30,6 +33,9 @@ function AdvancedDropdown({
   >;
   admin: boolean;
   setAdmin: React.Dispatch<React.SetStateAction<boolean>>;
+  postPasswordCheck: boolean;
+  scanResultForPuzzle: string | undefined;
+  checkThisPassword: (checkMe: string) => void;
 }>) {
   const confirmReset: PopconfirmProps["onConfirm"] = (e) => {
     console.log(e);
@@ -54,9 +60,19 @@ function AdvancedDropdown({
 
   const confirmAdmin: PopconfirmProps["onConfirm"] = (e) => {
     console.log(e);
-    setAdmin(!admin);
-    message.success(`Admin mode set to ${!admin}`);
+    if (admin) {
+      setAdmin(false);
+      message.success(`Admin mode disabled`);
+    } else {
+      checkThisPassword("admin");
+    }
   };
+
+  useEffect(() => {
+    if (postPasswordCheck && scanResultForPuzzle === undefined) {
+      setAdmin(true);
+    }
+  }, [postPasswordCheck, scanResultForPuzzle, setAdmin]);
 
   const items: MenuProps["items"] = [
     {
