@@ -129,6 +129,9 @@ function App() {
       setRenderCargoHold(false);
       setNewBadgesEarned(undefined);
       setRenderChainCodePiece(undefined);
+      setRenderCrewMembers(false);
+      setRenderPasswordCheck(false);
+      setPasswordStatus(undefined);
     }
   }, [renderChainCodeValue]);
 
