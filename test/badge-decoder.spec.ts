@@ -578,4 +578,19 @@ describe("BadgeDecoder", () => {
       true,
     );
   });
+
+  it("should check for Pathway to AARC", () => {
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Pathway_to_AARC)).toBe(
+      false,
+    );
+    act(() => {
+      for (let i = 0; i < 2; i++) {
+        chainCodeDecoder.setChainCodeResult(
+          ChainCodeAlignmentCode.Light,
+          badgeDecoder,
+        );
+      }
+    });
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Pathway_to_AARC)).toBe(true);
+  });
 });

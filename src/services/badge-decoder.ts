@@ -32,6 +32,7 @@ export const BadgeCode = Object.freeze({
   Chewie_Were_Home: "g0tja",
   Rose_Tico: "xh9g3",
   First_Step: "tznoi",
+  Pathway_to_AARC: "ft4at",
 });
 
 export class Badge {
@@ -119,17 +120,6 @@ export class BadgeDecoder {
       }),
     );
     this.codeToBadge.set(
-      BadgeCode.Gayas_Microphone,
-      new Badge({
-        code: BadgeCode.Gayas_Microphone,
-        name: "Gaya's Microphone",
-        quote: `"I'm a Rockstar Queen!" --Gaya`,
-        description: `Participated in an event and helped retrieve Gaya's Microphone.`,
-        image: "./badge/gaya-mic.jpeg",
-        aztec: "./aztec/Gayas_Microphone.png",
-      }),
-    );
-    this.codeToBadge.set(
       BadgeCode.Relic_Hunter,
       new Badge({
         code: BadgeCode.Relic_Hunter,
@@ -152,28 +142,6 @@ export class BadgeDecoder {
       }),
     );
     this.codeToBadge.set(
-      BadgeCode.Resistance_Hero,
-      new Badge({
-        code: BadgeCode.Resistance_Hero,
-        name: "Resistance Hero",
-        quote: `"We don't choose the light because we want to win. We choose it because it is the light." --Rael Averross`,
-        description: `Make only Light Side choices during an event.`,
-        image: "./badge/resistance-hero.jpeg",
-        aztec: "./aztec/Resistance_Hero.png",
-      }),
-    );
-    this.codeToBadge.set(
-      BadgeCode.We_Have_Cookies,
-      new Badge({
-        code: BadgeCode.We_Have_Cookies,
-        name: "We Have Cookies",
-        quote: `"Be careful not to choke on your aspirations." --Darth Vader`,
-        description: `Make only Dark Side choices during an event.`,
-        image: "./badge/we-have-cookies.jpeg",
-        aztec: "./aztec/We_Have_Cookies.png",
-      }),
-    );
-    this.codeToBadge.set(
       BadgeCode.Bounty,
       new Badge({
         code: BadgeCode.Bounty,
@@ -182,17 +150,6 @@ export class BadgeDecoder {
         description: `Scan a crate containing a creature.`,
         image: "./badge/bounty.jpeg",
         aztec: "./aztec/Bounty.png",
-      }),
-    );
-    this.codeToBadge.set(
-      BadgeCode.Character_AARC,
-      new Badge({
-        code: BadgeCode.Character_AARC,
-        name: "Character AARC",
-        quote: `"The future has many paths; choose wisely." --Anakin Skywalker`,
-        description: `Make both Light and Dark side choices during an event.`,
-        image: "./badge/character-aarc.jpeg",
-        aztec: "./aztec/Character_AARC.png",
       }),
     );
     this.codeToBadge.set(
@@ -278,7 +235,7 @@ export class BadgeDecoder {
         code: BadgeCode.Rose_Tico,
         name: "Rose Tico",
         quote: `"We are what they grow beyond." --Yoda`,
-        description: `Awarded by the Halcyon: The Legacy Contines team.`,
+        description: `Awarded by the Halcyon: The Legacy Contines team for helping another player.`,
         image: "./badge/rose-tico.jpeg",
         aztec: "./aztec/Rose_Tico.png",
       }),
@@ -338,6 +295,61 @@ export class BadgeDecoder {
         description: `Awarded by the Halcyon: The Legacy Contines team.`,
         image: "./badge/chewie-were-home.jpeg",
         aztec: "./aztec/Chewie_Were_Home.png",
+      }),
+    );
+    this.unlistedCodeToBadge.set(
+      BadgeCode.Gayas_Microphone,
+      new Badge({
+        code: BadgeCode.Gayas_Microphone,
+        name: "Gaya's Microphone",
+        quote: `"I'm a Rockstar Queen!" --Gaya`,
+        description: `Participated in an event and helped retrieve Gaya's Microphone.`,
+        image: "./badge/gaya-mic.jpeg",
+        aztec: "./aztec/Gayas_Microphone.png",
+      }),
+    );
+    this.unlistedCodeToBadge.set(
+      BadgeCode.Pathway_to_AARC,
+      new Badge({
+        code: BadgeCode.Pathway_to_AARC,
+        name: "Pathway to AARC",
+        quote: `"Good Hunting!" --AARC Greeting`,
+        description: `Participated in the October Halcy-con event.`,
+        image: "./badge/pathway-to-aarc.jpeg",
+        aztec: "./aztec/Pathway_to_AARC.png",
+      }),
+    );
+    this.unlistedCodeToBadge.set(
+      BadgeCode.Character_AARC,
+      new Badge({
+        code: BadgeCode.Character_AARC,
+        name: "Character AARC",
+        quote: `"The future has many paths; choose wisely." --Anakin Skywalker`,
+        description: `Make both Light and Dark side choices during an event.`,
+        image: "./badge/character-aarc.jpeg",
+        aztec: "./aztec/Character_AARC.png",
+      }),
+    );
+    this.unlistedCodeToBadge.set(
+      BadgeCode.Resistance_Hero,
+      new Badge({
+        code: BadgeCode.Resistance_Hero,
+        name: "Resistance Hero",
+        quote: `"We don't choose the light because we want to win. We choose it because it is the light." --Rael Averross`,
+        description: `Make only Light Side choices during an event.`,
+        image: "./badge/resistance-hero.jpeg",
+        aztec: "./aztec/Resistance_Hero.png",
+      }),
+    );
+    this.unlistedCodeToBadge.set(
+      BadgeCode.We_Have_Cookies,
+      new Badge({
+        code: BadgeCode.We_Have_Cookies,
+        name: "We Have Cookies",
+        quote: `"Be careful not to choke on your aspirations." --Darth Vader`,
+        description: `Make only Dark Side choices during an event.`,
+        image: "./badge/we-have-cookies.jpeg",
+        aztec: "./aztec/We_Have_Cookies.png",
       }),
     );
 
@@ -582,6 +594,7 @@ export class BadgeDecoder {
     this.resistanceHero(chainCodeDecoder);
     this.weHaveCookies(chainCodeDecoder);
     this.characterAarc(chainCodeDecoder);
+    this.pathwayToAarc(chainCodeDecoder);
   }
 
   private characterAarc(chainCodeDecoder: ChainCodeDecoder) {
@@ -652,6 +665,16 @@ export class BadgeDecoder {
       chainCodeDecoder.chainCodeLength() >= MAX_CHAIN_CODE_SIZE
     ) {
       this.add(BadgeCode.Well_Connected);
+    }
+  }
+
+  private pathwayToAarc(chainCodeDecoder: ChainCodeDecoder) {
+    //Pathway to AARC - Participate in the October event (visit 2 NPCs)
+    if (
+      !this.earnedBadges.has(BadgeCode.Pathway_to_AARC) &&
+      chainCodeDecoder.chainCodeLength() >= 2
+    ) {
+      this.add(BadgeCode.Pathway_to_AARC);
     }
   }
 
