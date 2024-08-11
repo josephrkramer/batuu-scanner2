@@ -142,28 +142,6 @@ export class BadgeDecoder {
       }),
     );
     this.codeToBadge.set(
-      BadgeCode.Resistance_Hero,
-      new Badge({
-        code: BadgeCode.Resistance_Hero,
-        name: "Resistance Hero",
-        quote: `"We don't choose the light because we want to win. We choose it because it is the light." --Rael Averross`,
-        description: `Make only Light Side choices during an event.`,
-        image: "./badge/resistance-hero.jpeg",
-        aztec: "./aztec/Resistance_Hero.png",
-      }),
-    );
-    this.codeToBadge.set(
-      BadgeCode.We_Have_Cookies,
-      new Badge({
-        code: BadgeCode.We_Have_Cookies,
-        name: "We Have Cookies",
-        quote: `"Be careful not to choke on your aspirations." --Darth Vader`,
-        description: `Make only Dark Side choices during an event.`,
-        image: "./badge/we-have-cookies.jpeg",
-        aztec: "./aztec/We_Have_Cookies.png",
-      }),
-    );
-    this.codeToBadge.set(
       BadgeCode.Bounty,
       new Badge({
         code: BadgeCode.Bounty,
@@ -172,17 +150,6 @@ export class BadgeDecoder {
         description: `Scan a crate containing a creature.`,
         image: "./badge/bounty.jpeg",
         aztec: "./aztec/Bounty.png",
-      }),
-    );
-    this.codeToBadge.set(
-      BadgeCode.Character_AARC,
-      new Badge({
-        code: BadgeCode.Character_AARC,
-        name: "Character AARC",
-        quote: `"The future has many paths; choose wisely." --Anakin Skywalker`,
-        description: `Make both Light and Dark side choices during an event.`,
-        image: "./badge/character-aarc.jpeg",
-        aztec: "./aztec/Character_AARC.png",
       }),
     );
     this.codeToBadge.set(
@@ -350,6 +317,39 @@ export class BadgeDecoder {
         description: `Participated in the October Halcy-con event.`,
         image: "./badge/pathway-to-aarc.jpeg",
         aztec: "./aztec/Pathway_to_AARC.png",
+      }),
+    );
+    this.unlistedCodeToBadge.set(
+      BadgeCode.Character_AARC,
+      new Badge({
+        code: BadgeCode.Character_AARC,
+        name: "Character AARC",
+        quote: `"The future has many paths; choose wisely." --Anakin Skywalker`,
+        description: `Make both Light and Dark side choices during an event.`,
+        image: "./badge/character-aarc.jpeg",
+        aztec: "./aztec/Character_AARC.png",
+      }),
+    );
+    this.unlistedCodeToBadge.set(
+      BadgeCode.Resistance_Hero,
+      new Badge({
+        code: BadgeCode.Resistance_Hero,
+        name: "Resistance Hero",
+        quote: `"We don't choose the light because we want to win. We choose it because it is the light." --Rael Averross`,
+        description: `Make only Light Side choices during an event.`,
+        image: "./badge/resistance-hero.jpeg",
+        aztec: "./aztec/Resistance_Hero.png",
+      }),
+    );
+    this.unlistedCodeToBadge.set(
+      BadgeCode.We_Have_Cookies,
+      new Badge({
+        code: BadgeCode.We_Have_Cookies,
+        name: "We Have Cookies",
+        quote: `"Be careful not to choke on your aspirations." --Darth Vader`,
+        description: `Make only Dark Side choices during an event.`,
+        image: "./badge/we-have-cookies.jpeg",
+        aztec: "./aztec/We_Have_Cookies.png",
       }),
     );
 
