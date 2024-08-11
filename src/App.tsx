@@ -129,6 +129,9 @@ function App() {
       setRenderCargoHold(false);
       setNewBadgesEarned(undefined);
       setRenderChainCodePiece(undefined);
+      setRenderCrewMembers(false);
+      setRenderPasswordCheck(false);
+      setPasswordStatus(undefined);
     }
   }, [renderChainCodeValue]);
 
@@ -187,13 +190,17 @@ function App() {
 
     // Password Check Here
     if (passwordProtector.passwords.has(decodedText)) {
-      setPostPasswordCheck(false);
-      setPasswordToCheck(passwordProtector.passwords.get(decodedText)!);
-      displayPasswordCheck();
+      checkThisPassword(decodedText);
     } else {
       setPostPasswordCheck(true);
     }
   };
+
+  function checkThisPassword(checkMe: string) {
+    setPostPasswordCheck(false);
+    setPasswordToCheck(passwordProtector.passwords.get(checkMe)!);
+    displayPasswordCheck();
+  }
 
   const scannerComp = (
     <Html5QrcodePlugin
@@ -326,6 +333,9 @@ function App() {
           setScanResultForPuzzle={setScanResultForPuzzle}
           admin={admin}
           setAdmin={setAdmin}
+          postPasswordCheck={postPasswordCheck}
+          scanResultForPuzzle={scanResultForPuzzle}
+          checkThisPassword={checkThisPassword}
         />
       </Flex>
 
