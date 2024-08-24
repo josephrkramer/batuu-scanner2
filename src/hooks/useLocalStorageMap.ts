@@ -27,17 +27,17 @@ export const useLocalStorageMap = <T>(
   }, [key, value]);
 
   useEffect(() => {
-    window.addEventListener('storage', handleStorageChange);
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === key && event.newValue) {
+        setValue(new Map<string, T>(JSON.parse(event.newValue)));
+      }
     };
-  }, []);
 
-  const handleStorageChange = (event: StorageEvent) => {
-    if (event.key === key && event.newValue) {
-      setValue(new Map<string, T>(JSON.parse(event.newValue)));
-    }
-  };
+    window.addEventListener("storage", handleStorageChange);
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, [key]);
 
   return [value, setValue];
 };
