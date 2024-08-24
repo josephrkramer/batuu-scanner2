@@ -352,7 +352,7 @@ function App() {
       <Flex vertical>
         <PasswordStatus passwordCorrect={passwordStatus} />
         {renderLogo ? <Logo /> : null}
-        <Crate crate={crateToDisplay} />
+        <Crate crate={crateToDisplay} admin={admin} />
         {renderScanner ? scannerComp : null}
         <CargoHold
           render={renderCargoHold}
