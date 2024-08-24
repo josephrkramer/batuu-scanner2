@@ -26,5 +26,18 @@ export const useLocalStorageMap = <T>(
     localStorage.setItem(key, JSON.stringify(Array.from(value.entries())));
   }, [key, value]);
 
+  useEffect(() => {
+    window.addEventListener('storage', handleStorageChange);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+
+  const handleStorageChange = (event: StorageEvent) => {
+    if (event.key === key && event.newValue) {
+      setValue(new Map<string, T>(JSON.parse(event.newValue)));
+    }
+  };
+
   return [value, setValue];
 };
