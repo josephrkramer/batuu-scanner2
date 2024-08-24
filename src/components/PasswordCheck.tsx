@@ -10,16 +10,14 @@ function PasswordCheck({
   setRenderPasswordCheck,
   passwordToCheck,
   setPostPasswordCheck,
-  setScanResultForPuzzle,
+  setScanResult,
   setPasswordCorrect,
 }: Readonly<{
   renderPasswordCheck: boolean;
   setRenderPasswordCheck: React.Dispatch<React.SetStateAction<boolean>>;
   passwordToCheck: string;
   setPostPasswordCheck: React.Dispatch<React.SetStateAction<boolean>>;
-  setScanResultForPuzzle: React.Dispatch<
-    React.SetStateAction<string | undefined>
-  >;
+  setScanResult: React.Dispatch<React.SetStateAction<string | undefined>>;
   setPasswordCorrect: React.Dispatch<React.SetStateAction<boolean | undefined>>;
 }>) {
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
@@ -34,7 +32,7 @@ function PasswordCheck({
       setPasswordCorrect(true);
     } else {
       console.log("PASSWORD INCORRECT");
-      setScanResultForPuzzle(undefined);
+      setScanResult(undefined);
       setPasswordCorrect(false);
     }
     setRenderPasswordCheck(false);

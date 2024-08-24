@@ -17,11 +17,11 @@ function AdvancedDropdown({
   badgeDecoder,
   crateDecoder,
   setRenderPuzzle,
-  setScanResultForPuzzle,
+  scanResult,
+  setScanResult,
   admin,
   setAdmin,
   postPasswordCheck,
-  scanResultForPuzzle,
   checkThisPassword,
   adminRequested,
   setAdminRequested,
@@ -30,13 +30,11 @@ function AdvancedDropdown({
   badgeDecoder: BadgeDecoder;
   crateDecoder: CrateDecoder;
   setRenderPuzzle: React.Dispatch<React.SetStateAction<boolean>>;
-  setScanResultForPuzzle: React.Dispatch<
-    React.SetStateAction<string | undefined>
-  >;
+  scanResult: string | undefined;
+  setScanResult: React.Dispatch<React.SetStateAction<string | undefined>>;
   admin: boolean;
   setAdmin: React.Dispatch<React.SetStateAction<boolean>>;
   postPasswordCheck: boolean;
-  scanResultForPuzzle: string | undefined;
   checkThisPassword: (checkMe: string) => void;
   adminRequested: boolean;
   setAdminRequested: React.Dispatch<React.SetStateAction<boolean>>;
@@ -77,14 +75,14 @@ function AdvancedDropdown({
     if (
       adminRequested === true &&
       postPasswordCheck &&
-      scanResultForPuzzle === undefined
+      scanResult === undefined
     ) {
       setAdminRequested(false);
       setAdmin(true);
     }
   }, [
     postPasswordCheck,
-    scanResultForPuzzle,
+    scanResult,
     setAdmin,
     adminRequested,
     setAdminRequested,
@@ -126,7 +124,8 @@ function AdvancedDropdown({
       label: (
         <Button
           onClick={() => {
-            setScanResultForPuzzle("AB_PQ");
+            //Pick an arbitrary scan result to be able to reuse the admin password check
+            setScanResult("AB_PQ");
             setRenderPuzzle(true);
           }}
         >

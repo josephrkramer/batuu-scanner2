@@ -2,11 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import Logo from "./components/Logo";
 import Crate from "./components/Crate";
-import {
-  CrateDecoder,
-  CrateType,
-  CrateContents,
-} from "./services/crate-decoder";
+import { CrateDecoder, CrateContents } from "./services/crate-decoder";
 import Html5QrcodePlugin from "./components/Html5QrcodePlugin";
 import { Html5QrcodeResult } from "html5-qrcode";
 import { CrewManifest } from "./services/crew-manifest";
@@ -137,9 +133,7 @@ function App() {
   }, [renderChainCodeValue]);
 
   const [renderScanner, setRenderScanner] = useState(false);
-  const [scanResultForPuzzle, setScanResultForPuzzle] = useState<
-    string | undefined
-  >(undefined);
+  const [scanResult, setScanResult] = useState<string | undefined>(undefined);
 
   const [renderPuzzle, setRenderPuzzle] = useState(false);
   const [puzzleSolved, setPuzzleSolved] = useState(false);
@@ -172,14 +166,15 @@ function App() {
     deleteUrlParam("cargo");
   }
 
+  //Successfully solving the puzzle after a crate scan
   useEffect(() => {
-    if (puzzleSolved && scanResultForPuzzle !== undefined) {
+    if (puzzleSolved && scanResult !== undefined) {
       setPuzzleSolved(false);
       setRenderPuzzle(false);
-      crateDecoder.setResult(scanResultForPuzzle, badgeDecoder);
-      setScanResultForPuzzle(undefined);
+      crateDecoder.setResult(scanResult, badgeDecoder);
+      setScanResult(undefined);
     }
-  }, [puzzleSolved, scanResultForPuzzle, crateDecoder, badgeDecoder]);
+  }, [puzzleSolved, scanResult, crateDecoder, badgeDecoder]);
 
   const onNewScanResult = (
     decodedText: string,
@@ -187,7 +182,7 @@ function App() {
   ) => {
     console.log(`Scan result ${decodedText}`, decodedResult);
     setRenderScanner(false);
-    setScanResultForPuzzle(decodedText);
+    setScanResult(decodedText);
 
     // Password Check Here
     if (passwordProtector.passwords.has(decodedText)) {
@@ -214,37 +209,32 @@ function App() {
   );
 
   useEffect(() => {
-    if (postPasswordCheck && scanResultForPuzzle !== undefined) {
-      if (badgeDecoder.isValidBadgeCode(scanResultForPuzzle)) {
-        badgeDecoder.add(scanResultForPuzzle);
-        setScanResultForPuzzle(undefined);
+    if (postPasswordCheck && scanResult !== undefined) {
+      if (badgeDecoder.isValidBadgeCode(scanResult)) {
+        //Badge Scan
+        badgeDecoder.add(scanResult);
+        setScanResult(undefined);
+      } else if (chainCodeDecoder.isValidChainCode(scanResult)) {
+        //Chain Code Scan
+        chainCodeDecoder.setChainCodeResult(scanResult, badgeDecoder);
+        setScanResult(undefined);
+      } else if (admin) {
+        //Crate Scan as Admin
+        //This will skip the puzzle to save time for admins
+        crateDecoder.setResult(scanResult, badgeDecoder);
+        setScanResult(undefined);
       } else {
-        const crate = crateDecoder.decode(scanResultForPuzzle);
-
-        if (
-          chainCodeDecoder.isValidChainCode(scanResultForPuzzle) ||
-          crate.type == CrateType.Unknown
-        ) {
-          if (chainCodeDecoder.isValidChainCode(scanResultForPuzzle)) {
-            chainCodeDecoder.setChainCodeResult(
-              scanResultForPuzzle,
-              badgeDecoder,
-            );
-          } else {
-            crateDecoder.setResult(scanResultForPuzzle, badgeDecoder);
-          }
-          setScanResultForPuzzle(undefined);
-        } else {
-          setRenderPuzzle(true);
-        }
+        //Crate Scan
+        setRenderPuzzle(true);
       }
     }
   }, [
     postPasswordCheck,
-    scanResultForPuzzle,
+    scanResult,
     crateDecoder,
     badgeDecoder,
     chainCodeDecoder,
+    admin,
   ]);
 
   function homeButton() {
@@ -331,11 +321,11 @@ function App() {
           badgeDecoder={badgeDecoder}
           crateDecoder={crateDecoder}
           setRenderPuzzle={setRenderPuzzle}
-          setScanResultForPuzzle={setScanResultForPuzzle}
+          scanResult={scanResult}
+          setScanResult={setScanResult}
           admin={admin}
           setAdmin={setAdmin}
           postPasswordCheck={postPasswordCheck}
-          scanResultForPuzzle={scanResultForPuzzle}
           checkThisPassword={checkThisPassword}
           adminRequested={adminRequested}
           setAdminRequested={setAdminRequested}
@@ -390,7 +380,7 @@ function App() {
           setRenderPasswordCheck={setRenderPasswordCheck}
           passwordToCheck={passwordToCheck}
           setPostPasswordCheck={setPostPasswordCheck}
-          setScanResultForPuzzle={setScanResultForPuzzle}
+          setScanResult={setScanResult}
           setPasswordCorrect={setPasswordStatus}
         />
         <Flex vertical gap="small">
