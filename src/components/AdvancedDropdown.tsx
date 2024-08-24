@@ -23,6 +23,8 @@ function AdvancedDropdown({
   postPasswordCheck,
   scanResultForPuzzle,
   checkThisPassword,
+  adminRequested,
+  setAdminRequested,
 }: Readonly<{
   chainCodeDecoder: ChainCodeDecoder;
   badgeDecoder: BadgeDecoder;
@@ -36,6 +38,8 @@ function AdvancedDropdown({
   postPasswordCheck: boolean;
   scanResultForPuzzle: string | undefined;
   checkThisPassword: (checkMe: string) => void;
+  adminRequested: boolean;
+  setAdminRequested: React.Dispatch<React.SetStateAction<boolean>>;
 }>) {
   const confirmReset: PopconfirmProps["onConfirm"] = (e) => {
     console.log(e);
@@ -64,15 +68,27 @@ function AdvancedDropdown({
       setAdmin(false);
       message.success(`Admin mode disabled`);
     } else {
+      setAdminRequested(true);
       checkThisPassword("admin");
     }
   };
 
   useEffect(() => {
-    if (postPasswordCheck && scanResultForPuzzle === undefined) {
+    if (
+      adminRequested === true &&
+      postPasswordCheck &&
+      scanResultForPuzzle === undefined
+    ) {
+      setAdminRequested(false);
       setAdmin(true);
     }
-  }, [postPasswordCheck, scanResultForPuzzle, setAdmin]);
+  }, [
+    postPasswordCheck,
+    scanResultForPuzzle,
+    setAdmin,
+    adminRequested,
+    setAdminRequested,
+  ]);
 
   const items: MenuProps["items"] = [
     {

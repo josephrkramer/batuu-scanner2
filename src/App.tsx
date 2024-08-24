@@ -115,6 +115,7 @@ function App() {
   );
 
   const [admin, setAdmin] = useLocalStorage<boolean>("admin", false);
+  const [adminRequested, setAdminRequested] = useState(false);
 
   const [renderCargoHold, setRenderCargoHold] = useState(false);
   const [sortedCargoHold, setSortedCargoHold] = useState(
@@ -336,6 +337,8 @@ function App() {
           postPasswordCheck={postPasswordCheck}
           scanResultForPuzzle={scanResultForPuzzle}
           checkThisPassword={checkThisPassword}
+          adminRequested={adminRequested}
+          setAdminRequested={setAdminRequested}
         />
       </Flex>
 
