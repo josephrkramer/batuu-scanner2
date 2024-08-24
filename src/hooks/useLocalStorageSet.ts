@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 function getStorageValueSet<T>(key: string, defaultValue: Set<T>): Set<T> {
   // getting stored value
   const saved = localStorage.getItem(key);
-  if (saved) {
+  if (saved && saved !== "undefined") {
     return new Set(JSON.parse(saved));
   } else {
     return defaultValue;

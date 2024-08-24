@@ -6,7 +6,7 @@ function getStorageValueMap<T>(
 ): Map<string, T> {
   // getting stored value
   const saved = localStorage.getItem(key);
-  if (saved) {
+  if (saved && saved !== "undefined") {
     return new Map<string, T>(JSON.parse(saved));
   } else {
     return defaultValue;
