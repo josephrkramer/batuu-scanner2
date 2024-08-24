@@ -1,4 +1,12 @@
-import { Card, List, Typography, Image } from "antd";
+import {
+  Card,
+  List,
+  Typography,
+  Image,
+  CollapseProps,
+  Collapse,
+  Flex,
+} from "antd";
 import { CrewMember } from "../services/crew-manifest";
 import { isNullOrUndefined } from "html5-qrcode/esm/core";
 
@@ -26,43 +34,41 @@ function crewDisplay(crewMembers: Map<string, Array<CrewMember>>) {
   const crewDisplayList = [];
   for (const crewType of crewMembers.keys()) {
     const dataSource = Array.from(crewMembers.get(crewType)!.values());
-    const list = (
-      <List
-        itemLayout="horizontal"
-        dataSource={dataSource}
-        size="small"
-        //bordered
-        header={<Typography.Title level={4}>{crewType}</Typography.Title>}
-        key={crewType}
-        renderItem={(crewMember) => (
-          <List.Item>
-            <Image
-              src={crewMember.image}
-              width={50}
-              preview={{
-                imageRender: () => (
-                  <div>
-                    <Image src={crewMember.image} preview={false} />
-                    <Typography.Title level={3}>
-                      {crewMember.name}
-                    </Typography.Title>
-                    {crewMemberAttribute("Occupation", crewMember.occupation)}
-                    {crewMemberAttribute("Affiliation", crewMember.affiliation)}
-                    {crewMemberAttribute("Homeworld", crewMember.homeworld)}
-                    {crewMemberAttribute("Companion", crewMember.companion)}
-                    {crewMemberAttribute("Vehicle", crewMember.vehicle)}
-                    {crewMemberAttribute("Species", crewMember.species)}
-                  </div>
-                ),
-                toolbarRender: () => null,
-              }}
-            />
-            <Typography.Text>{crewMember.name}</Typography.Text>
-          </List.Item>
-        )}
-      />
+    const items: CollapseProps["items"] = dataSource.map((crewMember) => ({
+      key: crewMember.name,
+      label: (
+        <Flex justify={"space-evenly"}>
+          <Image
+            src={crewMember.image}
+            width={50}
+            preview={{ toolbarRender: () => null }}
+          />
+          <Typography.Text>{crewMember.name}</Typography.Text>
+        </Flex>
+      ),
+      children: (
+        <div>
+          <Image
+            src={crewMember.image}
+            preview={{ toolbarRender: () => null }}
+          />
+          <Typography.Title level={4}>{crewMember.name}</Typography.Title>
+          {crewMemberAttribute("Occupation", crewMember.occupation)}
+          {crewMemberAttribute("Affiliation", crewMember.affiliation)}
+          {crewMemberAttribute("Homeworld", crewMember.homeworld)}
+          {crewMemberAttribute("Companion", crewMember.companion)}
+          {crewMemberAttribute("Vehicle", crewMember.vehicle)}
+          {crewMemberAttribute("Species", crewMember.species)}
+          {crewMemberAttribute("Biography", crewMember.biography)}
+        </div>
+      ),
+    }));
+    crewDisplayList.push(
+      <div>
+        <Typography.Title level={4}>{crewType}</Typography.Title>
+        <Collapse items={items} />
+      </div>,
     );
-    crewDisplayList.push(list);
   }
   if (crewDisplayList.length == 0) {
     return <List itemLayout="horizontal" dataSource={[]} size="small" />;
