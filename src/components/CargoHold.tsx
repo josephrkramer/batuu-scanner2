@@ -64,6 +64,8 @@ function crateDisplay(
                     <Image
                       src={admin ? `./crate/${item.code}.png` : item.image}
                       preview={false}
+                      width={"100vw"}
+                      height={"auto"}
                     />
                     <Typography.Title level={3}>
                       {item.contents}
@@ -99,7 +101,22 @@ function chainCodeDisplay(chainCode: ChainCodePart[], admin: boolean) {
           <Image
             src={admin ? item.aztec : item.image}
             width={50}
-            preview={{ toolbarRender: () => null }}
+            preview={{
+              imageRender: () => (
+                <div>
+                  <Image
+                    src={admin ? item.aztec : item.image}
+                    preview={false}
+                    width={"100vw"}
+                    height={"auto"}
+                  />
+                  <Typography.Title level={3}>
+                    {admin ? item.description : "Chain Code Fragement"}
+                  </Typography.Title>
+                </div>
+              ),
+              toolbarRender: () => null,
+            }}
           />
           <Typography.Text>
             {admin ? item.description : "Chain Code Fragement"}
@@ -149,6 +166,8 @@ function badgeDisplay(
                       <Image
                         src={admin ? badge.aztec : badge.image}
                         preview={false}
+                        width={"100vw"}
+                        height={"auto"}
                       />
                       <Typography.Title level={3}>
                         {badge.name}
