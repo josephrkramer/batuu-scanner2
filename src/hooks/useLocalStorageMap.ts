@@ -6,7 +6,7 @@ function getStorageValueMap<T>(
 ): Map<string, T> {
   // getting stored value
   const saved = localStorage.getItem(key);
-  if (saved) {
+  if (saved && saved !== "undefined") {
     return new Map<string, T>(JSON.parse(saved));
   } else {
     return defaultValue;
@@ -25,6 +25,19 @@ export const useLocalStorageMap = <T>(
     // storing input name
     localStorage.setItem(key, JSON.stringify(Array.from(value.entries())));
   }, [key, value]);
+
+  useEffect(() => {
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === key && event.newValue) {
+        setValue(new Map<string, T>(JSON.parse(event.newValue)));
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, [key]);
 
   return [value, setValue];
 };

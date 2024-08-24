@@ -4,7 +4,7 @@ function getStorageValue<T>(key: string, defaultValue: T): T {
   // getting stored value
   const saved = localStorage.getItem(key);
   // parsing stored value to json
-  if (saved) {
+  if (saved && saved !== "undefined") {
     return JSON.parse(saved);
   } else {
     return defaultValue;
@@ -23,6 +23,19 @@ export const useLocalStorage = <T>(
     // storing input name
     localStorage.setItem(key, JSON.stringify(value));
   }, [key, value]);
+
+  useEffect(() => {
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === key && event.newValue) {
+        setValue(JSON.parse(event.newValue));
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, [key]);
 
   return [value, setValue];
 };
