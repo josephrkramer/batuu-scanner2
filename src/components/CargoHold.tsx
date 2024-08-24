@@ -8,6 +8,8 @@ import {
 import dayjs from "dayjs";
 import { ChainCodePart } from "../services/chain-code";
 
+const { Title, Text } = Typography;
+
 function CargoHold(
   props: Readonly<{
     render: boolean;
@@ -24,7 +26,7 @@ function CargoHold(
 
   return (
     <Card>
-      <Typography.Title level={3}>Scanned Crates</Typography.Title>
+      <Title level={3}>Scanned Crates</Title>
       {crateDisplay(props.sortedCargoHold, props.admin)}
       {chainCodeDisplay(props.chainCode, props.admin)}
       {badgeDisplay(
@@ -51,7 +53,7 @@ function crateDisplay(
         dataSource={dataSource}
         size="small"
         //bordered
-        header={<Typography.Title level={4}>{crateType}</Typography.Title>}
+        header={<Title level={4}>{crateType}</Title>}
         key={crateType}
         renderItem={(item) => (
           <List.Item>
@@ -67,15 +69,15 @@ function crateDisplay(
                       width={"100vw"}
                       height={"auto"}
                     />
-                    <Typography.Title level={3}>
-                      {item.contents}
-                    </Typography.Title>
+                    <Title level={3}>{item.contents}</Title>
+                    {admin ? <Title level={4}>{item.code}</Title> : null}
                   </div>
                 ),
                 toolbarRender: () => null,
               }}
             />
-            <Typography.Text>{item.contents}</Typography.Text>
+            <Text>{item.contents}</Text>
+            {admin ? <Text>{item.code}</Text> : null}
           </List.Item>
         )}
       />
@@ -95,7 +97,7 @@ function chainCodeDisplay(chainCode: ChainCodePart[], admin: boolean) {
       dataSource={chainCode}
       size="small"
       //bordered
-      header={<Typography.Title level={3}>Chain Code</Typography.Title>}
+      header={<Title level={3}>Chain Code</Title>}
       renderItem={(item) => (
         <List.Item>
           <Image
@@ -110,17 +112,15 @@ function chainCodeDisplay(chainCode: ChainCodePart[], admin: boolean) {
                     width={"100vw"}
                     height={"auto"}
                   />
-                  <Typography.Title level={3}>
+                  <Title level={3}>
                     {admin ? item.description : "Chain Code Fragement"}
-                  </Typography.Title>
+                  </Title>
                 </div>
               ),
               toolbarRender: () => null,
             }}
           />
-          <Typography.Text>
-            {admin ? item.description : "Chain Code Fragement"}
-          </Typography.Text>
+          <Text>{admin ? item.description : "Chain Code Fragement"}</Text>
         </List.Item>
       )}
     />
@@ -169,16 +169,10 @@ function badgeDisplay(
                         width={"100vw"}
                         height={"auto"}
                       />
-                      <Typography.Title level={3}>
-                        {badge.name}
-                      </Typography.Title>
-                      <Typography.Title level={4}>
-                        {badge.quote}
-                      </Typography.Title>
-                      <Typography.Text>{badge.description}</Typography.Text>
-                      <Typography.Title level={5}>
-                        {badgeEarnedDate(badge)}
-                      </Typography.Title>
+                      <Title level={3}>{badge.name}</Title>
+                      <Title level={4}>{badge.quote}</Title>
+                      <Text>{badge.description}</Text>
+                      <Title level={5}>{badgeEarnedDate(badge)}</Title>
                     </div>
                   ),
                   toolbarRender: () => null,
