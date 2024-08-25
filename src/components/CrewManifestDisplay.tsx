@@ -64,7 +64,7 @@ function crewDisplay(crewMembers: Map<string, Array<CrewMember>>) {
       ),
     }));
     crewDisplayList.push(
-      <div>
+      <div key={crewType}>
         <Typography.Title level={4}>{crewType}</Typography.Title>
         <Collapse items={items} />
       </div>,
