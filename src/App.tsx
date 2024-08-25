@@ -32,6 +32,12 @@ function App() {
   const queryString = window.location.search;
   console.log(queryString);
   const urlParams = new URLSearchParams(queryString);
+  if (urlParams.has("reset")) {
+    console.log("Clearing local storage...");
+    localStorage.clear();
+    //delete param to ensure we don't get into a loop
+    deleteUrlParam("reset");
+  }
 
   const [crateToDisplay, setCrateToDisplay] = useState<
     CrateContents | undefined

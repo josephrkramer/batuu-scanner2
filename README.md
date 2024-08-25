@@ -43,6 +43,10 @@ Use the dropdown in the upper right to reset the data back to proper states.
 
 ![Reset Dropdown Screenshot](reset-screenshot.png "Reset Dropdown Screenshot")
 
+#### URL Parameters
+
+If the page fails to load, you can clear the local storage by submitting the `reset` URL parameter.
+
 ### Pre-populate with cargo
 
 See [https://josephrkramer.github.io/batuu-scanner2/?cargo](https://josephrkramer.github.io/batuu-scanner2/?cargo)
