@@ -8,7 +8,7 @@ import { Html5QrcodeResult } from "html5-qrcode";
 import { CrewManifest } from "./services/crew-manifest";
 import { ChainCodeDecoder, ChainCodePart } from "./services/chain-code";
 import { Badge, BadgeDecoder, EarnedBadge } from "./services/badge-decoder";
-import { Button, ConfigProvider, Flex, theme } from "antd";
+import { Button, ConfigProvider, Flex, theme, Typography } from "antd";
 import CargoHold from "./components/CargoHold";
 import EarnedBadges from "./components/EarnedBadges";
 import ChainCodePartResult from "./components/ChainCodePartResult";
@@ -337,6 +337,8 @@ function App() {
           setAdminRequested={setAdminRequested}
         />
       </Flex>
+
+      {admin ? <Typography.Title level={1}>Admin</Typography.Title> : null}
 
       {alignment ? null : (
         <AlignmentQuestion
