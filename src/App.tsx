@@ -326,9 +326,7 @@ function App() {
           chainCodeDecoder={chainCodeDecoder}
           badgeDecoder={badgeDecoder}
           crateDecoder={crateDecoder}
-          setRenderPuzzle={setRenderPuzzle}
           scanResult={scanResult}
-          setScanResult={setScanResult}
           admin={admin}
           setAdmin={setAdmin}
           postPasswordCheck={postPasswordCheck}
