@@ -16,9 +16,7 @@ function AdvancedDropdown({
   chainCodeDecoder,
   badgeDecoder,
   crateDecoder,
-  setRenderPuzzle,
   scanResult,
-  setScanResult,
   admin,
   setAdmin,
   postPasswordCheck,
@@ -29,9 +27,7 @@ function AdvancedDropdown({
   chainCodeDecoder: ChainCodeDecoder;
   badgeDecoder: BadgeDecoder;
   crateDecoder: CrateDecoder;
-  setRenderPuzzle: React.Dispatch<React.SetStateAction<boolean>>;
   scanResult: string | undefined;
-  setScanResult: React.Dispatch<React.SetStateAction<string | undefined>>;
   admin: boolean;
   setAdmin: React.Dispatch<React.SetStateAction<boolean>>;
   postPasswordCheck: boolean;
@@ -122,20 +118,6 @@ function AdvancedDropdown({
     {
       key: "3",
       label: (
-        <Button
-          onClick={() => {
-            //Pick an arbitrary scan result to be able to reuse the admin password check
-            setScanResult("AB_PQ");
-            setRenderPuzzle(true);
-          }}
-        >
-          Puzzle
-        </Button>
-      ),
-    },
-    {
-      key: "4",
-      label: (
         <Popconfirm
           title="Toggle Admin Mode"
           description="This will change base functionality of the app and is not intended for players. Are you sure want to continue?"
@@ -144,7 +126,7 @@ function AdvancedDropdown({
           okText="Yes"
           cancelText="No"
         >
-          <Button danger>Admin</Button>
+          <Button>Admin</Button>
         </Popconfirm>
       ),
     },
