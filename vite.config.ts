@@ -5,7 +5,7 @@ import { configDefaults } from "vitest/config";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/batuu-scanner2/",
+  base: "/",
   plugins: [react()],
   test: {
     globals: true,

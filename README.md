@@ -15,7 +15,7 @@ In this library, several changes have been applied over the original port:
 
 ### Test scanning of crates
 
-See [https://josephrkramer.github.io/batuu-scanner2/](https://josephrkramer.github.io/batuu-scanner2/)
+See [https://datapad.halcyonthelegacycontinues.com/](https://datapad.halcyonthelegacycontinues.com/)
 
 The following image can be used to test the scanning of crates.
 
@@ -49,7 +49,7 @@ If the page fails to load, you can clear the local storage by submitting the `re
 
 ### Pre-populate with cargo
 
-See [https://josephrkramer.github.io/batuu-scanner2/?cargo](https://josephrkramer.github.io/batuu-scanner2/?cargo)
+See [https://datapad.halcyonthelegacycontinues.com/?cargo](https://datapad.halcyonthelegacycontinues.com/?cargo)
 
 ## Development
 
