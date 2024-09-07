@@ -133,7 +133,7 @@ export class CrewManifest {
         occupation: "Slicer",
         biography: [
           "Zilla's childhood was spent in Canto Bight, shadowing her parents who worked at one of the gaming establishments (and picking up a few skills from the less-reputable patrons). She always admired the well- heeled customers, and hopes to one day own one of their sleek yachts.",
-          "She attracted attention by borrowing one of the ships without permission, and was given her first job by the impressed owner. Since then, her skills have been for rent to the highest bidder, and she'll work for anyone with the credits to spend. Having built up quite a reputation for herself, she finally secured what promised to be a long-term engagement with an established but unsavory organization. But those who know her wonder how long Zilla will be able to take orders…",
+          "She attracted attention by borrowing one of the ships without permission, and was given her first job by the impressed owner. Since then, her skills have been for rent to the highest bidder. Having built up quite a reputation for herself, she finally secured what promised to be a long-term engagement with an established but unsavory organization. But due to a difference of opinion regarding some porg eggs and a lot of Spice, Zilla has found herself on the run - and in need of help.",
         ],
         companion: undefined,
         vehicle: "Nice try, First Order. I rotate vehicles.",
@@ -141,7 +141,7 @@ export class CrewManifest {
         species: "Human",
         affiliation: undefined,
         type: CrewMemberType.NPC,
-        image: "./crew/zilla.png",
+        image: "./crew/zilla.jpg",
       }),
     );
     this.addCrewMember(
