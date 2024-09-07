@@ -59,7 +59,7 @@ function crewDisplay(crewMembers: Map<string, Array<CrewMember>>) {
           {crewMemberAttribute("Companion", crewMember.companion)}
           {crewMemberAttribute("Vehicle", crewMember.vehicle)}
           {crewMemberAttribute("Species", crewMember.species)}
-          {crewMemberAttribute("Biography", crewMember.biography)}
+          {crewMemberBiography("Biography", crewMember.biography)}
         </div>
       ),
     }));
@@ -86,6 +86,30 @@ function crewMemberAttribute(text: string, content: string) {
         <b>{text}:</b> {content}
       </Typography.Text>
       <br />
+    </>
+  );
+}
+
+function crewMemberBiography(text: string, content: string[]) {
+  if (isNullOrUndefined(content)) {
+    return null;
+  }
+
+  const paragraphs = [];
+  for (const paragraph of content) {
+    paragraphs.push(
+      <Typography.Paragraph key={paragraphs.length}>
+        {paragraph}
+      </Typography.Paragraph>,
+    );
+  }
+
+  return (
+    <>
+      <Typography.Text>
+        <b>{text}:</b>
+      </Typography.Text>
+      {paragraphs}
     </>
   );
 }
