@@ -57,20 +57,18 @@ export class CrewManifest {
 
     this.addCrewMember(
       new CrewMember({
-        name: "Lt Rook Darkazanli",
-        occupation: "Soldier",
+        name: "Vesper Grey",
+        occupation: "Freelancer",
         biography: [
-          "Rook was born to Rebel parents and grew up on Hoth. She has never stayed on a single planet for longer than two years, other than a brief attempt to settle down with her family on Chandrila.",
-          "After the New Republic government was established and her parents settled down into roles in the ever-smaller New Republic military, Rook took to freelancing to make a name for herself. She became part of the crew of the Icarus and transported cargo across the galaxy.",
-          "However, the peace was not to last. The First Order soon became a big enough threat that Senator Leia Organa and several other Rebel veterans formed the Resistance. Rook and the Icarus crew offered their services to now General Leia. Rook's parents were killed in the attack on Hosnian Prime by the Starkiller weapon, and ever since she has vowed to see The First Order defeated.",
+          "Vesper Grey is a daughter of Dathomir, even though she has never set foot on its surface. Her 3 mothers were born and raised on planet and fled together during the Battle of Dathomir. Vesper joined the Rebel Alliance after a troubling incident during her adolescence. One of her mothers disappeared without a trace, seemingly in search of a mysterious artifact. Vesper earned a spot in the Alliance Special Forces or SpecForce and served for years in the Pathfinders, specializing in infiltration and guerrilla tactics. After the overthrow of the Galactic Empire and the formation of the New Republic Vesper left the military and has been operating as a lone freelancer ever since, becoming consumed by the search for ancient Dathomiri artifacts.",
         ],
-        companion: undefined,
-        vehicle: "T-70 X wing",
-        homeworld: "Hoth",
-        species: "Human",
-        affiliation: "Rebellion//Resistance",
+        companion: "Loner",
+        vehicle: "Kom'rk-class fighter named The Erso",
+        homeworld: "Dathomir",
+        species: undefined,
+        affiliation: "Freelancer but in the past Rebel Alliance",
         type: CrewMemberType.Faction_Leader,
-        image: "./crew/rook.png",
+        image: "./crew/vesper.png",
         alignment: ChainCodeAlignmentString.Light,
       }),
     );
