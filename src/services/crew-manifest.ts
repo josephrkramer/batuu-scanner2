@@ -196,6 +196,22 @@ export class CrewManifest {
         image: "./crew/joe.png",
       }),
     );
+    this.addCrewMember(
+      new CrewMember({
+        name: "Porgkins",
+        occupation: "Pilot",
+        biography: [
+          "A little known hero of the Rebel Alliance and the New Republic, the small statured Porg from Ahco-To is one of the very few to survive the Battle of Yavin. Porkins, call sign Squawk, was crucial at the battle of Endor. While the Falcon took out the power generator, and Wedge got the power regulator on the north tower, who do you think took out the southern tower? Why, Porkins, of course, in his size appropriate X-wing. He later co-founded Wraith Squadron along with Wedge Antilles. He fit right in with all the misfits and miscreants and ended his career with that unit, but not before engaging in many shenanigans to dog the remants of the Empire at every step.",
+        ],
+        companion: undefined,
+        vehicle: "X-wing (custom)",
+        homeworld: "Ahco-To",
+        species: "Porg",
+        affiliation: "New Republic",
+        type: CrewMemberType.NPC,
+        image: "./crew/porgkins.png",
+      }),
+    );
   }
 
   addCrewMember(crewMemeber: CrewMember) {
