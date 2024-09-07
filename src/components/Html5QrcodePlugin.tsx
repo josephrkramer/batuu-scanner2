@@ -34,6 +34,7 @@ const createConfig = (props: {
   const config: Html5QrcodeScannerConfig = {
     fps: undefined,
     rememberLastUsedCamera: true,
+    showTorchButtonIfSupported: true,
     // Only support camera scan type.
     supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA],
     formatsToSupport: [Html5QrcodeSupportedFormats.AZTEC],
