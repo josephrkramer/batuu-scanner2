@@ -77,7 +77,7 @@ export class CrewManifest {
         name: "Lias Orion",
         occupation: "None of your business",
         biography: [
-          "Lias Orion was abandoned by his mother after his father died at The Battle of Jakku when Lias was 7. Lias was taken in by Maz Kanata and grew up at her castle. After being shown the galaxy by Maz and watching his sister die at The Battle of Takodana, Lias decided the resistance could not be trusted and the first order must be stopped. Lias established The Cause for people who think different from the norm. Lias continues adding a diverse range of beings from the galaxy into The Cause.",
+          "Lias Orion was abandoned by his mother after his father died at the Battle of Jakku when Lias was 7. Lias was taken in by Maz Kanata and grew up at her castle. After being shown the galaxy by Maz, and watching his sister die at the Battle of Takodana, Lias decided the Resistance could not be trusted and the First Order must be stopped. Lias established The Cause for people who think differently from the norm. Lias continues to add a diverse range of beings from the galaxy into The Cause.",
         ],
         companion: "BD-72",
         vehicle: "WTK-85A interstellar transport called 'The Ktulu'",
