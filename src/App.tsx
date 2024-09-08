@@ -7,7 +7,12 @@ import Html5QrcodePlugin from "./components/Html5QrcodePlugin";
 import { Html5QrcodeResult } from "html5-qrcode";
 import { CrewManifest } from "./services/crew-manifest";
 import { ChainCodeDecoder, ChainCodePart } from "./services/chain-code";
-import { Badge, BadgeDecoder, EarnedBadge } from "./services/badge-decoder";
+import {
+  Badge,
+  BadgeCode,
+  BadgeDecoder,
+  EarnedBadge,
+} from "./services/badge-decoder";
 import { Button, ConfigProvider, Flex, theme, Typography } from "antd";
 import CargoHold from "./components/CargoHold";
 import EarnedBadges from "./components/EarnedBadges";
@@ -123,6 +128,12 @@ function App() {
   const [sortedCargoHold, setSortedCargoHold] = useState(
     crateDecoder.sortCargoHold(admin),
   );
+
+  const [alignment, setAlignment] = useLocalStorage<string | undefined>(
+    "alignment",
+    undefined,
+  );
+
   const [renderChainCodeValue, setRenderChainCodeValue] = useState(false);
   useEffect(() => {
     if (renderChainCodeValue) {
@@ -130,13 +141,22 @@ function App() {
       setRenderScanner(false);
       setCrateToDisplay(undefined);
       setRenderCargoHold(false);
-      setNewBadgesEarned(undefined);
       setRenderChainCodePiece(undefined);
       setRenderCrewMembers(false);
       setRenderPasswordCheck(false);
       setPasswordStatus(undefined);
+
+      //Grant Character AARC badge
+      // Untested :-(
+      if (
+        alignment !== chainCodeDecoder.chainCodeAlignment() &&
+        !badgeDecoder.earnedBadges.has(BadgeCode.Character_AARC)
+      ) {
+        badgeDecoder.add(BadgeCode.Character_AARC);
+        setNewBadgesEarned([badgeDecoder.decode(BadgeCode.Character_AARC)]);
+      }
     }
-  }, [renderChainCodeValue]);
+  }, [renderChainCodeValue, alignment, badgeDecoder, chainCodeDecoder]);
 
   const [renderScanner, setRenderScanner] = useState(false);
   const [scanResult, setScanResult] = useState<string | undefined>(undefined);
@@ -150,11 +170,6 @@ function App() {
   const [postPasswordCheck, setPostPasswordCheck] = useState(false);
   const [passwordToCheck, setPasswordToCheck] = useState<string>("");
   const [passwordStatus, setPasswordStatus] = useState<boolean | undefined>(
-    undefined,
-  );
-
-  const [alignment, setAlignment] = useLocalStorage<string | undefined>(
-    "alignment",
     undefined,
   );
 

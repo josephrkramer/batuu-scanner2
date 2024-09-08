@@ -356,7 +356,9 @@ describe("BadgeDecoder", () => {
       }
     });
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Resistance_Hero)).toBe(true);
-    expect(badgeDecoder.earnedBadges.has(BadgeCode.Its_Complicated)).toBe(false);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Its_Complicated)).toBe(
+      false,
+    );
     expect(badgeDecoder.earnedBadges.has(BadgeCode.We_Have_Cookies)).toBe(
       false,
     );
@@ -403,7 +405,9 @@ describe("BadgeDecoder", () => {
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Resistance_Hero)).toBe(
       false,
     );
-    expect(badgeDecoder.earnedBadges.has(BadgeCode.Its_Complicated)).toBe(false);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Its_Complicated)).toBe(
+      false,
+    );
   });
 
   it("should check for We Have Cookies with past badges", () => {
@@ -430,7 +434,9 @@ describe("BadgeDecoder", () => {
   });
 
   it("should check for It's Complicated", () => {
-    expect(badgeDecoder.earnedBadges.has(BadgeCode.Its_Complicated)).toBe(false);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Its_Complicated)).toBe(
+      false,
+    );
     act(() => {
       chainCodeDecoder.setChainCodeResult(
         ChainCodeAlignmentCode.Dark,

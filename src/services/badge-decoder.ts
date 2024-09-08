@@ -33,6 +33,7 @@ export const BadgeCode = Object.freeze({
   Rose_Tico: "xh9g3",
   First_Step: "tznoi",
   Pathway_to_AARC: "ft4at",
+  Character_AARC: "v14h0",
 });
 
 export class Badge {
@@ -330,19 +331,17 @@ export class BadgeDecoder {
         aztec: "./aztec/Its_Complicated.png",
       }),
     );
-    /*
-        this.unlistedCodeToBadge.set(
+    this.unlistedCodeToBadge.set(
       BadgeCode.Character_AARC,
       new Badge({
         code: BadgeCode.Character_AARC,
         name: "Character AARC",
         quote: `"The future has many paths; choose wisely." --Anakin Skywalker`,
-        description: `Make both Light and Dark side choices during an event.`,
+        description: `Make choices that are different from your starting alignment.`,
         image: "./badge/character-aarc.jpeg",
         aztec: "./aztec/Character_AARC.png",
       }),
     );
-    */
     this.unlistedCodeToBadge.set(
       BadgeCode.Resistance_Hero,
       new Badge({

@@ -31,6 +31,7 @@ class AztecGenerator:
         "Rose_Tico": "xh9g3",
         "First_Step": "tznoi",
         "Pathway_to_AARC": "ft4at",
+        "Character_AARC": "v14h0",
     }
 
     crates = {
