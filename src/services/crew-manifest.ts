@@ -93,18 +93,17 @@ export class CrewManifest {
     this.addCrewMember(
       new CrewMember({
         name: "Lias Orion",
-        occupation: undefined,
+        occupation: "None of your business",
         biography: [
-          "At the age of 5. Lias Orion lost his father during the battle of Jakku. His mother disappeared upon receiving the news and Lias was left with his 2 year old sister. A'nah. Lias and A'nah were taken in by Maz Kanata under the condition that Lias would forever work in her castle as a runner to 'take care of the things I would do 500 years ago? Lias learned about the galaxy from Maz.",
-          "During the Battle of Takodana with the First Order, A'nah was caught in action and died. The destruction of the castle and his sister’s death left Lias devastated and vengeful! He recalled what Maz taught him about the partisans and Saw Gerrera which inspired Lias to begin a faction of his own entitled 'The Cause' to give the galaxy what he calls 'True Freedom.'",
+          "Lias Orion was abandoned by his mother after his father died at The Battle of Jakku when Lias was 7. Lias was taken in by Maz Kanata and grew up at her castle. After being shown the galaxy by Maz and watching his sister die at The Battle of Takodana, Lias decided the resistance could not be trusted and the first order must be stopped. Lias established The Cause for people who think different from the norm. Lias continues adding a diverse range of beings from the galaxy into The Cause.",
         ],
         companion: "BD-72",
-        vehicle: "WTK-85A Interstellar transport",
+        vehicle: "WTK-85A interstellar transport called 'The Ktulu'",
         homeworld: "Takodana",
         species: "Human",
         affiliation: "The Cause",
         type: CrewMemberType.Faction_Leader,
-        image: "./crew/lias.png",
+        image: "./crew/lias.jpg",
         alignment: ChainCodeAlignmentString.Neutral,
       }),
     );
