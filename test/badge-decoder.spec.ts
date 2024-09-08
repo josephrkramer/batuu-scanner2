@@ -356,7 +356,7 @@ describe("BadgeDecoder", () => {
       }
     });
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Resistance_Hero)).toBe(true);
-    expect(badgeDecoder.earnedBadges.has(BadgeCode.Character_AARC)).toBe(false);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Its_Complicated)).toBe(false);
     expect(badgeDecoder.earnedBadges.has(BadgeCode.We_Have_Cookies)).toBe(
       false,
     );
@@ -364,10 +364,10 @@ describe("BadgeDecoder", () => {
 
   it("should check for Resistance Hero with past badges", () => {
     act(() => {
-      badgeDecoder.add(BadgeCode.Character_AARC, dayjs("2024-03-01"));
+      badgeDecoder.add(BadgeCode.Its_Complicated, dayjs("2024-03-01"));
       badgeDecoder.add(BadgeCode.We_Have_Cookies, dayjs("2024-03-01"));
     });
-    expect(badgeDecoder.earnedBadges.has(BadgeCode.Character_AARC)).toBe(true);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Its_Complicated)).toBe(true);
     expect(badgeDecoder.earnedBadges.has(BadgeCode.We_Have_Cookies)).toBe(true);
 
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Resistance_Hero)).toBe(
@@ -382,7 +382,7 @@ describe("BadgeDecoder", () => {
       }
     });
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Resistance_Hero)).toBe(true);
-    expect(badgeDecoder.earnedBadges.has(BadgeCode.Character_AARC)).toBe(true);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Its_Complicated)).toBe(true);
     expect(badgeDecoder.earnedBadges.has(BadgeCode.We_Have_Cookies)).toBe(true);
   });
 
@@ -403,16 +403,16 @@ describe("BadgeDecoder", () => {
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Resistance_Hero)).toBe(
       false,
     );
-    expect(badgeDecoder.earnedBadges.has(BadgeCode.Character_AARC)).toBe(false);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Its_Complicated)).toBe(false);
   });
 
   it("should check for We Have Cookies with past badges", () => {
     act(() => {
-      badgeDecoder.add(BadgeCode.Character_AARC, dayjs("2024-03-01"));
+      badgeDecoder.add(BadgeCode.Its_Complicated, dayjs("2024-03-01"));
       badgeDecoder.add(BadgeCode.Resistance_Hero, dayjs("2024-03-01"));
     });
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Resistance_Hero)).toBe(true);
-    expect(badgeDecoder.earnedBadges.has(BadgeCode.Character_AARC)).toBe(true);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Its_Complicated)).toBe(true);
     expect(badgeDecoder.earnedBadges.has(BadgeCode.We_Have_Cookies)).toBe(
       false,
     );
@@ -426,11 +426,11 @@ describe("BadgeDecoder", () => {
     });
     expect(badgeDecoder.earnedBadges.has(BadgeCode.We_Have_Cookies)).toBe(true);
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Resistance_Hero)).toBe(true);
-    expect(badgeDecoder.earnedBadges.has(BadgeCode.Character_AARC)).toBe(true);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Its_Complicated)).toBe(true);
   });
 
-  it("should check for Chracter AARC", () => {
-    expect(badgeDecoder.earnedBadges.has(BadgeCode.Character_AARC)).toBe(false);
+  it("should check for It's Complicated", () => {
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Its_Complicated)).toBe(false);
     act(() => {
       chainCodeDecoder.setChainCodeResult(
         ChainCodeAlignmentCode.Dark,
@@ -449,7 +449,7 @@ describe("BadgeDecoder", () => {
         badgeDecoder,
       );
     });
-    expect(badgeDecoder.earnedBadges.has(BadgeCode.Character_AARC)).toBe(true);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Its_Complicated)).toBe(true);
     expect(badgeDecoder.earnedBadges.has(BadgeCode.We_Have_Cookies)).toBe(
       false,
     );
@@ -459,7 +459,7 @@ describe("BadgeDecoder", () => {
   });
 
   describe.skip("this check passes when run independently", () => {
-    it("should check for Chracter AARC with past badges", () => {
+    it("should check for It's Complicated with past badges", () => {
       act(() => {
         badgeDecoder.add(BadgeCode.We_Have_Cookies, dayjs("2024-03-01"));
         badgeDecoder.add(BadgeCode.Resistance_Hero, dayjs("2024-03-01"));
@@ -470,7 +470,7 @@ describe("BadgeDecoder", () => {
       expect(badgeDecoder.earnedBadges.has(BadgeCode.We_Have_Cookies)).toBe(
         true,
       );
-      expect(badgeDecoder.earnedBadges.has(BadgeCode.Character_AARC)).toBe(
+      expect(badgeDecoder.earnedBadges.has(BadgeCode.Its_Complicated)).toBe(
         false,
       );
       act(() => {
@@ -491,7 +491,7 @@ describe("BadgeDecoder", () => {
           badgeDecoder,
         );
       });
-      expect(badgeDecoder.earnedBadges.has(BadgeCode.Character_AARC)).toBe(
+      expect(badgeDecoder.earnedBadges.has(BadgeCode.Its_Complicated)).toBe(
         true,
       );
       expect(badgeDecoder.earnedBadges.has(BadgeCode.We_Have_Cookies)).toBe(

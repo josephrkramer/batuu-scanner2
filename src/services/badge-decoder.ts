@@ -19,7 +19,7 @@ export const BadgeCode = Object.freeze({
   Resistance_Hero: "p35e8",
   We_Have_Cookies: "090xk",
   Bounty: "8tpao",
-  Character_AARC: "pk41z",
+  Its_Complicated: "pk41z",
   Jawa: "ado5t",
   I_Shot_First: "b39i1",
   Outer_Rim_Regalia: "93l9i",
@@ -320,6 +320,18 @@ export class BadgeDecoder {
       }),
     );
     this.unlistedCodeToBadge.set(
+      BadgeCode.Its_Complicated,
+      new Badge({
+        code: BadgeCode.Its_Complicated,
+        name: "It's Complicated",
+        quote: `"Jedi and Sith wield the Ashla and the Bogan, the Light and the Dark. I'm the one in the middle, the Bendu." --Bendu`,
+        description: `Make both Light and Dark side choices during an event.`,
+        image: "./badge/its-complicated.jpeg",
+        aztec: "./aztec/Its_Complicated.png",
+      }),
+    );
+    /*
+        this.unlistedCodeToBadge.set(
       BadgeCode.Character_AARC,
       new Badge({
         code: BadgeCode.Character_AARC,
@@ -330,6 +342,7 @@ export class BadgeDecoder {
         aztec: "./aztec/Character_AARC.png",
       }),
     );
+    */
     this.unlistedCodeToBadge.set(
       BadgeCode.Resistance_Hero,
       new Badge({
@@ -600,7 +613,7 @@ export class BadgeDecoder {
   private characterAarc(chainCodeDecoder: ChainCodeDecoder) {
     //Character AARC - make both light and dark side choices
     if (
-      !this.earnedBadges.has(BadgeCode.Character_AARC) &&
+      !this.earnedBadges.has(BadgeCode.Its_Complicated) &&
       chainCodeDecoder.chainCodeLength() >= MIN_CHAIN_CODE_SIZE &&
       Math.abs(chainCodeDecoder.rawValue()) !==
         chainCodeDecoder.chainCodeLength()
@@ -612,13 +625,13 @@ export class BadgeDecoder {
         this.remove(BadgeCode.We_Have_Cookies);
       }
       console.log("ADDING CHARACTER AARC");
-      this.add(BadgeCode.Character_AARC);
+      this.add(BadgeCode.Its_Complicated);
     } else if (
-      this.earnedBadges.has(BadgeCode.Character_AARC) &&
-      this.earnedBadges.get(BadgeCode.Character_AARC)?.date === this.today()
+      this.earnedBadges.has(BadgeCode.Its_Complicated) &&
+      this.earnedBadges.get(BadgeCode.Its_Complicated)?.date === this.today()
     ) {
       console.log("REMOVING CHARACTER AARC");
-      this.remove(BadgeCode.Character_AARC);
+      this.remove(BadgeCode.Its_Complicated);
     }
   }
 
