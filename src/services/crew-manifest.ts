@@ -126,7 +126,7 @@ export class CrewManifest {
     );
     this.addCrewMember(
       new CrewMember({
-        name: "Zilla Nir'oz",
+        name: "Zilla Nir'Oz",
         occupation: "Slicer",
         biography: [
           "Zilla's childhood was spent in Canto Bight, shadowing her parents who worked at one of the gaming establishments (and picking up a few skills from the less-reputable patrons). She always admired the well- heeled customers, and hopes to one day own one of their sleek yachts.",
