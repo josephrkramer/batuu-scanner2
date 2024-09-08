@@ -17,7 +17,7 @@ class AztecGenerator:
         "Resistance_Hero": "p35e8",
         "We_Have_Cookies": "090xk",
         "Bounty": "8tpao",
-        "Character_AARC": "pk41z",
+        "Its_Complicated": "pk41z",
         "Jawa": "ado5t",
         "I_Shot_First": "b39i1",
         "Outer_Rim_Regalia": "93l9i",
@@ -31,6 +31,7 @@ class AztecGenerator:
         "Rose_Tico": "xh9g3",
         "First_Step": "tznoi",
         "Pathway_to_AARC": "ft4at",
+        "Character_AARC": "v14h0",
     }
 
     crates = {
