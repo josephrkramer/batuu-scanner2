@@ -74,43 +74,24 @@ export class CrewManifest {
     );
     this.addCrewMember(
       new CrewMember({
-        name: "Jax Volta",
-        occupation: undefined,
-        biography: [
-          "Hailing from the bustling planet of Corellia, Jax Volta was born into a life of comfort and privilege, the son of two upper-middle-class accountant parents who had built a boringly predictable, if stable life within Corellia's financial sector. However, Jax's heart was never in the world of numbers and ledgers. From a young age, he felt a pull toward adventure and speed.",
-          "Jax took up swoop racing and sharpened his skills on Corellia's dangerous underground swoop tracks, eventually winning the Onderon Rally.",
-          "Jax was later drawn to the allure of the galactic underworld, and carved out a niche for himself as a respected smuggler.`",
-        ],
-        companion: undefined,
-        vehicle: "YT-2500",
-        homeworld: "Corellia",
-        species: "Human",
-        affiliation: "Self",
-        type: CrewMemberType.NPC,
-        image: "./crew/jax.png",
-      }),
-    );
-    this.addCrewMember(
-      new CrewMember({
         name: "Lias Orion",
-        occupation: undefined,
+        occupation: "None of your business",
         biography: [
-          "At the age of 5. Lias Orion lost his father during the battle of Jakku. His mother disappeared upon receiving the news and Lias was left with his 2 year old sister. A'nah. Lias and A'nah were taken in by Maz Kanata under the condition that Lias would forever work in her castle as a runner to 'take care of the things I would do 500 years ago? Lias learned about the galaxy from Maz.",
-          "During the Battle of Takodana with the First Order, A'nah was caught in action and died. The destruction of the castle and his sister’s death left Lias devastated and vengeful! He recalled what Maz taught him about the partisans and Saw Gerrera which inspired Lias to begin a faction of his own entitled 'The Cause' to give the galaxy what he calls 'True Freedom.'",
+          "Lias Orion was abandoned by his mother after his father died at the Battle of Jakku when Lias was 7. Lias was taken in by Maz Kanata and grew up at her castle. After being shown the galaxy by Maz, and watching his sister die at the Battle of Takodana, Lias decided the Resistance could not be trusted and the First Order must be stopped. Lias established The Cause for people who think differently from the norm. Lias continues to add a diverse range of beings from the galaxy into The Cause.",
         ],
         companion: "BD-72",
-        vehicle: "WTK-85A Interstellar transport",
+        vehicle: "WTK-85A interstellar transport called 'The Ktulu'",
         homeworld: "Takodana",
         species: "Human",
         affiliation: "The Cause",
         type: CrewMemberType.Faction_Leader,
-        image: "./crew/lias.png",
+        image: "./crew/lias.jpg",
         alignment: ChainCodeAlignmentString.Neutral,
       }),
     );
     this.addCrewMember(
       new CrewMember({
-        name: "Tayla Yesmar",
+        name: "Tayla Yesmar - TODO",
         occupation: undefined,
         biography: [
           "AS A YOUNGLING THE FORCE HAS ALWAYS BEEN SOMETHING I WAS INTERESTED IN AND I SOON DISCOVERED IT WAS A PART OF ME AT THE AGE OF 10.",
@@ -127,7 +108,7 @@ export class CrewManifest {
     );
     this.addCrewMember(
       new CrewMember({
-        name: "Zilla Nir'oz",
+        name: "Zilla Nir'Oz",
         occupation: "Slicer",
         biography: [
           "Zilla's childhood was spent in Canto Bight, shadowing her parents who worked at one of the gaming establishments (and picking up a few skills from the less-reputable patrons). She always admired the well- heeled customers, and hopes to one day own one of their sleek yachts.",
@@ -144,7 +125,7 @@ export class CrewManifest {
     );
     this.addCrewMember(
       new CrewMember({
-        name: "Evant Rilas Verrick",
+        name: "Evant Rilas Verrick - TODO",
         occupation: undefined,
         biography: [
           "Before joining the First Order, Evant was instrumental in coordinating recreational and agricultural growth in Hanna City.",
@@ -164,24 +145,7 @@ export class CrewManifest {
     );
     this.addCrewMember(
       new CrewMember({
-        name: "Pyke Rendessa",
-        occupation: undefined,
-        biography: [
-          "Pyke Rendessa is a smuggler who does a lot of import/export work, and one day Dok Ondar asked for his services. Once a shipment of lightsabers came Pyke's way, his curiosity got the best of him. Pyke kept one saber for himself. thinking they were real. When Pyke tried to use the saber in combat, he quickly found out they were training replicas. Pyke ultimately gave up smuggling when his whole crew was murdered by Dok",
-          "Pyke was the sole survivor of the ambush. Once the smoke cleared, Pyke got out of the business and decided to go legit. Dok has called Pyke for a job, not knowing Pyke is out of the 'game'. Dok is also clueless to the fact that Pyke is looking for revenge against him.",
-        ],
-        companion: "Porgkins",
-        vehicle: "YT-2400 light freighter",
-        homeworld: "Alderaan",
-        species: "Human",
-        affiliation: "None",
-        type: CrewMemberType.NPC,
-        image: "./crew/pyke.png",
-      }),
-    );
-    this.addCrewMember(
-      new CrewMember({
-        name: "Jo Larpe",
+        name: "Jo Larpe - TODO",
         occupation:
           "Not the Character You're Looking For. Sometimes does odd jobs for the CSL ground crew",
         biography: [
@@ -194,6 +158,80 @@ export class CrewManifest {
         affiliation: "Unaffiliated",
         type: CrewMemberType.NPC,
         image: "./crew/joe.png",
+      }),
+    );
+    this.addCrewMember(
+      new CrewMember({
+        name: "Betsy",
+        occupation: undefined,
+        biography: [],
+        companion: undefined,
+        vehicle: undefined,
+        homeworld: undefined,
+        species: undefined,
+        affiliation: undefined,
+        type: CrewMemberType.NPC,
+        image: "./outfit.jpeg",
+      }),
+    );
+    this.addCrewMember(
+      new CrewMember({
+        name: "Megan",
+        occupation: undefined,
+        biography: [],
+        companion: undefined,
+        vehicle: undefined,
+        homeworld: undefined,
+        species: undefined,
+        affiliation: undefined,
+        type: CrewMemberType.NPC,
+        image: "./outfit.jpeg",
+      }),
+    );
+    this.addCrewMember(
+      new CrewMember({
+        name: "Cynthia",
+        occupation: undefined,
+        biography: [],
+        companion: undefined,
+        vehicle: undefined,
+        homeworld: undefined,
+        species: undefined,
+        affiliation: undefined,
+        type: CrewMemberType.NPC,
+        image: "./outfit.jpeg",
+      }),
+    );
+    this.addCrewMember(
+      new CrewMember({
+        name: "La'Beth",
+        occupation: undefined,
+        biography: [],
+        companion: undefined,
+        vehicle: undefined,
+        homeworld: undefined,
+        species: undefined,
+        affiliation: undefined,
+        type: CrewMemberType.NPC,
+        image: "./outfit.jpeg",
+      }),
+    );
+    this.addCrewMember(
+      new CrewMember({
+        name: "Jax Volta - TODO",
+        occupation: undefined,
+        biography: [
+          "Hailing from the bustling planet of Corellia, Jax Volta was born into a life of comfort and privilege, the son of two upper-middle-class accountant parents who had built a boringly predictable, if stable life within Corellia's financial sector. However, Jax's heart was never in the world of numbers and ledgers. From a young age, he felt a pull toward adventure and speed.",
+          "Jax took up swoop racing and sharpened his skills on Corellia's dangerous underground swoop tracks, eventually winning the Onderon Rally.",
+          "Jax was later drawn to the allure of the galactic underworld, and carved out a niche for himself as a respected smuggler.`",
+        ],
+        companion: undefined,
+        vehicle: "YT-2500",
+        homeworld: "Corellia",
+        species: "Human",
+        affiliation: "Self",
+        type: CrewMemberType.NPC,
+        image: "./crew/jax.png",
       }),
     );
     this.addCrewMember(
