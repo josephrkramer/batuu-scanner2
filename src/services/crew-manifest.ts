@@ -145,19 +145,20 @@ export class CrewManifest {
     );
     this.addCrewMember(
       new CrewMember({
-        name: "Jo Larpe - TODO",
-        occupation:
-          "Not the Character You're Looking For. Sometimes does odd jobs for the CSL ground crew",
+        name: "Resh Drolik",
+        occupation: "Droidsmith",
         biography: [
-          "Jo Larpe spends his days hanging around the cantina and taking whatever jobs suit him. He's familiar with the outpost, and can help you get where you're going if you are lost.",
+          "Born on Batuu to a family of lichen gatherers, he became fascinated with the droids of Black Spire Outpost as a youngling.",
+          "Resh has very little formal training, and he learned most of what he knows from talking to the droids themselves about how they function. He's well-known around the Outpost, and can usually be found speaking fluent binary with one of his droid friends (or trying to barter his services for a discount at Ronto Roasters).",
+          "Not content to learn about their mechanics, Resh has made a study of the droids' cultures and myths as well. He's particularly interested in the legend of the First Droid: FD-01, and is hoping to learn more.",
         ],
-        companion: undefined,
-        vehicle: "V-35 Courier Landspeeder",
-        homeworld: "Nar Shaddaa",
-        species: undefined,
-        affiliation: "Unaffiliated",
+        companion: "SL-V6 (Sal), a salvaged seeker droid",
+        vehicle: undefined,
+        homeworld: "Batuu",
+        species: "Human",
+        affiliation: undefined,
         type: CrewMemberType.NPC,
-        image: "./crew/joe.png",
+        image: "./crew/resh.jpg",
       }),
     );
     this.addCrewMember(
