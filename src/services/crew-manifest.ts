@@ -176,30 +176,21 @@ export class CrewManifest {
     );
     this.addCrewMember(
       new CrewMember({
-        name: "Megan",
-        occupation: undefined,
-        biography: [],
+        name: "Schme Wilaka",
+        occupation: "Owner/Operator of MB Shipping and Transport",
+        biography: [
+          "Schme was born and raised aboard shipping vessels, an apprentice in her parents' transport company. Her father, a proud Alderaanian, encouraged Schme to come to love the culture and customs of his former home, while her mother taught her everything she knew about the perils and profits of work in the Outer Rim and Wild Space.",
+          "Before the 275th anniversary flight of the Halcyon, Schme's parents retired to Lysatra, and left MB Shipping and Transport in her capable hands. While sympathetic to the Rebellion and the Resistance, Schme was more focused on the family business and taking good care of my crew than on galactic politics.",
+          "Schme may appear as an Alderaanian noblewoman, but her experience in Wild Space has left her with more skills than meet the eye.",
+          "Inspired by her experiences aboard the Halcyon, Schme formalized her loyalty to the Resistance. She now works for both the interests of the Alderaanian people and the galaxy she hopes to see for all peoples.",
+        ],
         companion: undefined,
         vehicle: undefined,
-        homeworld: undefined,
-        species: undefined,
-        affiliation: undefined,
+        homeworld: "Alderaan",
+        species: "Human",
+        affiliation: "Alderaan first, then Resistance",
         type: CrewMemberType.NPC,
-        image: "./outfit.jpeg",
-      }),
-    );
-    this.addCrewMember(
-      new CrewMember({
-        name: "Cynthia",
-        occupation: undefined,
-        biography: [],
-        companion: undefined,
-        vehicle: undefined,
-        homeworld: undefined,
-        species: undefined,
-        affiliation: undefined,
-        type: CrewMemberType.NPC,
-        image: "./outfit.jpeg",
+        image: "./crew/schme.jpeg",
       }),
     );
     this.addCrewMember(
