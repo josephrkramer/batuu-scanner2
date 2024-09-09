@@ -153,6 +153,32 @@ export class CrateDecoder {
     );
     this.override(bexCrystals2);
 
+    const schmeSculpture = new CrateContents({
+      code: "DE_RS",
+      contents: "Alderaanian Memories",
+      type: CrateType.Multiple_Choice,
+      image: "./sculpture.webp",
+    });
+    schmeSculpture.multipleChoice.push(
+      new CrateContents({
+        code: schmeSculpture.code,
+        contents: "Rock Ore",
+        type: CrateType.Relic,
+        image: "./ore.jpg",
+        alignment: ChainCodeAlignmentCode.Dark,
+      }),
+    );
+    schmeSculpture.multipleChoice.push(
+      new CrateContents({
+        code: schmeSculpture.code,
+        contents: "Alderaanian Sculpture",
+        type: CrateType.Relic,
+        image: "./sculpture.webp",
+        alignment: ChainCodeAlignmentCode.Light,
+      }),
+    );
+    this.override(schmeSculpture);
+
     //Override chosen scanned crates loaded from local storage
     this.multipleChoiceScannedCrates.forEach((crate: CrateContents) => {
       this.override(crate);
