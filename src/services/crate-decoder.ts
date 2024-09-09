@@ -101,31 +101,57 @@ export class CrateDecoder {
     );
 
     //Multiple Choice custom override crates
-    const chanceCubes = new CrateContents({
-      code: "FG_TU",
-      contents: "Chance Cubes",
+    const bexCrystals = new CrateContents({
+      code: "FG_ST",
+      contents: "Crystals",
       type: CrateType.Multiple_Choice,
-      image: "./crew/joe.png",
+      image: "./LargeCrystal.jpg",
     });
-    chanceCubes.multipleChoice.push(
+    bexCrystals.multipleChoice.push(
       new CrateContents({
-        code: chanceCubes.code,
-        contents: "Rigged Chance Cubes",
+        code: bexCrystals.code,
+        contents: "Crystal Shard - Dark",
         type: CrateType.Relic,
-        image: "./badge/frequent-flyer-2.jpeg",
+        image: "./Crystal.jpg",
         alignment: ChainCodeAlignmentCode.Dark,
       }),
     );
-    chanceCubes.multipleChoice.push(
+    bexCrystals.multipleChoice.push(
       new CrateContents({
-        code: chanceCubes.code,
-        contents: "Chance Cubes",
+        code: bexCrystals.code,
+        contents: "Crystal Formation - Light",
         type: CrateType.Relic,
-        image: "./badge/frequent-flyer-5.jpeg",
+        image: "./LargeCrystal.jpg",
         alignment: ChainCodeAlignmentCode.Light,
       }),
     );
-    this.override(chanceCubes);
+    this.override(bexCrystals);
+    //Dupe crate contents descryption. Determine which is correct
+    const bexCrystals2 = new CrateContents({
+      code: "FAL18",
+      contents: "Crystals",
+      type: CrateType.Multiple_Choice,
+      image: "./LargeCrystal.jpg",
+    });
+    bexCrystals2.multipleChoice.push(
+      new CrateContents({
+        code: bexCrystals2.code,
+        contents: "Crystal Shard - Dark",
+        type: CrateType.Relic,
+        image: "./Crystal.jpg",
+        alignment: ChainCodeAlignmentCode.Dark,
+      }),
+    );
+    bexCrystals2.multipleChoice.push(
+      new CrateContents({
+        code: bexCrystals2.code,
+        contents: "Crystal Formation - Light",
+        type: CrateType.Relic,
+        image: "./LargeCrystal.jpg",
+        alignment: ChainCodeAlignmentCode.Light,
+      }),
+    );
+    this.override(bexCrystals2);
 
     //Override chosen scanned crates loaded from local storage
     this.multipleChoiceScannedCrates.forEach((crate: CrateContents) => {
