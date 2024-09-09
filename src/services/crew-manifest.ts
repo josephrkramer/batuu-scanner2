@@ -162,16 +162,20 @@ export class CrewManifest {
     );
     this.addCrewMember(
       new CrewMember({
-        name: "Betsy",
-        occupation: undefined,
-        biography: [],
+        name: "Bex Malbeth",
+        occupation: "Does it pay? Yeah, I can do that.",
+        biography: [
+          "Bex was born on Odessen. From a young age, she found it difficult to stay out of trouble. She has been traveling from job to job, eking out a living doing whatever will keep yobshrimp on the table - and keep her out of trouble. Mostly.",
+          "She's found passage on everything from cargo transports to pleasure barges, picking up a variety of acquaintances, skills, and disguises. Along the way, she acquired some engineering skills. That brought her to the attention of the First Order - and left her stranded in the Outer Rim.",
+          "She is looking for work. Best case, it's scavenging. She is vying for the attention of Savi, but always keeping an eye on the exits. Her loyalty? Make an offer.",
+        ],
         companion: undefined,
-        vehicle: undefined,
-        homeworld: undefined,
-        species: undefined,
-        affiliation: undefined,
+        vehicle: "Whatever she can barter transport on",
+        homeworld: "Odessen",
+        species: "Human",
+        affiliation: "Unaffiliated",
         type: CrewMemberType.NPC,
-        image: "./outfit.jpeg",
+        image: "./crew/bex.jpg",
       }),
     );
     this.addCrewMember(
@@ -195,7 +199,7 @@ export class CrewManifest {
     );
     this.addCrewMember(
       new CrewMember({
-        name: "La'Beth",
+        name: "La'Beth - TODO",
         occupation: undefined,
         biography: [],
         companion: undefined,
