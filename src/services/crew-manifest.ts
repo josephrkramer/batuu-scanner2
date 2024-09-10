@@ -124,13 +124,15 @@ export class CrewManifest {
     );
     this.addCrewMember(
       new CrewMember({
-        name: "Evant Rilas Verrick - TODO",
+        name: "Evant Rilas Verrick",
         occupation: undefined,
         biography: [
-          "Before joining the First Order, Evant was instrumental in coordinating recreational and agricultural growth in Hanna City.",
-          "Governor Verrick disagreed with Mon Mothma's decisions to demilitarize the New Republic and to relocate its capital, along with his family, to Hosnian Prime. Because of this, he helped the First Order establish a presence on Chandrila in order to maintain peace, order, and stability.",
-          "Through his newly acquired position in the First Order, Evant traveled the galaxy researching how other planets and cultures-such as Lothal, Corellia, Hetzal Prime, Castillon, and Batuu-conduct their recreational and agricultural growth in order to further Chandrila's cultural advancements. In his galactic travels, Evant has even been granted a homestead in Peka on Batuu in conjunction with the work of Officer Anjay, Lt. Kath and, Lt. Agnon of the First Order.",
-          "While he is not Force sensitive, Evant studies the Force religiously and is an avid collector of Force related items as he aspires to move through the ranks and become a First Order Relic Raider.`",
+          "After disagreeing with Mothma's decisions to demilitarize the New Republic and to relocate its capital, along with his family, to Hosnian Prime, the then Regional Governor, Evant Verrick helped the First Order establish a presence on Chandrila in order to maintain peace, order, and stability.",
+          "Through his newly acquired position in the First Order, Evant traveled the galaxy researching how other planets and cultures.",
+          "In his galactic travels, Evant was granted a homestead in Peka on Batuu in conjunction with the work of Officer Anjay, Lt. Kath and, Lt. Agnon of the First Order.",
+          "While he is not Force sensitive, Evant studies the Force religiously and is an avid collector of Force related items. This passion led him to pursue the role of First Order Relic Raider, a position he was recently promoted to after assembling a covert team and successfully identifying a mysterious artifact in Black Spire Outpost that was falsely rumored to have the power to communicate to the galaxy. The team he assembled served the order.",
+          "But that success also caught the attention of a mysterious organization known only as AARC.",
+          "His position in The Order, his passion for galactic relics, and his interest in this mysterious AARC has led him to a new mission once again on the planet Batuu at the edge of the galaxy...",
         ],
         companion: "EB-24",
         vehicle: "TIE Genesis",
@@ -138,7 +140,7 @@ export class CrewManifest {
         species: "Human",
         affiliation: "First Order",
         type: CrewMemberType.Faction_Leader,
-        image: "./crew/evant.png",
+        image: "./crew/evant.jpg",
         alignment: ChainCodeAlignmentString.Dark,
       }),
     );
