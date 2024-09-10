@@ -98,7 +98,7 @@ export class CrewManifest {
         ],
         companion: undefined,
         vehicle: undefined,
-        homeworld: "Coreilla",
+        homeworld: "Corellia",
         species: "Human",
         affiliation: "Anchorite",
         type: CrewMemberType.NPC,
@@ -215,12 +215,12 @@ export class CrewManifest {
     );
     this.addCrewMember(
       new CrewMember({
-        name: "Jax Volta - TODO",
-        occupation: undefined,
+        name: "Jax Volta",
+        occupation: "Little bit of this, little bit of that",
         biography: [
           "Hailing from the bustling planet of Corellia, Jax Volta was born into a life of comfort and privilege, the son of two upper-middle-class accountant parents who had built a boringly predictable, if stable life within Corellia's financial sector. However, Jax's heart was never in the world of numbers and ledgers. From a young age, he felt a pull toward adventure and speed.",
           "Jax took up swoop racing and sharpened his skills on Corellia's dangerous underground swoop tracks, eventually winning the Onderon Rally.",
-          "Jax was later drawn to the allure of the galactic underworld, and carved out a niche for himself as a respected smuggler.`",
+          "Jax was later drawn to the allure of the galactic underworld, and carved out a niche for himself as a respected smuggler.",
         ],
         companion: undefined,
         vehicle: "YT-2500",
