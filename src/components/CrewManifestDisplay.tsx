@@ -41,6 +41,7 @@ function crewDisplay(crewMembers: Map<string, Array<CrewMember>>) {
           <Image
             src={crewMember.image}
             width={50}
+            height={"auto"}
             preview={{ toolbarRender: () => null }}
           />
           <Typography.Text>{crewMember.name}</Typography.Text>

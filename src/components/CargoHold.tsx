@@ -60,6 +60,7 @@ function crateDisplay(
             <Image
               src={item.image}
               width={50}
+              height={"auto"}
               preview={{
                 imageRender: () => (
                   <div>
@@ -103,6 +104,7 @@ function chainCodeDisplay(chainCode: ChainCodePart[], admin: boolean) {
           <Image
             src={admin ? item.aztec : item.image}
             width={50}
+            height={"auto"}
             preview={{
               imageRender: () => (
                 <div>
@@ -160,6 +162,7 @@ function badgeDisplay(
               <Image
                 src={badge.image}
                 width={50}
+                height={"auto"}
                 preview={{
                   imageRender: () => (
                     <div>
