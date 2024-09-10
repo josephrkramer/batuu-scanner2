@@ -91,19 +91,18 @@ export class CrewManifest {
     );
     this.addCrewMember(
       new CrewMember({
-        name: "Tayla Yesmar - TODO",
-        occupation: undefined,
+        name: "Tayla Yesmar",
+        occupation: "Student of the Force",
         biography: [
-          "AS A YOUNGLING THE FORCE HAS ALWAYS BEEN SOMETHING I WAS INTERESTED IN AND I SOON DISCOVERED IT WAS A PART OF ME AT THE AGE OF 10.",
-          "DAY IN AND DAY OUT I STUDY THE FORCE AND ITS TEACHINGS BY LEARNING ABOUT ANCIENT RELICS AND THE HISTORY OF THE PAST BOTH GOOD & EVIL. IT'S IMPORTANT THAT I CONTINUE TO LET THE FORCE GUIDE ME TO HELP OTHERS IN NEED AND UNITE THE GALAXY",
+          "Tayla Yesmar of Coreilla returns to the three hot suns of Batuu but this time she’s trying to stay low and not draw too much attention. Something is up and she can feel it, and she’s there to get to the bottom of it, but as she is doing so, she explores more wonders of the planet spire to spire breaking it down to learn new things as she moves and even the history behind it.",
         ],
         companion: undefined,
         vehicle: undefined,
-        homeworld: "COREILLA",
-        species: "HUMAN",
-        affiliation: "ANCHORITE AND RUMORS OF ANOTHER AFFILIATION",
+        homeworld: "Coreilla",
+        species: "Human",
+        affiliation: "Anchorite",
         type: CrewMemberType.NPC,
-        image: "./crew/tayla.png",
+        image: "./crew/tayla.jpg",
       }),
     );
     this.addCrewMember(
