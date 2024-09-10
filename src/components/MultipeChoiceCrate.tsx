@@ -58,7 +58,9 @@ function childButtons(
     const button = (
       <Button
         size={"large"}
-        icon={<Image src={child.image} preview={false} width={35} />}
+        icon={
+          <Image src={child.image} preview={false} width={35} height={"auto"} />
+        }
         key={child.contents}
         onClick={() => {
           crateDecoder.addToScannedMultipleChoice(child.code, child);
