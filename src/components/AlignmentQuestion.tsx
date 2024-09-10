@@ -30,7 +30,7 @@ function childButtons(
       <Button
         size={"large"}
         icon={
-          <Image src={agent.image} preview={false} height={35} width={"auto"} />
+          <Image src={agent.image} preview={false} width={25} />
         }
         key={agent.name}
         onClick={() => {
