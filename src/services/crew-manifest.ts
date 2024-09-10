@@ -201,16 +201,18 @@ export class CrewManifest {
     );
     this.addCrewMember(
       new CrewMember({
-        name: "La'Beth - TODO",
-        occupation: undefined,
-        biography: [],
-        companion: undefined,
-        vehicle: undefined,
+        name: "La'Beth",
+        occupation: "Chemist",
+        biography: [
+          "La'Beth, once a lead chemist aboard the Halcyon after escaping servitude to Oga, now traverses the galaxy aboard the Perihelion L1-T3, a Solara-Class Star Freighter, with her loyal droid, R1-B1. She opened and maintains Hyperspace Comms channels, ensuring vital information flows across the universe. Known for her discretion, La'Beth has access to various channels hidden from galactic knowledge. With a keen understanding of countless species, her impeccable intuition makes her excel in social situations. Her services are available to those who can meet her price—whether it's delivering a message, securing an outcome, or hosting a dazzling party.",
+        ],
+        companion: "R1-B1",
+        vehicle: "Perihelion L1-T3, a Solara-Class Star Freighter",
         homeworld: undefined,
         species: undefined,
         affiliation: undefined,
         type: CrewMemberType.NPC,
-        image: "./outfit.jpeg",
+        image: "./crew/labeth.jpg",
       }),
     );
     this.addCrewMember(
