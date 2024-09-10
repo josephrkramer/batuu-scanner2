@@ -29,9 +29,7 @@ function childButtons(
     const button = (
       <Button
         size={"large"}
-        icon={
-          <Image src={agent.image} preview={false} width={25} />
-        }
+        icon={<Image src={agent.image} preview={false} width={25} />}
         key={agent.name}
         onClick={() => {
           setAlignment(agent.alignment);
