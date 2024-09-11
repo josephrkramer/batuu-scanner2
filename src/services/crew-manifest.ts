@@ -94,7 +94,9 @@ export class CrewManifest {
         name: "Tayla Yesmar",
         occupation: "Student of the Force",
         biography: [
-          "Tayla Yesmar of Coreilla returns to the three hot suns of Batuu but this time she’s trying to stay low and not draw too much attention. Something is up and she can feel it, and she’s there to get to the bottom of it, but as she is doing so, she explores more wonders of the planet spire to spire breaking it down to learn new things as she moves and even the history behind it.",
+          "Anchorite Tayla Yesmar of Corella discovered her connection to the Force at the age of ten. Since then, she's been a passionate student of the life energy that binds us all.",
+          "She never meant to involve herself in covert activity, but when the Resistance needed her help, she found herself taking risks she never foresaw.",
+          "Now, Tayla returns to the three hot suns of Batuu. Something about the planet and its famous spires has caught her attention, and she can't ignore the mystery. But it seems that more is happening on Batuu than even Tayla perceived...",
         ],
         companion: undefined,
         vehicle: undefined,
