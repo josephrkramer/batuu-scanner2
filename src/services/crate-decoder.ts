@@ -171,7 +171,7 @@ export class CrateDecoder {
     schmeSculpture.multipleChoice.push(
       new CrateContents({
         code: schmeSculpture.code,
-        contents: "\"The Winter's Heart\"",
+        contents: '"The Winter\'s Heart"',
         type: CrateType.Relic,
         image: "./sculpture.jpeg",
         alignment: ChainCodeAlignmentCode.Light,
