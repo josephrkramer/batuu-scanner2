@@ -164,16 +164,16 @@ export class CrateDecoder {
         code: schmeSculpture.code,
         contents: "Rock Ore",
         type: CrateType.Relic,
-        image: "./ore.jpg",
+        image: "./ore.jpeg",
         alignment: ChainCodeAlignmentCode.Dark,
       }),
     );
     schmeSculpture.multipleChoice.push(
       new CrateContents({
         code: schmeSculpture.code,
-        contents: "Alderaanian Sculpture",
+        contents: "\"The Winter's Heart\"",
         type: CrateType.Relic,
-        image: "./sculpture.webp",
+        image: "./sculpture.jpeg",
         alignment: ChainCodeAlignmentCode.Light,
       }),
     );
