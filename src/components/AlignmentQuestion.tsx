@@ -42,7 +42,7 @@ function childButtons(
             src={crewMember.image}
             width={50}
             height={"auto"}
-            preview={{ toolbarRender: () => null }}
+            preview={false}
           />
           <Typography.Text>{crewMember.name}</Typography.Text>
         </Flex>
@@ -61,7 +61,7 @@ function childButtons(
               setAlignment(crewMember.alignment);
             }}
           >
-            I'm with {crewMember.name}
+            Select
           </Button>
         </div>
       ),
