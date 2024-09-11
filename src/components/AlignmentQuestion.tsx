@@ -1,4 +1,12 @@
-import { Button, Card, Flex, Image } from "antd";
+import {
+  Button,
+  Card,
+  Collapse,
+  CollapseProps,
+  Flex,
+  Image,
+  Typography,
+} from "antd";
 import Title from "antd/es/typography/Title";
 import { CrewManifest } from "../services/crew-manifest";
 
@@ -24,23 +32,41 @@ function childButtons(
   crewManifest: CrewManifest,
   setAlignment: React.Dispatch<React.SetStateAction<string | undefined>>,
 ) {
-  const buttons = [];
-  for (const agent of crewManifest.getLeaders()) {
-    const button = (
-      <Button
-        size={"large"}
-        icon={<Image src={agent.image} preview={false} width={25} />}
-        key={agent.name}
-        onClick={() => {
-          setAlignment(agent.alignment);
-        }}
-      >
-        {agent.name}
-      </Button>
-    );
-    buttons.push(button);
-  }
-  return buttons;
+  const items: CollapseProps["items"] = crewManifest
+    .getLeaders()
+    .map((crewMember) => ({
+      key: crewMember.name,
+      label: (
+        <Flex justify={"space-evenly"}>
+          <Image
+            src={crewMember.image}
+            width={50}
+            height={"auto"}
+            preview={{ toolbarRender: () => null }}
+          />
+          <Typography.Text>{crewMember.name}</Typography.Text>
+        </Flex>
+      ),
+      children: (
+        <div>
+          <Image
+            src={crewMember.image}
+            preview={{ toolbarRender: () => null }}
+          />
+          <Typography.Title level={3}>{crewMember.name}</Typography.Title>
+          <Button
+            size={"large"}
+            key={crewMember.name}
+            onClick={() => {
+              setAlignment(crewMember.alignment);
+            }}
+          >
+            I'm with {crewMember.name}
+          </Button>
+        </div>
+      ),
+    }));
+  return <Collapse items={items} />;
 }
 
 export default AlignmentQuestion;
