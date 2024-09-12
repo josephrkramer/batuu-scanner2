@@ -157,7 +157,7 @@ export class CrateDecoder {
       code: "DE_RS",
       contents: "Alderaanian Memories",
       type: CrateType.Multiple_Choice,
-      image: "./sculpture.webp",
+      image: "./sculpture.jpeg",
     });
     schmeSculpture.multipleChoice.push(
       new CrateContents({
