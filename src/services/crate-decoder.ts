@@ -103,14 +103,14 @@ export class CrateDecoder {
     //Multiple Choice custom override crates
     const bexCrystals = new CrateContents({
       code: "FG_ST",
-      contents: "Crystals",
+      contents: "Odessen Crystals",
       type: CrateType.Multiple_Choice,
       image: "./LargeCrystal.jpg",
     });
     bexCrystals.multipleChoice.push(
       new CrateContents({
         code: bexCrystals.code,
-        contents: "Crystal Shard - Dark",
+        contents: "Vein of Sterre",
         type: CrateType.Relic,
         image: "./Crystal.jpg",
         alignment: ChainCodeAlignmentCode.Dark,
@@ -119,7 +119,7 @@ export class CrateDecoder {
     bexCrystals.multipleChoice.push(
       new CrateContents({
         code: bexCrystals.code,
-        contents: "Crystal Formation - Light",
+        contents: "Tears of Chandra",
         type: CrateType.Relic,
         image: "./LargeCrystal.jpg",
         alignment: ChainCodeAlignmentCode.Light,
@@ -129,14 +129,14 @@ export class CrateDecoder {
     //Dupe crate contents descryption. Determine which is correct
     const bexCrystals2 = new CrateContents({
       code: "FAL18",
-      contents: "Crystals",
+      contents: "Odessen Crystals",
       type: CrateType.Multiple_Choice,
       image: "./LargeCrystal.jpg",
     });
     bexCrystals2.multipleChoice.push(
       new CrateContents({
         code: bexCrystals2.code,
-        contents: "Crystal Shard - Dark",
+        contents: "Vein of Sterre",
         type: CrateType.Relic,
         image: "./Crystal.jpg",
         alignment: ChainCodeAlignmentCode.Dark,
@@ -145,7 +145,7 @@ export class CrateDecoder {
     bexCrystals2.multipleChoice.push(
       new CrateContents({
         code: bexCrystals2.code,
-        contents: "Crystal Formation - Light",
+        contents: "Tears of Chandra",
         type: CrateType.Relic,
         image: "./LargeCrystal.jpg",
         alignment: ChainCodeAlignmentCode.Light,
