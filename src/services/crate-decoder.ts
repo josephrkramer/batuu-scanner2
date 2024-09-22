@@ -91,6 +91,16 @@ export class CrateDecoder {
         image: "./halcyon_pool_keycard.jpg",
       }),
     );
+    /*
+    this.override(
+      new CrateContents({
+        code: "XX_XX",
+        contents: "Darth Plagueis's Bioplaiting Device",
+        type: CrateType.Relic,
+        image: "./public/darth_plagueis.jpeg",
+      }),
+    );
+    */
 
     //Multiple Choice custom override crates
     const bexCrystals = new CrateContents({
