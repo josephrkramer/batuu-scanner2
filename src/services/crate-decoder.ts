@@ -91,6 +91,7 @@ export class CrateDecoder {
         image: "./halcyon_pool_keycard.jpg",
       }),
     );
+    //code: "JK_TU",
     /*
     this.override(
       new CrateContents({
@@ -106,6 +107,15 @@ export class CrateDecoder {
         contents: "Fragment of the Tho Yor",
         type: CrateType.Relic,
         image: "./tho_yor.jpg",
+      }),
+    );
+    this.override(
+      new CrateContents({
+        code: "XX_XX",
+        contents: "Seed Pod of the Wroshyr Tree",
+        //Leftover From the Terraforming of Kashyyk by the Rakata
+        type: CrateType.Relic,
+        image: "./wroshyr_tree.jpg",
       }),
     );
     */
