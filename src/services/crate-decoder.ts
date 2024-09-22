@@ -97,7 +97,15 @@ export class CrateDecoder {
         code: "XX_XX",
         contents: "Darth Plagueis's Bioplaiting Device",
         type: CrateType.Relic,
-        image: "./public/darth_plagueis.jpeg",
+        image: "./darth_plagueis.jpeg",
+      }),
+    );
+    this.override(
+      new CrateContents({
+        code: "XX_XX",
+        contents: "Fragment of the Tho Yor",
+        type: CrateType.Relic,
+        image: "./tho_yor.jpg",
       }),
     );
     */
