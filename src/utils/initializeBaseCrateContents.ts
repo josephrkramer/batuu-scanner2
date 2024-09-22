@@ -752,7 +752,7 @@ export default function initializeBaseCrateContents(
     "JK_RS",
     new CrateContents({
       code: "JK_RS",
-      contents: "No immediate reward. -- likely part of challenge",
+      contents: "Oga's Mission Coaster",
       type: CrateType.Empty,
     }),
   );

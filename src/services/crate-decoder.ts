@@ -86,17 +86,9 @@ export class CrateDecoder {
     this.override(
       new CrateContents({
         code: "JK_RS",
-        contents: "Evan's Manifesto",
+        contents: "Halcyon Pool Access Card",
         type: CrateType.Relic,
-        image: "./halcyon_cargo.jpeg",
-      }),
-    );
-    this.override(
-      new CrateContents({
-        code: "JK_TU",
-        contents: "Tom's Vape Pen",
-        type: CrateType.Relic,
-        image: "./ports_of_call.jpeg",
+        image: "./halcyon_pool_keycard.jpg",
       }),
     );
 
