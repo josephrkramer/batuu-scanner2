@@ -118,6 +118,15 @@ export class CrateDecoder {
         image: "./wroshyr_tree.jpg",
       }),
     );
+    this.override(
+      new CrateContents({
+        code: "XX_XX",
+        contents: "Dutasteel Fragment of the Great Hall of the Nihil",
+        //Leftover From the Terraforming of Kashyyk by the Rakata
+        type: CrateType.Relic,
+        image: "./nihil_durasteel.jpg",
+      }),
+    );
     */
 
     //Multiple Choice custom override crates
