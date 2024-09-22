@@ -113,7 +113,7 @@ export class CrateDecoder {
       new CrateContents({
         code: "XX_XX",
         contents: "Seed Pod of the Wroshyr Tree",
-        //Leftover From the Terraforming of Kashyyk by the Rakata
+        // Leftover From the Terraforming of Kashyyk by the Rakata
         type: CrateType.Relic,
         image: "./wroshyr_tree.jpg",
       }),
@@ -122,9 +122,17 @@ export class CrateDecoder {
       new CrateContents({
         code: "XX_XX",
         contents: "Dutasteel Fragment of the Great Hall of the Nihil",
-        //Leftover From the Terraforming of Kashyyk by the Rakata
         type: CrateType.Relic,
         image: "./nihil_durasteel.jpg",
+      }),
+    );
+    this.override(
+      new CrateContents({
+        code: "XX_XX",
+        contents: "Shard of the Darth Nul Holocron",
+        // From the Ord Mantell Civil War
+        type: CrateType.Relic,
+        image: "./holocron_shard.jpg",
       }),
     );
     */
