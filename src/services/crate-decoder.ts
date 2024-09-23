@@ -174,6 +174,15 @@ export class CrateDecoder {
         image: "./mining_equipment.jpg",
       }),
     );
+    this.override(
+      new CrateContents({
+        code: "XX_XX",
+        contents: "Jedi Temple Piece",
+        detailedDescription: "Piece of the Jedi Temple on Ashas Ree",
+        type: CrateType.Relic,
+        image: "./jedi_temple_piece.jpg",
+      }),
+    );
     */
 
     //Multiple Choice custom override crates
