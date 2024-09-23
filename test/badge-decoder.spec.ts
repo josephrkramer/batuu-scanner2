@@ -174,14 +174,16 @@ describe("BadgeDecoder", () => {
 
   //Crate Related Badges
 
-  //TODO: this should be 12 once all the badges are added.
   it("should check for Relic Hunter", () => {
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Relic_Hunter)).toBe(false);
     act(() => {
-      crateDecoder.setResult("JK_RS", badgeDecoder);
+      const relics = crateDecoder.sortCargoHold(true).get(CrateType.Relic)!;
+      relics.forEach((crate) => {
+        crateDecoder.setResult(crate.code, badgeDecoder);
+      });
     });
-    expect(crateDecoder.getTotalNumberOfType(CrateType.Relic)).toBe(1);
-    expect(crateDecoder.getScannedNumberOfType(CrateType.Relic)).toBe(1);
+    expect(crateDecoder.getTotalNumberOfType(CrateType.Relic)).toBe(13);
+    expect(crateDecoder.getScannedNumberOfType(CrateType.Relic)).toBe(13);
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Relic_Hunter)).toBe(true);
   });
 
