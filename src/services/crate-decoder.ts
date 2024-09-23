@@ -116,7 +116,7 @@ export class CrateDecoder {
       new CrateContents({
         code: "XX_XX",
         contents: "Seed Pod of the Wroshyr Tree",
-        detailedDescription: "Leftover From the Terraforming of Kashyyk by the Rakata",
+        detailedDescription: "Leftover from the terraforming of Kashyyk by the Rakata",
         type: CrateType.Relic,
         image: "./wroshyr_tree.jpg",
       }),
@@ -133,7 +133,7 @@ export class CrateDecoder {
       new CrateContents({
         code: "XX_XX",
         contents: "Holocron Shard",
-        detailedDescription: "Shard of the Darth Nul Holocron From the Ord Mantell Civil War",
+        detailedDescription: "Shard of the Darth Nul Holocron from the Ord Mantell Civil War",
         type: CrateType.Relic,
         image: "./holocron_shard.jpg",
       }),
@@ -142,9 +142,18 @@ export class CrateDecoder {
       new CrateContents({
         code: "XX_XX",
         contents: "Petrified Wood",
-        detailedDescription: "From the Primordial Forest on Mustafar, Now Just a Memory",
+        detailedDescription: "From the Primordial Forest on Mustafar, now just a memory",
         type: CrateType.Relic,
         image: "./mustafar_wood.jpg",
+      }),
+    );
+    this.override(
+      new CrateContents({
+        code: "XX_XX",
+        contents: "Junkyard Wreckage",
+        detailedDescription: "Wreckage from the Plutt junkyard on Jakku",
+        type: CrateType.Relic,
+        image: "./junkyard_wreckage.jpg",
       }),
     );
     */
