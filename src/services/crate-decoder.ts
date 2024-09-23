@@ -94,19 +94,18 @@ export class CrateDecoder {
         image: "./halcyon_pool_keycard.jpg",
       }),
     );
-    //code: "JK_TU",
-    /*
     this.override(
       new CrateContents({
-        code: "XX_XX",
-        contents: "Darth Plagueis's Bioplaiting Device",
+        code: "1",
+        contents: "Bioplaiting Device",
+        detailedDescription: "Used by Darth Plagueis",
         type: CrateType.Relic,
         image: "./darth_plagueis.jpeg",
       }),
     );
     this.override(
       new CrateContents({
-        code: "XX_XX",
+        code: "2",
         contents: "Fragment of the Tho Yor",
         type: CrateType.Relic,
         image: "./tho_yor.jpg",
@@ -114,42 +113,47 @@ export class CrateDecoder {
     );
     this.override(
       new CrateContents({
-        code: "XX_XX",
-        contents: "Seed Pod of the Wroshyr Tree",
-        detailedDescription: "Leftover from the terraforming of Kashyyk by the Rakata",
+        code: "3",
+        contents: "Seed Pod",
+        detailedDescription:
+          "Seed pod of the Wroshyr Tree leftover from the terraforming of Kashyyk by the Rakata",
         type: CrateType.Relic,
         image: "./wroshyr_tree.jpg",
       }),
     );
     this.override(
       new CrateContents({
-        code: "XX_XX",
-        contents: "Dutasteel Fragment of the Great Hall of the Nihil",
+        code: "4",
+        contents: "Dutasteel Fragment",
+        detailedDescription:
+          "Dutasteel Fragment of the Great Hall of the Nihil",
         type: CrateType.Relic,
         image: "./nihil_durasteel.jpg",
       }),
     );
     this.override(
       new CrateContents({
-        code: "XX_XX",
+        code: "5",
         contents: "Holocron Shard",
-        detailedDescription: "Shard of the Darth Nul Holocron from the Ord Mantell Civil War",
+        detailedDescription:
+          "Shard of the Darth Nul Holocron from the Ord Mantell Civil War",
         type: CrateType.Relic,
         image: "./holocron_shard.jpg",
       }),
     );
     this.override(
       new CrateContents({
-        code: "XX_XX",
+        code: "6",
         contents: "Petrified Wood",
-        detailedDescription: "From the Primordial Forest on Mustafar, now just a memory",
+        detailedDescription:
+          "From the Primordial Forest on Mustafar, now just a memory",
         type: CrateType.Relic,
         image: "./mustafar_wood.jpg",
       }),
     );
     this.override(
       new CrateContents({
-        code: "XX_XX",
+        code: "7",
         contents: "Junkyard Wreckage",
         detailedDescription: "Wreckage from the Plutt junkyard on Jakku",
         type: CrateType.Relic,
@@ -158,25 +162,27 @@ export class CrateDecoder {
     );
     this.override(
       new CrateContents({
-        code: "XX_XX",
+        code: "8",
         contents: "Stone Head",
-        detailedDescription: "Miniature of a stone head from an ancient civilization of Naboo",
+        detailedDescription:
+          "Miniature of a stone head from an ancient civilization of Naboo",
         type: CrateType.Relic,
         image: "./stone_head.jpg",
       }),
     );
     this.override(
       new CrateContents({
-        code: "XX_XX",
+        code: "9",
         contents: "Mining Equipment",
-        detailedDescription: "Mining equipment used by Czerka Arms' enslaved workers on Hosnian Prime",
+        detailedDescription:
+          "Mining equipment used by Czerka Arms' enslaved workers on Hosnian Prime",
         type: CrateType.Relic,
         image: "./mining_equipment.jpg",
       }),
     );
     this.override(
       new CrateContents({
-        code: "XX_XX",
+        code: "10",
         contents: "Jedi Temple Piece",
         detailedDescription: "Piece of the Jedi Temple on Ashas Ree",
         type: CrateType.Relic,
@@ -185,23 +191,24 @@ export class CrateDecoder {
     );
     this.override(
       new CrateContents({
-        code: "XX_XX",
+        code: "11",
         contents: "Omni-communicator",
-        detailedDescription: "Omni-communicator from an Imperial Star Destroyer",
+        detailedDescription:
+          "Omni-communicator from an Imperial Star Destroyer",
         type: CrateType.Relic,
         image: "./omni-communicator.jpg",
       }),
     );
     this.override(
       new CrateContents({
-        code: "XX_XX",
+        code: "12",
         contents: "Cassius Tea Cup",
-        detailedDescription: "Used during the private meeting between Pre Vizla and Maul",
+        detailedDescription:
+          "Used during the private meeting between Pre Vizla and Maul",
         type: CrateType.Relic,
         image: "./tea_cup.jpg",
       }),
     );
-    */
 
     //Multiple Choice custom override crates
     const bexCrystals = new CrateContents({
