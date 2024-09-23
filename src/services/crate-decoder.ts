@@ -156,6 +156,15 @@ export class CrateDecoder {
         image: "./junkyard_wreckage.jpg",
       }),
     );
+    this.override(
+      new CrateContents({
+        code: "XX_XX",
+        contents: "Stone Head",
+        detailedDescription: "Miniature of a stone head from an ancient civilization of Naboo",
+        type: CrateType.Relic,
+        image: "./stone_head.jpg",
+      }),
+    );
     */
 
     //Multiple Choice custom override crates
