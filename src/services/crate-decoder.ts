@@ -165,6 +165,15 @@ export class CrateDecoder {
         image: "./stone_head.jpg",
       }),
     );
+    this.override(
+      new CrateContents({
+        code: "XX_XX",
+        contents: "Mining Equipment",
+        detailedDescription: "Mining equipment used by Czerka Arms' enslaved workers on Hosnian Prime",
+        type: CrateType.Relic,
+        image: "./mining_equipment.jpg",
+      }),
+    );
     */
 
     //Multiple Choice custom override crates
