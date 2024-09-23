@@ -125,8 +125,7 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.Relic_Hunter,
         name: "Relic Hunter",
-        description:
-          "Find all of the AARC relics hidden in the crates on Batuu.",
+        description: "Find all of the hidden AARC relics.",
         image: "./badge/relic-hunter.jpeg",
         aztec: "./aztec/Relic_Hunter.png",
       }),
@@ -592,7 +591,7 @@ export class BadgeDecoder {
   }
 
   private relicHunter(crateCode: string, crateDecoder: CrateDecoder) {
-    //Relic Hunter - all Relic "overridden" crates
+    //Relic Hunter - all Relic "overridden" crates and coaster
     if (
       !this.earnedBadges.has(BadgeCode.Relic_Hunter) &&
       this.isLastRelicCrate(crateCode, crateDecoder)

@@ -71,6 +71,7 @@ function crateDisplay(
                       height={"auto"}
                     />
                     <Title level={3}>{item.contents}</Title>
+                    <Title level={5}>{item.detailedDescription}</Title>
                     {admin ? <Title level={4}>{item.code}</Title> : null}
                   </div>
                 ),

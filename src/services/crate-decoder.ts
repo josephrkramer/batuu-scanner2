@@ -20,6 +20,7 @@ export const CrateType = Object.freeze({
 export class CrateContents {
   code: string;
   contents: string;
+  detailedDescription: string;
   type: string;
   image: string;
   alignment: string;
@@ -28,12 +29,14 @@ export class CrateContents {
   constructor({
     code = "",
     contents = "",
+    detailedDescription = "",
     type = "",
     image = "",
     alignment = "",
   }) {
     this.code = code;
     this.contents = contents;
+    this.detailedDescription = detailedDescription;
     this.type = type;
     this.image = image;
     this.alignment = alignment;
@@ -86,19 +89,110 @@ export class CrateDecoder {
     this.override(
       new CrateContents({
         code: "JK_RS",
-        contents: "Evan's Manifesto",
+        contents: "Halcyon Pool Access Card",
         type: CrateType.Relic,
-        image: "./halcyon_cargo.jpeg",
+        image: "./halcyon_pool_keycard.jpg",
+      }),
+    );
+    //code: "JK_TU",
+    /*
+    this.override(
+      new CrateContents({
+        code: "XX_XX",
+        contents: "Darth Plagueis's Bioplaiting Device",
+        type: CrateType.Relic,
+        image: "./darth_plagueis.jpeg",
       }),
     );
     this.override(
       new CrateContents({
-        code: "JK_TU",
-        contents: "Tom's Vape Pen",
+        code: "XX_XX",
+        contents: "Fragment of the Tho Yor",
         type: CrateType.Relic,
-        image: "./ports_of_call.jpeg",
+        image: "./tho_yor.jpg",
       }),
     );
+    this.override(
+      new CrateContents({
+        code: "XX_XX",
+        contents: "Seed Pod of the Wroshyr Tree",
+        detailedDescription: "Leftover from the terraforming of Kashyyk by the Rakata",
+        type: CrateType.Relic,
+        image: "./wroshyr_tree.jpg",
+      }),
+    );
+    this.override(
+      new CrateContents({
+        code: "XX_XX",
+        contents: "Dutasteel Fragment of the Great Hall of the Nihil",
+        type: CrateType.Relic,
+        image: "./nihil_durasteel.jpg",
+      }),
+    );
+    this.override(
+      new CrateContents({
+        code: "XX_XX",
+        contents: "Holocron Shard",
+        detailedDescription: "Shard of the Darth Nul Holocron from the Ord Mantell Civil War",
+        type: CrateType.Relic,
+        image: "./holocron_shard.jpg",
+      }),
+    );
+    this.override(
+      new CrateContents({
+        code: "XX_XX",
+        contents: "Petrified Wood",
+        detailedDescription: "From the Primordial Forest on Mustafar, now just a memory",
+        type: CrateType.Relic,
+        image: "./mustafar_wood.jpg",
+      }),
+    );
+    this.override(
+      new CrateContents({
+        code: "XX_XX",
+        contents: "Junkyard Wreckage",
+        detailedDescription: "Wreckage from the Plutt junkyard on Jakku",
+        type: CrateType.Relic,
+        image: "./junkyard_wreckage.jpg",
+      }),
+    );
+    this.override(
+      new CrateContents({
+        code: "XX_XX",
+        contents: "Stone Head",
+        detailedDescription: "Miniature of a stone head from an ancient civilization of Naboo",
+        type: CrateType.Relic,
+        image: "./stone_head.jpg",
+      }),
+    );
+    this.override(
+      new CrateContents({
+        code: "XX_XX",
+        contents: "Mining Equipment",
+        detailedDescription: "Mining equipment used by Czerka Arms' enslaved workers on Hosnian Prime",
+        type: CrateType.Relic,
+        image: "./mining_equipment.jpg",
+      }),
+    );
+    this.override(
+      new CrateContents({
+        code: "XX_XX",
+        contents: "Jedi Temple Piece",
+        detailedDescription: "Piece of the Jedi Temple on Ashas Ree",
+        type: CrateType.Relic,
+        image: "./jedi_temple_piece.jpg",
+      }),
+    );
+    this.override(
+      new CrateContents({
+        code: "XX_XX",
+        contents: "Omni-communicator",
+        detailedDescription: "Omni-communicator from an Imperial Star Destroyer",
+        type: CrateType.Relic,
+        image: "./omni-communicator.jpg",
+      }),
+    );
+    */
 
     //Multiple Choice custom override crates
     const bexCrystals = new CrateContents({
