@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/josephrkramer/batuu-scanner2",
   "dependencies": {
-    "@ant-design/icons": "^5.3.7",
+    "@ant-design/icons": "^5.5.1",
     "antd": "^5.20.6",
     "dayjs": "^1.11.13",
     "html5-qrcode": "^2.3.8",
