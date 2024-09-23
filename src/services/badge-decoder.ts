@@ -125,8 +125,7 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.Relic_Hunter,
         name: "Relic Hunter",
-        description:
-          "Find all of the hidden AARC relics.",
+        description: "Find all of the hidden AARC relics.",
         image: "./badge/relic-hunter.jpeg",
         aztec: "./aztec/Relic_Hunter.png",
       }),
