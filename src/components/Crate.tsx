@@ -12,6 +12,7 @@ function Crate({
         <Title level={2}>Crate Scan Successful</Title>
         <Image src={crate.image} preview={false} />
         <Title level={3}>{crate.contents}</Title>
+        <Title level={5}>{crate.detailedDescription}</Title>
         {admin ? <Title level={4}>{crate.code}</Title> : null}
       </Card>
     );

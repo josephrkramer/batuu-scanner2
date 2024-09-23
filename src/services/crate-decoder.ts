@@ -20,6 +20,7 @@ export const CrateType = Object.freeze({
 export class CrateContents {
   code: string;
   contents: string;
+  detailedDescription: string;
   type: string;
   image: string;
   alignment: string;
@@ -28,12 +29,14 @@ export class CrateContents {
   constructor({
     code = "",
     contents = "",
+    detailedDescription = "",
     type = "",
     image = "",
     alignment = "",
   }) {
     this.code = code;
     this.contents = contents;
+    this.detailedDescription = detailedDescription;
     this.type = type;
     this.image = image;
     this.alignment = alignment;
@@ -133,6 +136,15 @@ export class CrateDecoder {
         // From the Ord Mantell Civil War
         type: CrateType.Relic,
         image: "./holocron_shard.jpg",
+      }),
+    );
+    this.override(
+      new CrateContents({
+        code: "XX_XX",
+        contents: "Petrified Wood",
+        detailedDescription: "From the Primordial Forest on Mustafar, Now Just a Memory",
+        type: CrateType.Relic,
+        image: "./mustafar_wood.jpg",
       }),
     );
     */
