@@ -183,6 +183,15 @@ export class CrateDecoder {
         image: "./jedi_temple_piece.jpg",
       }),
     );
+    this.override(
+      new CrateContents({
+        code: "XX_XX",
+        contents: "Omni-communicator",
+        detailedDescription: "Omni-communicator from an Imperial Star Destroyer",
+        type: CrateType.Relic,
+        image: "./omni-communicator.jpg",
+      }),
+    );
     */
 
     //Multiple Choice custom override crates
