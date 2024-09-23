@@ -192,6 +192,15 @@ export class CrateDecoder {
         image: "./omni-communicator.jpg",
       }),
     );
+    this.override(
+      new CrateContents({
+        code: "XX_XX",
+        contents: "Cassius Tea Cup",
+        detailedDescription: "Used during the private meeting between Pre Vizla and Maul",
+        type: CrateType.Relic,
+        image: "./tea_cup.jpg",
+      }),
+    );
     */
 
     //Multiple Choice custom override crates
