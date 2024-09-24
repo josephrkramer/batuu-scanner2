@@ -32,6 +32,7 @@ class AztecGenerator:
         "First_Step": "tznoi",
         "Pathway_to_AARC": "ft4at",
         "Character_AARC": "v14h0",
+        "The_Legacy_Continues": "h6nb8",
     }
 
     crates = {
