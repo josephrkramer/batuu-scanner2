@@ -210,6 +210,18 @@ export class CrateDecoder {
       }),
     );
 
+    //La'Beth
+    //TODO: Place crate on-planet
+    this.override(
+      new CrateContents({
+        code: "BC_ST",
+        contents: "Loth-cat in carbonite",
+        detailedDescription: "Loth-cat in carbonite needing saving",
+        type: CrateType.Relic,
+        image: "./lothcat.png",
+      }),
+    );
+
     //Multiple Choice custom override crates
     const bexCrystals = new CrateContents({
       code: "FG_ST",
