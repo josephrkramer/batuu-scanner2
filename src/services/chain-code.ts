@@ -42,7 +42,8 @@ export class ChainCodePart {
 
 export const MIN_CHAIN_CODE_SIZE = 3;
 export const MAX_CHAIN_CODE_SIZE = 5;
-export const MEETING_TIME = "7:30pm";
+export const THURS_MEETING_TIME = "7:50pm";
+export const SUN_MEETING_TIME = "10:50pm";
 
 export class ChainCodeDecoder {
   scanCodeToChainCodePart = new Map<string, ChainCodePart>();

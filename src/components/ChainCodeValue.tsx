@@ -3,9 +3,11 @@ import Title from "antd/es/typography/Title";
 import {
   ChainCodeDecoder,
   MAX_CHAIN_CODE_SIZE,
-  MEETING_TIME,
+  SUN_MEETING_TIME,
+  THURS_MEETING_TIME,
 } from "../services/chain-code";
 import { CrewManifest } from "../services/crew-manifest";
+import dayjs, { Dayjs } from "dayjs";
 
 function ChainCodeValue({
   render,
@@ -18,6 +20,8 @@ function ChainCodeValue({
   crewManifest: CrewManifest;
   alignment: string | undefined;
 }>) {
+  //if Sunday else Thursday
+  const MEETING_TIME = dayjs().day() == 0 ? SUN_MEETING_TIME : THURS_MEETING_TIME
   if (render) {
     const derivedAgent = crewManifest
       .getLeaders()
