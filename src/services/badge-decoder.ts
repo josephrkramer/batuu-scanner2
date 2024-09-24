@@ -126,6 +126,7 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.Relic_Hunter,
         name: "Relic Hunter",
+        quote: `"The fortune of a thousand tribes" --Gaya`,
         description: "Find all of the hidden AARC relics.",
         image: "./badge/relic-hunter.jpeg",
         aztec: "./aztec/Relic_Hunter.png",
