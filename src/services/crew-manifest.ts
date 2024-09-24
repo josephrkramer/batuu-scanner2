@@ -18,6 +18,7 @@ export class CrewMember {
   type: string;
   image: string;
   alignment: string;
+  meetingLocation: string;
 
   constructor({
     name = "",
@@ -31,6 +32,7 @@ export class CrewMember {
     type = "",
     image = "",
     alignment = "",
+    meetingLocation = "",
   }) {
     this.name = name;
     this.occupation = occupation;
@@ -43,6 +45,7 @@ export class CrewMember {
     this.type = type;
     this.image = image;
     this.alignment = alignment;
+    this.meetingLocation = meetingLocation;
   }
 }
 
@@ -70,6 +73,7 @@ export class CrewManifest {
         type: CrewMemberType.Faction_Leader,
         image: "./crew/vesper.png",
         alignment: ChainCodeAlignmentString.Light,
+        meetingLocation: "the market entrance",
       }),
     );
     this.addCrewMember(
@@ -87,6 +91,7 @@ export class CrewManifest {
         type: CrewMemberType.Faction_Leader,
         image: "./crew/lias.jpg",
         alignment: ChainCodeAlignmentString.Neutral,
+        meetingLocation: "the cave",
       }),
     );
     this.addCrewMember(
@@ -143,6 +148,7 @@ export class CrewManifest {
         type: CrewMemberType.Faction_Leader,
         image: "./crew/evant.jpg",
         alignment: ChainCodeAlignmentString.Dark,
+        meetingLocation: "the TIE/es assault shuttle",
       }),
     );
     this.addCrewMember(

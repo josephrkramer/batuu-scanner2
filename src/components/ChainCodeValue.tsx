@@ -3,9 +3,11 @@ import Title from "antd/es/typography/Title";
 import {
   ChainCodeDecoder,
   MAX_CHAIN_CODE_SIZE,
-  MEETING_TIME,
+  SUN_MEETING_TIME,
+  THURS_MEETING_TIME,
 } from "../services/chain-code";
 import { CrewManifest } from "../services/crew-manifest";
+import dayjs from "dayjs";
 
 function ChainCodeValue({
   render,
@@ -18,6 +20,9 @@ function ChainCodeValue({
   crewManifest: CrewManifest;
   alignment: string | undefined;
 }>) {
+  //if Sunday else Thursday
+  const MEETING_TIME =
+    dayjs().day() == 0 ? SUN_MEETING_TIME : THURS_MEETING_TIME;
   if (render) {
     const derivedAgent = crewManifest
       .getLeaders()
@@ -27,9 +32,9 @@ function ChainCodeValue({
     const chainCodeAlignmentMessage = `By your actions, you've shown to be aligned with the ${chainCodeDecoder.chainCodeAlignment()}.`;
     let chainCodeMessage = "";
     if (chainCodeDecoder.chainCodeLength() < MAX_CHAIN_CODE_SIZE) {
-      chainCodeMessage += `There are still more informants to contact, but make sure you meet with your AARC recruiting agent, ${derivedAgent.name} at LOCATATON, at ${MEETING_TIME}`;
+      chainCodeMessage += `There are still more informants to contact, but make sure you meet with your AARC recruiting agent, ${derivedAgent.name} at ${derivedAgent.meetingLocation}, at ${MEETING_TIME}`;
     } else {
-      chainCodeMessage += `Well, done! You've met with all of our informants. Be ready to meet with your AARC recruiting agent, ${derivedAgent.name} at LOCATION, at ${MEETING_TIME}`;
+      chainCodeMessage += `Well, done! You've met with all of our informants. Be ready to meet with your AARC recruiting agent, ${derivedAgent.name} at ${derivedAgent.meetingLocation}, at ${MEETING_TIME}`;
     }
     let originalAlignment = null;
     if (alignment !== chainCodeDecoder.chainCodeAlignment()) {
@@ -41,7 +46,7 @@ function ChainCodeValue({
           <Title level={3}>Original Alignment: {alignment}</Title>
           <Typography.Paragraph>{`You have chosen a path different from where you started. You now have a choice. Do you follow the path of your words or your actions?`}</Typography.Paragraph>
           <Image src={originalAgent.image} preview={false} />
-          <Typography.Paragraph>{`You may choose to meet with your original AARC recruiting agent, ${originalAgent.name} at LOCATION, at ${MEETING_TIME}`}</Typography.Paragraph>
+          <Typography.Paragraph>{`You may choose to meet with your original AARC recruiting agent, ${originalAgent.name} at ${originalAgent.meetingLocation}, at ${MEETING_TIME}`}</Typography.Paragraph>
         </Card>
       );
     }
