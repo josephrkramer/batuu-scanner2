@@ -562,6 +562,7 @@ export class BadgeDecoder {
 
   private bounty(crateCode: string) {
     //Bounty - animal crates "GI_QR", "KL_QR", or "FAL26"
+    //TODO: Add La'Beth's crates
     const bountySet = new Set(["GI_QR", "KL_QR", "FAL26"]);
     if (!this.earnedBadges.has(BadgeCode.Bounty) && bountySet.has(crateCode)) {
       this.add(BadgeCode.Bounty);
