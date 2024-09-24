@@ -216,8 +216,7 @@ export class CrateDecoder {
       new CrateContents({
         code: "BC_ST",
         contents: "Loth-cat in carbonite",
-        detailedDescription:
-          "Loth-cat in carbonite needing saving",
+        detailedDescription: "Loth-cat in carbonite needing saving",
         type: CrateType.Relic,
         image: "./lothcat.png",
       }),
