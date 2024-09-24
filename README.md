@@ -64,7 +64,7 @@ To update new versions of the puzzle, pull the new code and commit the changes.
 
 ```
 cd public/coolant-stabilizer
-git pull
+git pull origin main
 cd ../..
 git add .
 git commit
