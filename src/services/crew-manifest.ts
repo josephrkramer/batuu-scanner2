@@ -73,7 +73,7 @@ export class CrewManifest {
         type: CrewMemberType.Faction_Leader,
         image: "./crew/vesper.png",
         alignment: ChainCodeAlignmentString.Light,
-        meetingLocation: "the Resistance base",
+        meetingLocation: "the market entrance",
       }),
     );
     this.addCrewMember(
