@@ -34,6 +34,7 @@ export const BadgeCode = Object.freeze({
   First_Step: "tznoi",
   Pathway_to_AARC: "ft4at",
   Character_AARC: "v14h0",
+  The_Legacy_Continues: "h6nb8",
 });
 
 export class Badge {
@@ -361,6 +362,17 @@ export class BadgeDecoder {
         description: `Make only Dark Side choices during an event.`,
         image: "./badge/we-have-cookies.jpeg",
         aztec: "./aztec/We_Have_Cookies.png",
+      }),
+    );
+    this.unlistedCodeToBadge.set(
+      BadgeCode.The_Legacy_Continues,
+      new Badge({
+        code: BadgeCode.The_Legacy_Continues,
+        name: "The Legacy Continues",
+        quote: `"Our paths are now forever intertwined." --Shug Drabor as quoted by D3-09`,
+        description: `Be part of The Legacy Continues team in any capacity.`,
+        image: "./badge/the-legacy-continues.jpeg",
+        aztec: "./aztec/The_Legacy_Continues.png",
       }),
     );
 
