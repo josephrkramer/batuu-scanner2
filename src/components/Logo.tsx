@@ -1,9 +1,18 @@
 import { Card, Image } from "antd";
 
-function Logo() {
+function Logo({ admin }: Readonly<{ admin: boolean }>) {
   return (
     <Card>
-      <Image src={"./aarc-aurebesh.jpg"} preview={false} />
+      {admin ? (
+        <Image
+          src={"./url.png"}
+          width={"100%"}
+          height={"auto"}
+          preview={false}
+        />
+      ) : (
+        <Image src={"./aarc-aurebesh.jpg"} preview={false} />
+      )}
     </Card>
   );
 }
