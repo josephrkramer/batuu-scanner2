@@ -225,6 +225,16 @@ export class CrateDecoder {
         image: "./tea_cup.jpg",
       }),
     );
+    this.override(
+      new CrateContents({
+        code: "13",
+        contents: "Halcyon Sighting Coordinates",
+        detailedDescription: "Coordinates of a recent sighting of the Halcyon",
+        locationDescription: "???",
+        type: CrateType.Relic,
+        image: "./halcyon_coords.jpg",
+      }),
+    );
 
     //La'Beth
     //TODO: Place crate on-planet
