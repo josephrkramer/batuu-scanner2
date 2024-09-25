@@ -21,6 +21,7 @@ export class CrateContents {
   code: string;
   contents: string;
   detailedDescription: string;
+  locationDescription: string;
   type: string;
   image: string;
   alignment: string;
@@ -30,6 +31,7 @@ export class CrateContents {
     code = "",
     contents = "",
     detailedDescription = "",
+    locationDescription = "",
     type = "",
     image = "",
     alignment = "",
@@ -37,6 +39,7 @@ export class CrateContents {
     this.code = code;
     this.contents = contents;
     this.detailedDescription = detailedDescription;
+    this.locationDescription = locationDescription;
     this.type = type;
     this.image = image;
     this.alignment = alignment;
@@ -90,6 +93,7 @@ export class CrateDecoder {
       new CrateContents({
         code: "JK_RS",
         contents: "Halcyon Pool Access Card",
+        locationDescription: "Oga's Halcyon Coaster",
         type: CrateType.Relic,
         image: "./halcyon_pool_keycard.jpg",
       }),
@@ -99,6 +103,7 @@ export class CrateDecoder {
         code: "1",
         contents: "Bioplaiting Device",
         detailedDescription: "Used by Darth Plagueis",
+        locationDescription: "???",
         type: CrateType.Relic,
         image: "./darth_plagueis.jpeg",
       }),
@@ -107,6 +112,7 @@ export class CrateDecoder {
       new CrateContents({
         code: "2",
         contents: "Fragment of the Tho Yor",
+        locationDescription: "???",
         type: CrateType.Relic,
         image: "./tho_yor.jpg",
       }),
@@ -117,6 +123,7 @@ export class CrateDecoder {
         contents: "Seed Pod",
         detailedDescription:
           "Seed pod of the Wroshyr Tree leftover from the terraforming of Kashyyk by the Rakata",
+        locationDescription: "???",
         type: CrateType.Relic,
         image: "./wroshyr_tree.jpg",
       }),
@@ -124,9 +131,10 @@ export class CrateDecoder {
     this.override(
       new CrateContents({
         code: "4",
-        contents: "Dutasteel Fragment",
+        contents: "Durasteel Fragment",
         detailedDescription:
-          "Dutasteel Fragment of the Great Hall of the Nihil",
+          "Durasteel Fragment of the Great Hall of the Nihil",
+        locationDescription: "???",
         type: CrateType.Relic,
         image: "./nihil_durasteel.jpg",
       }),
@@ -137,6 +145,7 @@ export class CrateDecoder {
         contents: "Holocron Shard",
         detailedDescription:
           "Shard of the Darth Nul Holocron from the Ord Mantell Civil War",
+        locationDescription: "???",
         type: CrateType.Relic,
         image: "./holocron_shard.jpg",
       }),
@@ -147,6 +156,7 @@ export class CrateDecoder {
         contents: "Petrified Wood",
         detailedDescription:
           "From the Primordial Forest on Mustafar, now just a memory",
+        locationDescription: "???",
         type: CrateType.Relic,
         image: "./mustafar_wood.jpg",
       }),
@@ -156,6 +166,7 @@ export class CrateDecoder {
         code: "7",
         contents: "Junkyard Wreckage",
         detailedDescription: "Wreckage from the Plutt junkyard on Jakku",
+        locationDescription: "???",
         type: CrateType.Relic,
         image: "./junkyard_wreckage.jpg",
       }),
@@ -166,6 +177,7 @@ export class CrateDecoder {
         contents: "Stone Head",
         detailedDescription:
           "Miniature of a stone head from an ancient civilization of Naboo",
+        locationDescription: "???",
         type: CrateType.Relic,
         image: "./stone_head.jpg",
       }),
@@ -176,6 +188,7 @@ export class CrateDecoder {
         contents: "Mining Equipment",
         detailedDescription:
           "Mining equipment used by Czerka Arms' enslaved workers on Hosnian Prime",
+        locationDescription: "???",
         type: CrateType.Relic,
         image: "./mining_equipment.jpg",
       }),
@@ -185,6 +198,7 @@ export class CrateDecoder {
         code: "10",
         contents: "Jedi Temple Piece",
         detailedDescription: "Piece of the Jedi Temple on Ashas Ree",
+        locationDescription: "???",
         type: CrateType.Relic,
         image: "./jedi_temple_piece.jpg",
       }),
@@ -195,6 +209,7 @@ export class CrateDecoder {
         contents: "Omni-communicator",
         detailedDescription:
           "Omni-communicator from an Imperial Star Destroyer",
+        locationDescription: "???",
         type: CrateType.Relic,
         image: "./omni-communicator.jpg",
       }),
@@ -205,6 +220,7 @@ export class CrateDecoder {
         contents: "Cassius Tea Cup",
         detailedDescription:
           "Used during the private meeting between Pre Vizla and Maul",
+        locationDescription: "???",
         type: CrateType.Relic,
         image: "./tea_cup.jpg",
       }),
@@ -217,6 +233,7 @@ export class CrateDecoder {
         code: "BC_ST",
         contents: "Loth-cat in carbonite",
         detailedDescription: "Loth-cat in carbonite needing saving",
+        locationDescription: "???",
         type: CrateType.Relic,
         image: "./lothcat.png",
       }),
