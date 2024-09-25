@@ -118,7 +118,7 @@ describe("ChainCodeDecoder", () => {
   it("should return the correct alignment for a neutral side chain code", () => {
     chainCodeDecoder.chainCode = [
       chainCodeDecoder.decode(ChainCodeAlignmentCode.Light),
-      chainCodeDecoder.decode(ChainCodeAlignmentCode.Neutral),
+      chainCodeDecoder.decode(ChainCodeAlignmentCode.Light),
       chainCodeDecoder.decode(ChainCodeAlignmentCode.Dark),
     ];
     expect(chainCodeDecoder.chainCodeAlignment()).toBe(
