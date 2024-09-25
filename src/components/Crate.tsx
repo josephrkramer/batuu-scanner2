@@ -14,6 +14,7 @@ function Crate({
         <Title level={3}>{crate.contents}</Title>
         <Title level={5}>{crate.detailedDescription}</Title>
         {admin ? <Title level={4}>{crate.code}</Title> : null}
+        {admin ? <Title level={4}>{crate.locationDescription}</Title> : null}
       </Card>
     );
   } else {
