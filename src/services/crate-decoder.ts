@@ -242,7 +242,7 @@ export class CrateDecoder {
       new CrateContents({
         code: "BC_ST",
         contents: "Loth-cat in carbonite",
-        detailedDescription: "Loth-cat in carbonite needing saving",
+        detailedDescription: "Loth-cat locked in carbonite",
         locationDescription: "???",
         type: CrateType.Relic,
         image: "./CarboniteLothCat.png",
@@ -252,7 +252,7 @@ export class CrateDecoder {
       new CrateContents({
         code: "BC_TU",
         contents: "Loth-wolf in carbonite",
-        detailedDescription: "Loth-wolf in carbonite needing saving",
+        detailedDescription: "Loth-wolf locked in carbonite",
         locationDescription: "???",
         type: CrateType.Relic,
         image: "./CarboniteLothWolf.png",
@@ -261,11 +261,11 @@ export class CrateDecoder {
     this.override(
       new CrateContents({
         code: "BC_RS",
-        contents: "Hydrominet in carbonite",
-        detailedDescription: "Hydrominet in carbonite needing saving",
+        contents: "Hydrominae in carbonite",
+        detailedDescription: "Hydrominae locked in carbonite",
         locationDescription: "???",
         type: CrateType.Relic,
-        image: "./CarboniteHydrominet.png",
+        image: "./CarboniteHydrominae.png",
       }),
     );
 

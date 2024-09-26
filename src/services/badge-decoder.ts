@@ -35,6 +35,7 @@ export const BadgeCode = Object.freeze({
   Pathway_to_AARC: "ft4at",
   Character_AARC: "v14h0",
   The_Legacy_Continues: "h6nb8",
+  Hoth_Icebreaker: "nju5h",
 });
 
 export class Badge {
@@ -240,6 +241,17 @@ export class BadgeDecoder {
         description: `Awarded by the Halcyon: The Legacy Contines team for helping another player.`,
         image: "./badge/rose-tico.jpeg",
         aztec: "./aztec/Rose_Tico.png",
+      }),
+    );
+    this.codeToBadge.set(
+      BadgeCode.Hoth_Icebreaker,
+      new Badge({
+        code: BadgeCode.Hoth_Icebreaker,
+        name: "Hoth Icebreaker",
+        quote: `"He should be quite well protected. If he survived the freezing process, that is." --C-3PO`,
+        description: `Rescue all the creatures frozen in carbonite.`,
+        image: "./badge/hoth-icebreaker.jpeg",
+        aztec: "./aztec/Hoth_Icebreaker.png",
       }),
     );
 
@@ -505,6 +517,24 @@ export class BadgeDecoder {
     this.relicEnthusiast(crateDecoder);
     this.relicArchivist(crateDecoder);
     this.firstStep(crateCode, crateDecoder);
+    this.hothIcebreaker(crateCode, crateDecoder);
+  }
+
+  hothIcebreaker(crateCode: string, crateDecoder: CrateDecoder) {
+    //TODO: update La'Beth crates
+    const hothSet = new Set(["BC_ST", "BC_TU", "BC_RS"]);
+    if (!this.earnedBadges.has(BadgeCode.Hoth_Icebreaker)) {
+      const intersection = new Set(
+        [...hothSet].filter((x) => crateDecoder.scannedCrates.has(x)),
+      );
+      if (
+        hothSet.has(crateCode) &&
+        !crateDecoder.scannedCrates.has(crateCode) &&
+        intersection.size >= hothSet.size - 1
+      ) {
+        this.add(BadgeCode.Hoth_Icebreaker);
+      }
+    }
   }
 
   private firstStep(crateCode: string, crateDecoder: CrateDecoder) {
