@@ -245,7 +245,27 @@ export class CrateDecoder {
         detailedDescription: "Loth-cat in carbonite needing saving",
         locationDescription: "???",
         type: CrateType.Relic,
-        image: "./lothcat.png",
+        image: "./CarboniteLothCat.png",
+      }),
+    );
+    this.override(
+      new CrateContents({
+        code: "BC_TU",
+        contents: "Loth-wolf in carbonite",
+        detailedDescription: "Loth-wolf in carbonite needing saving",
+        locationDescription: "???",
+        type: CrateType.Relic,
+        image: "./CarboniteLothWolf.png",
+      }),
+    );
+    this.override(
+      new CrateContents({
+        code: "BC_RS",
+        contents: "Hydrominet in carbonite",
+        detailedDescription: "Hydrominet in carbonite needing saving",
+        locationDescription: "???",
+        type: CrateType.Relic,
+        image: "./CarboniteHydrominet.png",
       }),
     );
 
