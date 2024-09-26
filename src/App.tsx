@@ -2,7 +2,11 @@ import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import Logo from "./components/Logo";
 import Crate from "./components/Crate";
-import { CrateDecoder, CrateContents } from "./services/crate-decoder";
+import {
+  CrateDecoder,
+  CrateContents,
+  CrateType,
+} from "./services/crate-decoder";
 import Html5QrcodePlugin from "./components/Html5QrcodePlugin";
 import { Html5QrcodeResult } from "html5-qrcode";
 import { CrewManifest } from "./services/crew-manifest";
@@ -372,6 +376,8 @@ function App() {
           earnedBadgesDatesMap={badgeDecoder.earnedBadges}
           chainCode={admin ? chainCodeDecoder.adminChainCode() : chainCode}
           admin={admin}
+          numRelicsFound={crateDecoder.getScannedNumberOfType(CrateType.Relic)}
+          numTotalRelics={crateDecoder.getTotalNumberOfType(CrateType.Relic)}
         />
         <ChainCodePartResult chainCodePart={renderChainCodePiece} />
         <MultipeChoiceCrate
