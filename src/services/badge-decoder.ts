@@ -524,8 +524,14 @@ export class BadgeDecoder {
     //TODO: update La'Beth crates
     const hothSet = new Set(["BC_ST", "BC_TU", "BC_RS"]);
     if (!this.earnedBadges.has(BadgeCode.Hoth_Icebreaker)) {
-      const intersection = new Set([...hothSet].filter((x) => crateDecoder.scannedCrates.has(x)));
-      if (hothSet.has(crateCode) && !crateDecoder.scannedCrates.has(crateCode) && intersection.size >= hothSet.size-1) {
+      const intersection = new Set(
+        [...hothSet].filter((x) => crateDecoder.scannedCrates.has(x)),
+      );
+      if (
+        hothSet.has(crateCode) &&
+        !crateDecoder.scannedCrates.has(crateCode) &&
+        intersection.size >= hothSet.size - 1
+      ) {
         this.add(BadgeCode.Hoth_Icebreaker);
       }
     }

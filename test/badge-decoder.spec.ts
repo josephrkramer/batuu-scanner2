@@ -257,12 +257,16 @@ describe("BadgeDecoder", () => {
   });
 
   it("should check for Hoth Icebreaker", () => {
-    expect(badgeDecoder.earnedBadges.has(BadgeCode.Hoth_Icebreaker)).toBe(false);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Hoth_Icebreaker)).toBe(
+      false,
+    );
     act(() => {
       crateDecoder.setResult("BC_ST", badgeDecoder);
       crateDecoder.setResult("BC_TU", badgeDecoder);
     });
-    expect(badgeDecoder.earnedBadges.has(BadgeCode.Hoth_Icebreaker)).toBe(false);
+    expect(badgeDecoder.earnedBadges.has(BadgeCode.Hoth_Icebreaker)).toBe(
+      false,
+    );
     act(() => {
       crateDecoder.setResult("BC_RS", badgeDecoder);
     });
