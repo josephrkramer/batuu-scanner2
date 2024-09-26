@@ -182,7 +182,7 @@ export class BadgeDecoder {
         code: BadgeCode.The_Best_Teacher,
         name: "The Best Teacher",
         quote: `"Never tell me the odds." --Han Solo`,
-        description: `Scan 20+ non-event crates.`,
+        description: `Scan 10+ non-event crates.`,
         image: "./badge/the-best-teacher.jpeg",
         aztec: "./aztec/The_Best_Teacher.png",
       }),
@@ -539,12 +539,12 @@ export class BadgeDecoder {
   }
 
   private theBestTeacher(crateDecoder: CrateDecoder) {
-    //The Best Teacher - 20+ non-event crates
+    //The Best Teacher - 10+ non-event crates
     if (
       !this.earnedBadges.has(BadgeCode.The_Best_Teacher) &&
       crateDecoder.scannedCrates.size -
         crateDecoder.getScannedNumberOfType(CrateType.Relic) >=
-        20
+        10
     ) {
       this.add(BadgeCode.The_Best_Teacher);
     }
