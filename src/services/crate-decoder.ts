@@ -228,7 +228,7 @@ export class CrateDecoder {
     this.override(
       new CrateContents({
         code: "13",
-        contents: "Halcyon Sighting Coordinates",
+        contents: "Halcyon Coordinates",
         detailedDescription: "Coordinates of a recent sighting of the Halcyon",
         locationDescription: "???",
         type: CrateType.Relic,

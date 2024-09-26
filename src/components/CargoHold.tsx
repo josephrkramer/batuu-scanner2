@@ -1,5 +1,5 @@
 import { Card, List, Typography, Image } from "antd";
-import { CrateContents } from "../services/crate-decoder";
+import { CrateContents, CrateType } from "../services/crate-decoder";
 import {
   BADGE_DATE_FORMAT,
   Badge,
@@ -18,6 +18,8 @@ function CargoHold(
     earnedBadgesDatesMap: Map<string, EarnedBadge>;
     chainCode: ChainCodePart[];
     admin: boolean;
+    numRelicsFound: number;
+    numTotalRelics: number;
   }>,
 ) {
   if (!props.render) {
@@ -27,7 +29,12 @@ function CargoHold(
   return (
     <Card>
       <Title level={3}>Scanned Crates</Title>
-      {crateDisplay(props.sortedCargoHold, props.admin)}
+      {crateDisplay(
+        props.sortedCargoHold,
+        props.admin,
+        props.numRelicsFound,
+        props.numTotalRelics,
+      )}
       {chainCodeDisplay(props.chainCode, props.admin)}
       {badgeDisplay(
         props.badgesToDisplay,
@@ -43,6 +50,8 @@ export default CargoHold;
 function crateDisplay(
   sortedCargoHold: Map<string, Set<CrateContents>>,
   admin: boolean,
+  numRelicsFound: number,
+  numTotalRelics: number,
 ) {
   const cargoHoldList = [];
   for (const crateType of sortedCargoHold.keys()) {
@@ -53,7 +62,17 @@ function crateDisplay(
         dataSource={dataSource}
         size="small"
         //bordered
-        header={<Title level={4}>{crateType}</Title>}
+        header={
+          <>
+            {crateType == CrateType.Relic ? (
+              <Title level={4}>
+                {crateType} - {numRelicsFound} of {numTotalRelics}
+              </Title>
+            ) : (
+              <Title level={4}>{crateType}</Title>
+            )}
+          </>
+        }
         key={crateType}
         renderItem={(item) => (
           <List.Item>
