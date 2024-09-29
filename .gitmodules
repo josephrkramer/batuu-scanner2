@@ -1,3 +1,6 @@
 [submodule "public/react-godot"]
 	path = public/react-godot
 	url = https://github.com/josephrkramer/react-godot.git
+[submodule "public/coolant-stabilizer"]
+	path = public/coolant-stabilizer
+	url = https://github.com/josephrkramer/coolant-stabilizer
