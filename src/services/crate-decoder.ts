@@ -325,6 +325,7 @@ export class CrateDecoder {
     const schmeSculpture = new CrateContents({
       code: "DE_RS",
       contents: "Alderaanian Memories",
+      locationDescription: "Savi's courtyard. Blue case on the right closest to the speeder.",
       type: CrateType.Multiple_Choice,
       image: "./sculpture.jpeg",
     });
