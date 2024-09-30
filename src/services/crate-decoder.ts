@@ -240,7 +240,7 @@ export class CrateDecoder {
     //TODO: Place crate on-planet
     this.override(
       new CrateContents({
-        code: "BC_ST",
+        code: "14",
         contents: "Loth-cat in carbonite",
         detailedDescription: "Loth-cat locked in carbonite",
         locationDescription: "???",
@@ -253,17 +253,17 @@ export class CrateDecoder {
         code: "BC_TU",
         contents: "Loth-wolf in carbonite",
         detailedDescription: "Loth-wolf locked in carbonite",
-        locationDescription: "???",
+        locationDescription: "Across from Oga's, white crate",
         type: CrateType.Relic,
         image: "./CarboniteLothWolf.png",
       }),
     );
     this.override(
       new CrateContents({
-        code: "BC_RS",
+        code: "DE_LM",
         contents: "Hydrominae in carbonite",
         detailedDescription: "Hydrominae locked in carbonite",
-        locationDescription: "???",
+        locationDescription: "Bounty Hunter stand bottom brown crate",
         type: CrateType.Relic,
         image: "./CarboniteHydrominae.png",
       }),
