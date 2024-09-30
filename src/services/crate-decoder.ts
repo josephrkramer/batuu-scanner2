@@ -240,10 +240,10 @@ export class CrateDecoder {
     //TODO: Place crate on-planet
     this.override(
       new CrateContents({
-        code: "14",
+        code: "BC_OP",
         contents: "Loth-cat in carbonite",
         detailedDescription: "Loth-cat locked in carbonite",
-        locationDescription: "???",
+        locationDescription: "Outside Dok's",
         type: CrateType.Relic,
         image: "./CarboniteLothCat.png",
       }),
