@@ -29,7 +29,7 @@ function ChainCodeValue({
       .filter(
         (agent) => agent.alignment === chainCodeDecoder.chainCodeAlignment(),
       )[0];
-    const chainCodeAlignmentMessage = `By your actions, you've shown to be aligned with the ${chainCodeDecoder.chainCodeAlignment()}.`;
+    const chainCodeAlignmentMessage = `Your actions have aligned you with the ${chainCodeDecoder.chainCodeAlignment()}.`;
     let chainCodeMessage = "";
     if (chainCodeDecoder.chainCodeLength() < MAX_CHAIN_CODE_SIZE) {
       chainCodeMessage += `There are still more informants to contact, but make sure you meet with your AARC recruiting agent, ${derivedAgent.name}, ${derivedAgent.meetingLocation}, at ${MEETING_TIME}`;
