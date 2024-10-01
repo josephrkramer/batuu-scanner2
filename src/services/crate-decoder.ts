@@ -110,9 +110,9 @@ export class CrateDecoder {
     );
     this.override(
       new CrateContents({
-        code: "2",
+        code: "KL_ST",
         contents: "Fragment of the Tho Yor",
-        locationDescription: "???",
+        locationDescription: "Savi's, bottom left, large blue crate.",
         type: CrateType.Relic,
         image: "./tho_yor.jpg",
       }),
@@ -273,6 +273,7 @@ export class CrateDecoder {
     const bexCrystals = new CrateContents({
       code: "FG_ST",
       contents: "Odessen Crystals",
+      locationDescription: "Across from Oga's. Blue crate.",
       type: CrateType.Multiple_Choice,
       image: "./LargeCrystal.jpg",
     });
@@ -295,32 +296,6 @@ export class CrateDecoder {
       }),
     );
     this.override(bexCrystals);
-    //Dupe crate contents descryption. Determine which is correct
-    const bexCrystals2 = new CrateContents({
-      code: "FAL18",
-      contents: "Odessen Crystals",
-      type: CrateType.Multiple_Choice,
-      image: "./LargeCrystal.jpg",
-    });
-    bexCrystals2.multipleChoice.push(
-      new CrateContents({
-        code: bexCrystals2.code,
-        contents: "Vein of Sterre",
-        type: CrateType.Relic,
-        image: "./Crystal.jpg",
-        alignment: ChainCodeAlignmentCode.Dark,
-      }),
-    );
-    bexCrystals2.multipleChoice.push(
-      new CrateContents({
-        code: bexCrystals2.code,
-        contents: "Tears of Chandra",
-        type: CrateType.Relic,
-        image: "./LargeCrystal.jpg",
-        alignment: ChainCodeAlignmentCode.Light,
-      }),
-    );
-    this.override(bexCrystals2);
 
     const schmeSculpture = new CrateContents({
       code: "DE_RS",
