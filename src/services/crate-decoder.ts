@@ -110,9 +110,9 @@ export class CrateDecoder {
     );
     this.override(
       new CrateContents({
-        code: "2",
+        code: "KL_ST",
         contents: "Fragment of the Tho Yor",
-        locationDescription: "???",
+        locationDescription: "Savi's, bottom left, large blue crate.",
         type: CrateType.Relic,
         image: "./tho_yor.jpg",
       }),
