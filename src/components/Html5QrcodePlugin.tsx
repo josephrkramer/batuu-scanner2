@@ -1,4 +1,4 @@
-import { Card } from "antd";
+import { Card, Typography } from "antd";
 import {
   Html5QrcodeScanType,
   Html5QrcodeScanner,
@@ -123,6 +123,10 @@ const Html5QrcodePlugin = (props: {
   return (
     <Card>
       <div id={qrcodeRegionId} />
+      <Typography.Text>
+        To switch cameras, press "Stop Scanning" above and use the "Select
+        Camera" drop down menu.
+      </Typography.Text>
     </Card>
   );
 };
