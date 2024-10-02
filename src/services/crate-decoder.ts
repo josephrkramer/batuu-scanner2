@@ -100,10 +100,10 @@ export class CrateDecoder {
     );
     this.override(
       new CrateContents({
-        code: "1",
+        code: "EF_LM",
         contents: "Bioplaiting Device",
         detailedDescription: "Used by Darth Plagueis",
-        locationDescription: "???",
+        locationDescription: "A-Wing, black crate",
         type: CrateType.Relic,
         image: "./darth_plagueis.jpeg",
       }),
