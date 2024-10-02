@@ -152,11 +152,11 @@ export class CrateDecoder {
     );
     this.override(
       new CrateContents({
-        code: "6",
+        code: "DE_TU",
         contents: "Petrified Wood",
         detailedDescription:
           "From the Primordial Forest on Mustafar, now just a memory",
-        locationDescription: "???",
+        locationDescription: "Left of the speeders, Small grey case",
         type: CrateType.Relic,
         image: "./mustafar_wood.jpg",
       }),
