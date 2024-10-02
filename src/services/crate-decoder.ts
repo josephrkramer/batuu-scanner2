@@ -229,10 +229,10 @@ export class CrateDecoder {
     );
     this.override(
       new CrateContents({
-        code: "13",
+        code: "IJ_MN",
         contents: "Halcyon Coordinates",
         detailedDescription: "Coordinates of a recent sighting of the Halcyon",
-        locationDescription: "Rise of resistance line near the Star Map",
+        locationDescription: "Rise line near the Star Map. Small green case",
         type: CrateType.Relic,
         image: "./halcyon_coords.jpg",
       }),
