@@ -197,10 +197,10 @@ export class CrateDecoder {
     );
     this.override(
       new CrateContents({
-        code: "10",
+        code: "EF_TU",
         contents: "Jedi Temple Piece",
         detailedDescription: "Piece of the Jedi Temple on Ashas Ree",
-        locationDescription: "???",
+        locationDescription: "Smuggler's Run air vent exit",
         type: CrateType.Relic,
         image: "./jedi_temple_piece.jpg",
       }),
