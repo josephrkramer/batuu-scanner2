@@ -119,11 +119,11 @@ export class CrateDecoder {
     );
     this.override(
       new CrateContents({
-        code: "3",
+        code: "EF_OP",
         contents: "Seed Pod",
         detailedDescription:
           "Seed pod of the Wroshyr Tree leftover from the terraforming of Kashyyk by the Rakata",
-        locationDescription: "???",
+        locationDescription: "Wood worker stall in marketplace. Blue crate",
         type: CrateType.Relic,
         image: "./wroshyr_tree.jpg",
       }),
