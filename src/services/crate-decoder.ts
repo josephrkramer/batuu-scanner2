@@ -174,11 +174,11 @@ export class CrateDecoder {
     );
     this.override(
       new CrateContents({
-        code: "BC_OP",
+        code: "GI_LM",
         contents: "Stone Head",
         detailedDescription:
           "Miniature of a stone head from an ancient civilization of Naboo",
-        locationDescription: "Outside Dok's. White container",
+        locationDescription: "Outer Rim expedition?",
         type: CrateType.Relic,
         image: "./stone_head.jpg",
       }),
