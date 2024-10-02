@@ -163,10 +163,11 @@ export class CrateDecoder {
     );
     this.override(
       new CrateContents({
-        code: "7",
+        code: "DE_UV",
         contents: "Junkyard Wreckage",
         detailedDescription: "Wreckage from the Plutt junkyard on Jakku",
-        locationDescription: "???",
+        locationDescription:
+          "Outside docking bay 7 outdoor eating area. Small grey crate.",
         type: CrateType.Relic,
         image: "./junkyard_wreckage.jpg",
       }),
