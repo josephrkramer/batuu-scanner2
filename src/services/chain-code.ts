@@ -8,7 +8,7 @@ export const ChainCodeAlignmentValue = Object.freeze({
 
 export const ChainCodeAlignmentCode = Object.freeze({
   Dark: "DARK1",
-  Neutral: "NEUTR",
+  //Neutral: "NEUTR",
   Light: "LIGHT",
 });
 
