@@ -29,12 +29,12 @@ function ChainCodeValue({
       .filter(
         (agent) => agent.alignment === chainCodeDecoder.chainCodeAlignment(),
       )[0];
-    const chainCodeAlignmentMessage = `By your actions, you've shown to be aligned with the ${chainCodeDecoder.chainCodeAlignment()}.`;
+    const chainCodeAlignmentMessage = `Your actions have aligned you with the ${chainCodeDecoder.chainCodeAlignment()}.`;
     let chainCodeMessage = "";
     if (chainCodeDecoder.chainCodeLength() < MAX_CHAIN_CODE_SIZE) {
-      chainCodeMessage += `There are still more informants to contact, but make sure you meet with your AARC recruiting agent, ${derivedAgent.name} at ${derivedAgent.meetingLocation}, at ${MEETING_TIME}`;
+      chainCodeMessage += `We can use all the information we can get and there are more informants to contact. But be sure to meet with your AARC recruiting agent, ${derivedAgent.name}, ${derivedAgent.meetingLocation} at ${MEETING_TIME}`;
     } else {
-      chainCodeMessage += `Well, done! You've met with all of our informants. Be ready to meet with your AARC recruiting agent, ${derivedAgent.name} at ${derivedAgent.meetingLocation}, at ${MEETING_TIME}`;
+      chainCodeMessage += `Well, done! You've met with all of our informants. Be ready to meet with your AARC recruiting agent, ${derivedAgent.name}, ${derivedAgent.meetingLocation} at ${MEETING_TIME}`;
     }
     let originalAlignment = null;
     if (alignment !== chainCodeDecoder.chainCodeAlignment()) {
@@ -46,7 +46,7 @@ function ChainCodeValue({
           <Title level={3}>Original Alignment: {alignment}</Title>
           <Typography.Paragraph>{`You have chosen a path different from where you started. You now have a choice. Do you follow the path of your words or your actions?`}</Typography.Paragraph>
           <Image src={originalAgent.image} preview={false} />
-          <Typography.Paragraph>{`You may choose to meet with your original AARC recruiting agent, ${originalAgent.name} at ${originalAgent.meetingLocation}, at ${MEETING_TIME}`}</Typography.Paragraph>
+          <Typography.Paragraph>{`You may choose to meet with your original AARC recruiting agent, ${originalAgent.name}, ${originalAgent.meetingLocation} at ${MEETING_TIME}`}</Typography.Paragraph>
         </Card>
       );
     }

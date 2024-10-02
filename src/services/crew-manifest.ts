@@ -73,7 +73,7 @@ export class CrewManifest {
         type: CrewMemberType.Faction_Leader,
         image: "./crew/vesper.png",
         alignment: ChainCodeAlignmentString.Light,
-        meetingLocation: "the market entrance",
+        meetingLocation: "across the way from Mubo's near the crater",
       }),
     );
     this.addCrewMember(
@@ -91,7 +91,7 @@ export class CrewManifest {
         type: CrewMemberType.Faction_Leader,
         image: "./crew/lias.jpg",
         alignment: ChainCodeAlignmentString.Neutral,
-        meetingLocation: "the cave",
+        meetingLocation: "on the far side of the Millenium Falcon",
       }),
     );
     this.addCrewMember(
@@ -148,7 +148,7 @@ export class CrewManifest {
         type: CrewMemberType.Faction_Leader,
         image: "./crew/evant.jpg",
         alignment: ChainCodeAlignmentString.Dark,
-        meetingLocation: "the TIE/es assault shuttle",
+        meetingLocation: "in front of the TIE/es assault shuttle",
       }),
     );
     this.addCrewMember(
