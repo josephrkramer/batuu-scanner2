@@ -141,11 +141,11 @@ export class CrateDecoder {
     );
     this.override(
       new CrateContents({
-        code: "5",
+        code: "BC_ST",
         contents: "Holocron Shard",
         detailedDescription:
           "Shard of the Darth Nul Holocron from the Ord Mantell Civil War",
-        locationDescription: "???",
+        locationDescription: "Kettle shop. White crate",
         type: CrateType.Relic,
         image: "./holocron_shard.jpg",
       }),
