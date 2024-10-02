@@ -207,11 +207,11 @@ export class CrateDecoder {
     );
     this.override(
       new CrateContents({
-        code: "11",
+        code: "EF_ST",
         contents: "Omni-communicator",
         detailedDescription:
           "Omni-communicator from an Imperial Star Destroyer",
-        locationDescription: "???",
+        locationDescription: "Comm Tower, near Oga's. Small brown crate",
         type: CrateType.Relic,
         image: "./omni-communicator.jpg",
       }),
@@ -232,7 +232,7 @@ export class CrateDecoder {
         code: "13",
         contents: "Halcyon Coordinates",
         detailedDescription: "Coordinates of a recent sighting of the Halcyon",
-        locationDescription: "???",
+        locationDescription: "Rise of resistance line near the Star Map",
         type: CrateType.Relic,
         image: "./halcyon_coords.jpg",
       }),
