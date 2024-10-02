@@ -42,8 +42,8 @@ export class ChainCodePart {
 
 export const MIN_CHAIN_CODE_SIZE = 3;
 export const MAX_CHAIN_CODE_SIZE = 6;
-export const THURS_MEETING_TIME = "7:50pm";
-export const SUN_MEETING_TIME = "10:50am";
+export const THURS_MEETING_TIME = "8:00pm";
+export const SUN_MEETING_TIME = "11:00am";
 export const LIGHT_SIDE_THRESHOLD = 3;
 export const DARK_SIDE_THRESHOLD = 0;
 
