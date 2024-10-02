@@ -218,11 +218,11 @@ export class CrateDecoder {
     );
     this.override(
       new CrateContents({
-        code: "12",
+        code: "CD_LM",
         contents: "Cassius Tea Cup",
         detailedDescription:
           "Used during the private meeting between Pre Vizla and Maul",
-        locationDescription: "???",
+        locationDescription: "TIE/ES Echelon. Large flat white case",
         type: CrateType.Relic,
         image: "./tea_cup.jpg",
       }),
