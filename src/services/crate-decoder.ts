@@ -100,10 +100,10 @@ export class CrateDecoder {
     );
     this.override(
       new CrateContents({
-        code: "1",
+        code: "EF_LM",
         contents: "Bioplaiting Device",
         detailedDescription: "Used by Darth Plagueis",
-        locationDescription: "???",
+        locationDescription: "A-Wing, black crate",
         type: CrateType.Relic,
         image: "./darth_plagueis.jpeg",
       }),
@@ -119,108 +119,110 @@ export class CrateDecoder {
     );
     this.override(
       new CrateContents({
-        code: "3",
+        code: "EF_OP",
         contents: "Seed Pod",
         detailedDescription:
           "Seed pod of the Wroshyr Tree leftover from the terraforming of Kashyyk by the Rakata",
-        locationDescription: "???",
+        locationDescription: "Wood worker stall in marketplace. Blue crate",
         type: CrateType.Relic,
         image: "./wroshyr_tree.jpg",
       }),
     );
     this.override(
       new CrateContents({
-        code: "4",
+        code: "BC_RS",
         contents: "Durasteel Fragment",
         detailedDescription:
           "Durasteel Fragment of the Great Hall of the Nihil",
-        locationDescription: "???",
+        locationDescription: "Toy Shop entrance, grey crate",
         type: CrateType.Relic,
         image: "./nihil_durasteel.jpg",
       }),
     );
     this.override(
       new CrateContents({
-        code: "5",
+        code: "BC_ST",
         contents: "Holocron Shard",
         detailedDescription:
           "Shard of the Darth Nul Holocron from the Ord Mantell Civil War",
-        locationDescription: "???",
+        locationDescription: "Kettle shop. White crate",
         type: CrateType.Relic,
         image: "./holocron_shard.jpg",
       }),
     );
     this.override(
       new CrateContents({
-        code: "6",
+        code: "DE_TU",
         contents: "Petrified Wood",
         detailedDescription:
           "From the Primordial Forest on Mustafar, now just a memory",
-        locationDescription: "???",
+        locationDescription: "Left of the speeders, Small grey case",
         type: CrateType.Relic,
         image: "./mustafar_wood.jpg",
       }),
     );
     this.override(
       new CrateContents({
-        code: "7",
+        code: "DE_UV",
         contents: "Junkyard Wreckage",
         detailedDescription: "Wreckage from the Plutt junkyard on Jakku",
-        locationDescription: "???",
+        locationDescription:
+          "Outside docking bay 7 outdoor eating area. Small grey crate.",
         type: CrateType.Relic,
         image: "./junkyard_wreckage.jpg",
       }),
     );
     this.override(
       new CrateContents({
-        code: "8",
+        code: "GI_LM",
         contents: "Stone Head",
         detailedDescription:
           "Miniature of a stone head from an ancient civilization of Naboo",
-        locationDescription: "???",
+        locationDescription: "Outer Rim expedition?",
         type: CrateType.Relic,
         image: "./stone_head.jpg",
       }),
     );
     this.override(
       new CrateContents({
-        code: "9",
+        code: "DE_NO",
         contents: "Mining Equipment",
         detailedDescription:
           "Mining equipment used by Czerka Arms' enslaved workers on Hosnian Prime",
-        locationDescription: "???",
+        locationDescription:
+          "Between Savi's and Mubo's Droid Depot. Small blue crate",
         type: CrateType.Relic,
         image: "./mining_equipment.jpg",
       }),
     );
     this.override(
       new CrateContents({
-        code: "10",
+        code: "EF_TU",
         contents: "Jedi Temple Piece",
         detailedDescription: "Piece of the Jedi Temple on Ashas Ree",
-        locationDescription: "???",
+        locationDescription: "Smuggler's Run air vent exit",
         type: CrateType.Relic,
         image: "./jedi_temple_piece.jpg",
       }),
     );
     this.override(
       new CrateContents({
-        code: "11",
+        code: "EF_ST",
         contents: "Omni-communicator",
         detailedDescription:
           "Omni-communicator from an Imperial Star Destroyer",
-        locationDescription: "???",
+        locationDescription: "Comm Tower, near Oga's. Small brown crate",
         type: CrateType.Relic,
         image: "./omni-communicator.jpg",
       }),
     );
     this.override(
       new CrateContents({
-        code: "12",
+        code: "CD_LM",
         contents: "Cassius Tea Cup",
         detailedDescription:
           "Used during the private meeting between Pre Vizla and Maul",
-        locationDescription: "???",
+        locationDescription: "TIE/ES Echelon. Large flat white case",
         type: CrateType.Relic,
         image: "./tea_cup.jpg",
       }),
@@ -230,7 +232,7 @@ export class CrateDecoder {
         code: "13",
         contents: "Halcyon Coordinates",
         detailedDescription: "Coordinates of a recent sighting of the Halcyon",
-        locationDescription: "???",
+        locationDescription: "Rise of resistance line near the Star Map",
         type: CrateType.Relic,
         image: "./halcyon_coords.jpg",
       }),
