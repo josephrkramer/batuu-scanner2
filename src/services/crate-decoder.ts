@@ -185,11 +185,12 @@ export class CrateDecoder {
     );
     this.override(
       new CrateContents({
-        code: "9",
+        code: "DE_NO",
         contents: "Mining Equipment",
         detailedDescription:
           "Mining equipment used by Czerka Arms' enslaved workers on Hosnian Prime",
-        locationDescription: "???",
+        locationDescription:
+          "Between Savi's and Mubo's Droid Depot. Small blue crate",
         type: CrateType.Relic,
         image: "./mining_equipment.jpg",
       }),
