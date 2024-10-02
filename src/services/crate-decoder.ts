@@ -130,11 +130,11 @@ export class CrateDecoder {
     );
     this.override(
       new CrateContents({
-        code: "4",
+        code: "BC_RS",
         contents: "Durasteel Fragment",
         detailedDescription:
           "Durasteel Fragment of the Great Hall of the Nihil",
-        locationDescription: "???",
+        locationDescription: "Toy Shop entrance, grey crate",
         type: CrateType.Relic,
         image: "./nihil_durasteel.jpg",
       }),
