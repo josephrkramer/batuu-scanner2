@@ -17,7 +17,7 @@ function ChainCodeButton({
           setRenderChainCodeValue(true);
         }}
       >
-        Decode Chain Code
+        Upload chain code to Rayk
       </Button>
     );
   } else {
