@@ -37,6 +37,7 @@ function ChainCodeValue({
       chainCodeMessage += `Well, done! You've met with all of our informants. Be ready to meet with your AARC recruiting agent, ${derivedAgent.name}, ${derivedAgent.meetingLocation} at ${MEETING_TIME}`;
     }
     let originalAlignment = null;
+    let choiceMessage = null;
     if (alignment !== chainCodeDecoder.chainCodeAlignment()) {
       const originalAgent = crewManifest
         .getLeaders()
@@ -49,10 +50,20 @@ function ChainCodeValue({
           <Typography.Paragraph>{`You may choose to meet with your original AARC recruiting agent, ${originalAgent.name}, ${originalAgent.meetingLocation} at ${MEETING_TIME}`}</Typography.Paragraph>
         </Card>
       );
+      choiceMessage = (
+        <Card>
+          <Title level={3}>Choose your alignment</Title>
+          <Typography.Paragraph>
+            Your actions today have taken a diffent path from your starting
+            alignment. You must choose. Where is your path leading you?
+          </Typography.Paragraph>
+        </Card>
+      );
     }
     return (
       <div>
         <Card>
+          {choiceMessage}
           <Title level={3}>
             Alignment: {chainCodeDecoder.chainCodeAlignment()}
           </Title>
