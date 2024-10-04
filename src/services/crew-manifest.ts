@@ -3,6 +3,7 @@ import { ChainCodeAlignmentString } from "./chain-code";
 export const CrewMemberType = Object.freeze({
   Faction_Leader: "AARC Agents",
   NPC: "Sources",
+  Support: "Blue Crew",
   Virtual: "Remote",
 });
 
@@ -19,6 +20,7 @@ export class CrewMember {
   image: string;
   alignment: string;
   meetingLocation: string;
+  npcLocation: string;
 
   constructor({
     name = "",
@@ -33,6 +35,7 @@ export class CrewMember {
     image = "",
     alignment = "",
     meetingLocation = "",
+    npcLocation = "",
   }) {
     this.name = name;
     this.occupation = occupation;
@@ -46,6 +49,7 @@ export class CrewMember {
     this.image = image;
     this.alignment = alignment;
     this.meetingLocation = meetingLocation;
+    this.npcLocation = npcLocation;
   }
 }
 
@@ -57,6 +61,7 @@ export class CrewManifest {
     this.crew.set(CrewMemberType.Faction_Leader, new Array<CrewMember>());
     this.crew.set(CrewMemberType.NPC, new Array<CrewMember>());
     //this.crew.set(CrewMemberType.Virtual, new Array<CrewMember>());
+    this.crew.set(CrewMemberType.Support, new Array<CrewMember>());
 
     this.addCrewMember(
       new CrewMember({
@@ -74,6 +79,8 @@ export class CrewManifest {
         image: "./crew/vesper.png",
         alignment: ChainCodeAlignmentString.Light,
         meetingLocation: "across the way from Mubo's near the crater",
+        npcLocation:
+          "You may find Vesper across the way from Mubo's near the crater.",
       }),
     );
     this.addCrewMember(
@@ -92,6 +99,8 @@ export class CrewManifest {
         image: "./crew/lias.jpg",
         alignment: ChainCodeAlignmentString.Neutral,
         meetingLocation: "on the far side of the Millenium Falcon",
+        npcLocation:
+          "You may find Lias on the far side of the Millenium Falcon.",
       }),
     );
     this.addCrewMember(
@@ -108,6 +117,8 @@ export class CrewManifest {
         homeworld: "Corellia",
         species: "Human",
         affiliation: "Anchorite",
+        npcLocation:
+          "You may find Tayla communing with the Force among the rocks at the edge of the outpost, across from a troupe of droids.",
         type: CrewMemberType.NPC,
         image: "./crew/tayla.jpg",
       }),
@@ -125,6 +136,7 @@ export class CrewManifest {
         homeworld: "Cantonica",
         species: "Human",
         affiliation: undefined,
+        npcLocation: "You'll find Zilla at a place where many Smugglers exit.",
         type: CrewMemberType.NPC,
         image: "./crew/zilla.jpg",
       }),
@@ -149,6 +161,8 @@ export class CrewManifest {
         image: "./crew/evant.jpg",
         alignment: ChainCodeAlignmentString.Dark,
         meetingLocation: "in front of the TIE/es assault shuttle",
+        npcLocation:
+          "You may find Evant in front of the TIE/es assault shuttle.",
       }),
     );
     this.addCrewMember(
@@ -165,6 +179,8 @@ export class CrewManifest {
         homeworld: "Batuu",
         species: "Human",
         affiliation: undefined,
+        npcLocation:
+          "You will find Resh checking up on his friends, particularly where they're born.",
         type: CrewMemberType.NPC,
         image: "./crew/resh.jpg",
       }),
@@ -183,6 +199,8 @@ export class CrewManifest {
         homeworld: "Odessen",
         species: "Human",
         affiliation: "Unaffiliated",
+        npcLocation:
+          "You might find Bex looking for a quick way to grab a few credits, even if she has to turn someone in.",
         type: CrewMemberType.NPC,
         image: "./crew/bex.jpg",
       }),
@@ -202,6 +220,8 @@ export class CrewManifest {
         homeworld: "Alderaan",
         species: "Human",
         affiliation: "Alderaan first, then Resistance",
+        npcLocation:
+          "You can find Schme where the Outpost's favorite food is sold.",
         type: CrewMemberType.NPC,
         image: "./crew/schme.jpeg",
       }),
@@ -219,6 +239,8 @@ export class CrewManifest {
         homeworld: undefined,
         species: undefined,
         affiliation: undefined,
+        npcLocation:
+          "Ever the free spirit, La'Beth has been spotted all over the outpost.",
         type: CrewMemberType.NPC,
         image: "./crew/labeth.jpg",
       }),
@@ -237,7 +259,7 @@ export class CrewManifest {
         homeworld: "Corellia",
         species: "Human",
         affiliation: "Self",
-        type: CrewMemberType.NPC,
+        type: CrewMemberType.Support,
         image: "./crew/jax.png",
       }),
     );
@@ -253,7 +275,7 @@ export class CrewManifest {
         homeworld: "Ahco-To",
         species: "Porg",
         affiliation: "New Republic",
-        type: CrewMemberType.NPC,
+        type: CrewMemberType.Support,
         image: "./crew/porgkins.png",
       }),
     );

@@ -60,6 +60,7 @@ function crewDisplay(crewMembers: Map<string, Array<CrewMember>>) {
           {crewMemberAttribute("Companion", crewMember.companion)}
           {crewMemberAttribute("Vehicle", crewMember.vehicle)}
           {crewMemberAttribute("Species", crewMember.species)}
+          {crewMemberAttribute("Recent sightings", crewMember.npcLocation)}
           {crewMemberBiography("Biography", crewMember.biography)}
         </div>
       ),
