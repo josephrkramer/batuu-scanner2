@@ -428,7 +428,6 @@ function App() {
             Dossiers
           </Button>
           <ChainCodeButton
-            chainCode={chainCode}
             setRenderChainCodeValue={setRenderChainCodeValue}
           />
         </Flex>
