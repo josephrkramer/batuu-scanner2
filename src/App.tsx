@@ -387,15 +387,15 @@ function App() {
           setCrateToDisplay={setCrateToDisplay}
           setRenderMultipleChoiceCrateCode={setRenderMultipleChoiceCrateCode}
         />
-        <EarnedBadges
-          badges={newBadgesEarned}
-          earnedBadgesDatesMap={badgeDecoder.earnedBadges}
-        />
         <ChainCodeValue
           render={renderChainCodeValue}
           chainCodeDecoder={chainCodeDecoder}
           crewManifest={crewMembers}
           alignment={alignment}
+        />
+        <EarnedBadges
+          badges={newBadgesEarned}
+          earnedBadgesDatesMap={badgeDecoder.earnedBadges}
         />
         <CrewManifestDisplay
           render={renderCrewMembers}
