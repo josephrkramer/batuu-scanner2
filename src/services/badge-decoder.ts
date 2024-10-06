@@ -655,12 +655,12 @@ export class BadgeDecoder {
     this.wellConnected(chainCodeDecoder);
     this.resistanceHero(chainCodeDecoder);
     this.weHaveCookies(chainCodeDecoder);
-    this.characterAarc(chainCodeDecoder);
+    this.itsComplicated(chainCodeDecoder);
     this.pathwayToAarc(chainCodeDecoder);
   }
 
-  private characterAarc(chainCodeDecoder: ChainCodeDecoder) {
-    //Character AARC - make both light and dark side choices
+  private itsComplicated(chainCodeDecoder: ChainCodeDecoder) {
+    //It's Complicated - make both light and dark side choices
     if (
       !this.earnedBadges.has(BadgeCode.Its_Complicated) &&
       chainCodeDecoder.chainCodeLength() >= MIN_CHAIN_CODE_SIZE &&
