@@ -427,9 +427,7 @@ function App() {
           >
             Dossiers
           </Button>
-          <ChainCodeButton
-            setRenderChainCodeValue={setRenderChainCodeValue}
-          />
+          <ChainCodeButton setRenderChainCodeValue={setRenderChainCodeValue} />
         </Flex>
       </Flex>
     </ConfigProvider>

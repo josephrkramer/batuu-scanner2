@@ -1,22 +1,21 @@
 import { Button } from "antd";
-import { ChainCodePart, MIN_CHAIN_CODE_SIZE } from "../services/chain-code";
 
 function ChainCodeButton({
   setRenderChainCodeValue,
 }: Readonly<{
   setRenderChainCodeValue: React.Dispatch<React.SetStateAction<boolean>>;
 }>) {
-    return (
-      <Button
-        type="primary"
-        size="large"
-        onClick={() => {
-          setRenderChainCodeValue(true);
-        }}
-      >
-        Upload chain code to Rayk
-      </Button>
-    );
+  return (
+    <Button
+      type="primary"
+      size="large"
+      onClick={() => {
+        setRenderChainCodeValue(true);
+      }}
+    >
+      Upload chain code to Rayk
+    </Button>
+  );
 }
 
 export default ChainCodeButton;

@@ -24,25 +24,25 @@ function ChainCodeValue({
   const MEETING_TIME =
     dayjs().day() == 0 ? SUN_MEETING_TIME : THURS_MEETING_TIME;
   if (render) {
-if (chainCodeDecoder.chainCodeLength() < MIN_CHAIN_CODE_SIZE) {
-return (
-      <div>
-        <Card>
-          {choiceMessage}
-          <Title level={3}>
-            Not enough data for upload
-          </Title>
-          <Typography.Paragraph>
-           You need to collect more chain code pieces before uploading to Rayk.
-          </Typography.Paragraph>
-          <Typography.Paragraph>
-           Check the Dossiers for Sources and their locations for collecting more chain code pieces.
-          </Typography.Paragraph>
-        </Card>
-        {originalAlignment}
-      </div>
-    );
-}
+    if (chainCodeDecoder.chainCodeLength() < MIN_CHAIN_CODE_SIZE) {
+      return (
+        <div>
+          <Card>
+            {choiceMessage}
+            <Title level={3}>Not enough data for upload</Title>
+            <Typography.Paragraph>
+              You need to collect more chain code pieces before uploading to
+              Rayk.
+            </Typography.Paragraph>
+            <Typography.Paragraph>
+              Check the Dossiers for Sources and their locations for collecting
+              more chain code pieces.
+            </Typography.Paragraph>
+          </Card>
+          {originalAlignment}
+        </div>
+      );
+    }
     const derivedAgent = crewManifest
       .getLeaders()
       .filter(
