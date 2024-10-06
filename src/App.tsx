@@ -10,7 +10,11 @@ import {
 import Html5QrcodePlugin from "./components/Html5QrcodePlugin";
 import { Html5QrcodeResult } from "html5-qrcode";
 import { CrewManifest } from "./services/crew-manifest";
-import { ChainCodeDecoder, ChainCodePart } from "./services/chain-code";
+import {
+  ChainCodeDecoder,
+  ChainCodePart,
+  MAX_CHAIN_CODE_SIZE,
+} from "./services/chain-code";
 import {
   Badge,
   BadgeCode,
@@ -154,7 +158,8 @@ function App() {
       // Untested :-(
       if (
         alignment !== chainCodeDecoder.chainCodeAlignment() &&
-        !badgeDecoder.earnedBadges.has(BadgeCode.Character_AARC)
+        !badgeDecoder.earnedBadges.has(BadgeCode.Character_AARC) &&
+        chainCodeDecoder.chainCodeLength() >= MAX_CHAIN_CODE_SIZE
       ) {
         badgeDecoder.add(BadgeCode.Character_AARC);
         setNewBadgesEarned([badgeDecoder.decode(BadgeCode.Character_AARC)]);
