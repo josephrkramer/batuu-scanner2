@@ -1,11 +1,11 @@
-import { Card, Typography } from "antd";
+import { Button, Card } from "antd";
 import {
   Html5Qrcode,
   Html5QrcodeSupportedFormats,
   QrcodeErrorCallback,
   QrcodeSuccessCallback,
 } from "html5-qrcode";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const qrcodeRegionId = "html5qr-code-full-region";
 
@@ -31,6 +31,8 @@ const Html5QrcodePlugin = (props: {
   disableFlip?: boolean;
   render?: boolean;
 }) => {
+  const [rearCamera, setRearCamera] = useState(true);
+
   // when component mounts
   useEffect(() => {
     // when component mounts
@@ -50,22 +52,21 @@ const Html5QrcodePlugin = (props: {
       throw new Error("qrCodeSuccessCallback is required callback.");
     }
 
-    html5QrCode.start(
-      { facingMode: "environment" },
-      config,
-      props.qrCodeSuccessCallback,
-      props.qrCodeErrorCallback,
-    );
+    function startCamera() {
+      html5QrCode.start(
+        { facingMode: rearCamera ? "environment" : "user" },
+        config,
+        props.qrCodeSuccessCallback,
+        props.qrCodeErrorCallback,
+      );
+    }
+
+    startCamera();
 
     function handleResize() {
       html5QrCode.stop().then(() => {
         html5QrCode.clear();
-        html5QrCode.start(
-          { facingMode: "environment" },
-          config,
-          props.qrCodeSuccessCallback,
-          props.qrCodeErrorCallback,
-        );
+        startCamera();
       });
     }
 
@@ -80,7 +81,7 @@ const Html5QrcodePlugin = (props: {
         screen.orientation.removeEventListener("change", handleResize);
       });
     };
-  }, [props]);
+  }, [props, rearCamera]);
 
   if (props.render !== undefined && !props.render) {
     return null;
@@ -89,10 +90,14 @@ const Html5QrcodePlugin = (props: {
   return (
     <Card>
       <div id={qrcodeRegionId} />
-      <Typography.Text>
-        To switch cameras, press "Stop Scanning" above and use the "Select
-        Camera" drop down menu.
-      </Typography.Text>
+      <Button
+        size="large"
+        onClick={() => {
+          setRearCamera(!rearCamera);
+        }}
+      >
+        Toggle Camera
+      </Button>
     </Card>
   );
 };
