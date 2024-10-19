@@ -1,12 +1,10 @@
 import { Card, Typography } from "antd";
 import {
-  Html5QrcodeScanType,
-  Html5QrcodeScanner,
+  Html5Qrcode,
   Html5QrcodeSupportedFormats,
   QrcodeErrorCallback,
   QrcodeSuccessCallback,
 } from "html5-qrcode";
-import { Html5QrcodeScannerConfig } from "html5-qrcode/esm/html5-qrcode-scanner";
 import { useEffect } from "react";
 
 const qrcodeRegionId = "html5qr-code-full-region";
@@ -25,35 +23,7 @@ const qrboxFunction = function (
   };
 };
 
-// Creates the configuration object for Html5QrcodeScanner.
-const createConfig = (props: {
-  fps?: number;
-  aspectRatio?: number;
-  disableFlip?: boolean;
-}) => {
-  const config: Html5QrcodeScannerConfig = {
-    fps: undefined,
-    rememberLastUsedCamera: true,
-    showTorchButtonIfSupported: true,
-    // Only support camera scan type.
-    supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA],
-    formatsToSupport: [Html5QrcodeSupportedFormats.AZTEC],
-    qrbox: qrboxFunction,
-  };
-  if (props.fps) {
-    config.fps = props.fps;
-  }
-  if (props.aspectRatio) {
-    config.aspectRatio = props.aspectRatio;
-  }
-  if (props.disableFlip !== undefined) {
-    config.disableFlip = props.disableFlip;
-  }
-  return config;
-};
-
 const Html5QrcodePlugin = (props: {
-  verbose?: boolean;
   qrCodeSuccessCallback: QrcodeSuccessCallback;
   qrCodeErrorCallback?: QrcodeErrorCallback;
   fps?: number;
@@ -64,39 +34,39 @@ const Html5QrcodePlugin = (props: {
   // when component mounts
   useEffect(() => {
     // when component mounts
-    const config = createConfig({
+    const config = {
       fps: props.fps,
       aspectRatio: props.aspectRatio,
       disableFlip: props.disableFlip,
-    });
-    const verbose = props.verbose === true;
-    const html5QrcodeScanner = new Html5QrcodeScanner(
-      qrcodeRegionId,
-      config,
-      verbose,
-    );
+      qrbox: qrboxFunction,
+      formatsToSupport: [Html5QrcodeSupportedFormats.AZTEC],
+      verbose: true,
+    };
+
+    const html5QrCode = new Html5Qrcode(qrcodeRegionId);
+
     // Suceess callback is required.
     if (!props.qrCodeSuccessCallback) {
       throw new Error("qrCodeSuccessCallback is required callback.");
     }
 
-    html5QrcodeScanner.render(
+    html5QrCode.start(
+      { facingMode: "environment" },
+      config,
       props.qrCodeSuccessCallback,
       props.qrCodeErrorCallback,
     );
 
     function handleResize() {
-      html5QrcodeScanner
-        .clear()
-        .then(() => {
-          html5QrcodeScanner.render(
-            props.qrCodeSuccessCallback,
-            props.qrCodeErrorCallback,
-          );
-        })
-        .catch((error) => {
-          console.error("Failed to clear html5QrcodeScanner. ", error);
-        });
+      html5QrCode.stop().then(() => {
+        html5QrCode.clear();
+        html5QrCode.start(
+          { facingMode: "environment" },
+          config,
+          props.qrCodeSuccessCallback,
+          props.qrCodeErrorCallback,
+        );
+      });
     }
 
     window.addEventListener("resize", handleResize);
@@ -104,15 +74,11 @@ const Html5QrcodePlugin = (props: {
 
     // cleanup function when component will unmount
     return () => {
-      html5QrcodeScanner
-        .clear()
-        .then(() => {
-          window.removeEventListener("resize", handleResize);
-          screen.orientation.removeEventListener("change", handleResize);
-        })
-        .catch((error) => {
-          console.error("Failed to clear html5QrcodeScanner. ", error);
-        });
+      html5QrCode.stop().then(() => {
+        html5QrCode.clear();
+        window.removeEventListener("resize", handleResize);
+        screen.orientation.removeEventListener("change", handleResize);
+      });
     };
   }, [props]);
 
