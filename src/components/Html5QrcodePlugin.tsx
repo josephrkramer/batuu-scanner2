@@ -1,13 +1,12 @@
-import { Card, Typography } from "antd";
+import { BulbFilled, RetweetOutlined } from "@ant-design/icons";
+import { Button, Card, Flex } from "antd";
 import {
-  Html5QrcodeScanType,
-  Html5QrcodeScanner,
+  Html5Qrcode,
   Html5QrcodeSupportedFormats,
   QrcodeErrorCallback,
   QrcodeSuccessCallback,
 } from "html5-qrcode";
-import { Html5QrcodeScannerConfig } from "html5-qrcode/esm/html5-qrcode-scanner";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const qrcodeRegionId = "html5qr-code-full-region";
 
@@ -25,35 +24,7 @@ const qrboxFunction = function (
   };
 };
 
-// Creates the configuration object for Html5QrcodeScanner.
-const createConfig = (props: {
-  fps?: number;
-  aspectRatio?: number;
-  disableFlip?: boolean;
-}) => {
-  const config: Html5QrcodeScannerConfig = {
-    fps: undefined,
-    rememberLastUsedCamera: true,
-    showTorchButtonIfSupported: true,
-    // Only support camera scan type.
-    supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA],
-    formatsToSupport: [Html5QrcodeSupportedFormats.AZTEC],
-    qrbox: qrboxFunction,
-  };
-  if (props.fps) {
-    config.fps = props.fps;
-  }
-  if (props.aspectRatio) {
-    config.aspectRatio = props.aspectRatio;
-  }
-  if (props.disableFlip !== undefined) {
-    config.disableFlip = props.disableFlip;
-  }
-  return config;
-};
-
 const Html5QrcodePlugin = (props: {
-  verbose?: boolean;
   qrCodeSuccessCallback: QrcodeSuccessCallback;
   qrCodeErrorCallback?: QrcodeErrorCallback;
   fps?: number;
@@ -61,42 +32,54 @@ const Html5QrcodePlugin = (props: {
   disableFlip?: boolean;
   render?: boolean;
 }) => {
+  const [rearCamera, setRearCamera] = useState(true);
+  const [torchEnabled, setTorchEnabled] = useState(false);
+
   // when component mounts
   useEffect(() => {
     // when component mounts
-    const config = createConfig({
+    const config = {
       fps: props.fps,
       aspectRatio: props.aspectRatio,
       disableFlip: props.disableFlip,
-    });
-    const verbose = props.verbose === true;
-    const html5QrcodeScanner = new Html5QrcodeScanner(
-      qrcodeRegionId,
-      config,
-      verbose,
-    );
+      qrbox: qrboxFunction,
+      formatsToSupport: [Html5QrcodeSupportedFormats.AZTEC],
+      verbose: true,
+    };
+
+    const html5QrCode = new Html5Qrcode(qrcodeRegionId);
+
     // Suceess callback is required.
     if (!props.qrCodeSuccessCallback) {
       throw new Error("qrCodeSuccessCallback is required callback.");
     }
 
-    html5QrcodeScanner.render(
-      props.qrCodeSuccessCallback,
-      props.qrCodeErrorCallback,
-    );
+    function startCamera() {
+      html5QrCode
+        .start(
+          { facingMode: rearCamera ? "environment" : "user" },
+          config,
+          props.qrCodeSuccessCallback,
+          props.qrCodeErrorCallback,
+        )
+        .then(() => {
+          //Handle torch toggle after camera scanning is initiated
+          const torch = html5QrCode
+            .getRunningTrackCameraCapabilities()
+            .torchFeature();
+          if (torch.isSupported()) {
+            torch.apply(torchEnabled);
+          }
+        });
+    }
+
+    startCamera();
 
     function handleResize() {
-      html5QrcodeScanner
-        .clear()
-        .then(() => {
-          html5QrcodeScanner.render(
-            props.qrCodeSuccessCallback,
-            props.qrCodeErrorCallback,
-          );
-        })
-        .catch((error) => {
-          console.error("Failed to clear html5QrcodeScanner. ", error);
-        });
+      html5QrCode.stop().then(() => {
+        html5QrCode.clear();
+        startCamera();
+      });
     }
 
     window.addEventListener("resize", handleResize);
@@ -104,17 +87,13 @@ const Html5QrcodePlugin = (props: {
 
     // cleanup function when component will unmount
     return () => {
-      html5QrcodeScanner
-        .clear()
-        .then(() => {
-          window.removeEventListener("resize", handleResize);
-          screen.orientation.removeEventListener("change", handleResize);
-        })
-        .catch((error) => {
-          console.error("Failed to clear html5QrcodeScanner. ", error);
-        });
+      html5QrCode.stop().then(() => {
+        html5QrCode.clear();
+        window.removeEventListener("resize", handleResize);
+        screen.orientation.removeEventListener("change", handleResize);
+      });
     };
-  }, [props]);
+  }, [props, rearCamera, torchEnabled]);
 
   if (props.render !== undefined && !props.render) {
     return null;
@@ -123,10 +102,24 @@ const Html5QrcodePlugin = (props: {
   return (
     <Card>
       <div id={qrcodeRegionId} />
-      <Typography.Text>
-        To switch cameras, press "Stop Scanning" above and use the "Select
-        Camera" drop down menu.
-      </Typography.Text>
+      <Flex gap="middle" align="center" justify="center">
+        <Button
+          size="large"
+          onClick={() => {
+            setRearCamera(!rearCamera);
+          }}
+        >
+          <RetweetOutlined />
+        </Button>
+        <Button
+          size="large"
+          onClick={() => {
+            setTorchEnabled(!torchEnabled);
+          }}
+        >
+          <BulbFilled />
+        </Button>
+      </Flex>
     </Card>
   );
 };
