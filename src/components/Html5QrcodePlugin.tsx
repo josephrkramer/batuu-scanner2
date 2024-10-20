@@ -1,4 +1,5 @@
-import { Button, Card, Row } from "antd";
+import { BulbFilled, RetweetOutlined } from "@ant-design/icons";
+import { Button, Card, Flex } from "antd";
 import {
   Html5Qrcode,
   Html5QrcodeSupportedFormats,
@@ -101,14 +102,14 @@ const Html5QrcodePlugin = (props: {
   return (
     <Card>
       <div id={qrcodeRegionId} />
-      <Row>
+      <Flex gap="middle" align="center" justify="center">
         <Button
           size="large"
           onClick={() => {
             setRearCamera(!rearCamera);
           }}
         >
-          Toggle Camera
+          <RetweetOutlined />
         </Button>
         <Button
           size="large"
@@ -116,9 +117,9 @@ const Html5QrcodePlugin = (props: {
             setTorchEnabled(!torchEnabled);
           }}
         >
-          Toggle Torch
+          <BulbFilled />
         </Button>
-      </Row>
+      </Flex>
     </Card>
   );
 };
