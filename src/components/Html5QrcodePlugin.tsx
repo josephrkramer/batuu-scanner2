@@ -1,4 +1,4 @@
-import { Button, Card } from "antd";
+import { Button, Card, Row } from "antd";
 import {
   Html5Qrcode,
   Html5QrcodeSupportedFormats,
@@ -32,6 +32,7 @@ const Html5QrcodePlugin = (props: {
   render?: boolean;
 }) => {
   const [rearCamera, setRearCamera] = useState(true);
+  const [torchEnabled, setTorchEnabled] = useState(false);
 
   // when component mounts
   useEffect(() => {
@@ -53,12 +54,22 @@ const Html5QrcodePlugin = (props: {
     }
 
     function startCamera() {
-      html5QrCode.start(
-        { facingMode: rearCamera ? "environment" : "user" },
-        config,
-        props.qrCodeSuccessCallback,
-        props.qrCodeErrorCallback,
-      );
+      html5QrCode
+        .start(
+          { facingMode: rearCamera ? "environment" : "user" },
+          config,
+          props.qrCodeSuccessCallback,
+          props.qrCodeErrorCallback,
+        )
+        .then(() => {
+          //Handle torch toggle after camera scanning is initiated
+          const torch = html5QrCode
+            .getRunningTrackCameraCapabilities()
+            .torchFeature();
+          if (torch.isSupported()) {
+            torch.apply(torchEnabled);
+          }
+        });
     }
 
     startCamera();
@@ -81,7 +92,7 @@ const Html5QrcodePlugin = (props: {
         screen.orientation.removeEventListener("change", handleResize);
       });
     };
-  }, [props, rearCamera]);
+  }, [props, rearCamera, torchEnabled]);
 
   if (props.render !== undefined && !props.render) {
     return null;
@@ -90,14 +101,24 @@ const Html5QrcodePlugin = (props: {
   return (
     <Card>
       <div id={qrcodeRegionId} />
-      <Button
-        size="large"
-        onClick={() => {
-          setRearCamera(!rearCamera);
-        }}
-      >
-        Toggle Camera
-      </Button>
+      <Row>
+        <Button
+          size="large"
+          onClick={() => {
+            setRearCamera(!rearCamera);
+          }}
+        >
+          Toggle Camera
+        </Button>
+        <Button
+          size="large"
+          onClick={() => {
+            setTorchEnabled(!torchEnabled);
+          }}
+        >
+          Toggle Torch
+        </Button>
+      </Row>
     </Card>
   );
 };
