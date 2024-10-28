@@ -11,6 +11,7 @@ import { ChainCodeDecoder } from "../services/chain-code";
 import { BadgeDecoder } from "../services/badge-decoder";
 import { CrateDecoder } from "../services/crate-decoder";
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function AdvancedDropdown({
   chainCodeDecoder,
@@ -64,6 +65,18 @@ function AdvancedDropdown({
     } else {
       setAdminRequested(true);
       checkThisPassword("admin");
+    }
+  };
+
+  const navigate = useNavigate();
+  const confirmExperimental: PopconfirmProps["onConfirm"] = (e) => {
+    console.log(e);
+    if (admin) {
+      message.success(`Experimental functionality enabled.`);
+      navigate("/ar/JK_RS.html");
+      window.location.reload();
+    } else {
+      message.error(`Access denied. Admin access required.`);
     }
   };
 
@@ -127,6 +140,21 @@ function AdvancedDropdown({
           cancelText="No"
         >
           <Button>Admin</Button>
+        </Popconfirm>
+      ),
+    },
+    {
+      key: "4",
+      label: (
+        <Popconfirm
+          title="Experimental Functionality"
+          description="This is functionality under active development. Are you sure want to continue?"
+          onConfirm={confirmExperimental}
+          onCancel={cancel}
+          okText="Yes"
+          cancelText="No"
+        >
+          <Button danger>Experimental</Button>
         </Popconfirm>
       ),
     },
