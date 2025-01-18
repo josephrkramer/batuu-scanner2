@@ -7,6 +7,9 @@ type FieldType = {
 };
 
 function PasswordCheck() {
+  //TODO: set password
+  const password = "password";
+
   const navigate = useNavigate();
 
   const navigateHome = () => {
@@ -16,7 +19,7 @@ function PasswordCheck() {
   const [renderPasswordCheck, setRenderPasswordCheck] = useState(true);
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
     console.log("Success:", values);
-    if (values.password?.toLocaleLowerCase() == "password") {
+    if (values.password?.toLocaleLowerCase() == password) {
       console.log("PASSWORD CORRECT");
       setRenderPasswordCheck(false);
     } else {
