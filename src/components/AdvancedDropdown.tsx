@@ -83,7 +83,8 @@ function AdvancedDropdown({
     console.log(e);
     if (admin) {
       message.success(`D3-O9 chat enabled.`);
-      window.location.href = "https://cdn.botpress.cloud/webchat/v2.2/shareable.html?configUrl=https://files.bpcontent.cloud/2025/01/31/21/20250131211029-1AXZVGYT.json";
+      window.location.href =
+        "https://cdn.botpress.cloud/webchat/v2.2/shareable.html?configUrl=https://files.bpcontent.cloud/2025/01/31/21/20250131211029-1AXZVGYT.json";
     } else {
       message.error(`Access denied. Admin access required.`);
     }
