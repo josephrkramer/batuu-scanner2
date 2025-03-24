@@ -1,6 +1,5 @@
 import initializeBaseCrateContents from "../utils/initializeBaseCrateContents";
 import { BadgeDecoder } from "./badge-decoder";
-import { ChainCodeAlignmentCode } from "./chain-code";
 
 export const CrateType = Object.freeze({
   Halcyon_Cargo: "Halcyon Cargo",
