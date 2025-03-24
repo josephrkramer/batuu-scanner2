@@ -105,26 +105,6 @@ export class CrewManifest {
     );
     this.addCrewMember(
       new CrewMember({
-        name: "Tayla Yesmar",
-        occupation: "Student of the Force",
-        biography: [
-          "Anchorite Tayla Yesmar of Corella discovered her connection to the Force at the age of ten. Since then, she's been a passionate student of the life energy that binds us all.",
-          "She never meant to involve herself in covert activity, but when the Resistance needed her help, she found herself taking risks she never foresaw.",
-          "Now, Tayla returns to the three hot suns of Batuu. Something about the planet and its famous spires has caught her attention, and she can't ignore the mystery. But it seems that more is happening on Batuu than even Tayla perceived...",
-        ],
-        companion: undefined,
-        vehicle: undefined,
-        homeworld: "Corellia",
-        species: "Human",
-        affiliation: "Anchorite",
-        npcLocation:
-          "You may find Tayla communing with the Force among the rocks at the edge of the outpost, across from a troupe of droids.",
-        type: CrewMemberType.NPC,
-        image: "./crew/tayla.jpg",
-      }),
-    );
-    this.addCrewMember(
-      new CrewMember({
         name: "Zilla Nir'Oz",
         occupation: "Slicer",
         biography: [
@@ -224,25 +204,6 @@ export class CrewManifest {
           "You can find Schme where the Outpost's favorite food is sold.",
         type: CrewMemberType.NPC,
         image: "./crew/schme.jpeg",
-      }),
-    );
-    this.addCrewMember(
-      new CrewMember({
-        name: "La'Beth",
-        occupation: "Chemist",
-        biography: [
-          "La'Beth was once a lead chemist aboard the Halcyon after escaping servitude to Oga. Now, she traverses the galaxy aboard the Perihelion L1-T3, a Solara-Class Star Freighter, with her loyal droid, R1-B1. She opened and maintains hyperspace comms channels, ensuring vital information flows across the universe.",
-          "Known for her discretion, La'Beth has access to various channels hidden from broader galactic knowledge. With a keen understanding of countless species, her impeccable intuition helps her to excel in social situations. Her services are available to those who can meet her price—whether it's delivering a message, securing an outcome, or hosting a dazzling party.",
-        ],
-        companion: "R1-B1",
-        vehicle: "Perihelion L1-T3, a Solara-Class Star Freighter",
-        homeworld: undefined,
-        species: undefined,
-        affiliation: undefined,
-        npcLocation:
-          "Ever the free spirit, La'Beth has been spotted all over the outpost.",
-        type: CrewMemberType.NPC,
-        image: "./crew/labeth.jpg",
       }),
     );
     this.addCrewMember(
