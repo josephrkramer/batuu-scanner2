@@ -217,11 +217,11 @@ export class CrateDecoder {
     );
     this.override(
       new CrateContents({
-        code: "CD_LM",
+        code: "BC_OP",
         contents: "Cassius Tea Cup",
         detailedDescription:
           "Used during the private meeting between Pre Vizla and Maul",
-        locationDescription: "TIE/ES Echelon. Large flat white case",
+        locationDescription: "Outside Dok's",
         type: CrateType.Relic,
         image: "./tea_cup.jpg",
       }),
@@ -234,6 +234,19 @@ export class CrateDecoder {
         locationDescription: "Rise line near the Star Map. Small green case",
         type: CrateType.Relic,
         image: "./halcyon_coords.jpg",
+      }),
+    );
+
+    //Resh Parts Stolen by Bex
+    this.override(
+      new CrateContents({
+        code: "CD_LM",
+        contents: "Note from Bex",
+        detailedDescription:
+          "Apparently Bex stole Resh's parts thinking they belong to the First Order",
+        locationDescription: "TIE/ES Echelon. Large flat white case",
+        type: CrateType.Relic,
+        image: "./bex-parts-note.jpeg",
       }),
     );
 
