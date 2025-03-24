@@ -25,6 +25,20 @@ function ChainCodeValue({
   const MEETING_TIME =
     dayjs().day() == 0 ? SUN_MEETING_TIME : THURS_MEETING_TIME;
   if (render) {
+    if (alignment === undefined) {
+      return (
+        <div>
+          <Card>
+            <Title level={3}>Who is your recruiting agent?</Title>
+            <Typography.Paragraph>
+              You must choose your recruiting agent before uploading your chain
+              code.
+            </Typography.Paragraph>
+          </Card>
+        </div>
+      );
+    }
+
     if (chainCodeDecoder.chainCodeLength() < MIN_CHAIN_CODE_SIZE) {
       return (
         <div>
