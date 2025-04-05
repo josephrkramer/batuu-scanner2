@@ -238,6 +238,10 @@ function App() {
     />
   );
 
+  function isAdminOrCrateUnlocked(scanResult: string) {
+    return admin || crateDecoder.decode(scanResult).unlocked
+  }
+
   useEffect(() => {
     if (postPasswordCheck && scanResult !== undefined) {
       if (badgeDecoder.isValidBadgeCode(scanResult)) {
@@ -248,7 +252,7 @@ function App() {
         //Chain Code Scan
         chainCodeDecoder.setChainCodeResult(scanResult, badgeDecoder);
         setScanResult(undefined);
-      } else if (admin || crateDecoder.decode(scanResult).unlocked) {
+      } else if (isAdminOrCrateUnlocked(scanResult)) {
         //Crate Scan as Admin
         //This will skip the puzzle to save time for admins
         crateDecoder.setResult(scanResult, badgeDecoder);
