@@ -297,6 +297,11 @@ export class CrateDecoder {
         }
       }
 
+      // unlock crate if already scanned
+      if (this.scannedCrates.has(code)) {
+        crate.unlocked = true;
+      }
+
       return this.contents.get(code)!;
     } else {
       return new CrateContents({
@@ -380,6 +385,7 @@ export class CrateDecoder {
     this.override(crate);
   }
 
+  // save the crate to the cargo hold and display
   setResult(code: string, badgeDecoder: BadgeDecoder) {
     if (this.contents.get(code)!.type == CrateType.Multiple_Choice) {
       this.setRenderMultipleChoiceCrateCode(code);
