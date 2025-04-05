@@ -24,6 +24,7 @@ export class CrateContents {
   type: string;
   image: string;
   alignment: string;
+  unlocked: boolean;
   multipleChoice: CrateContents[] = [];
 
   constructor({
@@ -34,6 +35,7 @@ export class CrateContents {
     type = "",
     image = "",
     alignment = "",
+    unlocked = false,
   }) {
     this.code = code;
     this.contents = contents;
@@ -42,6 +44,7 @@ export class CrateContents {
     this.type = type;
     this.image = image;
     this.alignment = alignment;
+    this.unlocked = unlocked;
   }
 }
 
@@ -247,6 +250,7 @@ export class CrateDecoder {
         locationDescription: "TIE/ES Echelon. Large flat white case",
         type: CrateType.Relic,
         image: "./bex-parts-note.jpeg",
+        unlocked: true,
       }),
     );
 

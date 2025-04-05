@@ -248,7 +248,7 @@ function App() {
         //Chain Code Scan
         chainCodeDecoder.setChainCodeResult(scanResult, badgeDecoder);
         setScanResult(undefined);
-      } else if (admin) {
+      } else if (admin || crateDecoder.decode(scanResult).unlocked) {
         //Crate Scan as Admin
         //This will skip the puzzle to save time for admins
         crateDecoder.setResult(scanResult, badgeDecoder);
