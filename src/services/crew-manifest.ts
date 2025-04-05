@@ -241,7 +241,6 @@ export class CrewManifest {
         affiliation: "New Republic",
         type: CrewMemberType.NPC,
         image: "./badge/bounty.jpeg",
-        alignment: ChainCodeAlignmentString.Neutral,
         npcLocation:
           "You may find Lyra in the forest, where the Ewoks are known to roam.",
       }),
