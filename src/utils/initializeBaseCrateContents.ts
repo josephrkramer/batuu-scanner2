@@ -24,7 +24,9 @@ export default function initializeBaseCrateContents(
     "AB_PQ",
     new CrateContents({
       code: "AB_PQ",
-      contents: "No immediate reward. -- likely part of challenge",
+      contents: "Empty",
+      detailedDescription: "Sometimes all you find in space is more space",
+      unlocked: true,
       type: CrateType.Empty,
     }),
   );
@@ -32,7 +34,9 @@ export default function initializeBaseCrateContents(
     "AB_ST",
     new CrateContents({
       code: "AB_ST",
-      contents: "No immediate reward. -- likely part of challenge",
+      contents: "Empty",
+      detailedDescription: "Sometimes all you find in space is more space",
+      unlocked: true,
       type: CrateType.Empty,
     }),
   );
@@ -56,7 +60,9 @@ export default function initializeBaseCrateContents(
     "JK_ST",
     new CrateContents({
       code: "JK_ST",
-      contents: "No immediate reward. -- likely part of challenge",
+      contents: "Empty",
+      detailedDescription: "Sometimes all you find in space is more space",
+      unlocked: true,
       type: CrateType.Empty,
     }),
   );
@@ -232,7 +238,9 @@ export default function initializeBaseCrateContents(
     "JK_QR",
     new CrateContents({
       code: "JK_QR",
-      contents: "No immediate reward. -- likely part of challenge",
+      contents: "Empty",
+      detailedDescription: "Sometimes all you find in space is more space",
+      unlocked: true,
       type: CrateType.Empty,
     }),
   );
@@ -272,7 +280,9 @@ export default function initializeBaseCrateContents(
     "KL_OP",
     new CrateContents({
       code: "KL_OP",
-      contents: "No immediate reward. -- likely part of challenge",
+      contents: "Empty",
+      detailedDescription: "Sometimes all you find in space is more space",
+      unlocked: true,
       type: CrateType.Empty,
     }),
   );
@@ -360,7 +370,9 @@ export default function initializeBaseCrateContents(
     "AB_UV",
     new CrateContents({
       code: "AB_UV",
-      contents: "No immediate reward. -- likely part of challenge",
+      contents: "Empty",
+      detailedDescription: "Sometimes all you find in space is more space",
+      unlocked: true,
       type: CrateType.Empty,
     }),
   );
@@ -368,7 +380,9 @@ export default function initializeBaseCrateContents(
     "KL_PQ",
     new CrateContents({
       code: "KL_PQ",
-      contents: "No immediate reward. -- likely part of challenge",
+      contents: "Empty",
+      detailedDescription: "Sometimes all you find in space is more space",
+      unlocked: true,
       type: CrateType.Empty,
     }),
   );
@@ -440,7 +454,9 @@ export default function initializeBaseCrateContents(
     "JK_OP",
     new CrateContents({
       code: "JK_OP",
-      contents: "No immediate reward. -- likely part of challenge",
+      contents: "Empty",
+      detailedDescription: "Sometimes all you find in space is more space",
+      unlocked: true,
       type: CrateType.Empty,
     }),
   );
@@ -448,7 +464,9 @@ export default function initializeBaseCrateContents(
     "KL_NO",
     new CrateContents({
       code: "KL_NO",
-      contents: "No immediate reward. -- likely part of challenge",
+      contents: "Empty",
+      detailedDescription: "Sometimes all you find in space is more space",
+      unlocked: true,
       type: CrateType.Empty,
     }),
   );
@@ -576,7 +594,9 @@ export default function initializeBaseCrateContents(
     "IJ_ST",
     new CrateContents({
       code: "IJ_ST",
-      contents: "No immediate reward. -- likely part of challenge",
+      contents: "Empty",
+      detailedDescription: "Sometimes all you find in space is more space",
+      unlocked: true,
       type: CrateType.Empty,
     }),
   );
@@ -608,7 +628,9 @@ export default function initializeBaseCrateContents(
     "KL_ST",
     new CrateContents({
       code: "KL_ST",
-      contents: "No immediate reward. -- likely part of challenge",
+      contents: "Empty",
+      detailedDescription: "Sometimes all you find in space is more space",
+      unlocked: true,
       type: CrateType.Empty,
     }),
   );
@@ -664,7 +686,9 @@ export default function initializeBaseCrateContents(
     "KL_TU",
     new CrateContents({
       code: "KL_TU",
-      contents: "No immediate reward. -- likely part of challenge",
+      contents: "Empty",
+      detailedDescription: "Sometimes all you find in space is more space",
+      unlocked: true,
       type: CrateType.Empty,
     }),
   );
@@ -768,7 +792,9 @@ export default function initializeBaseCrateContents(
     "IJ_NO",
     new CrateContents({
       code: "IJ_NO",
-      contents: "No immediate reward. -- likely part of challenge",
+      contents: "Empty",
+      detailedDescription: "Sometimes all you find in space is more space",
+      unlocked: true,
       type: CrateType.Empty,
     }),
   );
@@ -888,7 +914,9 @@ export default function initializeBaseCrateContents(
     "KL_UV",
     new CrateContents({
       code: "KL_UV",
-      contents: "No immediate reward. -- likely part of challenge",
+      contents: "Empty",
+      detailedDescription: "Sometimes all you find in space is more space",
+      unlocked: true,
       type: CrateType.Empty,
     }),
   );
