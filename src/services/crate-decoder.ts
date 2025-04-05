@@ -24,6 +24,7 @@ export class CrateContents {
   type: string;
   image: string;
   alignment: string;
+  unlocked: boolean;
   multipleChoice: CrateContents[] = [];
 
   constructor({
@@ -34,6 +35,7 @@ export class CrateContents {
     type = "",
     image = "",
     alignment = "",
+    unlocked = false,
   }) {
     this.code = code;
     this.contents = contents;
@@ -42,6 +44,7 @@ export class CrateContents {
     this.type = type;
     this.image = image;
     this.alignment = alignment;
+    this.unlocked = unlocked;
   }
 }
 
@@ -217,11 +220,11 @@ export class CrateDecoder {
     );
     this.override(
       new CrateContents({
-        code: "CD_LM",
+        code: "BC_OP",
         contents: "Cassius Tea Cup",
         detailedDescription:
           "Used during the private meeting between Pre Vizla and Maul",
-        locationDescription: "TIE/ES Echelon. Large flat white case",
+        locationDescription: "Outside Dok's",
         type: CrateType.Relic,
         image: "./tea_cup.jpg",
       }),
@@ -234,6 +237,20 @@ export class CrateDecoder {
         locationDescription: "Rise line near the Star Map. Small green case",
         type: CrateType.Relic,
         image: "./halcyon_coords.jpg",
+      }),
+    );
+
+    //Resh Parts Stolen by Bex
+    this.override(
+      new CrateContents({
+        code: "CD_LM",
+        contents: "Note from Bex",
+        detailedDescription:
+          "Apparently Bex stole Resh's parts thinking they belong to the First Order",
+        locationDescription: "TIE/ES Echelon. Large flat white case",
+        type: CrateType.Relic,
+        image: "./bex-parts-note.jpeg",
+        unlocked: true,
       }),
     );
 
@@ -278,6 +295,11 @@ export class CrateDecoder {
           default:
             crate.image = "./aarc.jpg";
         }
+      }
+
+      // unlock crate if already scanned
+      if (this.scannedCrates.has(code)) {
+        crate.unlocked = true;
       }
 
       return this.contents.get(code)!;
@@ -363,6 +385,7 @@ export class CrateDecoder {
     this.override(crate);
   }
 
+  // save the crate to the cargo hold and display
   setResult(code: string, badgeDecoder: BadgeDecoder) {
     if (this.contents.get(code)!.type == CrateType.Multiple_Choice) {
       this.setRenderMultipleChoiceCrateCode(code);
