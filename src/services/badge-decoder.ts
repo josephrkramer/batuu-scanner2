@@ -36,6 +36,7 @@ export const BadgeCode = Object.freeze({
   Character_AARC: "v14h0",
   The_Legacy_Continues: "h6nb8",
   Hoth_Icebreaker: "nju5h",
+  D3_O9: "d3-o9",
 });
 
 export class Badge {
@@ -386,6 +387,18 @@ export class BadgeDecoder {
         description: `Be part of The Legacy Continues team in any capacity.`,
         image: "./badge/the-legacy-continues.jpeg",
         aztec: "./aztec/The_Legacy_Continues.png",
+      }),
+    );
+
+    this.unlistedCodeToBadge.set(
+      BadgeCode.D3_O9,
+      new Badge({
+        code: BadgeCode.D3_O9,
+        name: "D3-O9",
+        quote: `"May the stars light your way!" --D3-O9`,
+        description: `Participated in an event and helped rescue D3-O9.`,
+        image: "./badge/gaya-mic.jpeg",
+        aztec: "./aztec/D3_O9.png",
       }),
     );
 
