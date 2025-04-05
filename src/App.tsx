@@ -239,7 +239,7 @@ function App() {
   );
 
   function isAdminOrCrateUnlocked(scanResult: string) {
-    return admin || crateDecoder.decode(scanResult).unlocked
+    return admin || crateDecoder.decode(scanResult).unlocked;
   }
 
   useEffect(() => {
