@@ -39,6 +39,7 @@ import { PasswordProtector } from "./services/password-protector";
 import PasswordCheck from "./components/PasswordCheck";
 import PasswordStatus from "./components/PasswordStatus";
 import AlignmentQuestion from "./components/AlignmentQuestion";
+import D3O9Button from "./components/D3O9Button";
 
 function App() {
   //read parameters from the url
@@ -141,6 +142,7 @@ function App() {
     "alignment",
     undefined,
   );
+  const [renderAlignmentQuestion, setRenderAlignmentQuestion] = useState(false);
 
   const [renderChainCodeValue, setRenderChainCodeValue] = useState(false);
   useEffect(() => {
@@ -366,12 +368,12 @@ function App() {
 
       {admin ? <Typography.Title level={1}>Admin</Typography.Title> : null}
 
-      {alignment ? null : (
+      {renderAlignmentQuestion && !alignment ? (
         <AlignmentQuestion
           crewManifest={crewMembers}
           setAlignment={setAlignment}
         />
-      )}
+      ) : null}
 
       <Flex vertical>
         <PasswordStatus passwordCorrect={passwordStatus} />
@@ -436,7 +438,11 @@ function App() {
           >
             Dossiers
           </Button>
-          <ChainCodeButton setRenderChainCodeValue={setRenderChainCodeValue} />
+          <ChainCodeButton
+            setRenderChainCodeValue={setRenderChainCodeValue}
+            setRenderAlignmentQuestion={setRenderAlignmentQuestion}
+          />
+          <D3O9Button badgeDecoder={badgeDecoder} />
         </Flex>
       </Flex>
     </ConfigProvider>
