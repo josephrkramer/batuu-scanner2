@@ -220,8 +220,29 @@ export class CrewManifest {
         homeworld: "Corellia",
         species: "Human",
         affiliation: "Self",
-        type: CrewMemberType.Support,
+        type: CrewMemberType.NPC,
         image: "./crew/jax.png",
+      }),
+    );
+    this.addCrewMember(
+      new CrewMember({
+        name: "Lyra Meadowlight",
+        occupation: "Tour Guide",
+        biography: [
+          "Lyra Meadowlight wasn't born on the forest moon of Endor, but for many years, it was the only home she knew. As a young human girl, the transport carrying her family crashed deep within the towering forests during the turbulent early years of the Galactic Empire. Orphaned and alone, she was discovered not by Imperials, but by a curious and cautious tribe of Ewoks.",
+          'Initially frightened, Lyra gradually earned the Ewoks\' trust through her resilience and willingness to learn. She spent years living among them, mastering their language, their intricate knowledge of the forest, their survival skills, and their deep connection to the natural world. They gave her a name in their own tongue, roughly translating to "Forest-Friend." She became adept at navigating the canopy, identifying edible plants, and understanding the subtle signs of the wilderness.',
+          "The arrival of the Rebel Alliance and the subsequent Battle of Endor was a culture shock for Lyra. It reintroduced her to the wider galaxy and the human society she'd almost forgotten. While grateful to the Ewoks who had saved and raised her, the event sparked a desire to reconnect with her own heritage and see what lay beyond the trees.",
+          "After leaving Endor for a time and exploring the nascent New Republic, Lyra eventually found her calling back on the forest moon. Combining her unique upbringing with her understanding of off-worlders, she established herself as a specialized tour guide. Today, Lyra Meadowlight leads small, respectful groups through designated areas of Endor's forests, sharing her deep knowledge of the moon's unique ecosystem and, crucially, offering insights into Ewok culture with an authenticity and respect no off-worlder could replicate. She acts as a bridge, ensuring visitors appreciate the beauty and sensitivity of her adopted home, forever honouring the furry beings who gave her a second chance at life.",
+        ],
+        companion: "Wicket",
+        vehicle: "74-Z speeder bike",
+        homeworld: "Endor",
+        species: "Human",
+        affiliation: "New Republic",
+        type: CrewMemberType.NPC,
+        image: "./badge/bounty.jpeg",
+        npcLocation:
+          "You may find Lyra in the forest, where the Ewoks are known to roam.",
       }),
     );
     this.addCrewMember(
