@@ -246,7 +246,7 @@ export class CrateDecoder {
       new CrateContents({
         code: "BC_OP",
         contents: "Loth-cat in carbonite",
-        detailedDescription: "Loth-cat locked in carbonite",
+        detailedDescription: "A rare Loth-cat perfectly preserved in carbonite",
         locationDescription: "Outside Dok's",
         type: CrateType.Relic,
         image: "./CarboniteLothCat.png",
@@ -256,7 +256,7 @@ export class CrateDecoder {
       new CrateContents({
         code: "BC_TU",
         contents: "Loth-wolf in carbonite",
-        detailedDescription: "Loth-wolf locked in carbonite",
+        detailedDescription: "A rare Loth-wolf perfectly preserved in carbonite",
         locationDescription: "Across from Oga's, white crate",
         type: CrateType.Relic,
         image: "./CarboniteLothWolf.png",
@@ -266,7 +266,7 @@ export class CrateDecoder {
       new CrateContents({
         code: "DE_LM",
         contents: "Hydrominae in carbonite",
-        detailedDescription: "Hydrominae locked in carbonite",
+        detailedDescription: "A rare Hydrominae perfectly preserved in carbonite",
         locationDescription: "Bounty Hunter stand bottom brown crate",
         type: CrateType.Relic,
         image: "./CarboniteHydrominae.png",
