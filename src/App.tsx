@@ -142,11 +142,13 @@ function App() {
     undefined,
   );
   const [renderAlignmentQuestion, setRenderAlignmentQuestion] = useState(false);
+  //The following useEffect should be deleted if restoring the Chain Code Functionality
   useEffect(() => {
     if (alignment !== undefined) {
       setRenderAlignmentQuestion(false);
     }
   }, [alignment]);
+  ///////
 
   const [renderChainCodeValue, setRenderChainCodeValue] = useState(false);
   useEffect(() => {
