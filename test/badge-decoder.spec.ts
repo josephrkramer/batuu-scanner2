@@ -220,7 +220,7 @@ describe("BadgeDecoder", () => {
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Bounty)).toBe(false);
 
     act(() => {
-      crateDecoder.setResult("KL_QR", badgeDecoder);
+      crateDecoder.setResult("GI_QR", badgeDecoder);
     });
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Bounty)).toBe(true);
 
@@ -261,14 +261,14 @@ describe("BadgeDecoder", () => {
       false,
     );
     act(() => {
-      crateDecoder.setResult("BC_ST", badgeDecoder);
+      crateDecoder.setResult("BC_OP", badgeDecoder);
       crateDecoder.setResult("BC_TU", badgeDecoder);
     });
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Hoth_Icebreaker)).toBe(
       false,
     );
     act(() => {
-      crateDecoder.setResult("BC_RS", badgeDecoder);
+      crateDecoder.setResult("DE_LM", badgeDecoder);
     });
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Hoth_Icebreaker)).toBe(true);
   });
