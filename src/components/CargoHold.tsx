@@ -35,7 +35,10 @@ function CargoHold(
         props.numRelicsFound,
         props.numTotalRelics,
       )}
-      {chainCodeDisplay(props.chainCode, props.admin)}
+      {/*
+      //Uncomment if restoring Chain Code Functionality
+      chainCodeDisplay(props.chainCode, props.admin)
+      */}
       {badgeDisplay(
         props.badgesToDisplay,
         props.earnedBadgesDatesMap,
@@ -114,6 +117,8 @@ function crateDisplay(
   return cargoHoldList;
 }
 
+/*
+//Uncomment if restoring Chain Code Functionality
 function chainCodeDisplay(chainCode: ChainCodePart[], admin: boolean) {
   return (
     <List
@@ -151,6 +156,7 @@ function chainCodeDisplay(chainCode: ChainCodePart[], admin: boolean) {
     />
   );
 }
+*/
 
 function badgeDisplay(
   badgesToDisplay: Badge[],
