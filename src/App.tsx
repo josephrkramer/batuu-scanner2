@@ -428,6 +428,7 @@ function App() {
           setPasswordCorrect={setPasswordStatus}
         />
         <Flex vertical gap="small">
+          <D3O9Button admin={admin} badgeDecoder={badgeDecoder} />
           <Button type="primary" size="large" onClick={() => homeButton()}>
             Home
           </Button>
@@ -451,7 +452,6 @@ function App() {
             setRenderAlignmentQuestion={setRenderAlignmentQuestion}
           />
           */}
-          <D3O9Button badgeDecoder={badgeDecoder} />
         </Flex>
       </Flex>
     </ConfigProvider>

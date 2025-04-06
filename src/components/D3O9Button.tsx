@@ -2,12 +2,13 @@ import { Button } from "antd";
 import { BadgeCode, BadgeDecoder } from "../services/badge-decoder";
 
 function D3O9Button({
-  badgeDecoder,
-}: Readonly<{ badgeDecoder: BadgeDecoder }>) {
-  if (badgeDecoder.earnedBadges.has(BadgeCode.D3_O9)) {
+  admin, badgeDecoder,
+}: Readonly<{ admin: boolean, badgeDecoder: BadgeDecoder }>) {
+  if (admin || badgeDecoder.earnedBadges.has(BadgeCode.D3_O9)) {
     return (
       <Button
-        type="primary"
+        color="orange"
+        variant="solid"
         size="large"
         onClick={() =>
           (window.location.href =
