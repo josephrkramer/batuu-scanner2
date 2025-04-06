@@ -5,5 +5,7 @@
   },
   "githubPullRequests.ignoredPullRequestBranches": [
     "master"
-  ]
+  ],
+  "IDX.aI.enableInlineCompletion": true,
+  "IDX.aI.enableCodebaseIndexing": true
 }

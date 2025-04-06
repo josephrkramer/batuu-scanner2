@@ -182,8 +182,8 @@ describe("BadgeDecoder", () => {
         crateDecoder.setResult(crate.code, badgeDecoder);
       });
     });
-    expect(crateDecoder.getTotalNumberOfType(CrateType.Relic)).toBe(15);
-    expect(crateDecoder.getScannedNumberOfType(CrateType.Relic)).toBe(15);
+    expect(crateDecoder.getTotalNumberOfType(CrateType.Relic)).toBe(18);
+    expect(crateDecoder.getScannedNumberOfType(CrateType.Relic)).toBe(18);
     expect(badgeDecoder.earnedBadges.has(BadgeCode.Relic_Hunter)).toBe(true);
   });
 

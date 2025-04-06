@@ -220,11 +220,11 @@ export class CrateDecoder {
     );
     this.override(
       new CrateContents({
-        code: "BC_OP",
+        code: "FG_ST",
         contents: "Cassius Tea Cup",
         detailedDescription:
           "Used during the private meeting between Pre Vizla and Maul",
-        locationDescription: "Outside Dok's",
+        locationDescription: "Across from Oga's. Blue crate.",
         type: CrateType.Relic,
         image: "./tea_cup.jpg",
       }),
@@ -237,6 +237,41 @@ export class CrateDecoder {
         locationDescription: "Rise line near the Star Map. Small green case",
         type: CrateType.Relic,
         image: "./halcyon_coords.jpg",
+      }),
+    );
+
+    //La'Beth (originally)
+    //Needed for Hoth_Icebreaker badge
+    this.override(
+      new CrateContents({
+        code: "BC_OP",
+        contents: "Loth-cat in carbonite",
+        detailedDescription: "A rare Loth-cat perfectly preserved in carbonite",
+        locationDescription: "Outside Dok's",
+        type: CrateType.Relic,
+        image: "./CarboniteLothCat.png",
+      }),
+    );
+    this.override(
+      new CrateContents({
+        code: "BC_TU",
+        contents: "Loth-wolf in carbonite",
+        detailedDescription:
+          "A rare Loth-wolf perfectly preserved in carbonite",
+        locationDescription: "Across from Oga's, white crate",
+        type: CrateType.Relic,
+        image: "./CarboniteLothWolf.png",
+      }),
+    );
+    this.override(
+      new CrateContents({
+        code: "DE_LM",
+        contents: "Hydrominae in carbonite",
+        detailedDescription:
+          "A rare Hydrominae perfectly preserved in carbonite",
+        locationDescription: "Bounty Hunter stand bottom brown crate",
+        type: CrateType.Relic,
+        image: "./CarboniteHydrominae.png",
       }),
     );
 
