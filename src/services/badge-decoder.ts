@@ -534,8 +534,7 @@ export class BadgeDecoder {
   }
 
   hothIcebreaker(crateCode: string, crateDecoder: CrateDecoder) {
-    //TODO: update La'Beth crates
-    const hothSet = new Set(["BC_ST", "BC_TU", "BC_RS"]);
+    const hothSet = new Set(["BC_OP", "BC_TU", "DE_LM"]);
     if (!this.earnedBadges.has(BadgeCode.Hoth_Icebreaker)) {
       const intersection = new Set(
         [...hothSet].filter((x) => crateDecoder.scannedCrates.has(x)),
@@ -617,16 +616,9 @@ export class BadgeDecoder {
   }
 
   private bounty(crateCode: string) {
-    //Bounty - animal crates "GI_QR", "KL_QR", or "FAL26"
-    //TODO: Add La'Beth's crates
-    const bountySet = new Set([
-      "GI_QR",
-      "KL_QR",
-      "FAL26",
-      "BC_ST",
-      "BC_TU",
-      "BC_RS",
-    ]);
+    //Bounty - animal crates "GI_QR" or "FAL26" Plush Toys
+    //La'Beth's crates "BC_OP", "BC_TU", "DE_LM"
+    const bountySet = new Set(["GI_QR", "FAL26", "BC_OP", "BC_TU", "DE_LM"]);
     if (!this.earnedBadges.has(BadgeCode.Bounty) && bountySet.has(crateCode)) {
       this.add(BadgeCode.Bounty);
     }
