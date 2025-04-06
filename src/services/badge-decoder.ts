@@ -92,6 +92,7 @@ export class BadgeDecoder {
     dayjs("2024-03-01").startOf("date").format(BADGE_DATE_FORMAT),
     dayjs("2024-10-02").startOf("date").format(BADGE_DATE_FORMAT),
     dayjs("2024-10-06").startOf("date").format(BADGE_DATE_FORMAT),
+    dayjs("2025-05-03").startOf("date").format(BADGE_DATE_FORMAT),
   ]);
 
   constructor(
