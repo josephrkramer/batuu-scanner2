@@ -39,6 +39,7 @@ import PasswordCheck from "./components/PasswordCheck";
 import PasswordStatus from "./components/PasswordStatus";
 import AlignmentQuestion from "./components/AlignmentQuestion";
 import D3O9Button from "./components/D3O9Button";
+import D3O9Chat from "./components/D3O9Chat";
 
 function App() {
   //read parameters from the url
@@ -384,6 +385,7 @@ function App() {
       <Flex vertical>
         <PasswordStatus passwordCorrect={passwordStatus} />
         {renderLogo ? <Logo admin={admin} /> : null}
+        <D3O9Chat />
         <Crate crate={crateToDisplay} admin={admin} />
         {renderScanner ? scannerComp : null}
         <CargoHold
