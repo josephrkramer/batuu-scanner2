@@ -29,7 +29,6 @@ import { useLocalStorage } from "./hooks/useLocalStorage";
 import { deleteUrlParam } from "./utils/urlHelper";
 import { useLocalStorageMap } from "./hooks/useLocalStorageMap";
 import { useLocalStorageSet } from "./hooks/useLocalStorageSet";
-import ChainCodeButton from "./components/ChainCodeButton";
 import ChainCodeValue from "./components/ChainCodeValue";
 import CrewManifestDisplay from "./components/CrewManifestDisplay";
 import MultipeChoiceCrate from "./components/MultipeChoiceCrate";
@@ -143,6 +142,13 @@ function App() {
     undefined,
   );
   const [renderAlignmentQuestion, setRenderAlignmentQuestion] = useState(false);
+  //The following useEffect should be deleted if restoring the Chain Code Functionality
+  useEffect(() => {
+    if (alignment !== undefined) {
+      setRenderAlignmentQuestion(false);
+    }
+  }, [alignment]);
+  ///////
 
   const [renderChainCodeValue, setRenderChainCodeValue] = useState(false);
   useEffect(() => {
@@ -438,10 +444,13 @@ function App() {
           >
             Dossiers
           </Button>
+          {/*
+          //Uncomment if you want to restore the Chain Code Functionality
           <ChainCodeButton
             setRenderChainCodeValue={setRenderChainCodeValue}
             setRenderAlignmentQuestion={setRenderAlignmentQuestion}
           />
+          */}
           <D3O9Button badgeDecoder={badgeDecoder} />
         </Flex>
       </Flex>
