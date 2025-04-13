@@ -24,6 +24,7 @@ function AdvancedDropdown({
   checkThisPassword,
   adminRequested,
   setAdminRequested,
+  setAlignment,
 }: Readonly<{
   chainCodeDecoder: ChainCodeDecoder;
   badgeDecoder: BadgeDecoder;
@@ -35,6 +36,7 @@ function AdvancedDropdown({
   checkThisPassword: (checkMe: string) => void;
   adminRequested: boolean;
   setAdminRequested: React.Dispatch<React.SetStateAction<boolean>>;
+  setAlignment: React.Dispatch<React.SetStateAction<string | undefined>>;
 }>) {
   const confirmReset: PopconfirmProps["onConfirm"] = (e) => {
     console.log(e);
@@ -97,6 +99,10 @@ function AdvancedDropdown({
     setAdminRequested,
   ]);
 
+  const resetQuiz = () => {
+    setAlignment(undefined);
+  };
+
   const items: MenuProps["items"] = [
     {
       key: "1",
@@ -156,6 +162,14 @@ function AdvancedDropdown({
         >
           <Button danger>Experimental</Button>
         </Popconfirm>
+      ),
+    },
+    {
+      key: "5",
+      label: (
+        <Button type="primary" onClick={resetQuiz}>
+          Quiz
+        </Button>
       ),
     },
   ];
