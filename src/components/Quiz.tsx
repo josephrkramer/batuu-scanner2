@@ -98,6 +98,12 @@ const quizData = [
   },
 ];
 
+enum Faction {
+  Resistance = "The Resistance",
+  Cause = "The Cause",
+  FirstOrder = "The First Order",
+}
+
 // Main Quiz component using Ant Design
 function Quiz({
   setAlignment,
@@ -149,28 +155,28 @@ function Quiz({
     // Find the faction with the highest score (simple tie-breaking)
     if (finalScores.Cause >= highestScore) {
       highestScore = finalScores.Cause;
-      determinedFaction = "The Cause";
+      determinedFaction = Faction.Cause;
     }
     if (finalScores.FO >= highestScore) {
       if (finalScores.FO > highestScore) {
         highestScore = finalScores.FO;
-        determinedFaction = "The First Order";
+        determinedFaction = Faction.FirstOrder;
       } else if (
         finalScores.FO === highestScore &&
-        determinedFaction !== "The Cause"
+        determinedFaction !== Faction.Cause
       ) {
-        determinedFaction = "The First Order";
+        determinedFaction = Faction.FirstOrder;
       }
     }
     if (finalScores.Resistance >= highestScore) {
       if (finalScores.Resistance > highestScore) {
-        determinedFaction = "The Resistance";
+        determinedFaction = Faction.Resistance;
       } else if (
         finalScores.Resistance === highestScore &&
-        determinedFaction !== "The Cause" &&
-        determinedFaction !== "The First Order"
+        determinedFaction !== Faction.Cause &&
+        determinedFaction !== Faction.FirstOrder
       ) {
-        determinedFaction = "The Resistance";
+        determinedFaction = Faction.Resistance;
       }
     }
     setResult(determinedFaction);
@@ -185,11 +191,11 @@ function Quiz({
   };
 
   const saveAlignment = () => {
-    if (result == "The Resistance") {
+    if (result == Faction.Resistance) {
       setAlignment(ChainCodeAlignmentString.Light);
-    } else if (result == "The Cause") {
+    } else if (result == Faction.Cause) {
       setAlignment(ChainCodeAlignmentString.Neutral);
-    } else if (result == "The First Order") {
+    } else if (result == Faction.FirstOrder) {
       setAlignment(ChainCodeAlignmentString.Dark);
     }
   };
@@ -235,7 +241,7 @@ function Quiz({
               <Button type="primary" key="restart" onClick={restartQuiz}>
                 Take the Quiz Again
               </Button>,
-              <Divider />,
+              <Divider key="divider" />,
               <Button type="primary" key="save" onClick={saveAlignment}>
                 Confirm {result}
               </Button>,
