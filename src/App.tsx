@@ -369,6 +369,7 @@ function App() {
           checkThisPassword={checkThisPassword}
           adminRequested={adminRequested}
           setAdminRequested={setAdminRequested}
+          setAlignment={setAlignment}
         />
       </Flex>
 

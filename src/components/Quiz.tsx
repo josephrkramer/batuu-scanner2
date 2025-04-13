@@ -284,7 +284,7 @@ function Quiz({
             {/* Footer/Credit (Optional) */}
             <div style={{ textAlign: "center", marginTop: "20px" }}>
               <Text type="secondary" style={{ fontSize: "0.8em" }}>
-                Inspired by the Galaxy's Edge Sorting Hat
+                Inspired by the Youngling Who Lived Sorting Hat
               </Text>
             </div>
           </div>
