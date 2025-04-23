@@ -15,7 +15,7 @@ function D3O9Button({
           window.open(
             "https://files.bpcontent.cloud/2025/04/06/16/20250406164353-JHMEAR3I.html",
             "_blank",
-            "noopener noreferrer",
+            "noopener,noreferrer",
           );
         }}
       >
