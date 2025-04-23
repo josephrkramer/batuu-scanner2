@@ -12,8 +12,9 @@ function D3O9Button({
         variant="solid"
         size="large"
         onClick={() => {
-          window.location.href =
-            "https://files.bpcontent.cloud/2025/04/06/16/20250406164353-JHMEAR3I.html";
+          window.location.replace(
+            "https://files.bpcontent.cloud/2025/04/06/16/20250406164353-JHMEAR3I.html",
+          );
         }}
       >
         Chat with D3-O9
