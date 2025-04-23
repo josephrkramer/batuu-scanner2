@@ -382,7 +382,7 @@ function App() {
           setAlignment={setAlignment}
         />
         */
-        <Quiz setAlignment={setAlignment} />
+        <Quiz setAlignment={setAlignment} crewManifest={crewMembers} />
       ) : null}
 
       <Flex vertical>
