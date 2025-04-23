@@ -5,12 +5,14 @@ import {
   Button,
   Typography,
   Progress,
+  Image,
   Card,
   Space,
   Divider,
 } from "antd";
 import "antd/dist/reset.css"; // Import Ant Design styles
 import { ChainCodeAlignmentString } from "../services/chain-code";
+import { CrewManifest, CrewMember } from "../services/crew-manifest";
 
 const { Title, Text } = Typography;
 
@@ -107,8 +109,10 @@ enum Faction {
 // Main Quiz component using Ant Design
 function Quiz({
   setAlignment,
+  crewManifest,
 }: Readonly<{
   setAlignment: React.Dispatch<React.SetStateAction<string | undefined>>;
+  crewManifest: CrewManifest;
 }>) {
   // State to track the current question index
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -200,6 +204,29 @@ function Quiz({
     }
   };
 
+  const factionLeader = (): CrewMember => {
+    if (result == Faction.Resistance) {
+      return crewManifest
+        .getLeaders()
+        .filter(
+          (agent) => agent.alignment === ChainCodeAlignmentString.Light,
+        )[0];
+    } else if (result == Faction.Cause) {
+      return crewManifest
+        .getLeaders()
+        .filter(
+          (agent) => agent.alignment === ChainCodeAlignmentString.Neutral,
+        )[0];
+    } else if (result == Faction.FirstOrder) {
+      return crewManifest
+        .getLeaders()
+        .filter(
+          (agent) => agent.alignment === ChainCodeAlignmentString.Dark,
+        )[0];
+    }
+    return new CrewMember({});
+  };
+
   // Get the current question object
   const currentQuestion = quizData[currentQuestionIndex];
   // Calculate progress percentage
@@ -238,10 +265,20 @@ function Quiz({
               </Text>
             }
             extra={[
+              <Text key="leaderName">
+                Meet with your leader, {factionLeader().name},{" "}
+                {factionLeader().meetingLocation} at 6:30
+              </Text>,
+              <Image
+                src={factionLeader().image}
+                preview={false}
+                key="leaderPic"
+              />,
+              <Divider key="divider1" />,
               <Button type="primary" key="restart" onClick={restartQuiz}>
                 Take the Quiz Again
               </Button>,
-              <Divider key="divider" />,
+              <Divider key="divider2" />,
               <Button type="primary" key="save" onClick={saveAlignment}>
                 Confirm {result}
               </Button>,
