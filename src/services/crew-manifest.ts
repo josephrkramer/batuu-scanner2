@@ -116,7 +116,7 @@ export class CrewManifest {
         homeworld: "Cantonica",
         species: "Human",
         affiliation: undefined,
-        npcLocation: "You'll find Zilla at a place where many Smugglers exit.",
+        npcLocation: "You'll find Zilla nosing around the antiquities.",
         type: CrewMemberType.NPC,
         image: "./crew/zilla.jpg",
       }),
