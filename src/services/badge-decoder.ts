@@ -396,9 +396,9 @@ export class BadgeDecoder {
       new Badge({
         code: BadgeCode.D3_O9,
         name: "D3-O9",
-        quote: `"May the stars light your way!" --D3-O9`,
+        quote: `"Our paths are forever intertwined!" --D3-O9`,
         description: `Participated in an event and helped rescue D3-O9.`,
-        image: "./badge/gaya-mic.jpeg",
+        image: "./badge/d3_o9.jpeg",
         aztec: "./aztec/D3_O9.png",
       }),
     );
