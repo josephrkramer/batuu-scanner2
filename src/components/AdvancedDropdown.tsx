@@ -50,6 +50,7 @@ function AdvancedDropdown({
     console.log(e);
     chainCodeDecoder.reset();
     crateDecoder.reset();
+    setAlignment(undefined);
     message.success("Reset crate and chain code data");
   };
 
@@ -110,7 +111,7 @@ function AdvancedDropdown({
       label: (
         <Popconfirm
           title="New event"
-          description="This will reset your scanned crates and chain code. All your badges will remain. Are you want to reset for a new event?"
+          description="This will reset your scanned crates, chain code, and alignment. All your badges will remain. Do you want to reset for a new event?"
           onConfirm={confirmNewEvent}
           onCancel={cancel}
           okText="Yes"
@@ -125,7 +126,7 @@ function AdvancedDropdown({
       label: (
         <Popconfirm
           title="Reset all data"
-          description="This will reset ALL data in the datapad. Are you sure to reset all data?"
+          description="This will reset ALL data in the datapad. Are you sure you want to reset all data?"
           onConfirm={confirmReset}
           onCancel={cancel}
           okText="Yes"
@@ -140,7 +141,7 @@ function AdvancedDropdown({
       label: (
         <Popconfirm
           title="Toggle Admin Mode"
-          description="This will change base functionality of the app and is not intended for players. Are you sure want to continue?"
+          description="This will change base functionality of the app and is not intended for players. Are you sure you want to continue?"
           onConfirm={confirmAdmin}
           onCancel={cancel}
           okText="Yes"
@@ -164,7 +165,7 @@ function AdvancedDropdown({
       label: (
         <Popconfirm
           title="Experimental Functionality"
-          description="This is functionality under active development. Are you sure want to continue?"
+          description="This is functionality under active development. Are you sure you want to continue?"
           onConfirm={confirmExperimental}
           onCancel={cancel}
           okText="Yes"
