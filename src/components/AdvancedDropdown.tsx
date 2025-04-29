@@ -11,7 +11,6 @@ import { ChainCodeDecoder } from "../services/chain-code";
 import { BadgeDecoder } from "../services/badge-decoder";
 import { CrateDecoder } from "../services/crate-decoder";
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 function AdvancedDropdown({
   chainCodeDecoder,
@@ -70,6 +69,7 @@ function AdvancedDropdown({
     }
   };
 
+  /*
   const navigate = useNavigate();
   const confirmExperimental: PopconfirmProps["onConfirm"] = (e) => {
     console.log(e);
@@ -81,6 +81,7 @@ function AdvancedDropdown({
       message.error(`Access denied. Admin access required.`);
     }
   };
+  */
 
   useEffect(() => {
     if (
@@ -152,6 +153,15 @@ function AdvancedDropdown({
     {
       key: "4",
       label: (
+        <Button type="primary" onClick={resetQuiz}>
+          Quiz
+        </Button>
+      ),
+    },
+    /*
+    {
+      key: "5",
+      label: (
         <Popconfirm
           title="Experimental Functionality"
           description="This is functionality under active development. Are you sure want to continue?"
@@ -164,14 +174,7 @@ function AdvancedDropdown({
         </Popconfirm>
       ),
     },
-    {
-      key: "5",
-      label: (
-        <Button type="primary" onClick={resetQuiz}>
-          Quiz
-        </Button>
-      ),
-    },
+    */
   ];
 
   return (
