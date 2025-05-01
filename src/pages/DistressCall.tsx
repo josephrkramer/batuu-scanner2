@@ -6,9 +6,8 @@ type FieldType = {
   password?: string;
 };
 
-function PasswordCheck() {
-  //TODO: set password
-  const password = "password";
+function DistressCall() {
+  const password = "discretion";
 
   const navigate = useNavigate();
 
@@ -16,21 +15,40 @@ function PasswordCheck() {
     navigate("/");
   };
 
-  const [renderPasswordCheck, setRenderPasswordCheck] = useState(true);
-  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    console.log("Success:", values);
-    if (values.password?.toLocaleLowerCase() == password) {
-      console.log("PASSWORD CORRECT");
-      setRenderPasswordCheck(false);
-    } else {
-      console.log("PASSWORD INCORRECT");
-    }
-  };
-
   const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
     errorInfo,
   ) => {
     console.log("Failed:", errorInfo);
+    setErrorMessage("Password incorrect");
+  };
+
+  const [renderPasswordCheck, setRenderPasswordCheck] = useState(true);
+  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
+    console.log("Input:", values);
+    if (values.password?.toLocaleLowerCase() == password) {
+      console.log("PASSWORD CORRECT");
+      setRenderPasswordCheck(false);
+      //open new window to the hosted video
+      window.open(
+        "https://drive.google.com/file/d/1FpM-PTak5K9YkpmHCeE-YGS3QJ02oPGW/preview",
+        "_blank",
+        "noopener,noreferrer",
+      );
+      clearErrorMessage();
+      //send the current screen back to the datapad homepage
+      navigate("/");
+    } else {
+      onFinishFailed({
+        errorFields: [],
+        values: values,
+        outOfDate: false,
+      });
+    }
+  };
+  const { Text } = Typography;
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const clearErrorMessage = () => {
+    setErrorMessage(null);
   };
 
   if (renderPasswordCheck) {
@@ -63,6 +81,11 @@ function PasswordCheck() {
                 Submit
               </Button>
             </Form.Item>
+            {errorMessage && (
+              <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                <Text type="danger">{errorMessage}</Text>
+              </Form.Item>
+            )}
           </Form>
         </Card>
         <Button type="primary" size="large" onClick={() => navigateHome()}>
@@ -87,4 +110,4 @@ function PasswordCheck() {
   }
 }
 
-export default PasswordCheck;
+export default DistressCall;
