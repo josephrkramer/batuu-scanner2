@@ -7,8 +7,7 @@ type FieldType = {
 };
 
 function PasswordCheck() {
-  //TODO: set password
-  const password = "password";
+  const password = "discretion";
 
   const navigate = useNavigate();
 
