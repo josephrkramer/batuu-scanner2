@@ -6,7 +6,7 @@ type FieldType = {
   password?: string;
 };
 
-function PasswordCheck() {
+function DistressCall() {
   const password = "discretion";
 
   const navigate = useNavigate();
@@ -114,4 +114,4 @@ const clearErrorMessage = () => {
   }
 }
 
-export default PasswordCheck;
+export default DistressCall;
