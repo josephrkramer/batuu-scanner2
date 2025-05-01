@@ -1,4 +1,4 @@
-import { Button, Card, Flex, Form, FormProps, Input, Typography, Space } from "antd";
+import { Button, Card, Flex, Form, FormProps, Input, Typography } from "antd";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -38,20 +38,18 @@ function DistressCall() {
       //send the current screen back to the datapad homepage
       navigate("/");
     } else {
-        onFinishFailed({
-          errorFields: [],
-          values: values,
-          outOfDate: false
-        })
+      onFinishFailed({
+        errorFields: [],
+        values: values,
+        outOfDate: false,
+      });
     }
   };
-    const { Text } = Typography;
+  const { Text } = Typography;
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-const clearErrorMessage = () => {
+  const clearErrorMessage = () => {
     setErrorMessage(null);
-};
-  
-
+  };
 
   if (renderPasswordCheck) {
     return (
@@ -83,14 +81,12 @@ const clearErrorMessage = () => {
                 Submit
               </Button>
             </Form.Item>
-               {errorMessage && (
-                                    <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                                        <Text type="danger">{errorMessage}</Text>
-                                    </Form.Item>
-                                )}
+            {errorMessage && (
+              <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                <Text type="danger">{errorMessage}</Text>
+              </Form.Item>
+            )}
           </Form>
-         
-           
         </Card>
         <Button type="primary" size="large" onClick={() => navigateHome()}>
           Home
