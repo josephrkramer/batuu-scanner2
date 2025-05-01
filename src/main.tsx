@@ -5,6 +5,7 @@ import { HashRouter, Navigate, Route, Routes } from "react-router-dom";
 import DistressCall from "./pages/DistressCall.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
+  // Using HashRouter to get around GitHub Pages being the primary router for URL paths
   <HashRouter>
     <Routes>
       <Route path="/" element={<App />} />
