@@ -22,6 +22,14 @@ function PasswordCheck() {
     if (values.password?.toLocaleLowerCase() == password) {
       console.log("PASSWORD CORRECT");
       setRenderPasswordCheck(false);
+      //open new window to the hosted videp
+      window.open(
+        "https://drive.google.com/file/d/1FpM-PTak5K9YkpmHCeE-YGS3QJ02oPGW/preview",
+        "_blank",
+        "noopener,noreferrer",
+      );
+      //send the current screen back to the datapad homepage
+      navigate("/");
     } else {
       console.log("PASSWORD INCORRECT");
     }
