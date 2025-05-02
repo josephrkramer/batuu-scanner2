@@ -289,6 +289,19 @@ export class CrateDecoder {
       }),
     );
 
+    this.override(
+      new CrateContents({
+        code: "JA_X1",
+        contents: "Intel from Jax",
+        detailedDescription:
+          "Enro Vell is a wealthy and ruthless artifact collector from the planet Serenno.",
+        locationDescription: "Given by Jax",
+        type: CrateType.Relic,
+        image: "./jax.jpg",
+        unlocked: true,
+      }),
+    );
+
     //Override chosen scanned crates loaded from local storage
     this.multipleChoiceScannedCrates.forEach((crate: CrateContents) => {
       this.override(crate);

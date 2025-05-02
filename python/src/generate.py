@@ -176,6 +176,7 @@ class AztecGenerator:
         "AB_MN": "AB_MN",
         "IJ_OP": "IJ_OP",
         "CAST04": "CAST04",
+        "JA_X1": "JA_X1",
     }
 
     @classmethod
