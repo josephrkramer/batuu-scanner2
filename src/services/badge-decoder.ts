@@ -802,6 +802,14 @@ export class BadgeDecoder {
       displayArray.push(...this.newBadgesEarned);
     }
     displayArray.push(badge);
+    // Display Jaynessa video if D3_09 badge is earned
+    if (badge.code === BadgeCode.D3_O9) {
+      window.open(
+        "https://drive.google.com/file/d/1cm8FeesCoXS2LBfbtminY4rer24lxm1y/preview",
+        "_blank",
+        "noopener,noreferrer",
+      );
+    }
     this.setNewBadgesEarned(displayArray);
   }
 
