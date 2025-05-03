@@ -222,6 +222,8 @@ export class CrewManifest {
         affiliation: "Self",
         type: CrewMemberType.NPC,
         image: "./crew/jax.png",
+        npcLocation:
+          "You may find Jax trying to make a deal among the rocks at the edge of the outpost, across from a troupe of droids and across the way from a crator.",
       }),
     );
     this.addCrewMember(
