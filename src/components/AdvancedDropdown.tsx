@@ -50,7 +50,6 @@ function AdvancedDropdown({
     console.log(e);
     chainCodeDecoder.reset();
     crateDecoder.reset();
-    setAlignment(undefined);
     message.success("Reset crate and chain code data");
   };
 
