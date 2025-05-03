@@ -239,7 +239,7 @@ export class CrewManifest {
         species: "Human",
         affiliation: "New Republic",
         type: CrewMemberType.NPC,
-        image: "./badge/bounty.jpeg",
+        image: "./crew/tala.jpg",
         npcLocation:
           "You may find Tala near the marketplace studying the locals.",
       }),
