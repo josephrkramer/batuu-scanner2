@@ -30,6 +30,8 @@
     "react-router-dom": "^7.6.0"
   },
   "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@types/react": "^19.1.4",
     "@types/react-dom": "^19.1.5",
@@ -46,6 +48,6 @@
     "prettier": "^3.5.3",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
-    "vitest": "^3.0.4"
+    "vitest": "^3.1.4"
   }
 }
