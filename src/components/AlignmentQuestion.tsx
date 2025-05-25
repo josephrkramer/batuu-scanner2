@@ -9,6 +9,7 @@ import {
 } from "antd";
 import Title from "antd/es/typography/Title";
 import { CrewManifest } from "../services/crew-manifest";
+import { trackEvent } from "../services/analytics";
 
 function AlignmentQuestion({
   crewManifest,
@@ -59,6 +60,11 @@ function childButtons(
             key={crewMember.name}
             onClick={() => {
               setAlignment(crewMember.alignment);
+              trackEvent(
+                "alignment_answered",
+                "Engagement",
+                `Alignment Question Answered - ${crewMember.name}`,
+              );
             }}
           >
             Select
