@@ -1,6 +1,7 @@
 import { Button, Card, Flex, Form, FormProps, Input, Typography } from "antd";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { trackEvent } from "../services/analytics";
 
 type FieldType = {
   password?: string;
@@ -20,6 +21,11 @@ function DistressCall() {
   ) => {
     console.log("Failed:", errorInfo);
     setErrorMessage("Password incorrect");
+    trackEvent(
+      "distress_call_form_error",
+      "FormInteraction",
+      `Distress Call Form Submission Failed - ${JSON.stringify(errorInfo.errorFields)}`,
+    );
   };
 
   const [renderPasswordCheck, setRenderPasswordCheck] = useState(true);
@@ -27,6 +33,11 @@ function DistressCall() {
     console.log("Input:", values);
     if (values.password?.toLocaleLowerCase() == password) {
       console.log("PASSWORD CORRECT");
+      trackEvent(
+        "distress_call_success",
+        "Engagement",
+        "Distress Call Password Correct",
+      );
       setRenderPasswordCheck(false);
       //open new window to the hosted video
       window.open(
@@ -38,6 +49,11 @@ function DistressCall() {
       //send the current screen back to the datapad homepage
       navigate("/");
     } else {
+      trackEvent(
+        "distress_call_failed",
+        "Engagement",
+        "Distress Call Password Incorrect",
+      );
       onFinishFailed({
         errorFields: [],
         values: values,
