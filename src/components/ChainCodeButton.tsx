@@ -1,4 +1,5 @@
 import { Button } from "antd";
+import { trackEvent } from "../services/analytics";
 
 function ChainCodeButton({
   setRenderChainCodeValue,
@@ -14,6 +15,11 @@ function ChainCodeButton({
       onClick={() => {
         setRenderAlignmentQuestion(true);
         setRenderChainCodeValue(true);
+        trackEvent(
+          "chain_code_button_click",
+          "Clicks",
+          "ChainCodeButton Clicked - Upload to Rayk",
+        );
       }}
     >
       Upload chain code to Rayk
