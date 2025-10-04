@@ -26,13 +26,13 @@
     "dayjs": "^1.11.18",
     "html5-qrcode": "^2.3.8",
     "react": "^19.0.0",
-    "react-dom": "^19.1.1",
+    "react-dom": "^19.2.0",
     "react-router-dom": "^7.9.3"
   },
   "devDependencies": {
     "@testing-library/react": "^16.3.0",
     "@types/react": "^19.1.13",
-    "@types/react-dom": "^19.1.9",
+    "@types/react-dom": "^19.2.0",
     "@typescript-eslint/eslint-plugin": "^8.44.0",
     "@typescript-eslint/parser": "^8.42.0",
     "@vitejs/plugin-react": "^5.0.4",
