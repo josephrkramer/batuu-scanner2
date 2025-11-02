@@ -22,7 +22,7 @@
   "homepage": "https://github.com/josephrkramer/batuu-scanner2",
   "dependencies": {
     "@ant-design/icons": "^6.1.0",
-    "antd": "^5.27.6",
+    "antd": "^5.28.0",
     "dayjs": "^1.11.19",
     "html5-qrcode": "^2.3.8",
     "react": "^19.0.0",
@@ -36,7 +36,7 @@
     "@typescript-eslint/eslint-plugin": "^8.46.2",
     "@typescript-eslint/parser": "^8.46.1",
     "@vitejs/plugin-react": "^5.1.0",
-    "@vitest/coverage-v8": "^3.2.4",
+    "@vitest/coverage-v8": "^4.0.6",
     "eslint": "^9.39.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-hooks": "^7.0.1",
@@ -46,6 +46,6 @@
     "prettier": "^3.6.2",
     "typescript": "^5.9.3",
     "vite": "^7.1.12",
-    "vitest": "^3.0.4"
+    "vitest": "^4.0.6"
   }
 }
