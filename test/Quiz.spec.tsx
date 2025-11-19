@@ -1,9 +1,9 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { vi } from 'vitest';
-import Quiz from '../src/components/Quiz';
-import { CrewManifest, CrewMember } from '../src/services/crew-manifest';
-import { ChainCodeAlignmentString } from '../src/services/chain-code';
+import { render, screen, fireEvent } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import { vi } from "vitest";
+import Quiz from "../src/components/Quiz";
+import { CrewManifest, CrewMember } from "../src/services/crew-manifest";
+import { ChainCodeAlignmentString } from "../src/services/chain-code";
 
 // Mock quizData if it's not already exported from Quiz.tsx
 // For now, assuming quizData is internal and we test its effects.
@@ -89,104 +89,183 @@ const quizData = [
   },
 ];
 
-
 // Mock CrewManifest
 const mockCrewManifest = new CrewManifest();
 // Clear existing members and add specific ones for testing
 mockCrewManifest.crew.set("AARC Agents", []); // Clear existing leaders
-mockCrewManifest.addCrewMember(new CrewMember({
-  name: "Vesper Grey (Mock)",
-  alignment: ChainCodeAlignmentString.Light,
-  image: "vesper.png",
-  meetingLocation: "Mock Vesper Location",
-  type: "AARC Agents"
-}));
-mockCrewManifest.addCrewMember(new CrewMember({
-  name: "Lias Orion (Mock)",
-  alignment: ChainCodeAlignmentString.Neutral,
-  image: "lias.jpg",
-  meetingLocation: "Mock Lias Location",
-  type: "AARC Agents"
-}));
-mockCrewManifest.addCrewMember(new CrewMember({
-  name: "Evant Verrick (Mock)",
-  alignment: ChainCodeAlignmentString.Dark,
-  image: "evant.jpg",
-  meetingLocation: "Mock Evant Location",
-  type: "AARC Agents"
-}));
+mockCrewManifest.addCrewMember(
+  new CrewMember({
+    name: "Vesper Grey (Mock)",
+    alignment: ChainCodeAlignmentString.Light,
+    image: "vesper.png",
+    meetingLocation: "Mock Vesper Location",
+    type: "AARC Agents",
+  }),
+);
+mockCrewManifest.addCrewMember(
+  new CrewMember({
+    name: "Lias Orion (Mock)",
+    alignment: ChainCodeAlignmentString.Neutral,
+    image: "lias.jpg",
+    meetingLocation: "Mock Lias Location",
+    type: "AARC Agents",
+  }),
+);
+mockCrewManifest.addCrewMember(
+  new CrewMember({
+    name: "Evant Verrick (Mock)",
+    alignment: ChainCodeAlignmentString.Dark,
+    image: "evant.jpg",
+    meetingLocation: "Mock Evant Location",
+    type: "AARC Agents",
+  }),
+);
 
-describe('Quiz Component', () => {
+describe("Quiz Component", () => {
   let mockSetAlignment: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
     mockSetAlignment = vi.fn();
   });
 
-  describe('Initial Rendering', () => {
-    it('should display the first question and initial progress', () => {
-      render(<Quiz setAlignment={mockSetAlignment} crewManifest={mockCrewManifest} />);
-      
-      expect(screen.getByText(`Question 1/${quizData.length}: ${quizData[0].question}`)).toBeInTheDocument();
-      quizData[0].answers.forEach(answer => {
+  describe("Initial Rendering", () => {
+    it("should display the first question and initial progress", () => {
+      render(
+        <Quiz
+          setAlignment={mockSetAlignment}
+          crewManifest={mockCrewManifest}
+        />,
+      );
+
+      expect(
+        screen.getByText(
+          `Question 1/${quizData.length}: ${quizData[0].question}`,
+        ),
+      ).toBeInTheDocument();
+      quizData[0].answers.forEach((answer) => {
         expect(screen.getByText(answer.text)).toBeInTheDocument();
       });
       const expectedInitialProgress = Math.round((1 / quizData.length) * 100);
-      expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', expectedInitialProgress.toString());
+      expect(screen.getByRole("progressbar")).toHaveAttribute(
+        "aria-valuenow",
+        expectedInitialProgress.toString(),
+      );
     });
   });
 
-  describe('Answering Questions', () => {
-    it('should update scores and display the correct result when Resistance wins', () => {
-      render(<Quiz setAlignment={mockSetAlignment} crewManifest={mockCrewManifest} />);
+  describe("Answering Questions", () => {
+    it("should update scores and display the correct result when Resistance wins", () => {
+      render(
+        <Quiz
+          setAlignment={mockSetAlignment}
+          crewManifest={mockCrewManifest}
+        />,
+      );
       fireEvent.click(screen.getByText(quizData[0].answers[2].text));
       fireEvent.click(screen.getByText(quizData[1].answers[0].text));
       fireEvent.click(screen.getByText(quizData[2].answers[1].text));
       fireEvent.click(screen.getByText(quizData[3].answers[2].text));
       fireEvent.click(screen.getByText(quizData[4].answers[0].text));
-      expect(screen.getByText('The Sorting Helmet has decided!')).toBeInTheDocument();
-      expect(screen.getByText('You belong with: The Resistance')).toBeInTheDocument();
-      const resistanceLeader = mockCrewManifest.getLeaders().find(leader => leader.alignment === ChainCodeAlignmentString.Light);
-      expect(screen.getByText(`Meet with your leader, ${resistanceLeader!.name}, ${resistanceLeader!.meetingLocation} at 6:30`)).toBeInTheDocument();
-      expect(screen.getByRole('img', { name: '' })).toHaveAttribute('src', resistanceLeader!.image);
+      expect(
+        screen.getByText("The Sorting Helmet has decided!"),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText("You belong with: The Resistance"),
+      ).toBeInTheDocument();
+      const resistanceLeader = mockCrewManifest
+        .getLeaders()
+        .find((leader) => leader.alignment === ChainCodeAlignmentString.Light);
+      expect(
+        screen.getByText(
+          `Meet with your leader, ${resistanceLeader!.name}, ${resistanceLeader!.meetingLocation} at 6:30`,
+        ),
+      ).toBeInTheDocument();
+      expect(screen.getByRole("img", { name: "" })).toHaveAttribute(
+        "src",
+        resistanceLeader!.image,
+      );
     });
 
-    it('should update scores and display the correct result when The Cause wins', () => {
-      render(<Quiz setAlignment={mockSetAlignment} crewManifest={mockCrewManifest} />);
+    it("should update scores and display the correct result when The Cause wins", () => {
+      render(
+        <Quiz
+          setAlignment={mockSetAlignment}
+          crewManifest={mockCrewManifest}
+        />,
+      );
       fireEvent.click(screen.getByText(quizData[0].answers[0].text));
       fireEvent.click(screen.getByText(quizData[1].answers[1].text));
       fireEvent.click(screen.getByText(quizData[2].answers[2].text));
       fireEvent.click(screen.getByText(quizData[3].answers[0].text));
       fireEvent.click(screen.getByText(quizData[4].answers[1].text));
-      expect(screen.getByText('You belong with: The Cause')).toBeInTheDocument();
-      const causeLeader = mockCrewManifest.getLeaders().find(leader => leader.alignment === ChainCodeAlignmentString.Neutral);
-      expect(screen.getByText(`Meet with your leader, ${causeLeader!.name}, ${causeLeader!.meetingLocation} at 6:30`)).toBeInTheDocument();
-      expect(screen.getByRole('img', { name: '' })).toHaveAttribute('src', causeLeader!.image);
+      expect(
+        screen.getByText("You belong with: The Cause"),
+      ).toBeInTheDocument();
+      const causeLeader = mockCrewManifest
+        .getLeaders()
+        .find(
+          (leader) => leader.alignment === ChainCodeAlignmentString.Neutral,
+        );
+      expect(
+        screen.getByText(
+          `Meet with your leader, ${causeLeader!.name}, ${causeLeader!.meetingLocation} at 6:30`,
+        ),
+      ).toBeInTheDocument();
+      expect(screen.getByRole("img", { name: "" })).toHaveAttribute(
+        "src",
+        causeLeader!.image,
+      );
     });
 
-    it('should update scores and display the correct result when The First Order wins', () => {
-      render(<Quiz setAlignment={mockSetAlignment} crewManifest={mockCrewManifest} />);
+    it("should update scores and display the correct result when The First Order wins", () => {
+      render(
+        <Quiz
+          setAlignment={mockSetAlignment}
+          crewManifest={mockCrewManifest}
+        />,
+      );
       fireEvent.click(screen.getByText(quizData[0].answers[1].text));
       fireEvent.click(screen.getByText(quizData[1].answers[2].text));
       fireEvent.click(screen.getByText(quizData[2].answers[0].text));
       fireEvent.click(screen.getByText(quizData[3].answers[1].text));
       fireEvent.click(screen.getByText(quizData[4].answers[2].text));
-      expect(screen.getByText('You belong with: The First Order')).toBeInTheDocument();
-      const firstOrderLeader = mockCrewManifest.getLeaders().find(leader => leader.alignment === ChainCodeAlignmentString.Dark);
-      expect(screen.getByText(`Meet with your leader, ${firstOrderLeader!.name}, ${firstOrderLeader!.meetingLocation} at 6:30`)).toBeInTheDocument();
-      expect(screen.getByRole('img', { name: '' })).toHaveAttribute('src', firstOrderLeader!.image);
+      expect(
+        screen.getByText("You belong with: The First Order"),
+      ).toBeInTheDocument();
+      const firstOrderLeader = mockCrewManifest
+        .getLeaders()
+        .find((leader) => leader.alignment === ChainCodeAlignmentString.Dark);
+      expect(
+        screen.getByText(
+          `Meet with your leader, ${firstOrderLeader!.name}, ${firstOrderLeader!.meetingLocation} at 6:30`,
+        ),
+      ).toBeInTheDocument();
+      expect(screen.getByRole("img", { name: "" })).toHaveAttribute(
+        "src",
+        firstOrderLeader!.image,
+      );
     });
 
-    it('should correctly update progress bar as questions are answered', () => {
-      render(<Quiz setAlignment={mockSetAlignment} crewManifest={mockCrewManifest} />);
+    it("should correctly update progress bar as questions are answered", () => {
+      render(
+        <Quiz
+          setAlignment={mockSetAlignment}
+          crewManifest={mockCrewManifest}
+        />,
+      );
       for (let i = 0; i < quizData.length; i++) {
         const questionNumber = i + 1;
-        const expectedProgress = Math.round((questionNumber / quizData.length) * 100);
-        expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', expectedProgress.toString());
+        const expectedProgress = Math.round(
+          (questionNumber / quizData.length) * 100,
+        );
+        expect(screen.getByRole("progressbar")).toHaveAttribute(
+          "aria-valuenow",
+          expectedProgress.toString(),
+        );
         if (questionNumber <= quizData.length) {
-            const questionText = `Question ${questionNumber}/${quizData.length}: ${quizData[i].question}`;
-            expect(screen.getByText(questionText)).toBeInTheDocument();
-            fireEvent.click(screen.getByText(quizData[i].answers[0].text));
+          const questionText = `Question ${questionNumber}/${quizData.length}: ${quizData[i].question}`;
+          expect(screen.getByText(questionText)).toBeInTheDocument();
+          fireEvent.click(screen.getByText(quizData[i].answers[0].text));
         }
       }
     });
@@ -200,61 +279,112 @@ describe('Quiz Component', () => {
   });
   */
 
-  describe('Restarting the Quiz', () => {
-    it('should reset to the first question, clear scores, and set quizComplete to false', () => {
-      render(<Quiz setAlignment={mockSetAlignment} crewManifest={mockCrewManifest} />);
-      quizData.forEach(q => {
-        fireEvent.click(screen.getByText(q.answers[0].text)); 
+  describe("Restarting the Quiz", () => {
+    it("should reset to the first question, clear scores, and set quizComplete to false", () => {
+      render(
+        <Quiz
+          setAlignment={mockSetAlignment}
+          crewManifest={mockCrewManifest}
+        />,
+      );
+      quizData.forEach((q) => {
+        fireEvent.click(screen.getByText(q.answers[0].text));
       });
-      expect(screen.getByText('The Sorting Helmet has decided!')).toBeInTheDocument();
-      fireEvent.click(screen.getByRole('button', { name: 'Take the Quiz Again' }));
-      expect(screen.getByText(`Question 1/${quizData.length}: ${quizData[0].question}`)).toBeInTheDocument();
+      expect(
+        screen.getByText("The Sorting Helmet has decided!"),
+      ).toBeInTheDocument();
+      fireEvent.click(
+        screen.getByRole("button", { name: "Take the Quiz Again" }),
+      );
+      expect(
+        screen.getByText(
+          `Question 1/${quizData.length}: ${quizData[0].question}`,
+        ),
+      ).toBeInTheDocument();
       const expectedInitialProgress = Math.round((1 / quizData.length) * 100);
-      expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', expectedInitialProgress.toString());
+      expect(screen.getByRole("progressbar")).toHaveAttribute(
+        "aria-valuenow",
+        expectedInitialProgress.toString(),
+      );
       fireEvent.click(screen.getByText(quizData[0].answers[1].text));
       fireEvent.click(screen.getByText(quizData[1].answers[2].text));
       fireEvent.click(screen.getByText(quizData[2].answers[0].text));
       fireEvent.click(screen.getByText(quizData[3].answers[1].text));
       fireEvent.click(screen.getByText(quizData[4].answers[2].text));
-      expect(screen.getByText('You belong with: The First Order')).toBeInTheDocument();
+      expect(
+        screen.getByText("You belong with: The First Order"),
+      ).toBeInTheDocument();
     });
   });
 
-  describe('Saving Alignment', () => {
-    it('should call setAlignment with Neutral when Cause is confirmed', () => {
-      render(<Quiz setAlignment={mockSetAlignment} crewManifest={mockCrewManifest} />);
-      fireEvent.click(screen.getByText(quizData[0].answers[0].text)); 
-      fireEvent.click(screen.getByText(quizData[1].answers[1].text)); 
-      fireEvent.click(screen.getByText(quizData[2].answers[2].text)); 
-      fireEvent.click(screen.getByText(quizData[3].answers[0].text)); 
-      fireEvent.click(screen.getByText(quizData[4].answers[1].text)); 
-      expect(screen.getByText('You belong with: The Cause')).toBeInTheDocument();
-      fireEvent.click(screen.getByRole('button', { name: 'Confirm The Cause' }));
-      expect(mockSetAlignment).toHaveBeenCalledWith(ChainCodeAlignmentString.Neutral);
+  describe("Saving Alignment", () => {
+    it("should call setAlignment with Neutral when Cause is confirmed", () => {
+      render(
+        <Quiz
+          setAlignment={mockSetAlignment}
+          crewManifest={mockCrewManifest}
+        />,
+      );
+      fireEvent.click(screen.getByText(quizData[0].answers[0].text));
+      fireEvent.click(screen.getByText(quizData[1].answers[1].text));
+      fireEvent.click(screen.getByText(quizData[2].answers[2].text));
+      fireEvent.click(screen.getByText(quizData[3].answers[0].text));
+      fireEvent.click(screen.getByText(quizData[4].answers[1].text));
+      expect(
+        screen.getByText("You belong with: The Cause"),
+      ).toBeInTheDocument();
+      fireEvent.click(
+        screen.getByRole("button", { name: "Confirm The Cause" }),
+      );
+      expect(mockSetAlignment).toHaveBeenCalledWith(
+        ChainCodeAlignmentString.Neutral,
+      );
     });
 
-    it('should call setAlignment with Dark when First Order is confirmed', () => {
-      render(<Quiz setAlignment={mockSetAlignment} crewManifest={mockCrewManifest} />);
-      fireEvent.click(screen.getByText(quizData[0].answers[1].text)); 
-      fireEvent.click(screen.getByText(quizData[1].answers[2].text)); 
-      fireEvent.click(screen.getByText(quizData[2].answers[0].text)); 
-      fireEvent.click(screen.getByText(quizData[3].answers[1].text)); 
-      fireEvent.click(screen.getByText(quizData[4].answers[2].text)); 
-      expect(screen.getByText('You belong with: The First Order')).toBeInTheDocument();
-      fireEvent.click(screen.getByRole('button', { name: 'Confirm The First Order' }));
-      expect(mockSetAlignment).toHaveBeenCalledWith(ChainCodeAlignmentString.Dark);
+    it("should call setAlignment with Dark when First Order is confirmed", () => {
+      render(
+        <Quiz
+          setAlignment={mockSetAlignment}
+          crewManifest={mockCrewManifest}
+        />,
+      );
+      fireEvent.click(screen.getByText(quizData[0].answers[1].text));
+      fireEvent.click(screen.getByText(quizData[1].answers[2].text));
+      fireEvent.click(screen.getByText(quizData[2].answers[0].text));
+      fireEvent.click(screen.getByText(quizData[3].answers[1].text));
+      fireEvent.click(screen.getByText(quizData[4].answers[2].text));
+      expect(
+        screen.getByText("You belong with: The First Order"),
+      ).toBeInTheDocument();
+      fireEvent.click(
+        screen.getByRole("button", { name: "Confirm The First Order" }),
+      );
+      expect(mockSetAlignment).toHaveBeenCalledWith(
+        ChainCodeAlignmentString.Dark,
+      );
     });
 
-    it('should call setAlignment with Light when Resistance is confirmed', () => {
-      render(<Quiz setAlignment={mockSetAlignment} crewManifest={mockCrewManifest} />);
-      fireEvent.click(screen.getByText(quizData[0].answers[2].text)); 
-      fireEvent.click(screen.getByText(quizData[1].answers[0].text)); 
-      fireEvent.click(screen.getByText(quizData[2].answers[1].text)); 
-      fireEvent.click(screen.getByText(quizData[3].answers[2].text)); 
-      fireEvent.click(screen.getByText(quizData[4].answers[0].text)); 
-      expect(screen.getByText('You belong with: The Resistance')).toBeInTheDocument();
-      fireEvent.click(screen.getByRole('button', { name: 'Confirm The Resistance' }));
-      expect(mockSetAlignment).toHaveBeenCalledWith(ChainCodeAlignmentString.Light);
+    it("should call setAlignment with Light when Resistance is confirmed", () => {
+      render(
+        <Quiz
+          setAlignment={mockSetAlignment}
+          crewManifest={mockCrewManifest}
+        />,
+      );
+      fireEvent.click(screen.getByText(quizData[0].answers[2].text));
+      fireEvent.click(screen.getByText(quizData[1].answers[0].text));
+      fireEvent.click(screen.getByText(quizData[2].answers[1].text));
+      fireEvent.click(screen.getByText(quizData[3].answers[2].text));
+      fireEvent.click(screen.getByText(quizData[4].answers[0].text));
+      expect(
+        screen.getByText("You belong with: The Resistance"),
+      ).toBeInTheDocument();
+      fireEvent.click(
+        screen.getByRole("button", { name: "Confirm The Resistance" }),
+      );
+      expect(mockSetAlignment).toHaveBeenCalledWith(
+        ChainCodeAlignmentString.Light,
+      );
     });
   });
 });
