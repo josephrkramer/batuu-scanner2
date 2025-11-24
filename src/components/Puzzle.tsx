@@ -1,4 +1,5 @@
 import ReactGodot from "../../public/react-godot";
+import { trackEvent } from "../services/analytics";
 
 function Puzzle({
   renderPuzzle,
@@ -17,6 +18,11 @@ function Puzzle({
         height={window.innerHeight}
         onExitFunc={() => {
           setPuzzleSolved(true);
+          trackEvent(
+            "puzzle_completed",
+            "Engagement",
+            "Puzzle Completed - Coolant Stabilizer",
+          );
         }}
       />
     );
