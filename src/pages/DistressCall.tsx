@@ -42,6 +42,7 @@ function DistressCall() {
         errorFields: [],
         values: values,
         outOfDate: false,
+        message: "",
       });
     }
   };
