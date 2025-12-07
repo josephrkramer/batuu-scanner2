@@ -74,9 +74,10 @@ export default function HolocronReveal() {
                 scene.add(directionalLight);
 
                 const loader = new THREE.GLTFLoader();
-                loader.load('/assets/holocron/x-wing.glb', (gltf: any) => {
-                    gltf.scene.scale.set(0.5, 0.5, 0.5);
-                    gltf.scene.position.set(0, -0.4, 0);
+                loader.load('/assets/holocron/ahsoka.glb', (gltf: any) => {
+                    gltf.scene.scale.set(0.001, 0.001, 0.001);
+                    gltf.scene.position.set(0, 0, 0);
+                    gltf.scene.rotation.set(-0.25, 0, 0);
                     anchor.group.add(gltf.scene);
                 });
 
