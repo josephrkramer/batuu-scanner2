@@ -4,6 +4,10 @@ import "./App.css";
 import Logo from "./components/Logo";
 import Crate from "./components/Crate";
 import {
+  ScanOutlined,
+  ToolOutlined
+} from '@ant-design/icons';
+import {
   CrateDecoder,
   CrateContents,
   CrateType,
@@ -451,15 +455,29 @@ function App() {
           >
             Dossiers
           </Button>
-          {admin ? (
-            <Button
-              type="primary"
-              size="large"
-              onClick={() => navigate("/holocron")}
-            >
-              Holocron Reveal
-            </Button>
-          ) : null}
+          {admin && (
+            <>
+              <Button
+                type="primary"
+                size="large"
+                icon={<ScanOutlined />}
+                onClick={() => navigate('/holocron')}
+                style={{ height: 'auto', padding: '10px' }}
+              >
+                HOLOCRON REVEAL
+              </Button>
+
+              <Button
+                type="primary"
+                size="large"
+                icon={<ToolOutlined />}
+                onClick={() => navigate('/compiler')}
+                style={{ borderColor: 'orange', height: 'auto', padding: '10px' }}
+              >
+                SCANNER COMPILER
+              </Button>
+            </>
+          )}
           {/*
           //Uncomment if you want to restore the Chain Code Functionality
           <ChainCodeButton
