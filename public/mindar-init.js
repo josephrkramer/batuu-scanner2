@@ -1,0 +1,10 @@
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { MindARThree } from 'mind-ar/mindar-image-three.prod.js';
+
+// Patch global scope for React component access
+window.THREE = { ...THREE };
+window.THREE.GLTFLoader = GLTFLoader;
+window.MINDAR = { IMAGE: { MindARThree } };
+
+console.log("MindAR and Three.js initialized globally via module script.");

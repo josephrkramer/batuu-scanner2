@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./App.css";
 import Logo from "./components/Logo";
 import Crate from "./components/Crate";
@@ -41,6 +42,7 @@ import D3O9Button from "./components/D3O9Button";
 import Quiz from "./components/Quiz";
 
 function App() {
+  const navigate = useNavigate();
   //read parameters from the url
   const queryString = window.location.search;
   console.log(queryString);
@@ -449,6 +451,15 @@ function App() {
           >
             Dossiers
           </Button>
+          {admin ? (
+            <Button
+              type="primary"
+              size="large"
+              onClick={() => navigate("/holocron")}
+            >
+              Holocron Reveal
+            </Button>
+          ) : null}
           {/*
           //Uncomment if you want to restore the Chain Code Functionality
           <ChainCodeButton
