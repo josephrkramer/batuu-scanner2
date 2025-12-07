@@ -49,7 +49,9 @@ export default function HolocronReveal() {
 
                 const mindarThree = new MindARThree({
                     container: containerRef.current,
-                    imageTargetSrc: '/assets/holocron/card.mind',
+                    imageTargetSrc: '/assets/holocron/holocron.mind',
+                    filterMinCF: 0.0001,
+                    filterBeta: 0.001,
                     uiLoading: "no",
                     uiScanning: "no",
                     uiError: "no",
@@ -63,9 +65,17 @@ export default function HolocronReveal() {
 
                 const anchor = mindarThree.addAnchor(0);
 
+                // Add lighting
+                const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
+                scene.add(light);
+
+                const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+                directionalLight.position.set(0, 5, 0); // Top-down
+                scene.add(directionalLight);
+
                 const loader = new THREE.GLTFLoader();
-                loader.load('/assets/holocron/scene.gltf', (gltf: any) => {
-                    gltf.scene.scale.set(0.1, 0.1, 0.1);
+                loader.load('/assets/holocron/x-wing.glb', (gltf: any) => {
+                    gltf.scene.scale.set(0.5, 0.5, 0.5);
                     gltf.scene.position.set(0, -0.4, 0);
                     anchor.group.add(gltf.scene);
                 });
