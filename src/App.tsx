@@ -3,10 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./App.css";
 import Logo from "./components/Logo";
 import Crate from "./components/Crate";
-import {
-  ScanOutlined,
-  ToolOutlined
-} from '@ant-design/icons';
+import { ScanOutlined, ToolOutlined } from "@ant-design/icons";
 import {
   CrateDecoder,
   CrateContents,
@@ -461,8 +458,8 @@ function App() {
                 type="primary"
                 size="large"
                 icon={<ScanOutlined />}
-                onClick={() => navigate('/holocron')}
-                style={{ height: 'auto', padding: '10px' }}
+                onClick={() => navigate("/holocron")}
+                style={{ height: "auto", padding: "10px" }}
               >
                 HOLOCRON REVEAL
               </Button>
@@ -471,8 +468,12 @@ function App() {
                 type="primary"
                 size="large"
                 icon={<ToolOutlined />}
-                onClick={() => navigate('/compiler')}
-                style={{ borderColor: 'orange', height: 'auto', padding: '10px' }}
+                onClick={() => navigate("/compiler")}
+                style={{
+                  borderColor: "orange",
+                  height: "auto",
+                  padding: "10px",
+                }}
               >
                 SCANNER COMPILER
               </Button>

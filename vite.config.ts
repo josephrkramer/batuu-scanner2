@@ -22,7 +22,6 @@ export default defineConfig({
       "**/scratch/**",
       //'./scratch/**'
     ],
-
   },
   build: {
     rollupOptions: {

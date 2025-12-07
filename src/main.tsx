@@ -4,7 +4,7 @@ import "./index.css";
 import { HashRouter, Navigate, Route, Routes } from "react-router-dom";
 import DistressCall from "./pages/DistressCall.tsx";
 import HolocronReveal from "./pages/HolocronReveal.tsx";
-import MindARCompiler from './pages/MindARCompiler.tsx';
+import MindARCompiler from "./pages/MindARCompiler.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   // Using HashRouter to get around GitHub Pages being the primary router for URL paths

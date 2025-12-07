@@ -163,11 +163,7 @@ function AdvancedDropdown({
     },
     {
       key: "5",
-      label: (
-        <Button onClick={() => setIsCreditsOpen(true)}>
-          Credits
-        </Button>
-      ),
+      label: <Button onClick={() => setIsCreditsOpen(true)}>Credits</Button>,
     },
     /*
     {
@@ -202,17 +198,46 @@ function AdvancedDropdown({
         footer={[
           <Button key="close" onClick={() => setIsCreditsOpen(false)}>
             Close
-          </Button>
+          </Button>,
         ]}
       >
         <p>
-          "Ahsoka" (<a href="https://skfb.ly/6UAvY" target="_blank" rel="noopener noreferrer">https://skfb.ly/6UAvY</a>)
-          by inkrose is licensed under Creative Commons Attribution
-          (<a href="http://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">http://creativecommons.org/licenses/by/4.0/</a>).
+          "Ahsoka" (
+          <a
+            href="https://skfb.ly/6UAvY"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            https://skfb.ly/6UAvY
+          </a>
+          ) by inkrose is licensed under Creative Commons Attribution (
+          <a
+            href="http://creativecommons.org/licenses/by/4.0/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            http://creativecommons.org/licenses/by/4.0/
+          </a>
+          ).
         </p>
         <p>
-          x-wing by Alberto Calvo [CC-BY] (<a href="https://creativecommons.org/licenses/by/3.0/" target="_blank" rel="noopener noreferrer">https://creativecommons.org/licenses/by/3.0/</a>)
-          via Poly Pizza (<a href="https://poly.pizza/m/d6Xadlg51aC" target="_blank" rel="noopener noreferrer">https://poly.pizza/m/d6Xadlg51aC</a>)
+          x-wing by Alberto Calvo [CC-BY] (
+          <a
+            href="https://creativecommons.org/licenses/by/3.0/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            https://creativecommons.org/licenses/by/3.0/
+          </a>
+          ) via Poly Pizza (
+          <a
+            href="https://poly.pizza/m/d6Xadlg51aC"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            https://poly.pizza/m/d6Xadlg51aC
+          </a>
+          )
         </p>
       </Modal>
     </>
