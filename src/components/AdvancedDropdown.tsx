@@ -212,11 +212,11 @@ function AdvancedDropdown({
           </a>
           ) by inkrose is licensed under Creative Commons Attribution (
           <a
-            href="http://creativecommons.org/licenses/by/4.0/"
+            href="https://creativecommons.org/licenses/by/4.0/"
             target="_blank"
             rel="noopener noreferrer"
           >
-            http://creativecommons.org/licenses/by/4.0/
+            https://creativecommons.org/licenses/by/4.0/
           </a>
           ).
         </p>
