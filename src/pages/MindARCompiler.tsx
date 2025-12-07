@@ -23,10 +23,13 @@ const MindARCompiler = () => {
       }
     };
 
-    const interval = setInterval(checkReady, 500);
-    checkReady();
+    if (window.MINDAR?.IMAGE?.Compiler) {
+      checkReady();
+    } else {
+      window.addEventListener("mindar-ready", checkReady);
+    }
 
-    return () => clearInterval(interval);
+    return () => window.removeEventListener("mindar-ready", checkReady);
   }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,8 +59,9 @@ const MindARCompiler = () => {
     setProgress(0);
     setDownloadUrl(null);
 
+    // Define outside try block for cleanup access
+    const imageElements: HTMLImageElement[] = [];
     try {
-      const imageElements = [];
       for (const file of images) {
         const img = await loadImage(file);
         imageElements.push(img);
@@ -90,6 +94,12 @@ const MindARCompiler = () => {
       setStatus("Error: " + (error as Error).message);
     } finally {
       setIsCompiling(false);
+      // Clean up object URLs to avoid memory leaks
+      imageElements.forEach((img) => {
+        if (img.src.startsWith("blob:")) {
+          URL.revokeObjectURL(img.src);
+        }
+      });
     }
   };
 

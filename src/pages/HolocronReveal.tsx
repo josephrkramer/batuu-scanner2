@@ -12,6 +12,9 @@ declare global {
   }
 }
 
+const HOLOCRON_TARGET_PATH = "/assets/holocron/holocron.mind";
+const AHSOKA_MODEL_PATH = "/assets/holocron/ahsoka.glb";
+
 export default function HolocronReveal() {
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -25,19 +28,14 @@ export default function HolocronReveal() {
     const startAR = async () => {
       // Helper function to wait for MindAR
       const waitForMindAR = () => {
-        return new Promise<void>((resolve, reject) => {
-          const startTime = Date.now();
-          const check = () => {
-            if (window.MINDAR && window.MINDAR.IMAGE) {
-              resolve();
-            } else if (Date.now() - startTime > 10000) {
-              // 10s timeout
-              reject(new Error("MindAR library failed to load within timeout"));
-            } else {
-              setTimeout(check, 100);
-            }
-          };
-          check();
+        return new Promise<void>((resolve) => {
+          if (window.MINDAR && window.MINDAR.IMAGE) {
+            resolve();
+          } else {
+            window.addEventListener("mindar-ready", () => resolve(), {
+              once: true,
+            });
+          }
         });
       };
 
@@ -53,7 +51,7 @@ export default function HolocronReveal() {
 
         const mindarThree = new MindARThree({
           container: containerRef.current,
-          imageTargetSrc: "/assets/holocron/holocron.mind",
+          imageTargetSrc: HOLOCRON_TARGET_PATH,
           filterMinCF: 0.0001,
           filterBeta: 0.001,
           uiLoading: "no",
@@ -79,7 +77,7 @@ export default function HolocronReveal() {
 
         const loader = new THREE.GLTFLoader();
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        loader.load("/assets/holocron/ahsoka.glb", (gltf: any) => {
+        loader.load(AHSOKA_MODEL_PATH, (gltf: any) => {
           gltf.scene.scale.set(0.001, 0.001, 0.001);
           gltf.scene.position.set(0, 0, 0);
           gltf.scene.rotation.set(-0.25, 0, 0);
@@ -109,7 +107,7 @@ export default function HolocronReveal() {
                             min-height: 100vh !important;
                             width: auto !important;
                             height: auto !important;
-                            object-fit: fill !important; 
+                            object-fit: cover !important; 
                             z-index: -2 !important;
                             max-width: none !important;
                             max-height: none !important;
@@ -155,7 +153,7 @@ export default function HolocronReveal() {
 
     return () => {
       // Cleanup function
-      const cleanup = async () => {
+      const cleanup = () => {
         const mindar = mindarThreeRef.current;
         if (mindar) {
           try {

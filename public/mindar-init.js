@@ -14,4 +14,5 @@ window.MINDAR = {
   },
 };
 
+window.dispatchEvent(new Event("mindar-ready"));
 console.log("MindAR and Three.js initialized globally via module script.");
