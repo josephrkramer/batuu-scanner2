@@ -1,4 +1,4 @@
-/* global window, console */
+/* global window, console, Event */
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { MindARThree } from "mind-ar/mindar-image-three.prod.js";
