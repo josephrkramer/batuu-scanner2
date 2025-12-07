@@ -61,7 +61,18 @@
     <meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AARC Datapad</title>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.147.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.147.0/examples/jsm/",
+          "mind-ar/": "https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/"
+        }
+      }
+    </script>
+    <script type="module" src="/mindar-init.js"></script>
   </head>
+
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>

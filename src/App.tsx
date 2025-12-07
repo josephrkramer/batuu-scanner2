@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./App.css";
 import Logo from "./components/Logo";
 import Crate from "./components/Crate";
+import { ScanOutlined, ToolOutlined } from "@ant-design/icons";
 import {
   CrateDecoder,
   CrateContents,
@@ -41,6 +43,7 @@ import D3O9Button from "./components/D3O9Button";
 import Quiz from "./components/Quiz";
 
 function App() {
+  const navigate = useNavigate();
   //read parameters from the url
   const queryString = window.location.search;
   console.log(queryString);
@@ -449,6 +452,33 @@ function App() {
           >
             Dossiers
           </Button>
+          {admin && (
+            <>
+              <Button
+                type="primary"
+                size="large"
+                icon={<ScanOutlined />}
+                onClick={() => navigate("/holocron")}
+                style={{ height: "auto", padding: "10px" }}
+              >
+                HOLOCRON REVEAL
+              </Button>
+
+              <Button
+                type="primary"
+                size="large"
+                icon={<ToolOutlined />}
+                onClick={() => navigate("/compiler")}
+                style={{
+                  borderColor: "orange",
+                  height: "auto",
+                  padding: "10px",
+                }}
+              >
+                SCANNER COMPILER
+              </Button>
+            </>
+          )}
           {/*
           //Uncomment if you want to restore the Chain Code Functionality
           <ChainCodeButton
