@@ -13,7 +13,7 @@ declare global {
 }
 
 const HOLOCRON_TARGET_PATH = "/assets/holocron/holocron.mind";
-const AHSOKA_MODEL_PATH = "/assets/holocron/ahsoka.glb";
+const PADAWAN_MODEL_PATH = "/assets/holocron/padawans-small.glb";
 
 export default function HolocronReveal() {
   const navigate = useNavigate();
@@ -77,9 +77,9 @@ export default function HolocronReveal() {
 
         const loader = new THREE.GLTFLoader();
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        loader.load(AHSOKA_MODEL_PATH, (gltf: any) => {
-          gltf.scene.scale.set(0.001, 0.001, 0.001);
-          gltf.scene.position.set(0, 0, 0);
+        loader.load(PADAWAN_MODEL_PATH, (gltf: any) => {
+          gltf.scene.scale.set(1, 1, 1);
+          gltf.scene.position.set(0, 0.5, 0);
           gltf.scene.rotation.set(-0.25, 0, 0);
           anchor.group.add(gltf.scene);
         });
