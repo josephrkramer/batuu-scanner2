@@ -77,6 +77,7 @@ If you need to use the python scripts, initialize the python environment by runn
 - `npm run build`: Builds the application for production.
 - `npm test`: Runs the test suite.
 - `npm run lint`: Lints the code using ESLint and Prettier.
+- `npm run lint-fix`: Lints the code and automatically fixes issues.
 
 To update new versions of the puzzle, pull the new code and commit the changes.
 
@@ -84,8 +85,6 @@ To update new versions of the puzzle, pull the new code and commit the changes.
 cd public/coolant-stabilizer
 git pull origin main
 cd ../..
-git add public/coolant-stabilizer
-git commit -m "chore: update coolant-stabilizer submodule"
 git add .
 git commit
 ```
