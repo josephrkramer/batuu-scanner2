@@ -84,6 +84,8 @@ To update new versions of the puzzle, pull the new code and commit the changes.
 cd public/coolant-stabilizer
 git pull origin main
 cd ../..
+git add public/coolant-stabilizer
+git commit -m "chore: update coolant-stabilizer submodule"
 git add .
 git commit
 ```
