@@ -53,16 +53,35 @@ See [https://datapad.halcyonthelegacycontinues.com/?cargo](https://datapad.halcy
 
 ## Development
 
-Be sure to load the submodules after cloning the repo.
+Before running the application, be sure to install the dependencies:
 
+```bash
+npm i
 ```
-git submodule init
-git submodule update
+
+And load the submodules after cloning the repo by running the provided script, which will also run a first build to ensure functionality:
+
+```bash
+./init-submodules.sh
 ```
+
+If you need to use the python scripts, initialize the python environment by running:
+
+```bash
+./init-python.sh
+```
+
+### Available Scripts
+
+- `npm run dev`: Starts the development server.
+- `npm run build`: Builds the application for production.
+- `npm test`: Runs the test suite.
+- `npm run lint`: Lints the code using ESLint and Prettier.
+- `npm run lint-fix`: Lints the code and automatically fixes issues.
 
 To update new versions of the puzzle, pull the new code and commit the changes.
 
-```
+```bash
 cd public/coolant-stabilizer
 git pull origin main
 cd ../..
