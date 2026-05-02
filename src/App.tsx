@@ -468,7 +468,7 @@ function App() {
               <Typography.Title level={1}>Force Activation</Typography.Title>
               <Card>
                 <Image
-                  src={"./url.png"}
+                  src={"./holocron-qrcode.png"}
                   width={"100%"}
                   height={"auto"}
                   preview={false}
