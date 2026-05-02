@@ -23,7 +23,16 @@ import {
   BadgeDecoder,
   EarnedBadge,
 } from "./services/badge-decoder";
-import { Button, ConfigProvider, Flex, theme, Typography } from "antd";
+import {
+  Button,
+  Card,
+  Image,
+  ConfigProvider,
+  Flex,
+  theme,
+  Typography,
+  Divider,
+} from "antd";
 import CargoHold from "./components/CargoHold";
 import EarnedBadges from "./components/EarnedBadges";
 import ChainCodePartResult from "./components/ChainCodePartResult";
@@ -454,6 +463,20 @@ function App() {
           </Button>
           {admin && (
             <>
+              <Divider />
+
+              <Typography.Title level={1}>Force Activation</Typography.Title>
+              <Card>
+                <Image
+                  src={"./holocron-qrcode.png"}
+                  width={"100%"}
+                  height={"auto"}
+                  preview={false}
+                />
+              </Card>
+
+              <Divider />
+
               <Button
                 type="primary"
                 size="large"

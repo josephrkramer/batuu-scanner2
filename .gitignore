@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 scratch
+python/venv/
 
 # Editor directories and files
 .vscode/*
