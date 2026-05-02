@@ -20,6 +20,7 @@ export default [
       "**/dist",
       "**/coolant-stabilizer",
       "**/react-godot",
+      "**/venv",
     ],
   },
   ...compat.extends(
