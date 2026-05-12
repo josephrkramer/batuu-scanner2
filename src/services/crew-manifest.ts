@@ -1,7 +1,7 @@
 import { ChainCodeAlignmentString } from "./chain-code";
 
 export const CrewMemberType = Object.freeze({
-  Faction_Leader: "AARC Agents",
+  Faction_Leader: "Starting Contacts",
   NPC: "Sources",
   Support: "Blue Crew",
   Virtual: "Remote",
@@ -75,7 +75,7 @@ export class CrewManifest {
         homeworld: "Dathomir",
         species: undefined,
         affiliation: "Freelancer but in the past Rebel Alliance",
-        type: CrewMemberType.Faction_Leader,
+        type: CrewMemberType.NPC,
         image: "./crew/vesper.png",
         alignment: ChainCodeAlignmentString.Light,
         meetingLocation: "across the way from Mubo's near the crater",
@@ -95,7 +95,7 @@ export class CrewManifest {
         homeworld: "Takodana",
         species: "Human",
         affiliation: "The Cause",
-        type: CrewMemberType.Faction_Leader,
+        type: CrewMemberType.NPC,
         image: "./crew/lias.jpg",
         alignment: ChainCodeAlignmentString.Neutral,
         meetingLocation: "on the far side of the Millenium Falcon",
@@ -137,7 +137,7 @@ export class CrewManifest {
         homeworld: "Chandrila",
         species: "Human",
         affiliation: "First Order",
-        type: CrewMemberType.Faction_Leader,
+        type: CrewMemberType.Support,
         image: "./crew/evant.jpg",
         alignment: ChainCodeAlignmentString.Dark,
         meetingLocation: "in front of the TIE/es assault shuttle",
@@ -161,7 +161,7 @@ export class CrewManifest {
         affiliation: undefined,
         npcLocation:
           "You will find Resh checking up on his friends, particularly where they're born.",
-        type: CrewMemberType.NPC,
+        type: CrewMemberType.Faction_Leader,
         image: "./crew/resh.jpg",
       }),
     );
@@ -181,7 +181,7 @@ export class CrewManifest {
         affiliation: "Unaffiliated",
         npcLocation:
           "You might find Bex looking for a quick way to grab a few credits, even if she has to turn someone in.",
-        type: CrewMemberType.NPC,
+        type: CrewMemberType.Faction_Leader,
         image: "./crew/bex.jpg",
       }),
     );
@@ -202,7 +202,7 @@ export class CrewManifest {
         affiliation: "Alderaan first, then Resistance",
         npcLocation:
           "You can find Schme where the Outpost's favorite food is sold.",
-        type: CrewMemberType.NPC,
+        type: CrewMemberType.Faction_Leader,
         image: "./crew/schme.jpeg",
       }),
     );
@@ -224,26 +224,6 @@ export class CrewManifest {
         image: "./crew/jax.png",
         npcLocation:
           "You may find Jax trying to make a deal among the rocks at the edge of the outpost, across from a troupe of droids and across the way from a crator.",
-      }),
-    );
-    this.addCrewMember(
-      new CrewMember({
-        name: "Tala Baize",
-        occupation: "Galactic Anthropologist | Explorer | Holocron Publisher",
-        biography: [
-          "Tala Baize is a self-proclaimed leading galactic anthropologist with a reputation for going where few beings dare to tread—and talking about it even more. With a deep curiosity for sentient culture, survivalist tradition, and planetary folklore, Tala has dedicated her life to exploring the far reaches of the galaxy and documenting the lives of those who call these worlds home.",
-          "Her work, often distributed as self-published holocrons, has gained a niche following in outer rim academic circles and among curious travelers. Notable titles include Life in the Trees: Time Amongst the Ewoks, a semi-immersive study of Ewok social rituals and tree-based engineering, and Jakku: Just Sand, a blunt but oddly poetic reflection on the resilience of life in the most inhospitable deserts.",
-          'Tala’s current expedition has brought her to Batuu, where she is conducting firsthand cultural studies in Black Spire Outpost. Enthralled by the blend of travelers, traders, Resistance sympathizers, and First Order surveillance, Tala offers brief but vivid introductions to the outpost’s ever-changing character and secret corners. Her live storytelling sessions—usually held near the marketplace or over borrowed drinks in Oga’s Cantina—have made her something of a local fixture, despite her insistence that she "never stays anywhere too long."',
-          "Though her credentials remain a topic of some debate, her passion is undeniable. Tala Baize is driven by the belief that every sentient has a story, and she’s determined to collect them all—one dusty trail, jungle canopy, or starport at a time.",
-        ],
-        vehicle: "YT-1760 Light Freighter",
-        homeworld: "Obroa-skai",
-        species: "Human",
-        affiliation: "New Republic",
-        type: CrewMemberType.NPC,
-        image: "./crew/tala.jpg",
-        npcLocation:
-          "You may find Tala near the marketplace studying the locals.",
       }),
     );
     this.addCrewMember(

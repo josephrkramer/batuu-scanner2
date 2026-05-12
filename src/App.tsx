@@ -49,7 +49,6 @@ import { PasswordProtector } from "./services/password-protector";
 import PasswordCheck from "./components/PasswordCheck";
 import PasswordStatus from "./components/PasswordStatus";
 import D3O9Button from "./components/D3O9Button";
-import Quiz from "./components/Quiz";
 
 function App() {
   const navigate = useNavigate();
@@ -153,14 +152,6 @@ function App() {
     "alignment",
     undefined,
   );
-  const [renderAlignmentQuestion, setRenderAlignmentQuestion] = useState(true);
-  //The following useEffect should be deleted if restoring the Chain Code Functionality
-  useEffect(() => {
-    if (alignment === undefined) {
-      setRenderAlignmentQuestion(true);
-    }
-  }, [alignment]);
-  ///////
 
   const [renderChainCodeValue, setRenderChainCodeValue] = useState(false);
   useEffect(() => {
@@ -386,16 +377,6 @@ function App() {
       </Flex>
 
       {admin ? <Typography.Title level={1}>Admin</Typography.Title> : null}
-
-      {renderAlignmentQuestion && !alignment ? (
-        /*
-        <AlignmentQuestion
-          crewManifest={crewMembers}
-          setAlignment={setAlignment}
-        />
-        */
-        <Quiz setAlignment={setAlignment} crewManifest={crewMembers} />
-      ) : null}
 
       <Flex vertical>
         <PasswordStatus passwordCorrect={passwordStatus} />
