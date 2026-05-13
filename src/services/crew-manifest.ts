@@ -98,7 +98,7 @@ export class CrewManifest {
         type: CrewMemberType.NPC,
         image: "./crew/lias.jpg",
         alignment: ChainCodeAlignmentString.Neutral,
-        meetingLocation: "Under the left side of the Millennium Falcon on Batuu.",
+        meetingLocation: "Under the far side of the Millennium Falcon on Batuu.",
         npcLocation:
           "Under the far side of the Millennium Falcon on Batuu.",
       }),
