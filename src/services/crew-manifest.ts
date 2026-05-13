@@ -65,22 +65,22 @@ export class CrewManifest {
 
     this.addCrewMember(
       new CrewMember({
-        name: "Vesper Grey",
-        occupation: "Freelancer",
+        name: "Major Shur Karrde",
+        occupation: "First Order Trade Overseer of Batuu",
         biography: [
-          "Vesper Grey is a daughter of Dathomir, even though she has never set foot on its surface. Her 3 mothers were born and raised on planet and fled together during the Battle of Dathomir. Vesper joined the Rebel Alliance after a troubling incident during her adolescence. One of her mothers disappeared without a trace, seemingly in search of a mysterious artifact. Vesper earned a spot in the Alliance Special Forces or SpecForce and served for years in the Pathfinders, specializing in infiltration and guerrilla tactics. After the overthrow of the Galactic Empire and the formation of the New Republic Vesper left the military and has been operating as a lone freelancer ever since, becoming consumed by the search for ancient Dathomiri artifacts.",
+          "Born on Takodana, a mid rim planet on the border between civilization and frontier living. Went to school for trade negotiations. Upon graduation, was assigned to Thyferra. Due to undisclosed reasons, Karrde has been assigned to the backwater planet of Batuu. Likes include: rules, paperwork, negotiating, black-and-white vintage holodramas, and a well-written schedule. Dislikes include: beings with no ambition, beings who lack manners, and milk of any color.",
         ],
-        companion: "Loner",
-        vehicle: "Kom'rk-class fighter named The Erso",
-        homeworld: "Dathomir",
-        species: undefined,
-        affiliation: "Freelancer but in the past Rebel Alliance",
+        companion: undefined,
+        vehicle: undefined,
+        homeworld: "Takodana",
+        species: "Human",
+        affiliation: "First Order",
         type: CrewMemberType.NPC,
-        image: "./crew/vesper.png",
-        alignment: ChainCodeAlignmentString.Light,
-        meetingLocation: "across the way from Mubo's near the crater",
+        image: undefined,
+        alignment: ChainCodeAlignmentString.Dark,
+        meetingLocation: "Between Oga's and the First Order Cargo Shop.",
         npcLocation:
-          "You may find Vesper across the way from Mubo's near the crater.",
+          "You may find Major Shur Karrde Between Oga's and the First Order Cargo Shop.",
       }),
     );
     this.addCrewMember(
