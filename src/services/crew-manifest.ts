@@ -76,7 +76,7 @@ export class CrewManifest {
         species: "Human",
         affiliation: "First Order",
         type: CrewMemberType.NPC,
-        image: undefined,
+        image: "./crew/shur-karrde.png",
         alignment: ChainCodeAlignmentString.Dark,
         meetingLocation: "Between Oga's and the First Order Cargo Shop.",
         npcLocation:
