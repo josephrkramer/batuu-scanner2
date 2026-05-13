@@ -68,7 +68,8 @@ export class CrewManifest {
         name: "Major Shur Karrde",
         occupation: "First Order Trade Overseer of Batuu",
         biography: [
-          "Born on Takodana, a mid rim planet on the border between civilization and frontier living. Went to school for trade negotiations. Upon graduation, was assigned to Thyferra. Due to undisclosed reasons, Karrde has been assigned to the backwater planet of Batuu. Likes include: rules, paperwork, negotiating, black-and-white vintage holodramas, and a well-written schedule. Dislikes include: beings with no ambition, beings who lack manners, and milk of any color.",
+          "Born on Takodana, a Mid Rim planet on the border between civilization and frontier living. Went to school for trade negotiations. Upon graduation, was assigned to Thyferra. Due to undisclosed reasons, Karrde has been assigned to the backwater planet of Batuu.",
+          "Likes include: rules, paperwork, negotiating, black-and-white vintage holodramas, and a well-written schedule. Dislikes include: beings with no ambition, beings who lack manners, and milk of any color.",
         ],
         companion: undefined,
         vehicle: undefined,
