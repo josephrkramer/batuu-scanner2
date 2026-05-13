@@ -88,19 +88,19 @@ export class CrewManifest {
         name: "Lias Orion",
         occupation: "None of your business",
         biography: [
-          "Lias Orion was abandoned by his mother after his father died at the Battle of Jakku when Lias was 7. Lias was taken in by Maz Kanata and grew up at her castle. After being shown the galaxy by Maz, and watching his sister die at the Battle of Takodana, Lias decided the Resistance could not be trusted and the First Order must be stopped. Lias established The Cause for people who think differently from the norm. Lias continues to add a diverse range of beings from the galaxy into The Cause.",
+          "After losing his sister and father due to the war, Lias Orion was left to fend for himself at a young age. He established The Cause as a means to give beings of the galaxy another choice that wasn’t the First Order or the Resistance.",
         ],
         companion: "BD-72",
-        vehicle: "WTK-85A interstellar transport called 'The Ktulu'",
+        vehicle: "“The Ktulu” a Y-Wing",
         homeworld: "Takodana",
         species: "Human",
         affiliation: "The Cause",
         type: CrewMemberType.NPC,
         image: "./crew/lias.jpg",
         alignment: ChainCodeAlignmentString.Neutral,
-        meetingLocation: "on the far side of the Millenium Falcon",
-        npcLocation:
-          "You may find Lias on the far side of the Millenium Falcon.",
+        meetingLocation:
+          "Under the far side of the Millennium Falcon on Batuu.",
+        npcLocation: "Under the far side of the Millennium Falcon on Batuu.",
       }),
     );
     this.addCrewMember(
