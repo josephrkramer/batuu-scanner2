@@ -80,7 +80,7 @@ export class CrewManifest {
         alignment: ChainCodeAlignmentString.Dark,
         meetingLocation: "Between Oga's and the First Order Cargo Shop.",
         npcLocation:
-          "You may find Major Shur Karrde Between Oga's and the First Order Cargo Shop.",
+          "You may find Major Shur Karrde between Oga's and the First Order Cargo Shop.",
       }),
     );
     this.addCrewMember(
