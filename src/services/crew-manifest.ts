@@ -88,7 +88,7 @@ export class CrewManifest {
         name: "Lias Orion",
         occupation: "None of your business",
         biography: [
-          "Left to fend for himself at a young age, Lias Orion established The Cause as a means to give beings of the galaxy another choice that wasn’t The First Order or The Resistance after losing his Sister and father due to the war.",
+          "After losing his sister and father due to the war, Lias Orion was left to fend for himself at a young age. He established The Cause as a means to give beings of the galaxy another choice that wasn’t the First Order or the Resistance.",
         ],
         companion: "BD-72",
         vehicle: "“The Ktulu” a Y-Wing",
