@@ -78,7 +78,7 @@ export class CrewManifest {
         type: CrewMemberType.NPC,
         image: "./crew/shur-karrde.png",
         alignment: ChainCodeAlignmentString.Dark,
-        meetingLocation: "Between Oga's and the First Order Cargo Shop.",
+        meetingLocation: "between Oga's and the First Order Cargo Shop.",
         npcLocation:
           "You may find Major Shur Karrde between Oga's and the First Order Cargo Shop.",
       }),
