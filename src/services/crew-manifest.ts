@@ -123,26 +123,19 @@ export class CrewManifest {
     );
     this.addCrewMember(
       new CrewMember({
-        name: "Evant Rilas Verrick",
-        occupation: undefined,
+        name: "Evant Darrow",
+        occupation:
+          "Not the Character You're Looking For. Sometimes does odd jobs for the CSL ground crew",
         biography: [
-          "After disagreeing with Mon Mothma's decisions to demilitarize the New Republic and to relocate its capital (along with his family) to Hosnian Prime, then-Regional Governor Evant Verrick helped the First Order establish a presence on Chandrila in order to maintain peace, order, and stability.",
-          "In his exploratory galactic travels, Evant was granted a homestead in Peka on Batuu in conjunction with the work of Officer Anjay, Lt. Kath and Lt. Agnon of the First Order.",
-          "While he is not Force sensitive, Evant studies the Force religiously and is a collector of Force-related items. This passion led him to pursue the role of First Order Relic Raider. After assembling a covert team and successfully identifying a mysterious artifact in Black Spire Outpost that was (falsely) rumored to have the power to communicate to the galaxy, Evant attained his coveted promotion.",
-          "That success also caught the attention of a mysterious organization known only as AARC.",
-          "His position in The Order, his passion for galactic relics, and his interest in this mysterious AARC has led him to pursue a mission once again on the planet Batuu, at the edge of the galaxy...",
+          "Evant spends his days hanging around the cantina and taking whatever jobs suit him. He's familiar with the outpost, and can help you get where you're going if you are lost.",
         ],
-        companion: "EB-24",
-        vehicle: "TIE Genesis",
-        homeworld: "Chandrila",
+        companion: undefined,
+        vehicle: "V-35 Courier Landspeeder",
+        homeworld: "Kuat",
         species: "Human",
-        affiliation: "First Order",
+        affiliation: "Unaffiliated",
         type: CrewMemberType.Support,
-        image: "./crew/evant.jpg",
-        alignment: ChainCodeAlignmentString.Dark,
-        meetingLocation: "in front of the TIE/es assault shuttle",
-        npcLocation:
-          "You may find Evant in front of the TIE/es assault shuttle.",
+        image: "./crew/evant-darrow.png",
       }),
     );
     this.addCrewMember(
