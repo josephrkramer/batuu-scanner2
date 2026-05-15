@@ -152,7 +152,7 @@ export class CrewManifest {
         biography: [
           "Born on Batuu to a family of lichen gatherers, he became fascinated with the droids of Black Spire Outpost as a youngling.",
           "Resh has very little formal training, and he learned most of what he knows from talking to the droids themselves about how they function. He's well-known around the Outpost, and can usually be found speaking fluent binary with one of his droid friends (or trying to barter his services for a discount at Ronto Roasters).",
-          "Not content to learn about their mechanics, Resh has made a study of the droids' cultures and myths as well. He's particularly interested in the legend of the First Droid: FD-01, and is hoping to learn more.",
+          "Lately, Resh has been dividing his time between droid maintenance and his new relationship with Zilla.",
         ],
         companion: "SL-V6 (Sal), a salvaged seeker droid",
         vehicle: undefined,
