@@ -118,7 +118,7 @@ export class CrewManifest {
         affiliation: undefined,
         npcLocation: "The garden outside Docking Bay 7",
         type: CrewMemberType.NPC,
-        image: undefined,
+        image: "./crew/petra.jpg",
       }),
     );
     this.addCrewMember(
