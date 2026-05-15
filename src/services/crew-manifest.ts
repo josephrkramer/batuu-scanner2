@@ -106,20 +106,19 @@ export class CrewManifest {
     );
     this.addCrewMember(
       new CrewMember({
-        name: "Zilla Nir'Oz",
-        occupation: "Slicer",
+        name: "Petra Vane",
+        occupation: "Augur",
         biography: [
-          "Zilla's childhood was spent in Canto Bight, shadowing her parents who worked at one of the gaming establishments (and picking up a few skills from the less-reputable patrons). She always admired the well- heeled customers, and hopes to one day own one of their sleek yachts.",
-          "She attracted attention by borrowing one of the ships without permission, and was given her first job by the impressed owner. Since then, her skills have been for rent to the highest bidder. Having built up quite a reputation for herself, she finally secured what promised to be a long-term engagement with an established but unsavory organization. But due to a difference of opinion regarding some porg eggs and a lot of Spice, Zilla has found herself on the run - and in need of help.",
+          "While unable to use the Force herself, Petra has discovered an ability to interpret its answers for others. Little else is known about this new arrival to the Outpost.",
         ],
         companion: undefined,
-        vehicle: "Nice try, First Order. I rotate vehicles.",
-        homeworld: "Cantonica",
+        vehicle: undefined,
+        homeworld: "Ord Mantell",
         species: "Human",
         affiliation: undefined,
-        npcLocation: "You'll find Zilla nosing around the antiquities.",
+        npcLocation: "The garden outside Docking Bay 7",
         type: CrewMemberType.NPC,
-        image: "./crew/zilla.jpg",
+        image: "./crew/petra.jpg",
       }),
     );
     this.addCrewMember(
