@@ -96,7 +96,7 @@ export class CrewManifest {
         homeworld: "Takodana",
         species: "Human",
         affiliation: "The Cause",
-        type: CrewMemberType.NPC,
+        type: CrewMemberType.Faction_Leader,
         image: "./crew/lias.jpg",
         alignment: ChainCodeAlignmentString.Neutral,
         meetingLocation:
@@ -195,7 +195,7 @@ export class CrewManifest {
         affiliation: "Alderaan first, then Resistance",
         npcLocation:
           "You can find Schme where the Outpost's favorite food is sold.",
-        type: CrewMemberType.Faction_Leader,
+        type: CrewMemberType.NPC,
         image: "./crew/schme.jpeg",
       }),
     );
