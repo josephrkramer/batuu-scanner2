@@ -216,7 +216,7 @@ export class CrewManifest {
         type: CrewMemberType.NPC,
         image: "./crew/jax.png",
         npcLocation:
-          "You may find Jax trying to make a deal among the rocks at the edge of the outpost, across from a troupe of droids and across the way from a crator.",
+          "You might find Bex looking for a quick way to grab a few credits, even if she has to turn someone in.",
       }),
     );
     this.addCrewMember(
