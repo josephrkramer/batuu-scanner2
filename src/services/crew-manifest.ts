@@ -172,7 +172,7 @@ export class CrewManifest {
         homeworld: "Odessen",
         species: "Human",
         affiliation: "Unaffiliated",
-        npcLocation: "The smuggler caverns just past the Resistance base",
+        npcLocation: "You might find Bex in the smuggler caverns just past the Resistance base.",
         type: CrewMemberType.Faction_Leader,
         image: "./crew/bex.jpg",
       }),
