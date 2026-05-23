@@ -216,7 +216,7 @@ export class CrewManifest {
         type: CrewMemberType.NPC,
         image: "./crew/jax.png",
         npcLocation:
-          "You might find Bex looking for a quick way to grab a few credits, even if she has to turn someone in.",
+          "You might find Jax looking for a quick way to grab a few credits, even if he has to turn someone in.",
       }),
     );
     this.addCrewMember(
