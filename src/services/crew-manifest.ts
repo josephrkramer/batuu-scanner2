@@ -234,7 +234,6 @@ export class CrewManifest {
         image: "./crew/porgkins.png",
       }),
     );
-    // TODO: update the picture to the real version
     this.addCrewMember(
       new CrewMember({
         name: "Yib",
@@ -247,7 +246,7 @@ export class CrewManifest {
         npcLocation: "Often seen near Oga's with the other tourists.",
         meetingLocation: "Often seen near Oga's with the other tourists.",
         type: CrewMemberType.Support,
-        image: "./crew/placeholder.png",
+        image: "./crew/yib.jpg",
       }),
     );
   }
