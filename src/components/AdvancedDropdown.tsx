@@ -23,7 +23,6 @@ function AdvancedDropdown({
   checkThisPassword,
   adminRequested,
   setAdminRequested,
-  setAlignment,
 }: Readonly<{
   chainCodeDecoder: ChainCodeDecoder;
   badgeDecoder: BadgeDecoder;
@@ -35,7 +34,6 @@ function AdvancedDropdown({
   checkThisPassword: (checkMe: string) => void;
   adminRequested: boolean;
   setAdminRequested: React.Dispatch<React.SetStateAction<boolean>>;
-  setAlignment: React.Dispatch<React.SetStateAction<string | undefined>>;
 }>) {
   const confirmReset: PopconfirmProps["onConfirm"] = (e) => {
     console.log(e);
