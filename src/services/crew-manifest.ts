@@ -240,7 +240,7 @@ export class CrewManifest {
         name: "Yib",
         occupation: "Tourist",
         biography: [
-          "an energy galactic ethnographer who loves touring many different planets and meeting an interacting with many different cultures.",
+          "an inter-galactic ethnographer who loves touring many different planets and meeting an interacting with many different cultures.",
         ],
         homeworld: "Tatooine",
         species: "Human",
