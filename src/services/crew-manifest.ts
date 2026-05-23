@@ -172,8 +172,7 @@ export class CrewManifest {
         homeworld: "Odessen",
         species: "Human",
         affiliation: "Unaffiliated",
-        npcLocation:
-          "You might find Bex looking for a quick way to grab a few credits, even if she has to turn someone in.",
+        npcLocation: "The smuggler caverns just past the Resistance base",
         type: CrewMemberType.Faction_Leader,
         image: "./crew/bex.jpg",
       }),
