@@ -148,7 +148,7 @@ function App() {
     crateDecoder.sortCargoHold(admin),
   );
 
-  const [alignment, setAlignment] = useLocalStorage<string | undefined>(
+  const [alignment] = useLocalStorage<string | undefined>(
     "alignment",
     undefined,
   );
@@ -372,7 +372,6 @@ function App() {
           checkThisPassword={checkThisPassword}
           adminRequested={adminRequested}
           setAdminRequested={setAdminRequested}
-          setAlignment={setAlignment}
         />
       </Flex>
 
