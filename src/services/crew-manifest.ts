@@ -234,6 +234,22 @@ export class CrewManifest {
         image: "./crew/porgkins.png",
       }),
     );
+    // TODO: update the picture to the real version
+    this.addCrewMember(
+      new CrewMember({
+        name: "Yib",
+        occupation: "Tourist",
+        biography: [
+          "an energy galactic ethnographer who loves touring many different planets and meeting an interacting with many different cultures.",
+        ],
+        homeworld: "Tatooine",
+        species: "Human",
+        npcLocation: "Often seen near Oga's with the other tourist.",
+        meetingLocation: "Often seen near Oga's with the other tourist.",
+        type: CrewMemberType.Support,
+        image: "./crew/placeholder.png",
+      }),
+    );
   }
 
   addCrewMember(crewMemeber: CrewMember) {
