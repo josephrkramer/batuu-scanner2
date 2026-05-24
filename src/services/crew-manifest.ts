@@ -206,7 +206,7 @@ export class CrewManifest {
         name: "Yib",
         occupation: "Tourist",
         biography: [
-          "An inter-galactic ethnographer who loves touring many different planets and meeting and interacting with many different cultures.",
+          "An intergalactic ethnographer who loves touring many different planets and meeting and interacting with many different cultures.",
         ],
         homeworld: "Tatooine",
         species: "Human",
@@ -222,7 +222,7 @@ export class CrewManifest {
         occupation:
           "Not the Character You're Looking For. Sometimes does odd jobs for the CSL ground crew",
         biography: [
-          "Evant spends his days hanging around the cantina and taking whatever jobs suit him. He's familiar with the outpost, and can help you get where you're going if you are lost.",
+          "Evant spends his days hanging around the cantina and taking whatever jobs suit him. He's familiar with the Outpost, and can help you get where you're going if you are lost.",
         ],
         companion: undefined,
         vehicle: "V-35 Courier Landspeeder",
