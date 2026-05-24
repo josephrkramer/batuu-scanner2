@@ -123,23 +123,6 @@ export class CrewManifest {
     );
     this.addCrewMember(
       new CrewMember({
-        name: "Evant Darrow",
-        occupation:
-          "Not the Character You're Looking For. Sometimes does odd jobs for the CSL ground crew",
-        biography: [
-          "Evant spends his days hanging around the cantina and taking whatever jobs suit him. He's familiar with the outpost, and can help you get where you're going if you are lost.",
-        ],
-        companion: undefined,
-        vehicle: "V-35 Courier Landspeeder",
-        homeworld: "Kuat",
-        species: "Human",
-        affiliation: "Unaffiliated",
-        type: CrewMemberType.Support,
-        image: "./crew/evant-darrow.png",
-      }),
-    );
-    this.addCrewMember(
-      new CrewMember({
         name: "Resh Drolik",
         occupation: "Droidsmith",
         biography: [
@@ -220,6 +203,38 @@ export class CrewManifest {
     );
     this.addCrewMember(
       new CrewMember({
+        name: "Yib",
+        occupation: "Tourist",
+        biography: [
+          "An inter-galactic ethnographer who loves touring many different planets and meeting and interacting with many different cultures.",
+        ],
+        homeworld: "Tatooine",
+        species: "Human",
+        npcLocation: "Often seen near Oga's with the other tourists.",
+        meetingLocation: "Often seen near Oga's with the other tourists.",
+        type: CrewMemberType.Support,
+        image: "./crew/yib.jpg",
+      }),
+    );
+    this.addCrewMember(
+      new CrewMember({
+        name: "Evant Darrow",
+        occupation:
+          "Not the Character You're Looking For. Sometimes does odd jobs for the CSL ground crew",
+        biography: [
+          "Evant spends his days hanging around the cantina and taking whatever jobs suit him. He's familiar with the outpost, and can help you get where you're going if you are lost.",
+        ],
+        companion: undefined,
+        vehicle: "V-35 Courier Landspeeder",
+        homeworld: "Kuat",
+        species: "Human",
+        affiliation: "Unaffiliated",
+        type: CrewMemberType.Support,
+        image: "./crew/evant-darrow.png",
+      }),
+    );
+    this.addCrewMember(
+      new CrewMember({
         name: "Porgkins",
         occupation: "Pilot",
         biography: [
@@ -232,21 +247,6 @@ export class CrewManifest {
         affiliation: "New Republic",
         type: CrewMemberType.Support,
         image: "./crew/porgkins.png",
-      }),
-    );
-    this.addCrewMember(
-      new CrewMember({
-        name: "Yib",
-        occupation: "Tourist",
-        biography: [
-          "An inter-galactic ethnographer who loves touring many different planets and meeting and interacting with many different cultures.",
-        ],
-        homeworld: "Tatooine",
-        species: "Human",
-        npcLocation: "Often seen near Oga's with the other tourists.",
-        meetingLocation: "Often seen near Oga's with the other tourists.",
-        type: CrewMemberType.Support,
-        image: "./crew/yib.jpg",
       }),
     );
   }
