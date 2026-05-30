@@ -23,7 +23,7 @@
   "dependencies": {
     "@ant-design/icons": "^6.2.3",
     "antd": "^6.4.3",
-    "dayjs": "^1.11.20",
+    "dayjs": "^1.11.21",
     "html5-qrcode": "^2.3.8",
     "react": "^19.0.0",
     "react-dom": "^19.2.6",
