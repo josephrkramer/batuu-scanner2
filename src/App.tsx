@@ -23,7 +23,16 @@ import {
   BadgeDecoder,
   EarnedBadge,
 } from "./services/badge-decoder";
-import { Button, ConfigProvider, Flex, theme, Typography } from "antd";
+import {
+  Button,
+  Card,
+  Image,
+  ConfigProvider,
+  Flex,
+  theme,
+  Typography,
+  Divider,
+} from "antd";
 import CargoHold from "./components/CargoHold";
 import EarnedBadges from "./components/EarnedBadges";
 import ChainCodePartResult from "./components/ChainCodePartResult";
@@ -40,7 +49,6 @@ import { PasswordProtector } from "./services/password-protector";
 import PasswordCheck from "./components/PasswordCheck";
 import PasswordStatus from "./components/PasswordStatus";
 import D3O9Button from "./components/D3O9Button";
-import Quiz from "./components/Quiz";
 
 function App() {
   const navigate = useNavigate();
@@ -140,18 +148,10 @@ function App() {
     crateDecoder.sortCargoHold(admin),
   );
 
-  const [alignment, setAlignment] = useLocalStorage<string | undefined>(
+  const [alignment] = useLocalStorage<string | undefined>(
     "alignment",
     undefined,
   );
-  const [renderAlignmentQuestion, setRenderAlignmentQuestion] = useState(true);
-  //The following useEffect should be deleted if restoring the Chain Code Functionality
-  useEffect(() => {
-    if (alignment === undefined) {
-      setRenderAlignmentQuestion(true);
-    }
-  }, [alignment]);
-  ///////
 
   const [renderChainCodeValue, setRenderChainCodeValue] = useState(false);
   useEffect(() => {
@@ -372,21 +372,10 @@ function App() {
           checkThisPassword={checkThisPassword}
           adminRequested={adminRequested}
           setAdminRequested={setAdminRequested}
-          setAlignment={setAlignment}
         />
       </Flex>
 
       {admin ? <Typography.Title level={1}>Admin</Typography.Title> : null}
-
-      {renderAlignmentQuestion && !alignment ? (
-        /*
-        <AlignmentQuestion
-          crewManifest={crewMembers}
-          setAlignment={setAlignment}
-        />
-        */
-        <Quiz setAlignment={setAlignment} crewManifest={crewMembers} />
-      ) : null}
 
       <Flex vertical>
         <PasswordStatus passwordCorrect={passwordStatus} />
@@ -454,6 +443,20 @@ function App() {
           </Button>
           {admin && (
             <>
+              <Divider />
+
+              <Typography.Title level={1}>Force Activation</Typography.Title>
+              <Card>
+                <Image
+                  src={"./holocron-qrcode.png"}
+                  width={"100%"}
+                  height={"auto"}
+                  preview={false}
+                />
+              </Card>
+
+              <Divider />
+
               <Button
                 type="primary"
                 size="large"

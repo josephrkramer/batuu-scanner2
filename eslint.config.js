@@ -9,6 +9,7 @@ export default tseslint.config(
       "**/dist",
       "**/coolant-stabilizer",
       "**/react-godot",
+      "**/venv",
     ],
   },
   eslint.configs.recommended,
