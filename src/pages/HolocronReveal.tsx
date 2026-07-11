@@ -13,7 +13,7 @@ declare global {
 }
 
 const HOLOCRON_TARGET_PATH = "/assets/holocron/holocron.mind";
-const PADAWAN_MODEL_PATH = "/assets/holocron/padawans-small.glb";
+const PADAWAN_MODEL_PATH = "/assets/holocron/padawans-optimized.glb";
 
 export default function HolocronReveal() {
   const navigate = useNavigate();

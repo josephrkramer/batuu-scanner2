@@ -215,5 +215,17 @@ def main():
         )
         image.convert("1").save(path)
 
+    filename = "holocron-qrcode"
+    path = Path(f"{os.getcwd()}/public/{filename}.png")
+    if path.exists():
+        print(f"{filename} already exists. Skipping")
+    else:
+        print(f"Generating {filename}")
+        image = treepoem.generate_barcode(
+            barcode_type="qrcode",
+            data="https://datapad.halcyonthelegacycontinues.com/#/holocron",
+        )
+        image.convert("1").save(path)
+
 if __name__ == "__main__":
     main()
