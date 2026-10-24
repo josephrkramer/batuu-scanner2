@@ -25,7 +25,7 @@
     "antd": "^6.6.6",
     "dayjs": "^1.11.23",
     "html5-qrcode": "^2.3.8",
-    "react": "^19.3.0",
+    "react": "^19.3.1",
     "react-dom": "^19.3.0",
     "react-router-dom": "^7.18.4"
   },
