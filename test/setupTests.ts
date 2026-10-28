@@ -1,6 +1,6 @@
 import { LocalStorage } from "node-localstorage";
 
-Object.defineProperty(globalThis, "localStorage", {
+Object.defineProperty(window, "localStorage", {
   value: new LocalStorage("./scratch"),
   writable: true,
   configurable: true,
