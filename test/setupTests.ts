@@ -1,3 +1,6 @@
 import { LocalStorage } from "node-localstorage";
 
-global.localStorage = new LocalStorage("./scratch");
+Object.defineProperty(window, "localStorage", {
+  value: new LocalStorage("./scratch"),
+  writable: true,
+});
